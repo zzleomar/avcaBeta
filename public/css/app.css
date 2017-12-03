@@ -1,0 +1,82 @@
+/* Header */
+.header {
+    box-shadow: 0 1px 5px rgba(0,0,0,0.18);
+}
+.header .nav-link {
+    color: #fff !important;
+    transition: all 0.3s ease;
+}
+.header .nav-link:hover {    
+    color: #ededed !important;    
+}
+
+/* Footer */
+.footer {
+    border-top: 1px solid #e5e5e5;    
+}
+
+/* Estilos generales para los formularios */
+.form-title {
+    background-color: #007bff;
+    border-radius: 5px 5px 0 0;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0.75rem 1rem;
+}
+.form-group {
+    margin: 1rem 0;
+}
+.form-group label, label {
+    font-size: 1.2rem;
+}
+.form-control {
+    font-size: 1.5rem;
+}
+.nationality {
+    background: transparent;    
+    border: 2px solid lightgray;
+    padding: 0.25rem;
+}
+
+.perso{
+    background-image: url('/img/banner.jpg');
+    -webkit-background-size: 100% 100%;           /* Safari 3.0 */
+       -moz-background-size: 100% 100%;           /* Gecko 1.9.2 (Firefox 3.6) */
+         -o-background-size: 100% 100%;           /* Opera 9.5 */
+            background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) and other CSS3-compliant browsers */
+    width:100%;
+    height:60px;
+}
+
+.aux2{
+    margin-left: 22%;
+}
+
+.centrarAux{
+    margin: auto;
+    text-align: center;
+}
+
+.inputAux{
+    text-align: center;
+    font-weight: 600;
+}
+
+.avcaColor{
+  /*  background-color: #b3b3b3;*/
+}
+
+.btn-avca{
+    background-color: #483184;
+    border-color: #fff;
+    color: black;
+}
+
+.btnAux{
+    background-color: #b3b3b3;
+    border-color: #fff;
+
+}
