@@ -22,7 +22,7 @@
 
 </head>
 <body>
-    <header class="header sticky-top">    
+    <header class="header sticky-top fondo-header">    
         <nav class="navbar navbar-expand-lg navbar-dark perso">
             <div class="container">                
                 <button class="navbar-toggler hidden-lg-up aux2" type="button" data-toggle="collapse" data-target="#avca-navbar" aria-controls="avca-navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@
         </nav>
     </header>
 
-    <main class="py-5">
+    <main class="py-4">
         <div class="container">
             @if(count($errors) > 0)
                 <div class="alert alert-danger" role="alert">

@@ -11,6 +11,7 @@
                   <div class="input-group mb-2 mb-sm-0">
                     <div class="input-group-addon"> # </div>
                     <input type="text" readonly class="form-control-plaintext inputAux" id="idboleto" value="{{ $boleto->id }}">
+                    <input type="hiddel" readonly class="form-control-plaintext inputAux" id="boletoAux" value="0">
                   </div>
               </div>
 
@@ -36,6 +37,7 @@
  </p>
  <div class="collapse" id="collapseExample">
   <div class="form-group">
+  @if(isset($vuelos2)and(sizeof($vuelos2)!=0))
                           <label for="inputvuelos">Seleccion de Vuelos</label>
                             <div class="input-group">
 
@@ -45,16 +47,20 @@
                               </button>
                               <div class="dropdown-menu">
                         @foreach($vuelos2 as $vuelo)
-                                <a class="dropdown-item" href="#!" id="yv{{ $vuelo->su }}" onclick="capturarV2('{{ $vuelo->su }}')">{{ $vuelo->nombre }}</a>
+                                <a class="dropdown-item" href="#info-vuelo2" id="yv2{{ $vuelo->su }}" onclick="capturarV2('{{ $vuelo->su }}')">{{ $vuelo->nombre }}</a>
                             @endforeach
                               </div>
                             </div>
                             <input type="hidden" id="origen2" value="{{ $sucursal2->nombre.' - ' }}">
-                             <input type="text" class="form-control" aria-label="Text input with dropdown button" id="vuelo" value="{{ $sucursal2->nombre.' - ' }}">
+                            <input type="hidden" id="origen2id" value="{{ $sucursal2->id }}">
+                             <input type="text" class="form-control" aria-label="Text input with dropdown button" id="vuelo2" value="{{ $sucursal2->nombre.' - ' }}">
                             <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
 
 
                             </div>
+  @else
+      @include('notifications::flash')
+  @endif
                 </div>
 
             <div id="info-vuelo2"> <!-- OJOOOOOO INFORMACION de AJAX -->

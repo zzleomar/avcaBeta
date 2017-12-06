@@ -21,7 +21,7 @@
   </div>
 
     <div class="card-body">
-    <h4 class="card-title centrarAux">Venta Registro y Reserbacion de boletos</h4>
+    <h4 class="card-title centrarAux">Venta Registro y Reservación de boletos</h4>
 
     <div class="card text-center border-info mb-3 centrarAux" style="width: auto;">
      <div class="card-body ">
@@ -78,15 +78,46 @@
       });
   } 
 
+  function capturarV2(id)
+  {
+    var datos;
+    var id2="yv2"+id;
+    datos=document.getElementById(id2).innerHTML; 
+    var idsu=document.getElementById("origen2id").value; 
+    document.getElementById("vuelo2").value = document.getElementById("origen2").value+datos; 
+    var url="{{ URL::to('/taquilla/vuelo') }}/"+idsu+"/"+id;
+   //alert(url);
+    $.get(url,function(data){ 
+        $('#info-vuelo2').empty().html(data);
+      });
+  }
+
   function capturarFechas(id){
     var fc = "fc" + id;
     datos=document.getElementById(fc).innerHTML; 
       document.getElementById("fc").value = datos;
+      document.getElementById("vueloid").value = id;
     //ajax
     //AJAX disponibilidad
-    var url="{{ URL::to('/taquilla/vuelo/disponibilidad') }}/"+id;  
+    var n=0; //idenfica en la función que es la primera pierna
+    var url="{{ URL::to('/taquilla/vuelo/disponibilidad') }}/"+id+"/"+n;  
       $.get(url,function(data){ 
         $('#info-vuelo-dispo').empty().html(data);
+      }); 
+      var altura = $(document).height();
+ 
+      $("html, body").animate({scrollTop:altura+"px"});
+  }
+  function capturarFechas2(id){
+    var fc = "fc2" + id;
+    datos=document.getElementById(fc).innerHTML; 
+      var n=document.getElementById("vueloid").value;
+      document.getElementById("fc2").value = datos;
+    //ajax
+    //AJAX disponibilidad
+    var url="{{ URL::to('/taquilla/vuelo/disponibilidad') }}/"+id+"/"+n; 
+      $.get(url,function(data){ 
+        $('#info-vuelo-dispo2').empty().html(data);
       }); 
       var altura = $(document).height();
  
@@ -96,8 +127,15 @@
     //AJAX pasajero
     var nacionalidad=document.getElementById("nacionalidad").value;
     var idboleto=document.getElementById("idboleto").value;
-    var url="{{ URL::to('/taquilla/vuelo/pasajero') }}/"+idboleto+"/"+nacionalidad+"/"+id;
-   // alert(url);
+    var boletoAux;
+    if(document.getElementById("boletoAux")==null){
+      boletoAux=0;
+    }
+    else {
+      boletoAux=document.getElementById("boletoAux").value;
+    }
+    var url="{{ URL::to('/taquilla/vuelo/pasajero') }}/"+idboleto+"/"+nacionalidad+"/"+id+"/"+boletoAux;
+    //alert(url);
       $.get(url,function(data){ 
         $('#info-vuelo-pasajero').empty().html(data);
       });

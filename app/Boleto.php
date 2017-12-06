@@ -46,5 +46,15 @@ class Boleto extends Model
         return DB::table('boletos')->where('estado','Cancelado')->where('pasajero_id',$pasajero)->get();   
     }
 
+    public function EliminarRegistroTemporal($sucursal){
+        DB::table('boletos')
+            ->join('vuelos', 'vuelos.id', '=', 'boletos.vuelo_id')
+            ->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')
+            ->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')
+            ->join('sucursales', 'rutas.origen_id', '=', 'sucursales.id')
+            ->where('boletos.estado', '=', 'Temporal')
+            ->where('sucursales.id', '=', $sucursal)
+            ->delete();
+    }
             
 }

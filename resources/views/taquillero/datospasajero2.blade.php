@@ -2,7 +2,7 @@
 <div class="modal fade bd-example-modal-lg" id="myModal_confirmacion_pagina_guardada" data-keyboard="false" data-backdrop="static">
 <form method="post" id="formOperativo">    
                         {{ csrf_field() }}
-
+<input type="hiddel" name="VueloAux" id="VueloAux" value="0">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">

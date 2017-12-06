@@ -6,8 +6,8 @@
                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Fechas
                               </button>
                               <div class="dropdown-menu">
-                              @foreach($fechas as $fecha)
-                                <a class="dropdown-item" href="#!" id="fc2{{ $fecha->id }}" onclick="capturarFechas2('{{ $fecha->id }}')">{{ $fecha->salida}}</a>
+                              @foreach($fechas2 as $fecha)
+                                <a class="dropdown-item" href="#info-vuelo-dispo2" id="fc2{{ $fecha->id }}" onclick="capturarFechas2('{{ $fecha->id }}')">{{ $fecha->salida}}</a>
                             @endforeach
                               </div>
                             </div>

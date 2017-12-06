@@ -1,4 +1,5 @@
 <input type="hidden" name="boleto_id" value="{{ $boleto_id }}">
+<input type="hidden" name="boleto_id2" value="{{ $boleto_id2 }}">
 
 @if(!isset($pasajero))
     <div class="form-row">
@@ -122,7 +123,6 @@ font-weight: 800;">Costo total: </label>
             </div>
         </div>
     </div>
-  @endif
 
     @if((isset($estado))and($estado=='Reservado'))
       <button type="button" class="btn btn-lg btn-outline-secondary" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
@@ -134,3 +134,4 @@ font-weight: 800;">Costo total: </label>
           <button type="button" class="btn btn-lg btn-outline-secondary" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
         @endif
     @endif
+  @endif

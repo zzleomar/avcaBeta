@@ -8,9 +8,9 @@ Route::group(['prefix' => 'taquilla','middleware' => ['auth', 'CheckRoleOperador
 	    return view('taquillero/confirmacionBoleto');
 	});	
 
-	Route::get('vuelo/disponibilidad/{a}', 'TaquillaController@ajaxVueloDisp');
+	Route::get('vuelo/disponibilidad/{a}/{b}', 'TaquillaController@ajaxVueloDisp');
 	Route::get('/vuelo/{origen}/{destino}', 'TaquillaController@ajaxVuelo');
-	Route::get('/vuelo/pasajero/{b}/{n}/{id}', 'TaquillaController@ajaxVueloPasajero');
+	Route::get('/vuelo/pasajero/{b}/{n}/{id}/{auxB}', 'TaquillaController@ajaxVueloPasajero');
 
 	Route::post('confirmar-boleto','TaquillaController@ChequiarBoleto');
 

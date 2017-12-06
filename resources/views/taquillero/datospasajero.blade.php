@@ -2,7 +2,6 @@
 <div class="modal fade bd-example-modal-lg" id="myModal_confirmacion_pagina_guardada" data-keyboard="false" data-backdrop="static">
 <form method="post" id="formOperativo">    
                         {{ csrf_field() }}
-
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">

@@ -31,6 +31,9 @@ class TaquillaController extends Controller
         //busco todos los destinos programados
         $datos=$vuelos->Destinos($id);
         //retorno a la vista con los datos
+        //$id_adminitrativo=Auth::user()->administrativo_id;
+        $boleto= new Boleto();
+        $boleto->EliminarRegistroTemporal($sucursal->id);
         return view('taquillero.index')->with('vuelos', $datos)->with('sucursal', $sucursal);
         
         /* destino fecha disponibilidad precio y estatus*/
@@ -47,17 +50,17 @@ class TaquillaController extends Controller
         }
         switch ($accion) {
             case 'Pagar'://vender boleto
-                $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Reservado");
-                if(sizeOf($consulta)){
-                    $datos->boleto_id=$consulta[0]->id;
-                }
-                $this->CambiarEstado($datos->boleto_id,$pasajero,"Pagado");
-                flash::success('El boleto ha sido pagado');
+                            $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Reservado");
+                            if(sizeOf($consulta)){
+                                $datos->boleto_id=$consulta[0]->id;
+                            }
+                            $this->CambiarEstado($datos->boleto_id,$pasajero,"Pagado");
+                            flash::success('El boleto '.$datos->boleto_id.' ha sido pagado');
                 break;
 
             case 'Reservar'://Reservar boleto
                 $this->CambiarEstado($datos->boleto_id,$pasajero,"Reservado");
-                flash::success('El boleto ha sido reservado');
+                flash::success('El boleto '.$datos->boleto_id.' ha sido reservado');
                 break;
 
             case 'Renovar'://Reutilizar un boleto pagado y luego cancelado
@@ -74,8 +77,8 @@ class TaquillaController extends Controller
                 if(sizeOf($consulta)){
                     $datos->boleto_id=$consulta[0]->id;
                 }
-                $this->CambiarEstado($datos->boleto_id,$pasajero->id,"Cancelado");
-                flash::success('El boleto ha sido cancelado posee un lapso de un año para renovarlo');//busco el boleto que esta pagado
+                $this->CambiarEstado($datos->boleto_id,$pasajero,"Cancelado");
+                flash::success('El boleto '.$datos->boleto_id.' ha sido cancelado posee un lapso de un año para renovarlo');//busco el boleto que esta pagado
                 break;
 
             case 'Liberar'://Cancelar Reservación
@@ -84,17 +87,30 @@ class TaquillaController extends Controller
                     $datos->boleto_id=$consulta[0]->id;
                 }
                 $this->EliminarBoleto($datos->boleto_id);
-                flash::success('La reservación ha sido cancelada');
+                flash::success('La reservación '.$datos->boleto_id.' ha sido cancelada');
                 break;
             
             default:
                 # code...
                 break;
         }
+        if($datos->boleto_id2==0)//si es una sola pierna
+        {
+            $id_adminitrativo=Auth::user()->administrativo_id;
+            $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
+            $boleto->EliminarRegistroTemporal($sucursal_id);
+            return redirect('/taquilla');
+        }
+        else{
+            $datos->boleto_id=$datos->boleto_id2;
+            $datos->boleto_id2=0;
+            $this->Accion($datos,$accion);
+            $id_adminitrativo=Auth::user()->administrativo_id;
+            $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
+            $boleto->EliminarRegistroTemporal($sucursal_id); 
+            return redirect('/taquilla');
 
-        return redirect('/taquilla');
-        
-
+        }            
     }
 
     public function EliminarBoleto($id){
@@ -162,39 +178,71 @@ class TaquillaController extends Controller
     }
 
     public function ajaxVuelo($origen,$destino){
-        //dd([$origen." ".$destino]);
         $vuelo= new Vuelo();
         $fechas= $vuelo->Horarios($origen,$destino);
-       // dd($fechas);
-        return view('partials.ajax.info-vuelo-ajax')->with('fechas',$fechas);
+        $cont=0;
+        foreach ($fechas as $fecha) {
+            $vuelo=Vuelo::find($fecha->id);
+            $ocupados=$this->ConsultarDisponibilidad($vuelo);
+            if($ocupados>=$vuelo->pierna->aeronave->capacidad){
+                $cont=$cont+1;
+            }
+       }
+       if((sizeof($fechas))!=$cont){
+            $id_adminitrativo=Auth::user()->administrativo_id;
+            $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
+            if($origen==$sucursal_id){
+                return view('partials.ajax.info-vuelo-ajax')->with('fechas',$fechas);
+            }
+            else{//si es el ajaxVuelo de la segunda pierna
+                return view('partials.ajax.info-vuelo2-ajax')->with('fechas2',$fechas);
+            }
+        }
+        else{
+            flash::error('No hay disponibilidad de boletos');
+            return view('partials.ajax.info-error');
+        }
     }
 
-    public function ajaxVueloDisp($id){
-        //busco datos del vuelo a cosultar disponibilidad
-        $vuelo= Vuelo::find($id);
+    public function ConsultarDisponibilidad($vuelo){
         //creo un array con los estados de boletos que disminuyen la disponibilidad
         //$estados=["Reservado","Pagado","Temporal"];
         $estados=["Reservado","Pagado"];
-        
-        //consulto cuantos boletos estan comprados
+       //consulto cuantos boletos estan comprados
         $ocupados=$vuelo->Disponibilidad($estados,$vuelo->id);
-
         $ocupados=$ocupados+8;//le sumo los asientos reservados para 3era edad, discapasitados y de menore sin acompañantes
+        return $ocupados;
+    }
 
-        //consulto la capacidad de la aeronave asignada
-        $capacidad=$vuelo->pierna->aeronave->capacidad;
+    public function ajaxVueloDisp($id,$nro){
+        //busco datos del vuelo a cosultar disponibilidad
+        $vuelo= Vuelo::find($id);
+        $ocupados=$this->ConsultarDisponibilidad($vuelo);
         //si hay disponibilidad
-        if($ocupados<$capacidad)
+        if($ocupados<$vuelo->pierna->aeronave->capacidad)
         {
             $costo=$vuelo->pierna->ruta->origen->tasa_mantenimiento+$vuelo->pierna->ruta->tarifa_vuelo+$vuelo->pierna->ruta->origen->tasa_salida;
             $boleto=new Boleto();
             $boleto->Generar($ocupados,$vuelo->id,$costo);
 
-
-            $destino=Sucursal::find($vuelo->pierna->ruta->destino_id);
-            $vuelos2= new Vuelo();
-            $datos=$vuelos2->Destinos($destino->id);
-            return view('partials.ajax.info-disponibilidad-ajax')->with('boleto',$boleto)->with('vuelos2', $datos)->with('sucursal2', $destino);
+            //Verificar si es la seguda pierna
+            if($nro==0){
+                //Datos para una posible segunda pierna
+                $destino=Sucursal::find($vuelo->pierna->ruta->destino_id);
+                $vuelos2= new Vuelo();
+                $datos=$vuelos2->Destinos($destino->id);
+                if(sizeof($datos)==0){
+                    flash::info('No hay destinos disponible');
+                }
+                    
+                return view('partials.ajax.info-disponibilidad-ajax')->with('boleto',$boleto)->with('vuelos2', $datos)->with('sucursal2', $destino);    
+            }
+            else{//si es una segunda pierna
+                $origen= Vuelo::find($nro);
+                $costoT=$origen->pierna->ruta->origen->tasa_mantenimiento+$origen->pierna->ruta->tarifa_vuelo+$origen->pierna->ruta->origen->tasa_salida+$costo;//calculo el costo total de las 2 piernas
+                return view('partials.ajax.info-disponibilidad2-ajax')->with('boleto',$boleto)->with('costoT',$costoT); 
+            }
+            
         }
         else{//si no hay disponibilidad
             flash::error('No hay disponibilidad de boletos');
@@ -202,60 +250,96 @@ class TaquillaController extends Controller
         }
     }
 
-    public function ajaxVueloPasajero($idboleto,$nacionalidad,$id){
+    public function ajaxVueloPasajero($idboleto,$nacionalidad,$id,$auxB){
         $cedula=$nacionalidad.$id;
         $boleto= Boleto::find($idboleto);
         $pasajeroAux=Pasajero::BuscarCI($cedula);
         if(sizeOf($pasajeroAux)){
             $pasajero=$pasajeroAux[0];
             $consulta=$boleto->BuscarP($boleto->vuelo_id,$pasajero->id);
+            
             if((sizeOf($consulta))==0){
-                $pendiente=$boleto->Pendiente($pasajero->id);
-
-                if(sizeOf($pendiente)==0){
-                    return view('partials.ajax.info-vuelo-pasajero-ajax')
-                        ->with('pasajero',$pasajero)
-                        ->with('boleto_id',$boleto->id)
-                        ->with('costo',$boleto->costo);
-                }
-                else{
-                    if($boleto->costo>$pendiente[0]->costo)
-                    $costo=$boleto->costo-$pendiente[0]->costo;
-                    else
-                    $costo=0;
-                flash::info('Este pasajero posee un boleto pendiente de '.$pendiente[0]->costo);
+                    if($auxB==0)//si es un vuelo de una sola pierna
+                    {
                         return view('partials.ajax.info-vuelo-pasajero-ajax')
-                        ->with('pasajero',$pasajero)
-                        ->with('boleto_id',$boleto->id)
-                        ->with('estado','Cancelado')
-                        ->with('pendiente',$pendiente[0])
-                        ->with('costo',$costo);
-
-                }
+                            ->with('pasajero',$pasajero)
+                            ->with('boleto_id',$boleto->id)
+                            ->with('boleto_id2','0')
+                            ->with('costo',$boleto->costo);
+                    }
+                    else{
+                        $boleto2= Boleto::find($auxB);
+                        return view('partials.ajax.info-vuelo-pasajero-ajax')
+                            ->with('pasajero',$pasajero)
+                            ->with('boleto_id',$boleto->id)
+                            ->with('boleto_id2',$auxB)
+                            ->with('costo',($boleto->costo+$boleto2->costo));
+                    }
             }
             else{
+                $pendiente=$boleto->Pendiente($pasajero->id);
 
+                if(sizeOf($pendiente)!=0){
+                    if(sizeOf($pendiente)==2){ //el sistema le permite a un pasajero solo tener hasta dos boletos cancelados en caso que fuera sido un vuelo de 2 piernas
+                     $pendiente[0]->costo=$pendiente[0]->costo+$pendiente[1]->costo;   
+                    }
+
+                    if($boleto->costo>$pendiente[0]->costo){
+                        $costo=$boleto->costo-$pendiente[0]->costo;
+                    }
+                    else{
+                        $costo=0;
+                    }
+
+                    flash::info('Este pasajero posee un boleto pendiente de '.$pendiente[0]->costo);
+                    return view('partials.ajax.info-vuelo-pasajero-ajax')
+                    ->with('pasajero',$pasajero)
+                    ->with('boleto_id',$boleto->id)
+                    ->with('estado','Cancelado')
+                    ->with('boleto_id2',$auxB)
+                    ->with('pendiente',$pendiente[0])
+                    ->with('costo',$costo);
+
+                }
+                if($auxB!=0)//si es un vuelo de una sola pierna
+                {
+                    $boleto2= Boleto::find($auxB);
+                    $auxcosto=$boleto->costo+$boleto2->costo;
+                }
+                else{
+                    $auxcosto=$boleto->costo;
+                }
                 switch ($consulta[0]->estado) {
                     case 'Reservado':
 
-            flash::info('Este pasajero posee un boleto reservado para este vuelo');
+                        flash::info('Este pasajero posee un boleto reservado para este vuelo');
                         break;
                     case 'Pagado':
 
-            flash::error('Este pasajero ya posee un boleto para este vuelo');
+                        flash::error('Este pasajero ya posee un boleto para este vuelo');
                         break;
                 }
                 return view('partials.ajax.info-vuelo-pasajero-ajax')
                 ->with('pasajero',$pasajero)
+                ->with('boleto_id2',$auxB)
                 ->with('boleto_id',$boleto->id)
                 ->with('estado',$consulta[0]->estado)
-                ->with('costo',$boleto->costo);
+                ->with('costo',$auxcosto);
             }
         }
         else{
+            if($auxB!=0)//si es un vuelo de una sola pierna
+            {
+                $boleto2= Boleto::find($auxB);
+                $auxcosto=$boleto->costo+$boleto2->costo;
+            }
+            else{
+                $auxcosto=$boleto->costo;
+            }
             return view('partials.ajax.info-vuelo-pasajero-ajax')
                 ->with('boleto_id',$boleto->id)
-                ->with('costo',$boleto->costo);
+                ->with('boleto_id2',$auxB)
+                ->with('costo',$auxcosto);
         }
     }
 
