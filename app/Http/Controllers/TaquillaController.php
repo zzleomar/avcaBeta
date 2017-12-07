@@ -192,15 +192,15 @@ class TaquillaController extends Controller
             $id_adminitrativo=Auth::user()->administrativo_id;
             $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
             if($origen==$sucursal_id){
-                return view('partials.ajax.info-vuelo-ajax')->with('fechas',$fechas);
+                return view('taquillero.ajax.info-vuelo-ajax')->with('fechas',$fechas);
             }
             else{//si es el ajaxVuelo de la segunda pierna
-                return view('partials.ajax.info-vuelo2-ajax')->with('fechas2',$fechas);
+                return view('taquillero.ajax.info-vuelo2-ajax')->with('fechas2',$fechas);
             }
         }
         else{
             flash::error('No hay disponibilidad de boletos');
-            return view('partials.ajax.info-error');
+            return view('taquillero.ajax.info-error');
         }
     }
 
@@ -235,18 +235,18 @@ class TaquillaController extends Controller
                     flash::info('No hay destinos disponible');
                 }
                     
-                return view('partials.ajax.info-disponibilidad-ajax')->with('boleto',$boleto)->with('vuelos2', $datos)->with('sucursal2', $destino);    
+                return view('taquillero.ajax.info-disponibilidad-ajax')->with('boleto',$boleto)->with('vuelos2', $datos)->with('sucursal2', $destino);    
             }
             else{//si es una segunda pierna
                 $origen= Vuelo::find($nro);
                 $costoT=$origen->pierna->ruta->origen->tasa_mantenimiento+$origen->pierna->ruta->tarifa_vuelo+$origen->pierna->ruta->origen->tasa_salida+$costo;//calculo el costo total de las 2 piernas
-                return view('partials.ajax.info-disponibilidad2-ajax')->with('boleto',$boleto)->with('costoT',$costoT); 
+                return view('taquillero.ajax.info-disponibilidad2-ajax')->with('boleto',$boleto)->with('costoT',$costoT); 
             }
             
         }
         else{//si no hay disponibilidad
             flash::error('No hay disponibilidad de boletos');
-            return view('partials.ajax.info-error');
+            return view('taquillero.ajax.info-error');
         }
     }
 
@@ -261,7 +261,7 @@ class TaquillaController extends Controller
             if((sizeOf($consulta))==0){
                     if($auxB==0)//si es un vuelo de una sola pierna
                     {
-                        return view('partials.ajax.info-vuelo-pasajero-ajax')
+                        return view('taquillero.ajax.info-vuelo-pasajero-ajax')
                             ->with('pasajero',$pasajero)
                             ->with('boleto_id',$boleto->id)
                             ->with('boleto_id2','0')
@@ -269,7 +269,7 @@ class TaquillaController extends Controller
                     }
                     else{
                         $boleto2= Boleto::find($auxB);
-                        return view('partials.ajax.info-vuelo-pasajero-ajax')
+                        return view('taquillero.ajax.info-vuelo-pasajero-ajax')
                             ->with('pasajero',$pasajero)
                             ->with('boleto_id',$boleto->id)
                             ->with('boleto_id2',$auxB)
@@ -292,7 +292,7 @@ class TaquillaController extends Controller
                     }
 
                     flash::info('Este pasajero posee un boleto pendiente de '.$pendiente[0]->costo);
-                    return view('partials.ajax.info-vuelo-pasajero-ajax')
+                    return view('taquillero.ajax.info-vuelo-pasajero-ajax')
                     ->with('pasajero',$pasajero)
                     ->with('boleto_id',$boleto->id)
                     ->with('estado','Cancelado')
@@ -319,7 +319,7 @@ class TaquillaController extends Controller
                         flash::error('Este pasajero ya posee un boleto para este vuelo');
                         break;
                 }
-                return view('partials.ajax.info-vuelo-pasajero-ajax')
+                return view('taquillero.ajax.info-vuelo-pasajero-ajax')
                 ->with('pasajero',$pasajero)
                 ->with('boleto_id2',$auxB)
                 ->with('boleto_id',$boleto->id)
@@ -336,7 +336,7 @@ class TaquillaController extends Controller
             else{
                 $auxcosto=$boleto->costo;
             }
-            return view('partials.ajax.info-vuelo-pasajero-ajax')
+            return view('taquillero.ajax.info-vuelo-pasajero-ajax')
                 ->with('boleto_id',$boleto->id)
                 ->with('boleto_id2',$auxB)
                 ->with('costo',$auxcosto);
@@ -360,7 +360,8 @@ Estados de los vuelos
 --abierto=cuando el gerente de sucursales lo planifica y inicia la venta
 --cerrado=cuando es hora de autorización y embarquaje para iniciar la ejecución del vuelo
 --cancelado=cuando por alguna dificulta inremediable el vuelo se cancela
-
+--retrasado=cuando se pasa la hora de salida
+--ejecutado=cuando el subgerente de sucursal notifica que ya la aeronave partio a su destino
  */
 
 

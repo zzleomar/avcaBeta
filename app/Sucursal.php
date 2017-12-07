@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Sucursal extends Model
 {
@@ -19,6 +20,7 @@ class Sucursal extends Model
     public function origenes(){//retorna las rutas de las sucursales que llegan a la sucursal
     	return $this->hasMany('App\Ruta','id','id_destino');
     }
+    
 }
 
 

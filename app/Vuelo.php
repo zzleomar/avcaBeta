@@ -47,5 +47,34 @@ class Vuelo extends Model
             select('vuelos.id','vuelos.salida')->
             where([['rutas.destino_id','=',$destino],['rutas.origen_id','=',$origen]])->get();       
     }
+
+    public function scopeSucursal($query, $dato, $estado){
+        return DB::table('vuelos')
+        ->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')
+        ->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')
+        ->join('sucursales', 'rutas.destino_id', '=', 'sucursales.id')
+        ->select('vuelos.id','vuelos.salida', 'vuelos.estado','sucursales.nombre')
+        ->where([['rutas.origen_id','=',$dato],['vuelos.estado','=',$estado]])
+        ->groupBy('vuelos.id','vuelos.salida', 'vuelos.estado','sucursales.nombre')
+        ->orderBy('vuelos.salida','ASC')->get();
+    }
+
+    public function scopeRetrasados($query, $dato, $fecha){
+        return DB::table('vuelos')
+        ->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')
+        ->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')
+        ->join('sucursales', 'rutas.destino_id', '=', 'sucursales.id')
+        ->select('vuelos.id','vuelos.salida', 'vuelos.estado','sucursales.nombre')
+        ->where([['rutas.origen_id','=',$dato],['vuelos.salida','<',$fecha],['vuelos.estado','!=','ejecutado']])
+        ->groupBy('vuelos.id','vuelos.salida', 'vuelos.estado','sucursales.nombre')
+        ->orderBy('vuelos.salida','ASC')->get();
+    }
+
+    public function scopeActualizar($query, $dato, $estado){
+        $vuelo =Vuelo::find($dato);
+        $vuelo->estado=$estado;
+        $vuelo->save();
+    }
+    
     
 }

@@ -1,292 +1,442 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-<div class="main">
-<form>
-        
-
-        <table class="table">
-          <thead class="thead-light">
-            <tr align="center">
-              <th>Gestionar Vuelos</th>
-            </tr>
-          </thead>
-        </table>
     
 
-    <div class="row">
-        <div class="col">
-            <div class="text-center">
-                <select class="custom-select">
-                    <option selected>Seleccione Ruta Destino-Retorno</option>
-                    <option value="1">Maiquetia-Cumaná</option>
-                    <option value="2">Maiquetia-Barcelona</option>
-                    <option value="3">Maiquetia-Ciudad Bolivar</option>
-                </select>           
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-            <div class="col mt-3">
-                <div class="text-center">
-                        <input type="date" placeholder="introduzca fecha" /><br>
-                </div>  
-            </div>
-            
-            <div class="col mt-3">
-                <div class="text-center">
-                    <select class="custom-select">
-                        <option value="1">Introduzca hora</option>
-                        <option value="2">7:00 AM</option>
-                        <option value="3">2:00 PM</option>
-                    </select>
-                </div>
-            </div>
-        
-            <div class="col mt-3">
-                <div class="text-center">
-                    <select class="custom-select">
-                    <option selected>Seleccione Aeronave</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    </select>
-                </div>
-            </div>
-        
-            <div class="col mt-3">
-                <div class="text-center">
-                        <tbody>
-                            <td>
-                              <h1 align="center">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPiloto">
-                                 Selecionar Tripulación
-                                    </button>                   
-                              </h1>
-                            </td>
-                        </tbody>    
-                </div>
-            </div>              
-    </div>
-
-    <h1 align="center">
-        <button type="submit" class="btn btn-primary">Aceptar</button>
-        <button type="submit" class="btn btn-primary">Procesar</button>
-        <button type="submit" class="btn btn-primary">Cancelar</button>
-    </h1> <br>
-
-    <div class="row">
-        <div>
-            
-        </div>
-        
-
-    </div>
-
-
-    <div class="table-responsive">  
-    <table class="table table-hover text-center">
+    <table class="table">
       <thead class="thead-light">
-        <tr>
-          <th>#Vuelo</th>
-          <th>Ruta</th>
-          <th>Fecha</th>
-          <th>Hora</th>
-          <th>Estatus</th>
-          <th>Modificar</th>
+        <tr align="center">
+          <th>Gestionar Vuelos</th>
         </tr>
       </thead>
-      <tbody>
-       
-        <th scope="row">1</th>
-          <td>Nueva Esparta</td>
-          <td>30/12/2017</td>
-          <td>2:00 PM</td>
-          <td>Disponible</td>
-         <td>
-            <h1 align="center">
-            <button type="submit" class="btn btn-primary">Modificar</button>
-            <button type="submit" class="btn btn-primary">Eliminar</button>
-            </h1>
-        </td>
-     
-      </tbody>
-      <tbody>
-       
-        <th scope="row">1</th>
-          <td>Nueva Esparta</td>
-          <td>30/12/2017</td>
-          <td>2:00 PM</td>
-          <td>Disponible</td>
-         <td>
-            <h1 align="center">
-            <button type="submit" class="btn btn-primary">Modificar</button>
-            <button type="submit" class="btn btn-primary">Eliminar</button>
-            </h1>
-        </td>
-     
-      </tbody>
     </table>
+  
+
+  <div class="row">
+    <div class="col">
+      <div class="text-center">
+        <select class="custom-select margenInferior">
+            <option selected>Seleccione Ruta Destino-Retorno</option>
+          <option value="1">Maiquetia-Cumaná</option>
+          <option value="2">Maiquetia-Barcelona</option>
+          <option value="3">Maiquetia-Ciudad Bolivar</option>
+        </select>     
+      </div>
     </div>
+  </div>
+
+    <div class="table-responsive">  
+  <table class="table table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th>#Vuelo</th>
+        <th>Ruta</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Estatus</th>
+        <th>Modificar</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+      <th scope="row">1</th>
+        <td>Nueva Esparta</td>
+        <td>30/12/2017</td>
+        <td>2:00 PM</td>
+        <td>Disponible</td>
+       <td>
+          <h1 align="center">
+        <button type="submit" class="btn btn-primary">Modificar</button>
+        <button type="submit" class="btn btn-primary">Eliminar</button>
+      </h1>
+    </td>
+   
+    </tbody>
+    <tbody>
+     
+      <th scope="row">1</th>
+        <td>Nueva Esparta</td>
+        <td>30/12/2017</td>
+        <td>2:00 PM</td>
+        <td>Disponible</td>
+       <td>
+          <h1 align="center">
+        <button type="submit" class="btn btn-primary">Modificar</button>
+        <button type="submit" class="btn btn-primary">Eliminar</button>
+      </h1>
+    </td>
+   
+    </tbody>
+  </table>
+  </div>
+
+
+
+    <br> <br>
+
+  <div class="row">
+      <div class="col mt-3">
+        <div class="text-center">
+            <input type="date" placeholder="introduzca fecha" /><br>
+        </div>  
+      </div>
+      
+      <div class="col mt-3">
+        <div class="text-center">
+          <select class="custom-select">
+            <option value="1">Introduzca hora</option>
+              <option value="2">7:00 AM</option>
+              <option value="3">2:00 PM</option>
+          </select>
+        </div>
+      </div>
+    
+      <div class="col mt-3">
+        <div class="text-center">
+          <select class="custom-select">
+            <option selected>Seleccione Aeronave</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+        </div>
+      </div>
+    
+      <div class="col mt-3">
+        <div class="text-center">
+              <tbody>
+                <td>
+                    <h1 align="center">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Seleccionar Tripulacion</button>         
+                </h1>
+              </td>
+              </tbody>  
+        </div>
+      </div>        
+  </div>
+
+  <h1 align="center">
+    <button type="submit" class="btn btn-primary">Aceptar</button>
+      <button type="submit" class="btn btn-primary">Procesar</button>
+      <button type="submit" class="btn btn-primary">Cancelar</button>
+  </h1> <br>
+
+
+
+   
 
 </form>
 
 
-            <!-- Inicio del Modal Piloto -->
-                <div class="modal fade" id="ModalPiloto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Selecione la Tripulación</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                             </button>
-                         </div>
-                        <div class="modal-body">
-                            <div class="col mt-3">
-                               <div class="text-center">
-                                <select class="custom-select">
-                                <option selected>Seleccione el Piloto</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                </select>
-                               </div>
-                            </div>
-                         </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#Modalcopiloto">Save changes
-                            </button>
-                </div>
-                      </div>
-                    </div>
-                </div>
-            <!--  Fin del Modal Piloto-->   
-
-    <!-- Inicio del Modal Copiloto -->
-                <div class="modal fade" id="Modalcopiloto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Selecione la Tripulación</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                             </button>
-                         </div>
-                     <div class="modal-body">
-                                <div class="col mt-3">
-                               <div class="text-center">
-                                <select class="custom-select">
-                                <option selected>Seleccione el Copiloto</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                </select>
-                               </div>
-                            </div>
-                         </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#JefeCabina">
-                                 Selecionar Tripulación
-                    </button>
-                </div>
-                      </div>
-                    </div>
-                </div>
-            <!--  Fin del Modal Piloto-->
-
-
-            <!-- Inicio del Modal JefeCabina -->
-                <div class="modal fade" id="JefeCabina" id="Cerrar"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Selecione la Tripulación</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                             </button>
-                         </div>
-                     <div class="modal-body">
-                                     <div class="col mt-3">
-                               <div class="text-center">
-                                <select class="custom-select">
-                                <option selected>Seleccione el Jefe de Cabina</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                </select>
-                               </div>
-                            </div>
-                         </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Aeromosas">
-                                 Selecionar Tripulación
-                    </button>
-                </div>
-                      </div>
-                    </div>
-                </div>
-            <!--  Fin del Modal JefeCabina-->
 
 
 
-            <!-- Inicio del Modal Aeromosas-->
-                <div class="modal fade" id="Aeromosas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Selecione la Tripulación</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                             </button>
-                         </div>
-                     <div class="modal-body">
-                            
-                        <div class="row">
+
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+   <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+<form>
         
-                            <div class="col mt-3">
-                                <div class="text-center">
-                                    <select class="custom-select">
-                                        <option aeromosa="1">Seleccione la 1ª Aeromosa</option>
-                                        <option aeromosa="2">Aeromosa</option>
-                                        <option aeromosa="3">Aeromosa</option>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div class="col mt-3">
-                                <div class="text-center">
-                                    <select class="custom-select">
-                                        <option aeromosa="1">Seleccione la 2ª Aeromosa</option>
-                                        <option aeromosa="2">Aeromosa</option>
-                                        <option aeromosa="3">Aeromosa</option>
-                                    </select>
-                                </div>
-                            </div>                  
-                        </div>
-                         </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                     <button type="button" class="btn btn-primary">Save changes</button>        
-                </div>
-                      </div>
-                    </div>
-                </div>
-            <!--  Fin del Modal Aeromosas-->
+ <div id="exampleAccordion" data-children=".item">
+   
+    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion1" aria-expanded="true" aria-controls="exampleAccordion1">
+      Selecion de piloto
+    </a>
+ 
+
+    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion2" aria-expanded="false" aria-controls="exampleAccordion2">
+      Seleccion de Copiloto
+    </a>
+
+    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion3" aria-expanded="false" aria-controls="exampleAccordion3">
+      Seleccion de Jefe de Cabina
+    </a>
+ 
+    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion4" aria-expanded="false" aria-controls="exampleAccordion4">
+      Seleccion de aeromosas
+    </a>
 
 
 
+  <div class="item">
+   
+    <div id="exampleAccordion1" class="collapse show" role="tabpanel">
+     <div class="card card-body">
+    
+     <div class="table-responsive"> 
+  <table class="table table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th>Pilotos</th>
+        <th>Horas_Parciales</th>
+        <th>Horas_Percibidas</th>
+        <th>Estatus</th>
+        <th>Asignar</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+      <th scope="row">Pepitooo</th>
+        <td>80 tiraderas</td>
+        <td>20 sigaderas</td>
+        <td>singando</td>
+       <td>
+          <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input">
+                  El propio
+            </label>
+         </div>      
+       </td>
+   
+    </tbody>
+    <tbody>
+     
+      <th scope="row">Juancito</th>
+        <td>80 tiraderas</td>
+        <td>20 sigaderas</td>
+        <td>singando</td>
+       <td>
+          <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input">
+                  El propio
+            </label>
+         </div>      
+       </td>
+   
+    </tbody>
+  </table>
+  </div>
+    </div>
+  </div>
+  </div>
+
+
+  <div class="item">
+    <div id="exampleAccordion2" class="collapse" role="tabpanel">
+      <div class="card card-body">
+    
+        <div class="table-responsive"> 
+           <table class="table table-hover text-center">
+               <thead class="thead-light">
+                    <tr>
+                     <th>Copilotos</th>
+                     <th>Horas_Parciales</th>
+                     <th>Horas_Percibidas</th>
+                     <th>Estatus</th>
+                     <th>Asignar</th>
+                   </tr>
+               </thead>
+               <tbody>
+     
+      <th scope="row">Pepitooo</th>
+        <td>80 tiraderas</td>
+        <td>20 sigaderas</td>
+        <td>singando</td>
+        <td>
+          <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input">
+                 mariguanero
+            </label>
+         </div>      
+       </td>
+              
+                       </tbody>
+                       <tbody>
+     
+      <th scope="row">Juancito</th>
+        <td>80 tiraderas</td>
+        <td>20 sigaderas</td>
+        <td>singando</td>
+       <td>
+          <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input">
+                  El propio
+            </label>
+         </div>      
+       </td>
+              
+                       </tbody>
+           </table>
+        </div>
+      </div>
+     </div>
+  </div>
+  
+ <div class="item">
+   <div id="exampleAccordion3" class="collapse" role="tabpanel">
+  <div class="card card-body">
+    
+     <div class="table-responsive"> 
+  <table class="table table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th>Jefe_de_Cabina</th>
+        <th>Horas_Parciales</th>
+        <th>Horas_Percibidas</th>
+        <th>Estatus</th>
+        <th>Asignar</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+      <th scope="row">Pepitooo</th>
+        <td>80 tiraderas</td>
+        <td>20 sigaderas</td>
+        <td>singando</td>
+        <td>
+          <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input">
+                 mariguanero
+            </label>
+         </div>      
+       </td>
+   
+    </tbody>
+    <tbody>
+     
+      <th scope="row">Juancito</th>
+        <td>80 tiraderas</td>
+        <td>20 sigaderas</td>
+        <td>singando</td>
+       <td>
+          <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input">
+                  El propio
+            </label>
+         </div>      
+       </td>
+   
+    </tbody>
+  </table>
+  </div>
+  </div>
+</div>
+  </div>
+
+
+ <div class="item">
+   
+    <div id="exampleAccordion4" class="collapse" role="tabpanel">
+     
+     <div class="card card-body">
+    
+     <div class="table-responsive"> 
+  <table class="table table-hover text-center">
+    <thead class="thead-light">
+      <tr>
+        <th>Aeromosas</th>
+        <th>Horas_Parciales</th>
+        <th>Horas_Percibidas</th>
+        <th>Estatus</th>
+        <th>Asignar</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+      <th scope="row">Pepitaaaa</th>
+        <td>80 tiraderas</td>
+        <td>20 sigaderas</td>
+        <td>singando</td>
+        <td>
+         <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> 1
+              </label>
+        </div>
+        <div class="form-check form-check-inline">
+             <label class="form-check-label">
+                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> 2
+            </label>
+        </div> 
+        <div class="form-check form-check-inline">
+             <label class="form-check-label">
+                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> 3
+              </label>
+        </div>    
+       </td>
+   
+    </tbody>
+    <tbody>
+     
+      <th scope="row">Juancita</th>
+        <td>80 tiraderas</td>
+        <td>20 sigaderas</td>
+        <td>singando</td>
+          <td>
+         <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> 1
+              </label>
+          </div>
+          <div class="form-check form-check-inline">
+             <label class="form-check-label">
+                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> 2
+            </label>
+          </div> 
+          <div class="form-check form-check-inline">
+             <label class="form-check-label">
+                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> 3
+              </label>
+          </div>    
+       </td>
+   
+    </tbody>
+  </table>
+
+
+
+  </div>
+  </div>
 
 
 
 
 
 
+</div>
+
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</div>
+</div>
 </div>
 </div>
 

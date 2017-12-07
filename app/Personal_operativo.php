@@ -16,4 +16,8 @@ class Personal_operativo extends Model
     public function vuelos(){
     	return $this->belongsToMany('App\Vuelo');
     }
+
+    public function scopePersona($query){
+        return Personal::find($this->personal_id);
+    }
 }

@@ -22,16 +22,12 @@
 
 </head>
 <body>
-    <header class="header sticky-top fondo-header">    
-        <nav class="navbar navbar-expand-lg navbar-dark perso">
-            <div class="container">                
-                <button class="navbar-toggler hidden-lg-up aux2" type="button" data-toggle="collapse" data-target="#avca-navbar" aria-controls="avca-navbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse aux2" id="avca-navbar">
-                    @auth
-                        @include('partials.private-navbar')
-                    @endauth
+    <header class="header sticky-top fondo-header"> 
+        <nav class="navbar navbar-expand-lg navbar-dark navperso perso">
+            <div class="container2">                
+                
+                <div class="collapse navbar-collapse" id="avca-navbar">
+                    
                     <ul class="navbar-nav ml-auto">
                         {{--  Links de autenticacion  --}}                
                         @guest
@@ -67,6 +63,9 @@
 
                     </ul>
                 </div>  {{-- Final del div collapse --}}
+                <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#avca-navbar" aria-controls="avca-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>  {{-- Final del div container --}}
         </nav>
     </header>
@@ -82,6 +81,9 @@
                     </ul>                    
                 </div>
             @endif
+            @auth
+                @include('partials.private-navbar')
+            @endauth
             @yield('content')
         </div>
     </main>
