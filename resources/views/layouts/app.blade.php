@@ -70,8 +70,7 @@
         </nav>
     </header>
 
-    <main class="py-4">
-        <div class="container">
+    <main class="py-4" id="contenedorPersonal">
             @if(count($errors) > 0)
                 <div class="alert alert-danger" role="alert">
                     <ul>
@@ -85,7 +84,6 @@
                 @include('partials.private-navbar')
             @endauth
             @yield('content')
-        </div>
     </main>
 
     <footer class="footer py-2">

@@ -19,7 +19,7 @@ class SucursalController extends Controller
         $vuelo=new Vuelo();
         $datos1=$vuelo->Sucursal($sucursal->id,"abierto");
         $datos2=$vuelo->Sucursal($sucursal->id,"cerrado");
-        $datos3=$vuelo->Retrasados($sucursal->id,"2017-12-06 19:00:00");
+        $datos3=$vuelo->Retrasados($sucursal->id,"2017-12-08 19:00:00");
         if(sizeof($datos3)!=0){
             foreach ($datos3 as $datos) {
                 $vuelo->Actualizar($datos->id,"retrasado");
@@ -33,9 +33,6 @@ class SucursalController extends Controller
     }
 
     public function VueloDetalles($id){
-        $id_adminitrativo=Auth::user()->administrativo_id;
-        $idAux= Administrativo::find($id_adminitrativo)->sucursal_id;
-        $sucursal= Sucursal::find($idAux);
         $vuelo= Vuelo::find($id);
         $boletos=['Pagado','Reservados'];
         $estado=[0 => "Pagado"];
@@ -43,7 +40,7 @@ class SucursalController extends Controller
         $estado[0]="Reservados";
         $boletos['Reservados']= $vuelo->Disponibilidad($estado,$id);
         $vuelo->personal_operativo();
-//        dd($vuelo->personal_operativo);
+       // dd($vuelo->pierna->aeronave->matricula);
         return view('subgerente-sucursal.ajax.info-vuelo-ajax')
                 ->with('boletos',$boletos)
                 ->with('vuelo',$vuelo);      

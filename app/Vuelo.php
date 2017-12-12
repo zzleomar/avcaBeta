@@ -48,6 +48,14 @@ class Vuelo extends Model
             where([['rutas.destino_id','=',$destino],['rutas.origen_id','=',$origen]])->get();       
     }
 
+    public function scopeBuscador($query,$ruta,$estado){
+        return DB::table('vuelos')->
+            join('piernas','vuelos.id', '=', 'piernas.vuelo_id')->
+            join('rutas','piernas.ruta_id','=','rutas.id')->
+            select('vuelos.id','vuelos.salida','vuelos.estado')->
+            where([['rutas.id','=',$ruta],['vuelos.estado','=',$estado]])->get();       
+    }
+
     public function scopeSucursal($query, $dato, $estado){
         return DB::table('vuelos')
         ->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')

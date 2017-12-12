@@ -125,8 +125,8 @@ font-weight: 800;">Costo total: </label>
     </div>
 
     @if((isset($estado))and($estado=='Reservado'))
-      <button type="button" class="btn btn-lg btn-outline-secondary" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
-      <button type="button" class="btn btn-lg btn-outline-success" value="Liberar" onclick="formOperativo('/taquilla/accion/Liberar')">Cancelar Reservacion</button>
+      <button type="button" class="btn btn-lg btn-outline-success" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
+      <button type="button" class="btn btn-lg btn-outline-secondary" value="Liberar" onclick="formOperativo('/taquilla/accion/Liberar')">Cancelar Reservacion</button>
     @elseif((isset($estado))and($estado=='Cancelado'))
         <button type="button" class="btn btn-lg btn-outline-secondary" value="Renovar" onclick="formOperativo('/taquilla/accion/Renovar')">Renovar</button>
         @else

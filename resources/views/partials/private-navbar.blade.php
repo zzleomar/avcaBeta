@@ -43,20 +43,19 @@
 
 
         @case('Gerente de Sucursales')
-            <div class="container">
               <div class="container py-3  avcaColor">
 
             <div class="card text-center">
               <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                   <li class="nav-item">
-                    <a class="nav-link active" href="#">Planificar vuelos</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" href="#">Inicio</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Solicitudes de Recursos</a>
+                    <a class="nav-link active" href="#">Administración de Vuelos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Administración de Rutas</a>
                   </li>
                 </ul>
               </div>

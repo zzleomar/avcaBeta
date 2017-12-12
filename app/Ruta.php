@@ -13,13 +13,16 @@ class Ruta extends Model
     ];
 
     public function origen(){
-    	return $this->belongsTo('App\Sucursal','origen_id','id');
+    	return $this->belongsTo('App\Sucursal','id','origen_id');
     }
-    public function detino(){
+    public function destino(){
     	return $this->belongsTo('App\Sucursal','destino_id','id');
     }
     public function piernas(){
     	return $this->hasMany('App\Pierna');
     }
 
+    public function scopeBuscador($query, $origen,$destino){
+        return $query->where([['destino_id','=',$destino],['origen_id','=',$origen]]);
+    }
 }

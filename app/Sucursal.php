@@ -15,10 +15,10 @@ class Sucursal extends Model
     }
 
     public function destinos(){//retorna los destinos para su sucursal
-    	return $this->hasMany('App\Ruta','id','id_origen');
+    	return $this->hasMany('App\Ruta','origen_id','id');
     }
     public function origenes(){//retorna las rutas de las sucursales que llegan a la sucursal
-    	return $this->hasMany('App\Ruta','id','id_destino');
+    	return $this->hasMany('App\Ruta','destino_id','id');
     }
     
 }

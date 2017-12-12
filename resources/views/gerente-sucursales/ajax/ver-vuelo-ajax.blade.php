@@ -39,6 +39,7 @@
         <th>Nombre</th>
         <th>Experiencia (Hrs Voladas)</th>
         <th>Licencia</th>
+        <th></th>
       </tr>
     </thead>
      @foreach($vuelo->personal_operativo as $tripulante)
@@ -51,12 +52,8 @@
         <td>{{ $persona->apellidos." ".$persona->nombres }}</td>
         <td>80 Hras</td>
         <td>{{ $tripulante->licencia }}</td>
-   
+        <td><button class="btn btn-primary">Sustituir</button></td>
     </tbody>
     @endforeach
   </table>
   </div>
-
-  @if($vuelo->estado=='retrasado')
-      <button type="button" class="btn btn-lg btn-outline-success" value="Ejecutar Vuelo" onclick="formOperativo('/sucursal/vuelo/ejecutado/{{ $vuelo->id }}')">Vuelo ejecutado</button>
-  @endif
