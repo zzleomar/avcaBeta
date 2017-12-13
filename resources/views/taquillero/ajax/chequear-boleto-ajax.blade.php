@@ -1,3 +1,5 @@
+<input type="hidden" name="boleto_id" value="{{ $boleto->id }}">
+
 <div class="form-group row mx-2">
                 <div class="col">
                   <label for="staticEmail" class="col col-form-label">{{ $pasajero->apellidos." ".$pasajero->nombres }}</label>
@@ -22,19 +24,19 @@
                <div class="form-row marginLeft margenInferior">
                     <label for="codigo" class="col-5" style="text-align: left; margin-top: 10px;">Cantidad de Equipaje</label>
                     <div class="form-row marginLeft col-4">
-                        <input type="text" name="cantidad-equipaje" class="form-control" id="codigo" placeholder="" value="{{ old('cantidad-equipaje') }}" required style="margin-left: 6px;">
+                        <input type="text" name="cantidad-equipaje" class="form-control" id="cantidad-equipaje" placeholder="" value="{{ old('cantidad-equipaje') }}" required style="margin-left: 6px;" onkeypress="return soloNum(event)">
                     </div>
                 </div>
                 <div class="form-row marginLeft input-group margenInferior">
                     <label for="codigo" class="col-5" style="text-align: left; margin-top: 10px;">Peso Total</label>
                     <div class="form-row marginLeft col-5">
-                        <input type="text" name="peso-equipaje" class="form-control" id="peso" placeholder="" value="{{ old('peso-equipaje') }}" required onKeyUp="calcular()"><div class="input-group-addon">Kg</div>
+                        <input type="text" step="any" name="peso-equipaje" class="form-control" id="peso" placeholder="" value="{{ old('peso-equipaje') }}" required onkeypress="return soloNumDec(event)" onKeyUp="calcular()"><div class="input-group-addon">Kg</div>
                     </div>
                 </div>
                 <div class="form-row marginLeft input-group margenInferior">
                     <label for="codigo" class="col-5" style="text-align: left; margin-top: 10px;">Costo del sobrepeso</label>
                     <div class="form-row marginLeft col-5">
-                            <input type="text" name="costo" class="form-control" id="costo" placeholder=""  value="{{ old('costo') }}" required>
+                            <input type="text" name="costo" class="form-control" id="costo" placeholder=""  value="{{ old('costo') }}" readonly>
                             <div class="input-group-addon">Bs</div>
                     </div>
                 </div>
@@ -45,3 +47,4 @@
             <div class="row mx-4">
                 <input type="submit" class="btn btn-primary btn-lg btn-block my-2 " value="CONFIRMAR">
             </div>
+

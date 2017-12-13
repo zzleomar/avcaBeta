@@ -46,9 +46,9 @@ class TaquillaController extends Controller
     
     public function Accion(Request $datos, $accion){
         $boleto=Boleto::find($datos->boleto_id);
-        $pasajeroAux=Pasajero::BuscarCI($datos->nacionalidad.$datos->cedula);
+        $pasajeroAux=Pasajero::BuscarCI($datos->nacionalidad.$datos->cedula)->first();
         if(sizeOf($pasajeroAux)){ //si el pasajero esta registrado
-            $pasajero=$pasajeroAux[0];
+            $pasajero=$pasajeroAux;
         }
         else{ //si el pasajero no esta registrado
             $pasajero=$this->RegistrarPasajero($datos);
@@ -203,46 +203,18 @@ class TaquillaController extends Controller
         }
         
     }
-    public function ChequearBoleto(confirmarRequest $request){ //chequiar boleto
-
-    	$boleto = Boleto::find($request->codigo);
-        if(count($boleto) == 0){
-            flash::error('El Nro. del boleto ingresado nose encuentra registrado, verifique el boleto');
-            return redirect('/taquilla/confirmar-boleto');
-
-        }
-        else{
-            if($boleto->estado=='Confirmado'){
-                $boleto->estado='Chequeado';
-                //$boleto->costoEquipaje=$request->costo
-                //$boleto->costo=$request->peso
-                $boleto->save();
-                flash::success('El boleto ha sido chequiado exitosamente');
-                return redirect('/taquilla');
-            }
-            else{
-                if($boleto->estado=='Chequeado'){
-                    flash::error('El boleto ingresa ya ha sido chequeado');
-                    return redirect('/taquilla');
-                }
-                else{
-                    if($boleto->estado=='Reservado'){
-                        flash::info('El boleto ingresa no esta pagado');
-                        return redirect('/taquilla');
-                    }
-                    else{
-                        if($boleto->estado=='Postergado'){
-                            flash::info('El boleto ingresa ha sido postergado');
-                            return redirect('/taquilla');
-                        }
-                        else{
-                            flash::error('El vuelo de este boleto ya se ejecuto');
-                            return redirect('/taquilla');
-                           }
-                    }
-                }
-            }
-        }
+    public function ChequearBoleto(Request $request){ //chequiar boleto
+        $boleto = Boleto::find($request->boleto_id);
+        $equipaje= new Equipaje();
+        $equipaje->peso=$request['peso-equipaje'];
+        $equipaje->boleto_id=$request->boleto_id;
+        $equipaje->costo_sobrepeso=$request->costo;
+        $equipaje->cantidad=$request['cantidad-equipaje'];
+        $boleto->estado='Chequeado';
+        $boleto->save();
+        $equipaje->save();
+        flash::success('El boleto ha sido chequeado exitosamente');
+        return redirect('/taquilla/confirmar-boleto');
     }
 
     public function ajaxVuelo($origen,$destino){
@@ -289,10 +261,10 @@ class TaquillaController extends Controller
         //si hay disponibilidad
         if($ocupados<$vuelo->pierna->aeronave->capacidad)
         {
+
             $costo=$vuelo->pierna->ruta->origen->tasa_mantenimiento+$vuelo->pierna->ruta->tarifa_vuelo+$vuelo->pierna->ruta->origen->tasa_salida;
             $boleto=new Boleto();
             $boleto->Generar($ocupados,$vuelo->id,$costo);
-
             //Verificar si es la seguda pierna
             if($nro==0){
                 //Datos para una posible segunda pierna
@@ -321,9 +293,9 @@ class TaquillaController extends Controller
     public function ajaxVueloPasajero($idboleto,$nacionalidad,$id,$auxB){
         $cedula=$nacionalidad.$id;
         $boleto= Boleto::find($idboleto);
-        $pasajeroAux=Pasajero::BuscarCI($cedula);
+        $pasajeroAux=Pasajero::BuscarCI($cedula)->first();
         if(sizeOf($pasajeroAux)){
-            $pasajero=$pasajeroAux[0];
+            $pasajero=$pasajeroAux;
             $consulta=$boleto->BuscarP($boleto->vuelo_id,$pasajero->id)->first();
             
             if((sizeOf($consulta))==0){

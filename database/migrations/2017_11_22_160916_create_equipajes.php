@@ -15,7 +15,9 @@ class CreateEquipajes extends Migration
     {
         Schema::create('equipajes', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('peso');
+            $table->float('peso')->unsigned()->nullable();
+            $table->float('costo_sobrepeso')->unsigned()->nullable();
+            $table->integer('cantidad')->unsigned()->nullable();
             $table->integer('boleto_id')->unsigned()->nullable();
             $table->foreign('boleto_id')->references('id')->on('boletos')->onDelete('cascade');
 

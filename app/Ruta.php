@@ -13,7 +13,7 @@ class Ruta extends Model
     ];
 
     public function origen(){
-    	return $this->belongsTo('App\Sucursal','id','origen_id');
+    	return $this->belongsTo('App\Sucursal','origen_id','id');
     }
     public function destino(){
     	return $this->belongsTo('App\Sucursal','destino_id','id');

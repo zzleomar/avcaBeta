@@ -32,4 +32,48 @@ $(document).ready(function(){
   altura=altura-115;
   altura=altura+"px";
   $("#contenedorPersonal").css("min-height",altura);
+
+  //nav
+  //
+  //
+  var pathname = window.location.pathname;
+  switch (pathname) {
+    case '/taquilla':
+      $('#taquilla').addClass('active');
+      break;
+    case '/taquilla/confirmar-boleto':
+      $('#chequeo').addClass('active');
+      break;
+    default:
+      //alert(pathname);
+      break;
+  }
 });
+
+function soloNum(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla==8){
+        return true;
+    }
+        
+    // Patron de entrada, en este caso solo acepta numeros
+    patron =/[0-9]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+
+function soloNumDec(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla==8){
+        return true;
+    }
+        
+    // Patron de entrada, en este caso solo acepta numeros
+    patron =/[0-9-.]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}

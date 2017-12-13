@@ -25,6 +25,7 @@ class ControllerP extends Controller
 		$sucursal->direccion=$nuevo->direccions;
 		$sucursal->tasa_salida="2000";
 		$sucursal->tasa_mantenimiento="5000";
+		$sucursal->tasa_sobrepeso="1000";
 		$sucursal->save();
 
 		$personal= new Personal();

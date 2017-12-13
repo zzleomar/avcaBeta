@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+@include('notifications::flash')
+
     <div class="row">
         <div class="col-md-10 costo-center">            
             <h4 class="text-center subtituloM">Chequeo de boleto</h4>
@@ -45,7 +47,15 @@
 @section('scripts')
     <script type="text/javascript">
       function calcular(){
-                $('input[name=costo]').val(($('input[name=peso-equipaje]').val())*{{ $sucursal->tasa_sobrepeso }});
+        var peso=$('input[name=peso-equipaje]').val();
+          if(peso>25){
+            var sobrepeso=peso-25;
+            var costo=sobrepeso*{{ $sucursal->tasa_sobrepeso }};
+            var costoT=costo.toFixed(2);
+            $('input[name=costo]').val(costoT); 
+          }else {
+            $('input[name=costo]').val(0); 
+          }
         }
         function chequear(){
             var ci=document.getElementById("cedula").value;
@@ -57,6 +67,7 @@
             $.get(url,function(data){ 
                 $('#ajax-datos-boleto').empty().html(data);
               });
+            $.getScript("{{ asset('js/script.js') }}"); 
         }
         
     </script>

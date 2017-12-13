@@ -8,10 +8,10 @@
               <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                   <li class="nav-item">
-                    <a class="nav-link active" href="{{ URL::to('/taquilla') }}">Taquilla</a>
+                    <a class="nav-link" id="taquilla" href="{{ URL::to('/taquilla') }}">Taquilla</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('/taquilla/confirmar-boleto') }}">Chequeo Boleto</a>
+                    <a class="nav-link" id="chequeo" href="{{ URL::to('/taquilla/confirmar-boleto') }}">Chequeo Boleto</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#">Información al Cliente</a>
