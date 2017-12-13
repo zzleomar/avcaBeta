@@ -15,11 +15,16 @@ use App\Administrativo;
 use App\Http\Requests\confirmarRequest;
 use Auth;
 use Szykra\Notifications\Flash;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
 class TaquillaController extends Controller
 {
+    public function __construct(){
+      Carbon::setLocale('es');
+      date_default_timezone_set('America/Caracas');
+    }
     public function index(){
         //tomo el id del administrativo que esta haciendo uso del sistema
         $id_adminitrativo=Auth::user()->administrativo_id;
@@ -50,9 +55,9 @@ class TaquillaController extends Controller
         }
         switch ($accion) {
             case 'Pagar'://vender boleto
-                            $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Reservado");
+                            $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Reservado")->first();
                             if(sizeOf($consulta)){
-                                $datos->boleto_id=$consulta[0]->id;
+                                $datos->boleto_id=$consulta->id;
                             }
                             $this->CambiarEstado($datos->boleto_id,$pasajero,"Pagado");
                             flash::success('El boleto '.$datos->boleto_id.' ha sido pagado');
@@ -64,27 +69,27 @@ class TaquillaController extends Controller
                 break;
 
             case 'Renovar'://Reutilizar un boleto pagado y luego cancelado
-                $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Cancelado");
+                $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Cancelado")->first();
                 if(sizeOf($consulta)){
-                    $this->EliminarBoleto($consulta[0]->id);
+                    $this->EliminarBoleto($consulta->id);
                 }
                 $this->CambiarEstado($datos->boleto_id,$pasajero,"Pagado");
                 flash::success('El boleto ha sido renovado');
                 break;
 
             case 'Cancelar'://Cancelar boleto pagado
-                $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Pagado");
+                $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Pagado")->first();
                 if(sizeOf($consulta)){
-                    $datos->boleto_id=$consulta[0]->id;
+                    $datos->boleto_id=$consulta->id;
                 }
                 $this->CambiarEstado($datos->boleto_id,$pasajero,"Cancelado");
                 flash::success('El boleto '.$datos->boleto_id.' ha sido cancelado posee un lapso de un año para renovarlo');//busco el boleto que esta pagado
                 break;
 
             case 'Liberar'://Cancelar Reservación
-                $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Reservado");
+                $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Reservado")->first();
                 if(sizeOf($consulta)){
-                    $datos->boleto_id=$consulta[0]->id;
+                    $datos->boleto_id=$consulta->id;
                 }
                 $this->EliminarBoleto($datos->boleto_id);
                 flash::success('La reservación '.$datos->boleto_id.' ha sido cancelada');
@@ -135,7 +140,70 @@ class TaquillaController extends Controller
         $boleto->estado=$estado;
         $boleto->save();
     }
-    public function ChequiarBoleto(confirmarRequest $request){ //chequiar boleto
+    public function ContenidoChequear(){
+        $id_adminitrativo=Auth::user()->administrativo_id;
+        $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
+        $sucursal=Sucursal::find($sucursal_id);
+        $actual = Carbon::now();
+        $vuelos=Vuelo::Sucursal($sucursal_id,"abierto");
+        foreach ($vuelos as $key => $vuelo) {
+            $inicio = Carbon::parse($vuelo->salida);
+            $fin = Carbon::parse($vuelo->salida);
+            $inicio->subHours(2); //inicio
+            $fin->subHours(1); //inicio
+
+            if(!(($actual->gt($inicio))&&($actual->lt($fin)))){
+                //si la fecha y hora actual no es despues del inicio del chequeo 
+                //y no es antes del final del chequeo del vuelo
+                unset($vuelos[$key]);
+                
+            }
+
+        }
+        return view('taquillero/confirmacionBoleto')->with('vuelos',$vuelos)->with('sucursal',$sucursal);
+    }
+    public function ChequearBoletoAjax($ci,$vuelo_id){
+        $vuelo= Vuelo::find($vuelo_id);
+        $ruta = array('origen' => Sucursal::find($vuelo->pierna->ruta->origen_id)->nombre, 'destino' => Sucursal::find($vuelo->pierna->ruta->destino_id)->nombre );
+        $pasajero = Pasajero::BuscarCI($ci)->first();
+        $boleto = Boleto::BuscarP($vuelo_id,$pasajero->id)->first();
+        if(sizeof($boleto)!=0){
+            if($boleto->estado=="Pagado"){
+                $boleto = Boleto::Buscar($vuelo->id,$pasajero->id,"Pagado")->first();
+                return view('taquillero.ajax.chequear-boleto-ajax')
+                    ->with('boleto',$boleto)
+                    ->with('pasajero',$pasajero)
+                    ->with('ruta',$ruta)
+                    ->with('vuelo',$vuelo);
+            }
+            else{
+                switch ($boleto->estado) {
+                    case 'Reservado':
+                        flash::error('El boleto del pasajero no se encuentra pagado');
+                        return view('taquillero.ajax.info-error');
+                        break;
+                    case 'Chequeado':
+                        flash::info('El boleto del pasajero ya se encuentra chequeado');
+                        return view('taquillero.ajax.info-error');
+                        break;
+                    case 'Cancelado':
+                        flash::error('El boleto del pasajero fue cancelado');
+                        return view('taquillero.ajax.info-error');
+                        break;
+                    default:
+                        flash::error('Error inesperado. Estado '.$boleto->estado." indefinido en este módulo del sistema");
+                        return view('taquillero.ajax.info-error');
+                        break;
+                }
+            }
+        }
+        else{
+             flash::error('Este pasajero no posee boletos para el vuelo señalado');
+            return view('taquillero.ajax.info-error');
+        }
+        
+    }
+    public function ChequearBoleto(confirmarRequest $request){ //chequiar boleto
 
     	$boleto = Boleto::find($request->codigo);
         if(count($boleto) == 0){
@@ -145,7 +213,7 @@ class TaquillaController extends Controller
         }
         else{
             if($boleto->estado=='Confirmado'){
-                $boleto->estado='Chequiado';
+                $boleto->estado='Chequeado';
                 //$boleto->costoEquipaje=$request->costo
                 //$boleto->costo=$request->peso
                 $boleto->save();
@@ -153,8 +221,8 @@ class TaquillaController extends Controller
                 return redirect('/taquilla');
             }
             else{
-                if($boleto->estado=='Chequiado'){
-                    flash::error('El boleto ingresa ya ha sido chequiado');
+                if($boleto->estado=='Chequeado'){
+                    flash::error('El boleto ingresa ya ha sido chequeado');
                     return redirect('/taquilla');
                 }
                 else{
@@ -256,7 +324,7 @@ class TaquillaController extends Controller
         $pasajeroAux=Pasajero::BuscarCI($cedula);
         if(sizeOf($pasajeroAux)){
             $pasajero=$pasajeroAux[0];
-            $consulta=$boleto->BuscarP($boleto->vuelo_id,$pasajero->id);
+            $consulta=$boleto->BuscarP($boleto->vuelo_id,$pasajero->id)->first();
             
             if((sizeOf($consulta))==0){
                     if($auxB==0)//si es un vuelo de una sola pierna
@@ -309,7 +377,7 @@ class TaquillaController extends Controller
                 else{
                     $auxcosto=$boleto->costo;
                 }
-                switch ($consulta[0]->estado) {
+                switch ($consulta->estado) {
                     case 'Reservado':
 
                         flash::info('Este pasajero posee un boleto reservado para este vuelo');
@@ -323,7 +391,7 @@ class TaquillaController extends Controller
                 ->with('pasajero',$pasajero)
                 ->with('boleto_id2',$auxB)
                 ->with('boleto_id',$boleto->id)
-                ->with('estado',$consulta[0]->estado)
+                ->with('estado',$consulta->estado)
                 ->with('costo',$auxcosto);
             }
         }
@@ -350,7 +418,7 @@ class TaquillaController extends Controller
 /*Estados de los boletos
 --Reservado=cuando esta reservado no pagado
 --Pagado=cuando esta pagado
---Chequiado=cuando fue chequiado en la taquilla el dia del vuelo--
+--Chequeado=cuando fue chequiado en la taquilla el dia del vuelo--
 --Cancelado=cuando el boleto fue pagado y luego cancelado o el vuelo postergado
 --Temporal= es cuando se genera un boleto que se esta vendiendo o reservando aunque no esta completada la venta
 */

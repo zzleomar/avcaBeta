@@ -20,6 +20,7 @@ class Pasajero extends Model
 		return $this->hasMany('App\Boleto');
 	}
 	public function scopeBuscarCI($query, $dato){
-	    return DB::table('pasajeros')->where('cedula',$dato)->get();
+		return $query->where('cedula',$dato);
+	   // return DB::table('pasajeros')->where('cedula',$dato)->get();
 	}
 }

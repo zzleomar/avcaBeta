@@ -19,6 +19,7 @@ class CreateSucursalesTable extends Migration
             $table->string('direccion',255)->nullable();
             $table->float('tasa_salida');
             $table->float('tasa_mantenimiento');
+            $table->float('tasa_sobrepeso');
 
             $table->timestamps();
         });

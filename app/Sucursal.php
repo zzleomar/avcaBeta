@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Sucursal extends Model
 {
     protected $table = 'sucursales';
-    protected $fillable = ['nombre','direccion','tasa_salida','tasa_mantenimiento'];
+    protected $fillable = ['nombre','direccion','tasa_salida','tasa_mantenimiento','tasa_sobrepeso'];
 
     public function administrativos(){
     	return $this->hasMany('App\Administrativo');

@@ -32,18 +32,22 @@ class Boleto extends Model
         $this->save();
     }
     public function scopeBuscarP($query, $vuelo, $pasajero){ //busca un boleto de cierto vuelo que le pertenesca a x pasajero y retorna su estado
-        return DB::table('boletos')->select('estado')->where('vuelo_id',$vuelo)->where('pasajero_id',$pasajero)->get();
+        return DB::table('boletos')->select('estado')->where('vuelo_id',$vuelo)->where('pasajero_id',$pasajero);
     }
 //busca el boleto con cierto estado de algun vuelo que le pertenesca al pasajero y lo retorna
     public function scopeBuscar($query, $vuelo, $pasajero, $estado){
         return DB::table('boletos')
             ->where('vuelo_id',$vuelo)
             ->where('estado',$estado)
-            ->where('pasajero_id',$pasajero)->get();
+            ->where('pasajero_id',$pasajero);
     }
 
     public function scopePendiente($query, $pasajero){
         return DB::table('boletos')->where('estado','Cancelado')->where('pasajero_id',$pasajero)->get();   
+    }
+    
+    public function scopeChequear($query, $pasajero){
+        
     }
 
     public function EliminarRegistroTemporal($sucursal){

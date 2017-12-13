@@ -15,7 +15,7 @@ class CreateBoletosTable extends Migration
     {
         Schema::create('boletos', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('estado',['Reservado','Pagado','Chequiado','Cancelado','Temporal']);
+            $table->enum('estado',['Reservado','Pagado','Chequeado','Cancelado','Temporal']);
             $table->integer('asiento')->unsigned()->nullable();
             $table->float('costo')->nullable();
             $table->integer('pasajero_id')->unsigned()->nullable();

@@ -24,9 +24,9 @@ class confirmarRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigo' => 'required|integer',
-            'peso' => 'numeric',
-            'costo' => 'numeric'
+            'cantidad-equipaje' => 'required|integer',
+            'peso-equipaje' => 'required|numeric',
+            'costo' => 'required|numeric'
         ];
     }
 }
