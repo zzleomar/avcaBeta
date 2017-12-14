@@ -232,3 +232,12 @@ hr{
         margin: 5px;
     }
 }
+
+.sl-preview{
+position: absolute;
+left:45%;
+top:45%;
+width: 10%;
+height: 10%; 
+ z-index: 1;
+}
