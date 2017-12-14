@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-4 offset-4">
+        <div class="col-md-6" style="margin: auto">
             <div class="card card-default py-3">
                 <div class="card-heading d-flex justify-content-center ">
                     <img src="{{ asset('img/icon-user-default.png') }}" alt="Usuario" class="rounded-circle">

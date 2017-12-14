@@ -2,8 +2,7 @@
 
 @section('content')
 @include('notifications::flash')
-
-    <div class="card-body">
+    <div class="card-body" id="targetL">
     <h4 class="card-title centrarAux">Venta Registro y Reservación de boletos</h4>
 
     <div class="card text-center border-info mb-3 centrarAux" style="width: auto;">
@@ -51,6 +50,8 @@
  <script>
   function capturarV(id)
   {
+    var targetL = $('#targetL');
+    targetL.loadingOverlay();
     var datos;
     var id2="yv"+id;
     datos=document.getElementById(id2).innerHTML; 
@@ -58,11 +59,14 @@
     var url="{{ URL::to('/taquilla/vuelo') }}/"+"{{ $sucursal->id }}"+"/"+id;
     $.get(url,function(data){ 
         $('#info-vuelo').empty().html(data);
+        targetL.loadingOverlay('remove');
       });
   } 
 
   function capturarV2(id)
   {
+    var targetL = $('#targetL');
+    targetL.loadingOverlay();
     var datos;
     var id2="yv2"+id;
     datos=document.getElementById(id2).innerHTML; 
@@ -72,10 +76,13 @@
    //alert(url);
     $.get(url,function(data){ 
         $('#info-vuelo2').empty().html(data);
+        targetL.loadingOverlay('remove');
       });
   }
 
   function capturarFechas(id){
+    var targetL = $('#targetL');
+    targetL.loadingOverlay();
     var fc = "fc" + id;
     datos=document.getElementById(fc).innerHTML; 
       document.getElementById("fc").value = datos;
@@ -86,12 +93,15 @@
     var url="{{ URL::to('/taquilla/vuelo/disponibilidad') }}/"+id+"/"+n;  
       $.get(url,function(data){ 
         $('#info-vuelo-dispo').empty().html(data);
+        targetL.loadingOverlay('remove');
       }); 
       var altura = $(document).height();
  
       $("html, body").animate({scrollTop:altura+"px"});
   }
   function capturarFechas2(id){
+    var targetL = $('#targetL');
+    targetL.loadingOverlay();
     var fc = "fc2" + id;
     datos=document.getElementById(fc).innerHTML; 
       var n=document.getElementById("vueloid").value;
@@ -101,6 +111,7 @@
     var url="{{ URL::to('/taquilla/vuelo/disponibilidad') }}/"+id+"/"+n; 
       $.get(url,function(data){ 
         $('#info-vuelo-dispo2').empty().html(data);
+        targetL.loadingOverlay('remove');
       }); 
       var altura = $(document).height();
  

@@ -2,7 +2,7 @@
 
 @section('content')
 @include('notifications::flash')
-
+<div id="targetL">
     <table class="table">
       <thead class="thead-light">
         <tr align="center">
@@ -97,27 +97,33 @@
 
                     </form>
 
-
+</div>
 @endsection
 @section('scripts')
 <script type="text/javascript">
   function origenAjax()
   {
+    var targetL = $('#targetL');
+    targetL.loadingOverlay();
     var id=document.getElementById('item-origen').value; 
     var url="{{ URL::to('/gerente-sucursales/destinos') }}/"+id;
     //alert(url);
     $.get(url,function(data){ 
         $('#ajax-destino').empty().html(data);
+        targetL.loadingOverlay('remove');
       });
   }
   function vuelosAjax()
   {
+    var targetL = $('#targetL');
+    targetL.loadingOverlay();
     var origen=document.getElementById('item-origen').value; 
     var destino=document.getElementById('item-destino').value; 
     var url="{{ URL::to('/gerente-sucursales/vuelos') }}/"+origen+"/"+destino;
    // alert(url);
     $.get(url,function(data){ 
         $('#ajax-vuelos').empty().html(data);
+        targetL.loadingOverlay('remove');
       });
   }
   function detallesVuelo(id){

@@ -77,3 +77,15 @@ function soloNumDec(e){
     tecla_final = String.fromCharCode(tecla);
     return patron.test(tecla_final);
 }
+
+jQuery(function ($) {
+    var target = $('#target');
+
+    $('.toggle-loading').click(function () {
+      if (target.hasClass('loading')) {
+        target.loadingOverlay('remove');
+      } else {
+        target.loadingOverlay();
+      };
+    });
+  });

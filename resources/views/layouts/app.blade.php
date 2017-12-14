@@ -18,12 +18,12 @@
     <script src="{{ asset('js/jquery-3.2.1.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
-    <script src="{{ asset('js/vue-spinner/dist/build.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('plugin/Loading/dist/loading-overlay.min.js') }}"></script>
+  <link type="text/css" href="{{ asset('plugin/Loading/demo/demo.css') }}" rel="stylesheet"></link>
 
 </head>
 <body>
-    <!--  @include('partials.cargando') -->
     <header class="header sticky-top fondo-header"> 
         <nav class="navbar navbar-expand-lg navbar-dark navperso perso">
             <div class="container2">                
@@ -72,7 +72,8 @@
         </nav>
     </header>
 
-    <main class="py-4" id="contenedorPersonal">
+    <main class="py-4">
+        <div class="container">
             @if(count($errors) > 0)
                 <div class="alert alert-danger" role="alert">
                     <ul>
@@ -86,6 +87,7 @@
                 @include('partials.private-navbar')
             @endauth
             @yield('content')
+        </div>
     </main>
 
     <footer class="footer py-2">
