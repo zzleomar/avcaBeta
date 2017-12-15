@@ -1,21 +1,22 @@
 
-
+<input type="hidden" id="origen_id" name="origen_id" value="{{ $ruta['origen_id'] }}">
+<input type="hidden" id="destino_id" name="destino_id" value="{{ $ruta['destino_id'] }}">
   <div id="exampleAccordion" data-children=".item">
    <div class="opcionesAccordion">
-    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosAbiertos" aria-expanded="true" aria-controls="VuelosAbiertos">
+    <a class="btn btn2 btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosAbiertos" aria-expanded="true" aria-controls="VuelosAbiertos">
       Vuelos Abiertos
     </a>
 
-    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosRetrasados" aria-expanded="false" aria-controls="VuelosRetrasados">
+    <a class="btn btn2 btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosRetrasados" aria-expanded="false" aria-controls="VuelosRetrasados">
       Vuelos Retrasados
     </a>
     
 
-    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosCancelados" aria-expanded="false" aria-controls="VuelosCancelados">
+    <a class="btn btn2 btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosCancelados" aria-expanded="false" aria-controls="VuelosCancelados">
       Vuelos Cancelados
     </a>
 
-    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosEjecutados" aria-expanded="false" aria-controls="VuelosEjecutados">
+    <a class="btn btn2 btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosEjecutados" aria-expanded="false" aria-controls="VuelosEjecutados">
       Vuelos Ejecutados
     </a>
  </div>
@@ -48,12 +49,12 @@
                 <tbody>
                  
                   <th scope="row">{{ $vuelo->id }}</th>
-                    <td>{{ $ruta }}</td>
+                    <td>{{ $ruta['ruta'] }}</td>
                     <td>{{ $vuelo->salida }}</td>
                     <td>{{ $vuelo->salida }}</td>
                     <td>{{ $vuelo->estado }}</td>
                    <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
+                    <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
                 </td>
                
                 </tbody>
@@ -94,13 +95,13 @@
                 <tbody>
                  
                   <th scope="row">{{ $vuelo->id }}</th>
-                    <td>{{ $ruta }}</td>
+                    <td>{{ $ruta['ruta'] }}</td>
                     <td>{{ $vuelo->salida }}</td>
                     <td>{{ $vuelo->salida }}</td>
                     <td>{{ $vuelo->estado }}</td>
                    <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCancelarVuelo" onclick="cancelar('{{ $vuelo->id  }}')">Cancelar</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
+                    <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#ModalCancelarVuelo" onclick="cancelar('{{ $vuelo->id  }}')">Cancelar</button>
+                    <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
                 </td>
                
                 </tbody>
@@ -138,12 +139,12 @@
                 <tbody>
                  
                   <th scope="row">{{ $vuelo->id }}</th>
-                    <td>{{ $ruta }}</td>
+                    <td>{{ $ruta['ruta'] }}</td>
                     <td>{{ $vuelo->salida }}</td>
                     <td>{{ $vuelo->salida }}</td>
                     <td>{{ $vuelo->estado }}</td>
                    <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
+                    <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
                 </td>
                
                 </tbody>
@@ -180,13 +181,12 @@
                 <tbody>
                  
                   <th scope="row">{{ $vuelo->id }}</th>
-                    <td>{{ $ruta }}</td>
+                    <td>{{ $ruta['ruta'] }}</td>
                     <td>{{ $vuelo->salida }}</td>
                     <td>{{ $vuelo->salida }}</td>
                     <td>{{ $vuelo->estado }}</td>
                    <td>
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ReprogramarVuelo">Reprogramar</button>
+                      <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
                   </td>
                
                 </tbody>
@@ -201,5 +201,5 @@
 
 </div>
  <h1 align="center">
-      <button type="button" class="btn btn-primary">Nuevo Vuelo</button>
+      <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#ProgramarVuelo">Nuevo Vuelo</button>
   </h1>

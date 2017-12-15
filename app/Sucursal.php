@@ -20,7 +20,9 @@ class Sucursal extends Model
     public function origenes(){//retorna las rutas de las sucursales que llegan a la sucursal
     	return $this->hasMany('App\Ruta','destino_id','id');
     }
-    
+    public function scopeBuscar($query, $nombre){
+        return $query->where('nombre','LIKE',"%$nombre%");
+    }
 }
 
 

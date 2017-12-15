@@ -43,18 +43,19 @@ font-weight: 700;">Datos del vuelo</h4>
   </div>
 </div>
 
-<!--MODAL REPROGRAMAR---->
-<div class="modal fade bd-example-modal-lg" id="ReprogramarVuelo" data-keyboard="false" data-backdrop="static">
+
+<!--MODAL PROGRAMAR---->
+<div class="modal fade bd-example-modal-lg" id="ProgramarVuelo" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="card-title" style="font-size: 25px;
-font-weight: 700;">Reprogramar vuelo</h4>
+font-weight: 700;">Programar vuelo</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="cargandoAux">
          <div class="row">
             <div class="col mt-6">
               <div class="input-group">

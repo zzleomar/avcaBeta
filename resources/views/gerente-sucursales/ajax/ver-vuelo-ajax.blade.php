@@ -52,7 +52,7 @@
         <td>{{ $persona->apellidos." ".$persona->nombres }}</td>
         <td>80 Hras</td>
         <td>{{ $tripulante->licencia }}</td>
-        <td><button class="btn btn-primary">Sustituir</button></td>
+        <td><button class="btn btn2 btn-primary">Sustituir</button></td>
     </tbody>
     @endforeach
   </table>

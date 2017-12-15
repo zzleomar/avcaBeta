@@ -40,51 +40,6 @@
 
     <div id="ajax-vuelos"></div>
 
- 
-
-  <div class="row">
-      <div class="col mt-3">
-        <div class="text-center">
-            <input type="date" placeholder="introduzca fecha" /><br>
-        </div>  
-      </div>
-      
-      <div class="col mt-3">
-        <div class="text-center">
-          <select class="custom-select">
-            <option value="1">Introduzca hora</option>
-              <option value="2">7:00 AM</option>
-              <option value="3">2:00 PM</option>
-          </select>
-        </div>
-      </div>
-    
-      <div class="col mt-3">
-        <div class="text-center">
-          <select class="custom-select">
-            <option selected>Seleccione Aeronave</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-      </div>
-    
-      <div class="col mt-3">
-        <div class="text-center">
-              <tbody>
-                <td>
-                    <h1 align="center">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Seleccionar Tripulacion</button>         
-                </h1>
-              </td>
-              </tbody>  
-        </div>
-      </div>        
-  </div>
-
-
-
 
 
 <!----- MODALS ----------------------------------------->
@@ -134,13 +89,18 @@
         }); 
   }
   function programar(){
+    var targetL = $('#cargandoAux');
+    targetL.loadingOverlay();
+    var origen=document.getElementById('origen_id').value; 
+    var destino=document.getElementById('destino_id').value; 
     var hora=document.getElementById('horaSalida').value; 
     var fecha=document.getElementById('fechaSalida').value; 
     var salida=fecha+" "+hora+":00";
-      var url="{{ URL::to('/gerente-sucursales/consultar/disponibilidad') }}/"+salida; 
+      var url="{{ URL::to('/gerente-sucursales/consultar/disponibilidad') }}/"+salida+"/"+origen+"/"+destino; 
       alert(url);
        $.get(url,function(data){ 
           $('#ajax-reprogramar-vuelo').empty().html(data);
+          targetL.loadingOverlay('remove');
         }); 
   }
   

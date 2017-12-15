@@ -13,9 +13,12 @@
 body{
     font-family: century gothic;
 }
-
+.btn2{
+    font-size: 14px;
+}
 .centradoM{
     margin: auto;
+    display: inline-flex;
 }
 #ajax-destino{
     margin-left: 15px;
@@ -180,11 +183,19 @@ button {
 .modal-header{
     padding-bottom: 5px;
 }
-
+.loading-spinner{
+    overflow: hidden;
+}
 hr{
     margin: 0px;
 }
+.divtablaAux{
+    overflow:scroll;
+    height:450px;
+}
+.tablaAux{
 
+}
 @media (min-width: 1600px){
     .container {
         max-width: 80%;

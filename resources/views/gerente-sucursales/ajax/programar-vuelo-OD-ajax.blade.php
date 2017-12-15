@@ -27,49 +27,30 @@
     <div id="AccordionProg1" class="collapse show" role="tabpanel">
      <div class="card card-body">
     
-     <div class="table-responsive"> 
-  <table class="table table-hover text-center">
+     <div class="table-responsive divtablaAux"> 
+  <table class="table table-hover text-center tablaAux">
     <thead class="thead-light">
       <tr>
         <th>Pilotos</th>
         <th>Horas_Parciales</th>
         <th>Horas_Percibidas</th>
-        <th>Estatus</th>
         <th>Asignar</th>
       </tr>
     </thead>
+     @foreach($pilotos as $piloto)
+
     <tbody>
-     
-      <th scope="row">Pepitooo</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
+      <th scope="row">{{ $piloto->nombres." ".$piloto->apellidos }}</th>
+        <td>82:10:00</td>
+        <td>02:10:00</td>
        <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                  El propio
-            </label>
-         </div>      
+          <label class="custom-control custom-radio">
+              <input id="radio1" type="radio" class="custom-control-input" name="piloto" value="{{ $piloto->id }}">
+              <span class="custom-control-indicator"></span>
+            </label>    
        </td>
-   
     </tbody>
-    <tbody>
-     
-      <th scope="row">Juancito</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-       <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                  El propio
-            </label>
-         </div>      
-       </td>
-   
-    </tbody>
+    @endforeach
   </table>
   </div>
     </div>
@@ -81,49 +62,30 @@
     <div id="AccordionProg2" class="collapse" role="tabpanel">
       <div class="card card-body">
     
-        <div class="table-responsive"> 
-           <table class="table table-hover text-center">
+        <div class="table-responsive divtablaAux"> 
+           <table class="table table-hover text-center tablaAux">
                <thead class="thead-light">
                     <tr>
                      <th>Copilotos</th>
                      <th>Horas_Parciales</th>
                      <th>Horas_Percibidas</th>
-                     <th>Estatus</th>
                      <th>Asignar</th>
                    </tr>
                </thead>
-               <tbody>
-     
-      <th scope="row">Pepitooo</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-        <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                 mariguanero
-            </label>
-         </div>      
-       </td>
-              
-                       </tbody>
-                       <tbody>
-     
-      <th scope="row">Juancito</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
+     @foreach($copilotos as $copiloto)
+      <tbody>
+      <th scope="row">{{ $copiloto->nombres." ".$copiloto->apellidos }}</th>
+        <td>12:10:00</td>
+        <td>01:50:00</td>
        <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                  El propio
-            </label>
-         </div>      
+            <label class="custom-control custom-radio">
+                <input id="radio1" type="radio" class="custom-control-input" name="copiloto" value="{{ $copiloto->id }}">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">1</span>
+              </label>      
        </td>
-              
-                       </tbody>
+       </tbody> 
+       @endforeach
            </table>
         </div>
       </div>
@@ -134,49 +96,30 @@
    <div id="AccordionProg3" class="collapse" role="tabpanel">
   <div class="card card-body">
     
-    <div class="table-responsive"> 
-  <table class="table table-hover text-center">
+    <div class="table-responsive divtablaAux"> 
+  <table class="table table-hover text-center tablaAux">
     <thead class="thead-light">
       <tr>
-        <th>Jefe_de_Cabina</th>
+        <th>Jefa de Cabina</th>
         <th>Horas_Parciales</th>
         <th>Horas_Percibidas</th>
-        <th>Estatus</th>
         <th>Asignar</th>
       </tr>
     </thead>
-    <tbody>
-     
-      <th scope="row">Pepitooo</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-        <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                 mariguanero
-            </label>
-         </div>      
-       </td>
-   
-    </tbody>
-    <tbody>
-     
-      <th scope="row">Juancito</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
+      @foreach($jefacs as $jefac)
+      <tbody>
+      <th scope="row">{{ $jefac->nombres." ".$jefac->apellidos }}</th>
+        <td>12:10:00</td>
+        <td>01:50:00</td>
        <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                  El propio
-            </label>
+      <label class="custom-control custom-radio">
+          <input id="radio1" type="radio" class="custom-control-input" name="jefac" value="{{ $jefac->id }}">
+          <span class="custom-control-indicator"></span>
+        </label>
          </div>      
        </td>
-   
-    </tbody>
+       </tbody> 
+       @endforeach
   </table>
   </div>
   </div>
@@ -190,8 +133,8 @@
      
      <div class="card card-body">
     
-      <div class="table-responsive"> 
-  <table class="table table-hover text-center">
+      <div class="table-responsive divtablaAux"> 
+  <table class="table table-hover text-center tablaAux">
     <thead class="thead-light">
       <tr>
         <th>Aeromosas</th>
@@ -266,11 +209,11 @@
 
 </div>
 
-
+</div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Guardar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn2 btn-primary">Guardar</button>
+        <button type="button" class="btn btn2 btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
 
     </div>

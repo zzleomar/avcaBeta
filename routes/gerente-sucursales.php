@@ -10,7 +10,8 @@ Route::group(['prefix' => 'gerente-sucursales','middleware' => ['auth', 'CheckRo
 	Route::get('/destinos/{id}','GerenciaSucursalesController@destinos');
 	Route::get('/vuelos/{origen}/{destino}','GerenciaSucursalesController@vuelos');
 	Route::get('/vuelo/{id}','GerenciaSucursalesController@vuelo');
-	Route::get('/consultar/disponibilidad/{salida}','GerenciaSucursalesController@consultarDisponibilidad');
+	
+	Route::get('/consultar/disponibilidad/{salida}/{origen}/{destino}','GerenciaSucursalesController@consultarDisponibilidad');
 
 
 	Route::post('/cancelar','GerenciaSucursalesController@CancelarVuelo');

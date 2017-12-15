@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Ruta extends Model
 {
@@ -23,6 +24,7 @@ class Ruta extends Model
     }
 
     public function scopeBuscador($query, $origen,$destino){
-        return $query->where([['destino_id','=',$destino],['origen_id','=',$origen]]);
+        return $query->where('destino_id',$destino)
+                    ->where('origen_id',$origen);
     }
 }

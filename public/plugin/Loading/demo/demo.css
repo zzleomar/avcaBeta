@@ -183,9 +183,7 @@ html {
   z-index: 3;
  }
 
- body{
-  overflow: hidden;
- }
+ 
 
 .toggle-loading {
   float: left;
