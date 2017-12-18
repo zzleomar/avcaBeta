@@ -19,7 +19,7 @@
             Seleccione el Origen
         </div>
         <select class="custom-select margenInferior" id="item-origen" onchange="origenAjax()">
-            <option selected>Sucursal-Origen</option>
+            <option selected value="0">Sucursal-Origen</option>
               @foreach($origenes as $origen)
 
                 <option value="{{ $origen->id }}" >{{ $origen->nombre }}</option>
@@ -34,9 +34,6 @@
       </div>
     </div>
 </div>
-    <form name="CancelarVuelo" id="CancelarVuelo" method="POST">
-                        {{ csrf_field() }}
-    <input type="hidden" name="vuelo_id" id="vuelo_id" value="">
 
     <div id="ajax-vuelos"></div>
 
@@ -50,7 +47,6 @@
 <!------------------------------------- MODALS --------->
 <!-------------- MODALS -------------------------------->
 
-                    </form>
 
 </div>
 @endsection
@@ -95,13 +91,20 @@
     var destino=document.getElementById('destino_id').value; 
     var hora=document.getElementById('horaSalida').value; 
     var fecha=document.getElementById('fechaSalida').value; 
-    var salida=fecha+" "+hora+":00";
+    if((hora=="")||(fecha=="")){
+      alert("Introdusca los datos completos de la salida");
+      targetL.loadingOverlay('remove');
+    }
+    else{
+      var salida=fecha+" "+hora+":00";
+      num=0;
       var url="{{ URL::to('/gerente-sucursales/consultar/disponibilidad') }}/"+salida+"/"+origen+"/"+destino; 
-      alert(url);
+      //alert(url);
        $.get(url,function(data){ 
           $('#ajax-reprogramar-vuelo').empty().html(data);
           targetL.loadingOverlay('remove');
-        }); 
+        });
+    } 
   }
   
 

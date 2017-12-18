@@ -50,8 +50,8 @@
                  
                   <th scope="row">{{ $vuelo->id }}</th>
                     <td>{{ $ruta['ruta'] }}</td>
-                    <td>{{ $vuelo->salida }}</td>
-                    <td>{{ $vuelo->salida }}</td>
+                    <td>{{ DATE('d/m/Y',strtotime($vuelo->salida)) }}</td>
+                    <td>{{ DATE('H:i:s',strtotime($vuelo->salida)) }}</td>
                     <td>{{ $vuelo->estado }}</td>
                    <td>
                     <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
@@ -96,8 +96,8 @@
                  
                   <th scope="row">{{ $vuelo->id }}</th>
                     <td>{{ $ruta['ruta'] }}</td>
-                    <td>{{ $vuelo->salida }}</td>
-                    <td>{{ $vuelo->salida }}</td>
+                    <td>{{ DATE('d/m/Y',strtotime($vuelo->salida)) }}</td>
+                    <td>{{ DATE('H:i:s',strtotime($vuelo->salida)) }}</td>
                     <td>{{ $vuelo->estado }}</td>
                    <td>
                     <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#ModalCancelarVuelo" onclick="cancelar('{{ $vuelo->id  }}')">Cancelar</button>
@@ -140,8 +140,8 @@
                  
                   <th scope="row">{{ $vuelo->id }}</th>
                     <td>{{ $ruta['ruta'] }}</td>
-                    <td>{{ $vuelo->salida }}</td>
-                    <td>{{ $vuelo->salida }}</td>
+                    <td>{{ DATE('d/m/Y',strtotime($vuelo->salida)) }}</td>
+                    <td>{{ DATE('H:i:s',strtotime($vuelo->salida)) }}</td>
                     <td>{{ $vuelo->estado }}</td>
                    <td>
                     <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
@@ -182,8 +182,8 @@
                  
                   <th scope="row">{{ $vuelo->id }}</th>
                     <td>{{ $ruta['ruta'] }}</td>
-                    <td>{{ $vuelo->salida }}</td>
-                    <td>{{ $vuelo->salida }}</td>
+                    <td>{{ DATE('d/m/Y',strtotime($vuelo->salida)) }}</td>
+                    <td>{{ DATE('H:i:s',strtotime($vuelo->salida)) }}</td>
                     <td>{{ $vuelo->estado }}</td>
                    <td>
                       <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>

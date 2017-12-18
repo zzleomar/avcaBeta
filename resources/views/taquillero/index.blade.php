@@ -117,8 +117,9 @@
  
       $("html, body").animate({scrollTop:altura+"px"});
   }
-  function buscarPasajero(id){
+  function buscarPasajero(){
     //AJAX pasajero
+    var id=document.getElementById("cedula").value;
     var nacionalidad=document.getElementById("nacionalidad").value;
     var idboleto=document.getElementById("idboleto").value;
     var boletoAux;
@@ -129,7 +130,7 @@
       boletoAux=document.getElementById("boletoAux").value;
     }
     var url="{{ URL::to('/taquilla/vuelo/pasajero') }}/"+idboleto+"/"+nacionalidad+"/"+id+"/"+boletoAux;
-    //alert(url);
+    alert(url);
       $.get(url,function(data){ 
         $('#info-vuelo-pasajero').empty().html(data);
       });

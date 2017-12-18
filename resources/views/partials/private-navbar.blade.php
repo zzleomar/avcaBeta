@@ -28,13 +28,13 @@
               <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                   <li class="nav-item">
-                    <a class="nav-link active" href="#">Vuelos</a>
+                    <a class="nav-link" id="vuelos" href="{{ URL::to('/sucursal') }}">Vuelos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Recursos</a>
+                    <a class="nav-link" id="taquilla" href="{{ URL::to('/taquilla') }}">Taquilla</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Solicitud</a>
+                    <a class="nav-link" id="chequeo" href="{{ URL::to('/taquilla/confirmar-boleto') }}">Chequeo Boleto</a>
                   </li>
                 </ul>
               </div>

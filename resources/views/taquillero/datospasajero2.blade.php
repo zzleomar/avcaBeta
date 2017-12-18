@@ -21,6 +21,7 @@ font-weight: 700;">Datos del pasajero</h4>
               <select name="nacionalidad" id="nacionalidad" class="nationality">
                   <option value="V">V</option>
                   <option value="E">E</option>
+                  <option value="N">N</option>
               </select>
           </div>  
         <input type="text" class="form-control" placeholder="Identificación" name="cedula" onKeyUp="buscarPasajero2(this.value)">

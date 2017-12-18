@@ -18,7 +18,6 @@ class CreateRutas extends Migration
             $table->float('distancia',8,2);
             $table->time('duracion');
             $table->float('tarifa_vuelo');
-            $table->float('tarifa_sobrepeso');
             $table->integer('destino_id')->unsigned()->nullable();
             $table->integer('origen_id')->unsigned()->nullable();
             //Laves Foreing

@@ -15,6 +15,7 @@ Route::group(['prefix' => 'gerente-sucursales','middleware' => ['auth', 'CheckRo
 
 
 	Route::post('/cancelar','GerenciaSucursalesController@CancelarVuelo');
+	Route::post('/planificar','GerenciaSucursalesController@PlanificarVuelo');
 
 
 

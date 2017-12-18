@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckRoleOperador
+class CheckRoleSucursal
 {
     /**
      * Handle an incoming request.

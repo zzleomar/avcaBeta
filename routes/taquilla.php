@@ -1,5 +1,5 @@
 <?php 
-Route::group(['prefix' => 'taquilla','middleware' => ['auth', 'CheckRoleOperador']],function(){
+Route::group(['prefix' => 'taquilla','middleware' => ['auth', 'CheckRoleOperador', 'CheckRoleSucursal']],function(){
 	Route::get('/','TaquillaController@index');
 	Route::get('inicio','TaquillaController@index');
 

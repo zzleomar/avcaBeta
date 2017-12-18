@@ -17,6 +17,7 @@
                               <select name="nacionalidad" id="nacionalidad" class="nationality form-control-lg">
                                   <option value="V">V</option>
                                   <option value="E">E</option>
+                                  <option value="N">N</option>
                               </select>
                           </div>  
                         <input type="text" class="form-control" placeholder="Identificación" id="cedula" name="cedula" onKeyUp="buscarPasajero(this.value)">
@@ -40,7 +41,11 @@
 
         </div>
             </form></div>  
-    </div></div>
+    </div>
+<div class="float-right" style="margin-top: 10px; margin-right: 5px;">
+      <button type="button" class="btn btn-lg btn-outline-secondary ">Generar Lista de Chequeo</button>
+    </div>
+  </div>
 </div>
 
 @endsection
@@ -49,7 +54,7 @@
       function calcular(){
         var peso=$('input[name=peso-equipaje]').val();
           if(peso>25){
-            var sobrepeso=peso-25;
+            var sobrepeso=peso-23;
             var costo=sobrepeso*{{ $sucursal->tasa_sobrepeso }};
             var costoT=costo.toFixed(2);
             $('input[name=costo]').val(costoT); 

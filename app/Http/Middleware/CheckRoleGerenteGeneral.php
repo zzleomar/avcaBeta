@@ -20,9 +20,9 @@ class CheckRoleGerenteGeneral
                 return $next($request);
             }
             else{
-                return redirect('/home');
+                return redirect('/');
             }
         }
-        return redirect('/home');
+        return redirect('/');
     }
 }

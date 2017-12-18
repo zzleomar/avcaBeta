@@ -28,6 +28,11 @@ body{
     margin-top: 15px;
     margin-bottom: 10px;
 }
+.btn-collAc{
+    width: 18%;
+    font-size: 12px;
+    color: #000;
+}
 /* Footer */
 .footer {
     border-top: 1px solid #e5e5e5;  bottom: 0px;
@@ -195,6 +200,20 @@ hr{
 }
 .tablaAux{
 
+}
+.piernas{
+    margin: auto;
+    border: #3e3e3e;
+    border: solid;
+    border-color: beige;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    box-shadow: 2px 2px 14px;
+    width: 70%;
 }
 @media (min-width: 1600px){
     .container {

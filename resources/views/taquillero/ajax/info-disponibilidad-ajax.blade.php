@@ -32,7 +32,7 @@
 
           <p style="text-align: right;">
   <a class="btn btn-secondary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    Segunada pierna
+    Segunda pierna
   </a>
  </p>
  <div class="collapse" id="collapseExample">
@@ -67,7 +67,7 @@
                 </div>
 </div>
  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_confirmacion_pagina_guardada">
-  Registrar pasajero
+  Aceptar
 </button>
  @include('taquillero.datospasajero')
 <!--

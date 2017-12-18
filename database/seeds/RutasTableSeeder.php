@@ -30,7 +30,6 @@ class RutasTableSeeder extends Seeder
 		    	DB::table('rutas')->insert([
 				    'distancia' => $x,
                     'tarifa_vuelo' => $y,
-	        		'tarifa_sobrepeso' => '3500',
 	        		'duracion' => "00:40:00",
 	        		'destino_id' => $j,
 	    			'origen_id' => $i

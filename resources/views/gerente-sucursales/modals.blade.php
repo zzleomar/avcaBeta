@@ -1,4 +1,7 @@
 <!--MODAL CANCELAR VUELO---->
+<form name="CancelarVuelo" id="CancelarVuelo" method="POST">
+                    {{ csrf_field() }}
+<input type="hidden" name="vuelo_id" id="vuelo_id" value="">
 <div class="modal fade bd-example-modal-lg" id="ModalCancelarVuelo" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -19,7 +22,7 @@ font-weight: 700;"></h4>
     </div>
   </div>
 </div>
-
+</form>
 
 <!--MODAL VER---->
 <div class="modal fade bd-example-modal-lg" id="VerVuelo" data-keyboard="false" data-backdrop="static">
@@ -45,6 +48,9 @@ font-weight: 700;">Datos del vuelo</h4>
 
 
 <!--MODAL PROGRAMAR---->
+<form name="FormProgramarVuelo" id="FormProgramarVuelo" method="POST" onsubmit="return planificarVuelo('/gerente-sucursales/planificar')">
+                    {{ csrf_field() }}
+
 <div class="modal fade bd-example-modal-lg" id="ProgramarVuelo" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -63,13 +69,13 @@ font-weight: 700;">Programar vuelo</h4>
                     <label class="infoTitulo">Fecha del Vuelo: </label>
                     </div>
                     <div class="text-center marginLeft">
-                      <input type="date" placeholder="introduzca fecha mm/dd/yyyy" name="fechaSalida" id="fechaSalida" /><br>
+                      <input type="date" placeholder="introduzca fecha mm/dd/yyyy" name="fechaSalida" id="fechaSalida" value="" /><br>
                   </div> 
                   <div class="text-center marginLeft">
                     <label class="infoTitulo">Hora: </label>
                     </div>
                   <div class="text-center marginLeft">
-                      <input type="time" placeholder="introduzca hora 12:00 AM" name="horaSalida" id="horaSalida" value="12:00 AM" /><br>
+                      <input type="time" placeholder="introduzca hora 12:00 AM" name="horaSalida" id="horaSalida" value="" /><br>
                   </div> 
                   <button type="button" class="btn btn-primary" onclick="programar()">Programar</button>
               </div>
@@ -77,7 +83,6 @@ font-weight: 700;">Programar vuelo</h4>
         </div>
         
         <div id="ajax-reprogramar-vuelo" style="margin-top: 20px;"></div>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
@@ -85,9 +90,7 @@ font-weight: 700;">Programar vuelo</h4>
     </div>
   </div>
 </div>
-
-
-
+</form>
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
    <div class="modal-content">
