@@ -19,7 +19,7 @@ class SucursalController extends Controller
         $vuelo=new Vuelo();
         $datos1=$vuelo->Sucursal($sucursal->id,"abierto");
         $datos2=$vuelo->Sucursal($sucursal->id,"cerrado");
-        $datos3=$vuelo->Retrasados($sucursal->id,"2017-12-08 19:00:00");
+        $datos3=$vuelo->Retrasados($sucursal->id,date('Y-m-d H:i:s'));
         if(sizeof($datos3)!=0){
             foreach ($datos3 as $datos) {
                 $vuelo->Actualizar($datos->id,"retrasado");

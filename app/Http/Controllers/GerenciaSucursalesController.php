@@ -55,6 +55,7 @@ class GerenciaSucursalesController extends Controller
         $estado[0]="Reservados";
         $boletos['Reservados']= $vuelo->Disponibilidad($estado,$id);
         $vuelo->personal_operativo();
+        dd($vuelo->personal_operativo);
        // dd($vuelo->pierna->aeronave->matricula);
         return view('gerente-sucursales.ajax.ver-vuelo-ajax')
                 ->with('boletos',$boletos)
@@ -63,6 +64,8 @@ class GerenciaSucursalesController extends Controller
 
     public function CancelarVuelo(Request $request){
       $vuelo = new Vuelo();
+      $boleto =new boleto();
+      $boleto->Actualizar('Cancelado',$request->vuelo_id);
       $vuelo->Actualizar($request->vuelo_id,"cancelado");
       flash::success('El vuelo '.$request->vuelo_id.' ha sido cancelado');
       return redirect('/gerente-sucursales');
@@ -93,112 +96,31 @@ class GerenciaSucursalesController extends Controller
                 return view('taquillero.ajax.info-error');
         }
         else{
-          $personal= new Personal_operativo();
-          $aeronave= new Aeronave();
-          $horaA=$hora-4;
-          $horaD=$hora+4;
-          $antes=$year.'-'.$mes.'-'.$dia.' '.$horaA.':'.$minuto.':00';
-          $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';          
-          $pilotos=$personal->Disponibilidad("Piloto",$antes,$despues);
-          $copilotos=$personal->Disponibilidad("Copiloto",$antes,$despues);
-          $sobrecargos=$personal->Disponibilidad("Sobrecargo",$antes,$despues);
-          $jefacs=$personal->Disponibilidad("Jefe de Cabina",$antes,$despues);
-          $aeronaves=$aeronave->Disponibilidad($antes,$despues);
-          if(($origen!=$central->id)&&($destino!=$central->id)){
-            $pierna=3;
-            $ruta1=Ruta::Buscador($central->id,$origen)->first();
-            $ruta2=Ruta::Buscador($origen,$destino)->first();
-            $ruta3=Ruta::Buscador($destino,$central->id)->first();
-            if(!isset($ruta1)){
-              $auxS= Sucursal::find($origen);
-              flash::error('Registre la ruta '.$central->nombre.' --> '.$auxS->nombre.'  para poder planificar este vuelo');
-              return view('gerente-sucursales.ajax.info-error');
-            }
-            if(!isset($ruta2)){
-              $auxS= Sucursal::find($origen);
-              $auxS2= Sucursal::find($destino);
-              flash::error('Registre la ruta '.$auxS->nombre.' --> '.$auxS2->nombre.'  para poder planificar este vuelo');
-              return view('gerente-sucursales.ajax.info-error');
-            }
-            if(!isset($ruta3)){
-              $auxS= Sucursal::find($destino);
-              flash::error('Registre la ruta '.$auxS->nombre.' --> '.$central->nombre.'  para poder planificar este vuelo');
-              return view('gerente-sucursales.ajax.info-error');
-            }
-            $piernas = array('ruta1' => $ruta1,
-                             'ruta2' => $ruta2,
-                             'ruta3' => $ruta3);
-            $horaD=$hora-4;
-            $horaA=$hora-2;
-            $antes=$year.'-'.$mes.'-'.$dia.' '.$horaA.':'.$minuto.':00';
-            $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';
-            $primero = array('despues' => $despues,
-                             'antes'   => $antes);
-            $segundo=$salida;
-            $horaD=$hora+2;
-            $horaA=$hora+4;
-            $antes=$year.'-'.$mes.'-'.$dia.' '.$horaA.':'.$minuto.':00';
-            $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';
-            $tercero = array('despues' => $despues,
-                             'antes'   => $antes); 
-                return view('gerente-sucursales.ajax.programar-vuelo-OD-ajax')
-                    ->with('aeronaves',$aeronaves)
-                    ->with('pilotos',$pilotos)
-                    ->with('copilotos',$copilotos)
-                    ->with('jefacs',$jefacs)
-                    ->with('sobrecargos',$sobrecargos)
-                    ->with('piernas',$piernas)
-                    ->with('primero', $primero)
-                    ->with('segundo', $segundo)
-                    ->with('tercero', $tercero);           
-          }
-          else{
-            if($origen==$central->id){
-              $pierna=2;
-              $ruta1=Ruta::Buscador($origen,$destino)->first();
-              $ruta2=Ruta::Buscador($destino,$origen)->first();
-
-              if(!isset($ruta1)){
-                $auxS= Sucursal::find($origen);
-                $auxS2= Sucursal::find($destino);
-                flash::error('Registre la ruta '.$auxS->nombre.' --> '.$auxS2->nombre.'  para poder planificar este vuelo');
-                return view('gerente-sucursales.ajax.info-error');
-              }
-              if(!isset($ruta2)){
-                $auxS= Sucursal::find($destino);
-                $auxS2= Sucursal::find($origen);
-                flash::error('Registre la ruta '.$auxS->nombre.' --> '.$auxS2->nombre.'  para poder planificar este vuelo');
-                return view('gerente-sucursales.ajax.info-error');
-              }
-              $piernas = array('ruta1' => $ruta1,
-                               'ruta2' => $ruta2);
-              $primero=$salida;
-              $horaD=$hora+2;
-              $horaA=$hora+4;
-              $antes=$year.'-'.$mes.'-'.$dia.' '.$horaA.':'.$minuto.':00';
-              $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';
-              $segundo= array('despues' => $despues,
-                               'antes'  => $antes); 
-                return view('gerente-sucursales.ajax.programar-vuelo-CD-ajax')
-                    ->with('aeronaves',$aeronaves)
-                    ->with('pilotos',$pilotos)
-                    ->with('copilotos',$copilotos)
-                    ->with('jefacs',$jefacs)
-                    ->with('sobrecargos',$sobrecargos)
-                    ->with('piernas',$piernas)
-                    ->with('primero', $primero)
-                    ->with('segundo', $segundo);             
-
+            if($hora<6){
+                flash::error('No se pemiten vuelos en este horario para esta ruta seleccione un horario a partir de las 6am');
+                return view('taquillero.ajax.info-error');
             }
             else{
-              if($destino==$central->id){
-                $pierna=4; //para identificar que es de 2 piernas pero con el destino igual que la central
-                $ruta1=Ruta::Buscador($destino,$origen)->first();
+
+              $personal= new Personal_operativo();
+              $aeronave= new Aeronave();
+              $horaA=$hora-4;
+              $horaD=$hora+4;
+              $antes=$year.'-'.$mes.'-'.$dia.' '.$horaA.':'.$minuto.':00';
+              $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';          
+              $pilotos=$personal->Disponibilidad("Piloto",$antes,$despues);
+              $copilotos=$personal->Disponibilidad("Copiloto",$antes,$despues);
+              $sobrecargos=$personal->Disponibilidad("Sobrecargo",$antes,$despues);
+              $jefacs=$personal->Disponibilidad("Jefe de Cabina",$antes,$despues);
+              $aeronaves=$aeronave->Disponibilidad($antes,$despues);
+              if(($origen!=$central->id)&&($destino!=$central->id)){
+                $pierna=3;
+                $ruta1=Ruta::Buscador($central->id,$origen)->first();
                 $ruta2=Ruta::Buscador($origen,$destino)->first();
+                $ruta3=Ruta::Buscador($destino,$central->id)->first();
                 if(!isset($ruta1)){
-                  $auxS= Sucursal::find($destino);
-                  $auxS2= Sucursal::find($origen);
-                  flash::error('Registre la ruta '.$auxS->nombre.' --> '.$auxS2->nombre.'  para poder planificar este vuelo');
+                  $auxS= Sucursal::find($origen);
+                  flash::error('Registre la ruta '.$central->nombre.' --> '.$auxS->nombre.'  para poder planificar este vuelo');
                   return view('gerente-sucursales.ajax.info-error');
                 }
                 if(!isset($ruta2)){
@@ -207,35 +129,128 @@ class GerenciaSucursalesController extends Controller
                   flash::error('Registre la ruta '.$auxS->nombre.' --> '.$auxS2->nombre.'  para poder planificar este vuelo');
                   return view('gerente-sucursales.ajax.info-error');
                 }
+                if(!isset($ruta3)){
+                  $auxS= Sucursal::find($destino);
+                  flash::error('Registre la ruta '.$auxS->nombre.' --> '.$central->nombre.'  para poder planificar este vuelo');
+                  return view('gerente-sucursales.ajax.info-error');
+                }
                 $piernas = array('ruta1' => $ruta1,
-                                 'ruta2' => $ruta2);
+                                 'ruta2' => $ruta2,
+                                 'ruta3' => $ruta3);
                 $horaD=$hora-4;
                 $horaA=$hora-2;
                 $antes=$year.'-'.$mes.'-'.$dia.' '.$horaA.':'.$minuto.':00';
                 $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';
-                $primero= array('despues' => $despues,
-                                 'antes'  => $antes);
-                $segundo=$salida; 
-                return view('gerente-sucursales.ajax.programar-vuelo-OC-ajax')
-                    ->with('aeronaves',$aeronaves)
-                    ->with('pilotos',$pilotos)
-                    ->with('copilotos',$copilotos)
-                    ->with('jefacs',$jefacs)
-                    ->with('sobrecargos',$sobrecargos)
-                    ->with('piernas',$piernas)
-                    ->with('primero', $primero)
-                    ->with('segundo', $segundo);               
+                $primero = array('despues' => $despues,
+                                 'antes'   => $antes);
+                $segundo=$salida;
+                $horaD=$hora+2;
+                $horaA=$hora+4;
+                $antes=$year.'-'.$mes.'-'.$dia.' '.$horaA.':'.$minuto.':00';
+                $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';
+                $tercero = array('despues' => $despues,
+                                 'antes'   => $antes); 
+                    return view('gerente-sucursales.ajax.programar-vuelo-OD-ajax')
+                        ->with('aeronaves',$aeronaves)
+                        ->with('pilotos',$pilotos)
+                        ->with('copilotos',$copilotos)
+                        ->with('jefacs',$jefacs)
+                        ->with('sobrecargos',$sobrecargos)
+                        ->with('piernas',$piernas)
+                        ->with('primero', $primero)
+                        ->with('segundo', $segundo)
+                        ->with('tercero', $tercero);           
+              }
+              else{
+                if($origen==$central->id){
+                  $pierna=2;
+                  $ruta1=Ruta::Buscador($origen,$destino)->first();
+                  $ruta2=Ruta::Buscador($destino,$origen)->first();
+
+                  if(!isset($ruta1)){
+                    $auxS= Sucursal::find($origen);
+                    $auxS2= Sucursal::find($destino);
+                    flash::error('Registre la ruta '.$auxS->nombre.' --> '.$auxS2->nombre.'  para poder planificar este vuelo');
+                    return view('gerente-sucursales.ajax.info-error');
+                  }
+                  if(!isset($ruta2)){
+                    $auxS= Sucursal::find($destino);
+                    $auxS2= Sucursal::find($origen);
+                    flash::error('Registre la ruta '.$auxS->nombre.' --> '.$auxS2->nombre.'  para poder planificar este vuelo');
+                    return view('gerente-sucursales.ajax.info-error');
+                  }
+                  $piernas = array('ruta1' => $ruta1,
+                                   'ruta2' => $ruta2);
+                  $primero=$salida;
+                  $horaD=$hora+2;
+                  $horaA=$hora+4;
+                  $antes=$year.'-'.$mes.'-'.$dia.' '.$horaA.':'.$minuto.':00';
+                  $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';
+                  $segundo= array('despues' => $despues,
+                                   'antes'  => $antes); 
+                    return view('gerente-sucursales.ajax.programar-vuelo-CD-ajax')
+                        ->with('aeronaves',$aeronaves)
+                        ->with('pilotos',$pilotos)
+                        ->with('copilotos',$copilotos)
+                        ->with('jefacs',$jefacs)
+                        ->with('sobrecargos',$sobrecargos)
+                        ->with('piernas',$piernas)
+                        ->with('primero', $primero)
+                        ->with('segundo', $segundo);             
+
+                }
+                else{
+                  if($destino==$central->id){
+                    $pierna=4; //para identificar que es de 2 piernas pero con el destino igual que la central
+                    $ruta1=Ruta::Buscador($destino,$origen)->first();
+                    $ruta2=Ruta::Buscador($origen,$destino)->first();
+                    if(!isset($ruta1)){
+                      $auxS= Sucursal::find($destino);
+                      $auxS2= Sucursal::find($origen);
+                      flash::error('Registre la ruta '.$auxS->nombre.' --> '.$auxS2->nombre.'  para poder planificar este vuelo');
+                      return view('gerente-sucursales.ajax.info-error');
+                    }
+                    if(!isset($ruta2)){
+                      $auxS= Sucursal::find($origen);
+                      $auxS2= Sucursal::find($destino);
+                      flash::error('Registre la ruta '.$auxS->nombre.' --> '.$auxS2->nombre.'  para poder planificar este vuelo');
+                      return view('gerente-sucursales.ajax.info-error');
+                    }
+                    $piernas = array('ruta1' => $ruta1,
+                                     'ruta2' => $ruta2);
+                    $horaD=$hora-4;
+                    $horaA=$hora-2;
+                    $antes=$year.'-'.$mes.'-'.$dia.' '.$horaA.':'.$minuto.':00';
+                    $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';
+                    $primero= array('despues' => $despues,
+                                     'antes'  => $antes);
+                    $segundo=$salida; 
+                    return view('gerente-sucursales.ajax.programar-vuelo-OC-ajax')
+                        ->with('aeronaves',$aeronaves)
+                        ->with('pilotos',$pilotos)
+                        ->with('copilotos',$copilotos)
+                        ->with('jefacs',$jefacs)
+                        ->with('sobrecargos',$sobrecargos)
+                        ->with('piernas',$piernas)
+                        ->with('primero', $primero)
+                        ->with('segundo', $segundo);               
+                  }
+                }
               }
             }
           }
-        }
-      }
-
+}
     } 
   }
 
   public function PlanificarVuelo(Request $datos){
-    for($i=0 ; $i<sizeof($datos->hora) ; $i++) {
+    $piloto= Personal_operativo::find($datos->piloto);
+    $copiloto= Personal_operativo::find($datos->copiloto);
+    $jefac= Personal_operativo::find($datos->jefac);
+    $sobrecargo1= Personal_operativo::find($datos->sobrecargos[0]);
+    $sobrecargo2= Personal_operativo::find($datos->sobrecargos[1]);
+    $sobrecargo3= Personal_operativo::find($datos->sobrecargos[2]);
+    for($i=0 ; $i<(sizeof($datos->hora)) ; $i++) {
       $vuelo = new Vuelo();
       $vuelo->estado= "abierto";
       $vuelo->salida=$datos->fechaSalida." ".$datos->hora[$i];
@@ -247,13 +262,20 @@ class GerenciaSucursalesController extends Controller
       $pierna->ruta_id=$datos->ruta[$i];
       $pierna->save();
 
-      $vuelo->personal_operativo()->sync($datos->piloto);
-      $vuelo->personal_operativo()->sync($datos->copiloto);
-      $vuelo->personal_operativo()->sync($datos->jefac);
-      $vuelo->personal_operativo()->sync($datos->sobrecargos[0]);
-      $vuelo->personal_operativo()->sync($datos->sobrecargos[1]);
-      $vuelo->personal_operativo()->sync($datos->sobrecargos[2]);
+      $piloto->vuelos()->attach($vuelo->id);
+      $copiloto->vuelos()->attach($vuelo->id);
+      $jefac->vuelos()->attach($vuelo->id);
+      $sobrecargo1->vuelos()->attach($vuelo->id);
+      $sobrecargo2->vuelos()->attach($vuelo->id);
+      $sobrecargo3->vuelos()->attach($vuelo->id);
 
+      /*$vuelo->personal_operativo()->sync($piloto);
+      $vuelo->personal_operativo()->sync($copiloto);
+      $vuelo->personal_operativo()->sync($jefac);
+      $vuelo->personal_operativo()->sync($sobrecargo1);
+      $vuelo->personal_operativo()->sync($sobrecargo2);
+      $vuelo->personal_operativo()->sync($sobrecargo3);*/
+      
     }
         flash::success('El vuelo a sido planificado');
       return redirect('/gerente-sucursales');

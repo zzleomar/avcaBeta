@@ -45,7 +45,7 @@ class Vuelo extends Model
             join('rutas','piernas.ruta_id','=','rutas.id')->
             join('sucursales','rutas.destino_id','=','sucursales.id')->
             select('vuelos.id','vuelos.salida')->
-            where([['rutas.destino_id','=',$destino],['rutas.origen_id','=',$origen]])->get();       
+            where([['rutas.destino_id','=',$destino],['rutas.origen_id','=',$origen],['vuelos.estado','!=','cancelado']])->get();       
     }
 
     public function scopeBuscador($query,$ruta,$estado){

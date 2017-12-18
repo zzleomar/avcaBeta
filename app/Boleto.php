@@ -31,6 +31,12 @@ class Boleto extends Model
         $this->costo   =$costo;
         $this->save();
     }
+    public function scopeActualizar($query, $estado, $vuelo){
+        Boleto::where('vuelo_id', $vuelo)
+              ->where('estado','!=','Temporal')
+              ->update(['estado' => $estado]);
+    }
+
     public function scopeBuscarP($query, $vuelo, $pasajero){ //busca un boleto de cierto vuelo que le pertenesca a x pasajero y retorna su estado
         return DB::table('boletos')->select('estado')->where('vuelo_id',$vuelo)->where('pasajero_id',$pasajero);
     }

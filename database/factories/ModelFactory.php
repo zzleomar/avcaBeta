@@ -14,7 +14,7 @@ use App\Personal_operativo;
 $factory->define(Vuelo::class, function (Faker $faker) {
     
 return [
-        'salida' => $faker->dateTimeThisMonth('2017-12-30 12:00:00',date_default_timezone_get()),
+        'salida' => $faker->dateTimeBetween('-1 month','2018-02-30 12:00:00',date_default_timezone_get()),
         'estado' => "abierto"
     ];
 });
@@ -24,8 +24,8 @@ $factory->define(Pierna::class, function (Faker $faker) {
 });
 $factory->define(Aeronave::class, function (Faker $faker) {
     return [
-        'capacidad' => "108",
-        'modelo' => "Boeing 737",
+        'capacidad' => "64",
+        'modelo' => "ATR-72",
         'estado' => "Activo",
         'matricula' => str_random(5)
     ];

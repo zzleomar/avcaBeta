@@ -25,7 +25,7 @@
                       <div class="input-group costo-center">
                         <label for="cedula" class="col-sm-2 col-form-label">Destino:</label>
                         <div class="input-group col-sm-8">  
-                              <select name="vuelos" id="vuelos" class="nationality form-control-lg  col-sm-12">
+                              <select name="vuelos" id="vuelosAjax" class="nationality form-control-lg  col-sm-12">
                                 <option value="0">Seleccione el Destino</option>
                                 @foreach($vuelos as $vuelo)
                                   <option value="{{ $vuelo->id }}">{{ $vuelo->nombre }}</option>
@@ -65,7 +65,7 @@
         function chequear(){
             var ci=document.getElementById("cedula").value;
             var nacionalidad=document.getElementById("nacionalidad").value;
-            var vuelo=document.getElementById("vuelos").value;
+            var vuelo=document.getElementById("vuelosAjax").value;
             ci=nacionalidad+ci;
             var url="{{ URL::to('/taquilla/confirmar/boleto') }}/"+ci+"/"+vuelo;
             //alert(url);
