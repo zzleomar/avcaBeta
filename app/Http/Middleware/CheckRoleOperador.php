@@ -16,7 +16,7 @@ class CheckRoleOperador
     public function handle($request, Closure $next)
     {
         if($request->user()){
-            if(($request->user()->tipo=='Operador')||($request->user()->tipo=='Subgerente de Sucursal')){
+            if(($request->user()->tipo=='Operador de Trafico')||($request->user()->tipo=='Subgerente de Sucursal')){
                 return $next($request);
             }
             else{

@@ -17,6 +17,7 @@ class CreateAeronaves extends Migration
             $table->increments('id');
             $table->integer('capacidad');
             $table->string('modelo',255);
+            $table->enum('estado',['Activo','Inactivo']);
             $table->string('matricula',12);
             $table->timestamps();
         });

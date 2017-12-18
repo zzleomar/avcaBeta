@@ -17,7 +17,7 @@ class CheckRole
     {
         if($request->user()){
             switch ($request->user()->tipo) {
-                case 'Operador': //si es un operador
+                case 'Operador de Trafico': //si es un operador
                     return redirect('taquilla');
                     break;
                 
@@ -36,7 +36,7 @@ class CheckRole
                 default:
                     //redirecciona a un error usuario no identificado
                     //me falta desautenticación
-                    return redirect('/home');
+                    return redirect('/');
                     break;
             }
         }

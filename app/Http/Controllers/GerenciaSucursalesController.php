@@ -69,7 +69,7 @@ class GerenciaSucursalesController extends Controller
     }
 
     public function consultarDisponibilidad($salida,$origen, $destino){
-      $central= Sucursal::Buscar("Central")->first();
+      $central= Sucursal::find(1);
       $year=DATE("Y",strtotime($salida));
       $mes=DATE("m",strtotime($salida));
       $dia=DATE("d",strtotime($salida));
@@ -102,7 +102,7 @@ class GerenciaSucursalesController extends Controller
           $pilotos=$personal->Disponibilidad("Piloto",$antes,$despues);
           $copilotos=$personal->Disponibilidad("Copiloto",$antes,$despues);
           $sobrecargos=$personal->Disponibilidad("Sobrecargo",$antes,$despues);
-          $jefacs=$personal->Disponibilidad("Jefa de Cabina",$antes,$despues);
+          $jefacs=$personal->Disponibilidad("Jefe de Cabina",$antes,$despues);
           $aeronaves=$aeronave->Disponibilidad($antes,$despues);
           if(($origen!=$central->id)&&($destino!=$central->id)){
             $pierna=3;

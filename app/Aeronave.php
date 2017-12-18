@@ -11,7 +11,7 @@ class Aeronave extends Model
     protected $table ="aeronaves";
 
     protected $fillable = [
-    	'capacidad','modelo','matricula'
+    	'capacidad','modelo','matricula','estado'
     ];
     
 

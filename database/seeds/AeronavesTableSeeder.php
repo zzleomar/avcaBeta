@@ -11,6 +11,6 @@ class AeronavesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Aeronave::class, 8)->create();
+        factory(App\Aeronave::class, 5)->create();
     }
 }

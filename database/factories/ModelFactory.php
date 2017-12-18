@@ -24,8 +24,9 @@ $factory->define(Pierna::class, function (Faker $faker) {
 });
 $factory->define(Aeronave::class, function (Faker $faker) {
     return [
-        'capacidad' => "120",
-        'modelo' => str_random(5),
+        'capacidad' => "108",
+        'modelo' => "Boeing 737",
+        'estado' => "Activo",
         'matricula' => str_random(5)
     ];
 });
@@ -52,7 +53,6 @@ $factory->define(User::class, function (Faker $faker) {
 
 $factory->define(Sucursal::class, function (Faker $faker) {
 	return [
-        'nombre' => $faker->name,
         'tasa_salida' => '5000',
         'tasa_mantenimiento' => '2000',
         'tasa_sobrepeso' => '1000',

@@ -16,6 +16,7 @@ class CreateRutas extends Migration
         Schema::create('rutas', function (Blueprint $table) {
             $table->increments('id');
             $table->float('distancia',8,2);
+            $table->string('siglas',10);
             $table->time('duracion');
             $table->float('tarifa_vuelo');
             $table->integer('destino_id')->unsigned()->nullable();

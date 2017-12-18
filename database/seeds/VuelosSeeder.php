@@ -14,8 +14,8 @@ class VuelosSeeder extends Seeder
     {
         factory(Vuelo::class, 100)->create()
             ->each(function ($a) {
-                $x=random_int(1, 8);
-                $y=random_int(1, 276);
+                $x=random_int(1, 5);
+                $y=random_int(1, 250);
                 DB::table('piernas')->insert([
                     'aeronave_id' => $x,
                     'vuelo_id'    => $a->id,

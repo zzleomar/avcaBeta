@@ -11,6 +11,95 @@ class SucursalesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Sucursal::class, 24)->create();
+    	
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Caracas – Maiquetía',
+		    'siglas' => 'CCS'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Puerto Ayacucho',
+		    'siglas' => 'PYH'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'San Tomé – Anzoátegui',
+		    'siglas' => 'SOM'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'San Fernando de Apure',
+		    'siglas' => 'SFD'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Maracay',
+		    'siglas' => 'MYC'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Barinas',
+		    'siglas' => 'BNS'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Ciudad Bolivar',
+		    'siglas' => 'CBL'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Valencia',
+		    'siglas' => 'VLN'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'San Carlos',
+		    'siglas' => 'XXX'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Tucupita',
+		    'siglas' => 'TUV'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Punto Fijo – Falcón',
+		    'siglas' => 'LSP'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Calabozo - Guarico',
+		    'siglas' => 'CLZ'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Barquisimeto',
+		    'siglas' => 'BRM'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Charallave - Miranda',
+		    'siglas' => 'XXX'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Maturin',
+		    'siglas' => 'MUN'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Porlamar – Isla de Margarita',
+		    'siglas' => 'PMV'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Acarigua - Portuguesa',
+		    'siglas' => 'AGV'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Cumaná',
+		    'siglas' => 'CUM'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'San Cristobal - Táchira',
+		    'siglas' => 'SCI'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Trujillo',
+		    'siglas' => 'VLV'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'San Felipe -Yaracuy',
+		    'siglas' => 'SNF'
+		]);
+		$sucursal = factory(App\Sucursal::class)->create([
+		    'nombre' => 'Maracaibo',
+		    'siglas' => 'MAR'
+		]);
+
     }
 }

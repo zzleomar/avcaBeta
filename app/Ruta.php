@@ -10,7 +10,7 @@ class Ruta extends Model
     protected $table ="rutas";
 
     protected $fillable = [
-    	'distancia','duracion','tarifa_sobrepeso','tarifa_vuelo','destino_id','origen_id'
+    	'distancia','duracion','tarifa_sobrepeso','tarifa_vuelo','destino_id','origen_id','siglas'
     ];
 
     public function origen(){
