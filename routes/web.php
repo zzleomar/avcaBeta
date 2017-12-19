@@ -32,3 +32,7 @@ Route::get('/p', function () {
     return view('prueba');
 });
 Route::post('/p','ControllerP@guardar');
+
+
+
+Route::get('/pdf', 'PdfController@invoice');

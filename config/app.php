@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         /*PERSONALES*/
         'Szykra\Notifications\NotificationServiceProvider',
+                Barryvdh\DomPDF\ServiceProvider::class,
+
 
     ],
 
@@ -229,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         /*PERSONALES*/
         'Flash' => 'Szykra\Notifications\Flash',
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];
