@@ -53,7 +53,7 @@ font-weight: 800;">Costo total: </label>
         <div class="col-sm-6">
           <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-money" aria-hidden="true"></i> </div>
-         <input type="text" readonly class="form-control-plaintext" id="staticEmail2" name="costo" value="{{ $costo }}">
+         <input type="text" readonly class="form-control-plaintext" id="staticEmail2" name="costo" value="{{ number_format($costo,2,',','.') }}">
           </div>
         </div>
         </div>
@@ -119,7 +119,7 @@ font-weight: 800;">Costo total: </label>
           <div class="col-sm-6">
             <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-money" aria-hidden="true"></i> </div>
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail2" name="costo" value="{{ $costo }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail2" name="costo" value="{{ number_format($costo,2,',','.') }}">
             </div>
         </div>
     </div>

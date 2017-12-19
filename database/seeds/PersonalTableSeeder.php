@@ -40,7 +40,7 @@ class PersonalTableSeeder extends Seeder
         factory(Personal::class,1)->create()
             ->each(function ($u) {
                $u->administrativo()->save(factory(App\Administrativo::class)->make([
-                        'sucursal_id' => 12,
+                        'sucursal_id' => 15,
                         'cargo' => 'Operador de Trafico',
                         ])
                 );
@@ -54,7 +54,7 @@ class PersonalTableSeeder extends Seeder
         factory(Personal::class,1)->create()
             ->each(function ($u) {
                $u->administrativo()->save(factory(App\Administrativo::class)->make([
-                        'sucursal_id' => 12,
+                        'sucursal_id' => 15,
                         'cargo' => 'Subgerente de Sucursal',
                         ])
                 );

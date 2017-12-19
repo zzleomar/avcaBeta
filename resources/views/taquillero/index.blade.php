@@ -12,7 +12,7 @@
 
                     
                 <div class="form-group">
-                          <label for="inputvuelos">Seleccion de Vuelos</label>
+                          <label for="inputvuelos">Selección de Vuelos</label>
                             <div class="input-group">
 
                             <div class="input-group-btn">
@@ -130,7 +130,7 @@
       boletoAux=document.getElementById("boletoAux").value;
     }
     var url="{{ URL::to('/taquilla/vuelo/pasajero') }}/"+idboleto+"/"+nacionalidad+"/"+id+"/"+boletoAux;
-    alert(url);
+    //alert(url);
       $.get(url,function(data){ 
         $('#info-vuelo-pasajero').empty().html(data);
       });

@@ -8,6 +8,7 @@ use Szykra\Notifications\Flash;
 use App\Ruta;
 use App\Vuelo;
 use App\Pierna;
+use App\Boleto;
 use App\Aeronave;
 use App\Personal_operativo;
 use Carbon\Carbon;
@@ -19,8 +20,13 @@ class GerenciaSucursalesController extends Controller
       date_default_timezone_set('America/Caracas');
     }
     public function index(){
-        $sucursal=Sucursal::orderBy('nombre','ASC')->get();
-    	return view('gerente-sucursales.index')->with('origenes',$sucursal);
+      $central= Sucursal::find(1);
+      $destinos=$central->destinos;
+      $sucursal=Sucursal::orderBy('nombre','ASC')->get();
+    	return view('gerente-sucursales.index')
+            ->with('origenes',$sucursal)
+            ->with('destinos',$destinos)
+            ->with('central',$central);
     }
 
     public function destinos($id){
@@ -64,7 +70,7 @@ class GerenciaSucursalesController extends Controller
 
     public function CancelarVuelo(Request $request){
       $vuelo = new Vuelo();
-      $boleto =new boleto();
+      $boleto =new Boleto();
       $boleto->Actualizar('Cancelado',$request->vuelo_id);
       $vuelo->Actualizar($request->vuelo_id,"cancelado");
       flash::success('El vuelo '.$request->vuelo_id.' ha sido cancelado');

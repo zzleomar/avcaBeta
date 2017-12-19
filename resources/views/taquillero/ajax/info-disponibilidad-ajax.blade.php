@@ -7,11 +7,15 @@
                       </div>
               </div>
               <div class="form-group col-md-4">
-                    <label for="inputApellido">Numero de Boleto:</label>
+                    <label for="inputApellido">Número de Boleto:</label>
                   <div class="input-group mb-2 mb-sm-0">
                     <div class="input-group-addon"> # </div>
+                    @if($boleto->id>9)
                     <input type="text" readonly class="form-control-plaintext inputAux" id="idboleto" value="{{ $boleto->id }}">
-                    <input type="hiddel" readonly class="form-control-plaintext inputAux" id="boletoAux" value="0">
+                    @else
+                    <input type="text" readonly class="form-control-plaintext inputAux" id="idboleto" value="{{ '0'.$boleto->id }}">
+                    @endif
+                    <input type="hidden" readonly class="form-control-plaintext inputAux" id="boletoAux" value="0">
                   </div>
               </div>
 
@@ -20,7 +24,7 @@
                     <label for="inputApellido">Costo Vuelo:</label>
                   <div class="input-group mb-2 mb-sm-0">
                     <div class="input-group-addon">  <i class="fa fa-money" aria-hidden="true"></i> </div> 
-                    <input type="text" readonly class="form-control-plaintext inputAux" id="staticEmail2" value="{{ $boleto->costo }}">
+                    <input type="text" readonly class="form-control-plaintext inputAux" id="staticEmail2" value="{{ number_format($boleto->costo,2,',','.') }}">
                     <div class="input-group-addon">Bs.</div>
                   </div> 
               </div>

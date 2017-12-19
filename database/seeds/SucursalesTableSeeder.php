@@ -46,7 +46,7 @@ class SucursalesTableSeeder extends Seeder
 		]);
 		$sucursal = factory(App\Sucursal::class)->create([
 		    'nombre' => 'San Carlos',
-		    'siglas' => 'XXX'
+		    'siglas' => 'SCC'
 		]);
 		$sucursal = factory(App\Sucursal::class)->create([
 		    'nombre' => 'Tucupita',
@@ -57,16 +57,8 @@ class SucursalesTableSeeder extends Seeder
 		    'siglas' => 'LSP'
 		]);
 		$sucursal = factory(App\Sucursal::class)->create([
-		    'nombre' => 'Calabozo - Guárico',
-		    'siglas' => 'CLZ'
-		]);
-		$sucursal = factory(App\Sucursal::class)->create([
 		    'nombre' => 'Barquisimeto',
 		    'siglas' => 'BRM'
-		]);
-		$sucursal = factory(App\Sucursal::class)->create([
-		    'nombre' => 'Charallave - Miranda',
-		    'siglas' => 'XXX'
 		]);
 		$sucursal = factory(App\Sucursal::class)->create([
 		    'nombre' => 'Maturín',

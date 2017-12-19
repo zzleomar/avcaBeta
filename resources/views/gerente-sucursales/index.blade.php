@@ -13,24 +13,33 @@
   
 <div class="row centradoM">
     <div class="centradoM">
-      <div class="text-center">
-
-        <div class="text-center">
-            Seleccione el Origen
+      <div class="form-group">
+         <div class="text-center">
+            Origen
         </div>
-        <select class="custom-select margenInferior" id="item-origen" onchange="origenAjax()">
-            <option selected value="0">Sucursal-Origen</option>
+        <select class="custom-select" id="item-origen" onchange="origenAjax()">
+          <option selected value="{{ $central->id }}">{{ $central->nombre }}</option>
               @foreach($origenes as $origen)
 
                 <option value="{{ $origen->id }}" >{{ $origen->nombre }}</option>
 
               @endforeach
-        </select>     
+        </select>
       </div>
     </div>
     <div class="centradoM">
-      <div  id="ajax-destino">
-      
+      <div class="form-group" id="ajax-destino">
+         <div class="text-center">
+            Seleccione el Destino
+        </div>
+        <select class="custom-select" id="item-origen" onchange="origenAjax()">
+            <option selected>Sucursal-Destino</option>
+              @foreach($destinos as $destino)
+
+                <option value="{{ $destino->destino->id }}" >{{ $destino->destino->nombre }}</option>
+
+              @endforeach
+        </select>
       </div>
     </div>
 </div>
