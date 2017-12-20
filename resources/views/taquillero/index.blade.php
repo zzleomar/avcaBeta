@@ -4,8 +4,7 @@
 @include('notifications::flash')
     <div class="card-body" id="targetL">
 
-
-    <h4 class="card-title centrarAux">Venta Registro y Reservación de Putas jaja ppara verrrr arrecho</h4>
+    <h4 class="card-title centrarAux">Venta Registro y Reservación de boletos aaaa</h4>
 
 
     <div class="card text-center border-info mb-3 centrarAux" style="width: auto;">
