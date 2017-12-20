@@ -7,7 +7,7 @@
 
     <div class="card text-center border-info mb-3 centrarAux" style="width: auto;">
      <div class="card-body ">
-        <h4 class="card-title">Vuelo2</h4>
+        <h4 class="card-title">Vuelo</h4>
       <br>
 
                     
