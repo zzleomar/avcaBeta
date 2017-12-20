@@ -3,7 +3,7 @@
 @section('content')
 @include('notifications::flash')
     <div class="card-body" id="targetL">
-    <h4 class="card-title centrarAux">Venta Registro y Reservación de Putas</h4>
+    <h4 class="card-title centrarAux">Venta Registro y Reservación de Putas jaja</h4>
 
     <div class="card text-center border-info mb-3 centrarAux" style="width: auto;">
      <div class="card-body ">
