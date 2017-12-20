@@ -12,13 +12,13 @@
   <body>
     <img src="img/boleto.png" width="750" height="300"> 
     <SPAN style="position: absolute; top: 110 px; left: 30 px;">
-      {{$data['nombreapellido']}}
+      {{$data['nombreapellido']."SIIIIIIIIII"}}
     </SPAN>
     <SPAN style="position: absolute; top: 110 px; left: 560 px;">
       Machado Jesus
     </SPAN>
     <SPAN style="position: absolute; top: 150 px; left: 30 px;">
-      {{$data['origen']}}
+      {{$data['origen']."NOOOOOOOO"}}
     </SPAN>
      <SPAN style="position: absolute; top: 150 px; left: 250 px;">
       {{$data['idvuelo']}}
