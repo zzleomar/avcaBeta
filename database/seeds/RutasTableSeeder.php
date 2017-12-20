@@ -15,7 +15,7 @@ class RutasTableSeeder extends Seeder
     {
         $siglas1=Sucursal::find(1)->siglas;
         $i=1;
-        for ($j=2; $j < 22; $j++) { 
+        for ($j=2; $j < 20; $j++) { 
             $x=random_int(1, 9);
                 $x=(($x/10)*470);
                 if($x==0)
@@ -48,8 +48,8 @@ class RutasTableSeeder extends Seeder
         }
  
         $ruta = new Ruta();
-        for ($i=2; $i < 22; $i++) { 
-        	for ($j=($i+1); $j < 23; $j++) { 
+        for ($i=2; $i < 20; $i++) { 
+        	for ($j=($i+1); $j < 21; $j++) { 
 
         		$x=random_int(1, 9);
 			    $x=(($x/10)*470);

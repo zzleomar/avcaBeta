@@ -12,7 +12,7 @@ class PersonalTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Personal::class, 22)->create()
+        factory(Personal::class, 20)->create()
             ->each(function ($a) {
 	           $a->administrativo()->save(factory(App\Administrativo::class)->make([
                      'sucursal_id' => $a->id,
@@ -25,10 +25,10 @@ class PersonalTableSeeder extends Seeder
                 );
 	       });
 
-	    factory(Personal::class, 22)->create()
+	    factory(Personal::class, 20)->create()
             ->each(function ($u) {
                $u->administrativo()->save(factory(App\Administrativo::class)->make([
-                        'sucursal_id' => ($u->id-22),
+                        'sucursal_id' => ($u->id-20),
                         'cargo' => 'Operador de Trafico',
                         ])
                 );
