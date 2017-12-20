@@ -62,7 +62,26 @@ class TaquillaController extends Controller
                                 $datos->boleto_id=$consulta->id;
                             }
                             $this->CambiarEstado($datos->boleto_id,$pasajero,"Pagado");
+
                             flash::success('El boleto '.$datos->boleto_id.' ha sido pagado');
+
+                            // ---  Imprimir Boleto
+                            //Recuperar toda la informacion
+                            return $this->getdata(
+                                $pasajero->nombres." ".$pasajero->apellidos,
+                                $boleto->asiento,
+                                Carbon::parse($boleto->vuelo->salida)->format('h:i'),
+                                Carbon::parse($boleto->vuelo->salida)->format('d/m'),
+                                $boleto->vuelo->pierna->ruta->origen->nombre,
+                                $boleto->vuelo->pierna->ruta->destino->nombre,
+                                $boleto->vuelo->pierna->ruta->origen->siglas,
+                                $boleto->vuelo->pierna->ruta->destino->siglas,
+                                $boleto->id,
+                                Carbon::parse($boleto->vuelo->salida)->format('h:i'),
+                                $boleto->vuelo->pierna->ruta->siglas
+                                
+
+                            );
                 break;
 
             case 'Reservar'://Reservar boleto
@@ -115,7 +134,7 @@ class TaquillaController extends Controller
             $id_adminitrativo=Auth::user()->administrativo_id;
             $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
             $boleto->EliminarRegistroTemporal($sucursal_id);
-            return redirect('/taquilla');
+            //return redirect('/taquilla');
         }
         else{
             $datos->boleto_id=$datos->boleto_id2;
@@ -124,7 +143,7 @@ class TaquillaController extends Controller
             $id_adminitrativo=Auth::user()->administrativo_id;
             $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
             $boleto->EliminarRegistroTemporal($sucursal_id); 
-            return redirect('/taquilla');
+            //return redirect('/taquilla');
 
         }            
     }
@@ -410,6 +429,39 @@ class TaquillaController extends Controller
                 ->with('boleto_id2',$auxB)
                 ->with('costo',$auxcosto);
         }
+    }
+
+    public function generarpdf($data){
+        
+        $view =  \View::make('pdf.invoice', compact('data'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        //return $pdf->stream('invoice');   
+        return $pdf->download('invoice');
+    }
+
+    public function getdata(
+        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $boletonro,$embarquehasta, $idvuelo)
+    {
+        $data =  [
+            'nombreapellido'            => $nombrecompleto,
+            'hora'                      => $hora,
+            'fecha'                     => $fecha, 
+            'asiento'                   => $asiento,
+            'origen'                    => $origen,
+            'destino'                   => $destino,
+            'origen_min'                => $origenmin,
+            'destino_min'               => $destinomin,
+            'boletonro'                 => $boletonro,
+            'embarquehasta'             => $embarquehasta,
+            'idvuelo'                   => $idvuelo,
+
+
+            
+          
+
+        ];
+       return $this->generarpdf($data);
     }
 
 }

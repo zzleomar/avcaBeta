@@ -2,63 +2,68 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Example 2</title>
+    <style type="text/css">
+      span{
+        font-size: 12px;
+      }
+    </style>
    
   </head>
   <body>
     <img src="img/boleto.png" width="750" height="300"> 
     <SPAN style="position: absolute; top: 110 px; left: 30 px;">
-      Jesus Alejandro Machado Ortiz
+      {{$data['nombreapellido']}}
     </SPAN>
     <SPAN style="position: absolute; top: 110 px; left: 560 px;">
       Machado Jesus
     </SPAN>
     <SPAN style="position: absolute; top: 150 px; left: 30 px;">
-      Sucre, Cumana 
+      {{$data['origen']}}
     </SPAN>
      <SPAN style="position: absolute; top: 150 px; left: 250 px;">
-      Air2
+      {{$data['idvuelo']}}
     </SPAN>
      <SPAN style="position: absolute; top: 150 px; left: 350 px;">
-      23/11/1993 
+      {{$data['fecha']}}
     </SPAN>
     <SPAN style="position: absolute; top: 150 px; left: 430 px;">
-      12:30AM
+       {{$data['hora']}}
     </SPAN>
      <SPAN style="position: absolute; top: 150 px; left: 560 px;">
-      CUM
+      {{$data['origen_min']}}
     </SPAN>
     <SPAN style="position: absolute; top: 150 px; left: 690 px;">
-      CSC
+      {{$data['destino_min']}}
     </SPAN>
     <SPAN style="position: absolute; top: 190 px; left: 30 px;">
-      Caracas, Distrito Capital
+      {{$data['destino']}}
     </SPAN>
     <SPAN style="position: absolute; top: 190 px; left: 555 px;">
-      Air2
+      {{$data['idvuelo']}}
     </SPAN>
     <SPAN style="position: absolute; top: 190 px; left: 615 px;">
-      23/11
+      {{$data['fecha']}}
     </SPAN>
     <SPAN style="position: absolute; top: 190 px; left: 665 px;">
-      12:30AM
+      {{$data['hora']}}
     </SPAN>
     <SPAN style="position: absolute; top: 240 px; left: 555 px;">
-      48
+      {{$data['boletonro']}}
     </SPAN>
     <SPAN style="position: absolute; top: 240 px; left: 625 px;">
-      600
+      {{$data['embarquehasta']}}
     </SPAN>
-    <SPAN style="position: absolute; top: 240 px; left: 675 px;">
-      AF-23
+    <SPAN style="position: absolute; top: 240 px; left: 695 px;">
+      {{$data['asiento']}}
     </SPAN>
     <SPAN style="position: absolute; top: 240 px; left: 25 px;">
-      48
+      {{$data['boletonro']}}
     </SPAN>
     <SPAN style="position: absolute; top: 240 px; left: 110 px;">
-      600
+      {{$data['embarquehasta']}}
     </SPAN>
     <SPAN style="position: absolute; top: 240 px; left: 250 px;">
-      AF-23
+      {{$data['asiento']}}
     </SPAN>
 
  
