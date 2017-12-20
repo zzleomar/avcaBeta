@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-md-10 costo-center">            
-            <h4 class="text-center subtituloM">Chequeo de boleto</h4>
+            <h4 class="text-center subtituloM">Chequeo de boleto Prueba</h4>
             <div class="card">
                 <div class="card-body">            
                     <form class="visible" action="/taquilla/confirmar-boleto" accept-charset="utf-8" method="POST">                     
