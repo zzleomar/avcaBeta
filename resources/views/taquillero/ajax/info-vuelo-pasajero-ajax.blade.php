@@ -23,7 +23,7 @@
 
     <div class="form-group">
             <label for="inputAddress">Dirección</label>
-            <input type="text" class="form-control" name="direccion" id="inputAddress" placeholder="Direccion de l pasajero" required>
+            <input type="text" class="form-control" name="direccion" id="inputAddress" placeholder="Direccion del pasajero" required>
       </div>
 
 
@@ -68,14 +68,14 @@ font-weight: 800;">Costo total: </label>
         <label for="inputNombre">Nombre del pasajero:</label>
         <div class="input-group mb-2 mb-sm-0">
         <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-          <input type="Nombre" class="form-control" id="inputNombre4" placeholder="Ingrese el nombre" name="nombres" value="{{ $pasajero->nombres }}" required>
+          <input type="Nombre" class="form-control" id="inputNombre4" placeholder="Nombres" name="nombres" value="{{ $pasajero->nombres }}" required>
                   </div>
           </div>
           <div class="form-group col-md-6">
                 <label for="inputApellido">Apellido del pasajero:</label>
               <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-                <input type="text" class="form-control" id="inputApellido4" placeholder="Ingrese el Apellidos" name="apellidos" value="{{ $pasajero->apellidos }}" required>
+                <input type="text" class="form-control" id="inputApellido4" placeholder="Apellidos" name="apellidos" value="{{ $pasajero->apellidos }}" required>
               </div>
           </div>
           
