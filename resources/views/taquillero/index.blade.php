@@ -3,7 +3,9 @@
 @section('content')
 @include('notifications::flash')
     <div class="card-body" id="targetL">
-    <h4 class="card-title centrarAux">Venta Registro y Reservación de boletos aaaa</h4>
+
+    <h4 class="card-title centrarAux">Venta Registro y Reservación de boletos gratis</h4>
+
 
     <div class="card text-center border-info mb-3 centrarAux" style="width: auto;">
      <div class="card-body ">
