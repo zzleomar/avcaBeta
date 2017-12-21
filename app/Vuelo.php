@@ -35,8 +35,8 @@ class Vuelo extends Model
         return $contador;
     }
     //nueva scopefunción para index
-    public function scopeDestinos($query, $dato){
-        return DB::table('vuelos')->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')->join('sucursales', 'rutas.destino_id', '=', 'sucursales.id')->select('sucursales.id as su','sucursales.nombre','rutas.id')->where([['rutas.origen_id','=',$dato],['vuelos.estado','=','abierto']])->groupBy('sucursales.id','sucursales.nombre','rutas.id')->get();
+    public function scopeDestinos($query, $dato, $fecha){
+        return DB::table('vuelos')->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')->join('sucursales', 'rutas.destino_id', '=', 'sucursales.id')->select('sucursales.id as su','sucursales.nombre','rutas.id')->where([['rutas.origen_id','=',$dato],['vuelos.estado','=','abierto'],['vuelos.salida','>',$fecha]])->groupBy('sucursales.id','sucursales.nombre','rutas.id')->get();
     }
 
     public function scopeHorarios($query,$origen,$destino, $fechaAux){

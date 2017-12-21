@@ -33,8 +33,9 @@ class TaquillaController extends Controller
         //tomo los datos de la sucursal
         $sucursal= Sucursal::find($id);
         $vuelos= new Vuelo();
-        //busco todos los destinos programados
-        $datos=$vuelos->Destinos($id);
+        //busco todos los destinos programados de la fecha actual en adelante
+        $actual = Carbon::now();
+        $datos=$vuelos->Destinos($id,$actual->toDateTimeString());
         //retorno a la vista con los datos
         //$id_adminitrativo=Auth::user()->administrativo_id;
         $boleto= new Boleto();
@@ -324,7 +325,8 @@ class TaquillaController extends Controller
                 $destino=Sucursal::find($vuelo->pierna->ruta->destino_id);
                 $origen=Sucursal::find($vuelo->pierna->ruta->origen_id);
                 $vuelos2= new Vuelo();
-                $datos=$vuelos2->Destinos($destino->id);
+                $actual = Carbon::now();
+                $datos=$vuelos2->Destinos($destino->id,$actual->toDateTimeString());
                 if(sizeof($datos)==0){
                     flash::info('No hay destinos disponible');
                 }
