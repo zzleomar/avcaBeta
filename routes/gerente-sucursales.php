@@ -5,6 +5,9 @@ Route::group(['prefix' => 'gerente-sucursales','middleware' => ['auth', 'CheckRo
 	/*Route::get('/', function () {
 	    return view('gerente-sucursales.index');
 	});*/
+
+	Route::get('/administracion-rutas','GerenciaSucursalesController@rutas');
+
 	Route::get('/','GerenciaSucursalesController@index');
 
 	Route::get('/destinos/{id}','GerenciaSucursalesController@destinos');

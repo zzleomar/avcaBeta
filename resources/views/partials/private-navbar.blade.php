@@ -52,10 +52,10 @@
                     <a class="nav-link" href="#">Inicio</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" href="#">Administración de Vuelos</a>
+                    <a class="nav-link " href="{{ URL::to('/gerente-sucursales') }}" id="sucursales">Administración de Vuelos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Administración de Rutas</a>
+                    <a class="nav-link" href="{{ URL::to('/gerente-sucursales/administracion-rutas') }}" id="adminrutas">Administración de Rutas</a>
                   </li>
                 </ul>
               </div>

@@ -8,7 +8,7 @@
             <h4 class="text-center subtituloM">Chequeo de boleto Prueba</h4>
             <div class="card">
                 <div class="card-body">            
-                    <form class="visible" action="/taquilla/confirmar-boleto" accept-charset="utf-8" method="POST">                     
+                    <form class="visible" action="/taquilla/confirmar-boleto" accept-charset="utf-8" method="POST" onkeypress = "return pulsar(event)">                     
                      <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>" >
                      <div class="form-group row">
                         <label for="cedula" class="col-sm-2 col-form-label">Pasajero:</label>
@@ -20,7 +20,7 @@
                                   <option value="N">N</option>
                               </select>
                           </div>  
-                        <input type="text" class="form-control" placeholder="Identificación" id="cedula" name="cedula" onKeyUp="buscarPasajero(this.value)">
+                        <input type="text" class="form-control" placeholder="Identificación" id="cedula" name="cedula" onkeypress="return soloNumDec(event)" onKeyUp="buscarPasajero(this.value)">
                       </div>
                       <div class="input-group costo-center">
                         <label for="cedula" class="col-sm-2 col-form-label">Destino:</label>

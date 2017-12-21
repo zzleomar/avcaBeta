@@ -144,6 +144,13 @@ body{
     font-weight: 700;
 }
 
+.NavPage{
+    text-align: center;
+    margin: auto;
+    display: inline-block;
+    margin-top: 15px;
+}
+
 .container2{
     display: flex;
     margin-left: auto;

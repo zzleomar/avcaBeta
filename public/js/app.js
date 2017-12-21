@@ -3,6 +3,10 @@ $.ajaxSetup({
 		'X-CSRF-TOKEN': $('META[name="csrf-token"]').attr('content')
 	}
 });
+function pulsar(e) {
+  tecla = (document.all) ? e.keyCode : e.which;
+  return (tecla != 13);
+}
 function formOperativo(action)
     {
         document.getElementById('formOperativo').action = action;
@@ -88,6 +92,12 @@ $(document).ready(function(){
       break;
     case '/sucursal':
       $('#vuelos').addClass('active');
+      break;
+    case '/gerente-sucursales':
+      $('#sucursales').addClass('active');
+      break;
+    case '/gerente-sucursales/administracion-rutas':
+      $('#adminrutas').addClass('active');
       break;
     default:
       //alert(pathname);

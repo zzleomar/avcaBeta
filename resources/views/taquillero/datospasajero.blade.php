@@ -1,6 +1,6 @@
 
 <div class="modal fade bd-example-modal-lg" id="myModal_confirmacion_pagina_guardada" data-keyboard="false" data-backdrop="static">
-<form method="post" id="formOperativo" >    
+<form method="post" id="formOperativo" onkeypress = "return pulsar(event)">    
                         {{ csrf_field() }}
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -23,7 +23,7 @@ font-weight: 700;">Datos del pasajero</h4>
                   <option value="E">N</option>
               </select>
           </div>  
-        <input type="text" class="form-control" placeholder="Identificación" name="cedula" id="cedula">
+        <input type="text" class="form-control" placeholder="Identificación" name="cedula" id="cedula" onkeypress="return soloNumDec(event)">
         <button type="button" class="btn btn-primary" onclick="buscarPasajero()">Buscar</button>
       </div>
     </div>              

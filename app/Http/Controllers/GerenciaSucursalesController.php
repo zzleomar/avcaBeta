@@ -29,6 +29,14 @@ class GerenciaSucursalesController extends Controller
             ->with('central',$central);
     }
 
+    public function rutas(){
+      $rutas= Ruta::orderBy('id')->paginate(15);
+      $sucursales= Sucursal::orderBy('nombre','ASC')->get();
+     // dd($rutas);
+      return view('gerente-sucursales.administracion-rutas')->with('rutas',$rutas)->with('sucursales',$sucursales);
+
+    }
+
     public function destinos($id){
     	$sucursal = Sucursal::find($id);
     	$destinos=$sucursal->destinos;

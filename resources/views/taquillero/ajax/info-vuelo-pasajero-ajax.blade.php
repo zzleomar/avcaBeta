@@ -33,7 +33,7 @@
                 <label for="inputNombre"> Telefono Movil</label>
             <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
-                  <input type="text" class="form-control" id="tlf_movil" placeholder="0414 098 1234" name="tlf_movil" required>
+                  <input type="text" class="form-control" id="tlf_movil" placeholder="Ejemplo 0414 098 1234" name="tlf_movil" required>
                   </div>
           </div>                            
         <div class="form-group col-md-6">
@@ -41,7 +41,7 @@
 
                 <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
-                  <input type="text" class="form-control" id="tlf_casa" placeholder="" placeholder="0293 098 1234" name="tlf_casa">
+                  <input type="text" class="form-control" id="tlf_casa" placeholder="" placeholder="Ejemplo 0293 098 1234" name="tlf_casa">
                 </div>
           </div> 
       </div>      
@@ -100,7 +100,7 @@ font-weight: 800;">Costo total: </label>
                 <label for="inputNombre"> Telefono Movil</label>
             <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
-                  <input type="text" class="form-control" id="tlf_movil" placeholder="0414 098 1234" name="tlf_movil" value="{{ $pasajero->tlf_movil }}" required>
+                  <input type="text" class="form-control" id="tlf_movil" placeholder="Ejemplo 0414 098 1234" name="tlf_movil" value="{{ $pasajero->tlf_movil }}" required>
             </div>
         </div>                            
         <div class="form-group col-md-6">
@@ -108,7 +108,7 @@ font-weight: 800;">Costo total: </label>
 
                 <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
-                  <input type="text" class="form-control" id="tlf_casa" placeholder="0293 098 1234" name="tlf_casa" value="{{ $pasajero->tlf_casa }}" >
+                  <input type="text" class="form-control" id="tlf_casa" placeholder="Ejemplo 0293 098 1234" name="tlf_casa" value="{{ $pasajero->tlf_casa }}" >
                 </div>
         </div> 
       </div>      
