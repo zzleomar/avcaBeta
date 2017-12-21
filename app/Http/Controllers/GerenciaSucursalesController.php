@@ -61,8 +61,6 @@ class GerenciaSucursalesController extends Controller
         $estado[0]="Reservados";
         $boletos['Reservados']= $vuelo->Disponibilidad($estado,$id);
         $vuelo->personal_operativo();
-        dd($vuelo->personal_operativo);
-       // dd($vuelo->pierna->aeronave->matricula);
         return view('gerente-sucursales.ajax.ver-vuelo-ajax')
                 ->with('boletos',$boletos)
                 ->with('vuelo',$vuelo); 

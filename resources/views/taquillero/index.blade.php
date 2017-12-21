@@ -90,7 +90,8 @@
     //ajax
     //AJAX disponibilidad
     var n=0; //idenfica en la función que es la primera pierna
-    var url="{{ URL::to('/taquilla/vuelo/disponibilidad') }}/"+id+"/"+n;  
+    var url="{{ URL::to('/taquilla/vuelo/disponibilidad') }}/"+id+"/"+n;
+    //alert(url);  
       $.get(url,function(data){ 
         $('#info-vuelo-dispo').empty().html(data);
         targetL.loadingOverlay('remove');

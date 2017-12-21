@@ -55,6 +55,7 @@ class TaquillaController extends Controller
         else{ //si el pasajero no esta registrado
             $pasajero=$this->RegistrarPasajero($datos);
         }
+       // dd($pasajero);
         switch ($accion) {
             case 'Pagar'://vender boleto
                             $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Reservado")->first();
@@ -263,10 +264,7 @@ class TaquillaController extends Controller
         flash::success('El boleto ha sido chequeado exitosamente');
         return redirect('/taquilla/confirmar-boleto');
     }
-
-    public function ajaxVuelo($origen,$destino){
-        $vuelo= new Vuelo();
-        $fechas= $vuelo->Horarios($origen,$destino);
+    public function fechasDisponibles($fechas){
         $cont=0;
         foreach ($fechas as $fecha) {
             $vuelo=Vuelo::find($fecha->id);
@@ -276,6 +274,13 @@ class TaquillaController extends Controller
             }
 
        }
+       return $cont;
+    }
+    public function ajaxVuelo($origen,$destino){
+        $vuelo= new Vuelo();
+        $actual = Carbon::now();
+        $fechas= $vuelo->Horarios($origen,$destino,$actual->toDateTimeString());
+        $cont=$this->fechasDisponibles($fechas);
        if((sizeof($fechas))!=$cont){
             $id_adminitrativo=Auth::user()->administrativo_id;
             $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
@@ -309,7 +314,7 @@ class TaquillaController extends Controller
         //si hay disponibilidad
         if($ocupados<$vuelo->pierna->aeronave->capacidad)
         {
-
+            $fechas;
             $costo=$vuelo->pierna->ruta->origen->tasa_mantenimiento+$vuelo->pierna->ruta->tarifa_vuelo+$vuelo->pierna->ruta->origen->tasa_salida;
             $boleto=new Boleto();
             $boleto->Generar($ocupados,$vuelo->id,$costo);
@@ -317,15 +322,24 @@ class TaquillaController extends Controller
             if($nro==0){
                 //Datos para una posible segunda pierna
                 $destino=Sucursal::find($vuelo->pierna->ruta->destino_id);
+                $origen=Sucursal::find($vuelo->pierna->ruta->origen_id);
                 $vuelos2= new Vuelo();
                 $datos=$vuelos2->Destinos($destino->id);
                 if(sizeof($datos)==0){
                     flash::info('No hay destinos disponible');
                 }
+                else{
+                    $fechas= $vuelo->Horarios($destino->id,$origen->id,$vuelo->salida);
+                    $cont=$this->fechasDisponibles($fechas);
+                    if((sizeof($fechas))==$cont){
+                        flash::info('No hay fechas disponibles para retorno');
+                    }
+
+                }
                     
-                return view('taquillero.ajax.info-disponibilidad-ajax')->with('boleto',$boleto)->with('vuelos2', $datos)->with('sucursal2', $destino);    
+                return view('taquillero.ajax.info-disponibilidad-ajax')->with('boleto',$boleto)->with('vuelos2', $datos)->with('sucursal', $origen)->with('sucursal2', $destino)->with('fechas',$fechas);    
             }
-            else{//si es una segunda pierna
+            else{//si es un segundo viaje
                 $origen= Vuelo::find($nro);
                 $costoT=$origen->pierna->ruta->origen->tasa_mantenimiento+$origen->pierna->ruta->tarifa_vuelo+$origen->pierna->ruta->origen->tasa_salida+$costo;//calculo el costo total de las 2 piernas
                 return view('taquillero.ajax.info-disponibilidad2-ajax')->with('boleto',$boleto)->with('costoT',$costoT); 

@@ -39,13 +39,13 @@ class Vuelo extends Model
         return DB::table('vuelos')->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')->join('sucursales', 'rutas.destino_id', '=', 'sucursales.id')->select('sucursales.id as su','sucursales.nombre','rutas.id')->where([['rutas.origen_id','=',$dato],['vuelos.estado','=','abierto']])->groupBy('sucursales.id','sucursales.nombre','rutas.id')->get();
     }
 
-    public function scopeHorarios($query,$origen,$destino){
+    public function scopeHorarios($query,$origen,$destino, $fechaAux){
         return DB::table('vuelos')->
             join('piernas','vuelos.id', '=', 'piernas.vuelo_id')->
             join('rutas','piernas.ruta_id','=','rutas.id')->
             join('sucursales','rutas.destino_id','=','sucursales.id')->
             select('vuelos.id','vuelos.salida')->
-            where([['rutas.destino_id','=',$destino],['rutas.origen_id','=',$origen],['vuelos.estado','!=','cancelado']])->get();       
+            where([['rutas.destino_id','=',$destino],['rutas.origen_id','=',$origen],['vuelos.salida','>',$fechaAux]])->whereNotIn('vuelos.estado', ['cancelado','ejecutado'])->get();    
     }
 
     public function scopeBuscador($query,$ruta,$estado){

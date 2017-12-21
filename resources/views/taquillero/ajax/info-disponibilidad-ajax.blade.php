@@ -36,7 +36,7 @@
 
           <p style="text-align: right;">
   <a class="btn btn-secondary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    Segunda pierna
+    Otro
   </a>
  </p>
  <div class="collapse" id="collapseExample">
@@ -57,7 +57,7 @@
                             </div>
                             <input type="hidden" id="origen2" value="{{ $sucursal2->nombre.' - ' }}">
                             <input type="hidden" id="origen2id" value="{{ $sucursal2->id }}">
-                             <input type="text" class="form-control" aria-label="Text input with dropdown button" id="vuelo2" value="{{ $sucursal2->nombre.' - ' }}">
+                             <input type="text" class="form-control" aria-label="Text input with dropdown button" id="vuelo2" value="{{ $sucursal2->nombre.' - '.$sucursal->nombre }}">
                             <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
 
 
@@ -67,8 +67,30 @@
   @endif
                 </div>
 
-            <div id="info-vuelo2"> <!-- OJOOOOOO INFORMACION de AJAX -->
-                </div>
+            <div id="info-vuelo2"> <!-- OJOOOOOO INFORMACION de AJAX DEL SEGUNDO VUELO-->
+              @if(sizeof($fechas)!=0)
+              <div class="form-group">
+                                        <label for="inputvuelos">Fechas disponibles para el vuelo</label>
+                                          <div class="input-group">
+                                          <div class="input-group-btn">
+                                            <button type="button" class="btn btn-secondary dropdown-toggle"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Fechas
+                                            </button>
+                                            <div class="dropdown-menu">
+                                            @foreach($fechas as $fecha)
+                                              <a class="dropdown-item" href="#info-vuelo-dispo2" id="fc2{{ $fecha->id }}" onclick="capturarFechas2('{{ $fecha->id }}')">{{ $fecha->salida}}</a>
+                                          @endforeach
+                                            </div>
+                                          </div>
+                                           <input name="fc2" id="fc2" type="text" class="form-control" aria-label="Text input with dropdown button">
+                                          </div>
+                              </div>
+                    @else
+                        @include('notifications::flash')
+                    @endif
+                    <div id="info-vuelo-dispo2"></div>
+                
+            </div>
 </div>
  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_confirmacion_pagina_guardada">
   Aceptar
