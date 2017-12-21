@@ -32,7 +32,7 @@
          <div class="text-center">
             Seleccione el Destino
         </div>
-        <select class="custom-select" id="item-origen" onchange="origenAjax()">
+        <select class="custom-select" id="item-destino" onchange="vuelosAjax()">
             <option selected>Sucursal-Destino</option>
               @foreach($destinos as $destino)
 
@@ -80,7 +80,7 @@
     var origen=document.getElementById('item-origen').value; 
     var destino=document.getElementById('item-destino').value; 
     var url="{{ URL::to('/gerente-sucursales/vuelos') }}/"+origen+"/"+destino;
-   // alert(url);
+    alert(url);
     $.get(url,function(data){ 
         $('#ajax-vuelos').empty().html(data);
         targetL.loadingOverlay('remove');

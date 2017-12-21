@@ -7,14 +7,14 @@
         <label for="inputNombre">Nombre del pasajero:</label>
         <div class="input-group mb-2 mb-sm-0">
         <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-          <input type="Nombre" class="form-control" id="inputNombre4" placeholder="Ingrese el nombre" name="nombres" required>
-                  </div>
+          <input type="Nombre" class="form-control" id="nombres" placeholder="Ingrese el nombre" name="nombres" required>
+                  <div id="Comentarios"></div></div>
           </div>
           <div class="form-group col-md-6">
                 <label for="inputApellido">Apellido del pasajero:</label>
               <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-                <input type="text" class="form-control" id="inputApellido4" placeholder="Ingrese el Apellidos" name="apellidos" required>
+                <input type="text" class="form-control" id="apellidos" placeholder="Ingrese el Apellidos" name="apellidos" required>
               </div>
           </div>
           
@@ -23,7 +23,7 @@
 
     <div class="form-group">
             <label for="inputAddress">Dirección</label>
-            <input type="text" class="form-control" name="direccion" id="inputAddress" placeholder="Direccion del pasajero" required>
+            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion del pasajero" required>
       </div>
 
 
@@ -33,7 +33,7 @@
                 <label for="inputNombre"> Telefono Movil</label>
             <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
-                  <input type="text" class="form-control" id="inputNombre4" placeholder="0414 098 1234" name="tlf_movil" required>
+                  <input type="text" class="form-control" id="tlf_movil" placeholder="0414 098 1234" name="tlf_movil" required>
                   </div>
           </div>                            
         <div class="form-group col-md-6">
@@ -41,7 +41,7 @@
 
                 <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
-                  <input type="text" class="form-control" id="inputNombre4" placeholder="" placeholder="0293 098 1234" name="tlf_casa" required>
+                  <input type="text" class="form-control" id="tlf_casa" placeholder="" placeholder="0293 098 1234" name="tlf_casa">
                 </div>
           </div> 
       </div>      
@@ -58,8 +58,8 @@ font-weight: 800;">Costo total: </label>
         </div>
         </div>
   
-  <button type="button" value="Reservar" class="btn btn-lg btn-outline-primary" onclick="formOperativo('/taquilla/accion/Reservar')">Reservar</button>
-  <button type="button" value="Pagar" class="btn btn-lg btn-outline-secondary" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
+  <button type="submit" value="Reservar" class="btn btn-lg btn-outline-primary" onclick="formOperativo('/taquilla/accion/Reservar')">Reservar</button>
+  <button type="submit" value="Pagar" class="btn btn-lg btn-outline-secondary" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
 
 @else
 
@@ -68,14 +68,14 @@ font-weight: 800;">Costo total: </label>
         <label for="inputNombre">Nombre del pasajero:</label>
         <div class="input-group mb-2 mb-sm-0">
         <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-          <input type="Nombre" class="form-control" id="inputNombre4" placeholder="Nombres" name="nombres" value="{{ $pasajero->nombres }}" required>
+          <input type="Nombre" class="form-control" id="nombres" placeholder="Nombres" name="nombres" value="{{ $pasajero->nombres }}" required>
                   </div>
           </div>
           <div class="form-group col-md-6">
                 <label for="inputApellido">Apellido del pasajero:</label>
               <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-                <input type="text" class="form-control" id="inputApellido4" placeholder="Apellidos" name="apellidos" value="{{ $pasajero->apellidos }}" required>
+                <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos" value="{{ $pasajero->apellidos }}" required>
               </div>
           </div>
           
@@ -86,11 +86,11 @@ font-weight: 800;">Costo total: </label>
   @endif
   <!-- Si existe algun boleto con algun estado y es distinto de pagado-->
   @if((isset($estado))and($estado=='Pagado'))
-      <button type="button" value="Cancelar" class="btn btn-lg btn-outline-secondary" onclick="formOperativo('/taquilla/accion/Cancelar')">Cancelar Boleto</button>
+      <button type="submit" value="Cancelar" class="btn btn-lg btn-outline-secondary" onclick="formOperativo('/taquilla/accion/Cancelar')">Cancelar Boleto</button>
   @else
     <div class="form-group">
             <label for="inputAddress">Dirección</label>
-            <input type="text" class="form-control" name="direccion" id="inputAddress" placeholder="Direccion de l pasajero" value="{{ $pasajero->direccion }}" required>
+            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion del pasajero" value="{{ $pasajero->direccion }}" required>
     </div>
 
 
@@ -100,7 +100,7 @@ font-weight: 800;">Costo total: </label>
                 <label for="inputNombre"> Telefono Movil</label>
             <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
-                  <input type="text" class="form-control" id="inputNombre4" placeholder="0414 098 1234" name="tlf_movil" value="{{ $pasajero->tlf_movil }}" required>
+                  <input type="text" class="form-control" id="tlf_movil" placeholder="0414 098 1234" name="tlf_movil" value="{{ $pasajero->tlf_movil }}" required>
             </div>
         </div>                            
         <div class="form-group col-md-6">
@@ -108,7 +108,7 @@ font-weight: 800;">Costo total: </label>
 
                 <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
-                  <input type="text" class="form-control" id="inputNombre4" placeholder="0293 098 1234" name="tlf_casa" value="{{ $pasajero->tlf_casa }}" required>
+                  <input type="text" class="form-control" id="tlf_casa" placeholder="0293 098 1234" name="tlf_casa" value="{{ $pasajero->tlf_casa }}" >
                 </div>
         </div> 
       </div>      
@@ -125,13 +125,13 @@ font-weight: 800;">Costo total: </label>
     </div>
 
     @if((isset($estado))and($estado=='Reservado'))
-      <button type="button" class="btn btn-lg btn-outline-success" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
-      <button type="button" class="btn btn-lg btn-outline-secondary" value="Liberar" onclick="formOperativo('/taquilla/accion/Liberar')">Cancelar Reservacion</button>
+      <button type="submit" class="btn btn-lg btn-outline-success" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
+      <button type="submit" class="btn btn-lg btn-outline-secondary" value="Liberar" onclick="formOperativo('/taquilla/accion/Liberar')">Cancelar Reservacion</button>
     @elseif((isset($estado))and($estado=='Cancelado'))
-        <button type="button" class="btn btn-lg btn-outline-secondary" value="Renovar" onclick="formOperativo('/taquilla/accion/Renovar')">Renovar</button>
+        <button type="submit" class="btn btn-lg btn-outline-secondary" value="Renovar" onclick="formOperativo('/taquilla/accion/Renovar')">Renovar</button>
         @else
-          <button type="button" class="btn btn-lg btn-outline-primary" value="Reservar" onclick="formOperativo('/taquilla/accion/Reservar')">Reservar</button>
-          <button type="button" class="btn btn-lg btn-outline-secondary" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
+          <button type="submit" class="btn btn-lg btn-outline-primary" value="Reservar" onclick="formOperativo('/taquilla/accion/Reservar')">Reservar</button>
+          <button type="submit" class="btn btn-lg btn-outline-secondary" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
         @endif
     @endif
   @endif

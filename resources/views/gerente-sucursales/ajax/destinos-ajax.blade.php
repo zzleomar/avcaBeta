@@ -1,7 +1,7 @@
 <div class="text-center">
             Seleccione el Destino
         </div>
-        <select class="custom-select" id="item-origen" onchange="origenAjax()">
+        <select class="custom-select" id="item-destino" onchange="vuelosAjax()">
             <option selected>Sucursal-Destino</option>
               @foreach($destinos as $destino)
 

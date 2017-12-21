@@ -6,7 +6,46 @@ $.ajaxSetup({
 function formOperativo(action)
     {
         document.getElementById('formOperativo').action = action;
-        document.getElementById('formOperativo').submit();
+        var nombres=document.getElementById('nombres').value;
+        var apellidos=document.getElementById('apellidos').value;
+        var direccion=document.getElementById('direccion').value;
+        var tlf_movil=document.getElementById('tlf_movil').value;
+        var tlf_casa=document.getElementById('tlf_casa').value;        
+        if (nombres.length==0) 
+        {
+
+          document.getElementById('nombres').setCustomValidity("Debe ingresar el nombre");
+          document.getElementById('formOperativo').onsubmit =false;
+        }
+        else {
+          document.getElementById('nombres').setCustomValidity("");
+          if (apellidos.length==0) 
+          {
+            document.getElementById('apellidos').setCustomValidity('Debe ingresar el apellido');
+            document.getElementById('formOperativo').onsubmit =false;
+          }
+          else{
+            document.getElementById('apellidos').setCustomValidity('');
+            if (direccion.length==0) 
+            {
+              document.getElementById('direccion').setCustomValidity('Debe ingresar la dirección');
+              document.getElementById('formOperativo').onsubmit =false;
+            }
+            else{
+              document.getElementById('direccion').setCustomValidity('');   
+              if ((tlf_movil.length==0)&&(tlf_casa.length==0)) 
+              {
+                document.getElementById('formOperativo').onsubmit =false;
+                document.getElementById('tlf_movil').setCustomValidity('Debe ingresar un número de Tlf');
+              }
+              else {
+                document.getElementById('tlf_movil').setCustomValidity('');
+              }
+            }
+          }
+          
+        }
+          document.getElementById('formOperativo').onsubmit =true;
     }
 function cancelarVuelo(action)
     {

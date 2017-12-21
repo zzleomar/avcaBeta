@@ -24,7 +24,7 @@
                <div class="form-row marginLeft margenInferior">
                     <label for="codigo" class="col-5" style="text-align: left; margin-top: 10px;">Cantidad de Equipaje</label>
                     <div class="form-row marginLeft col-4">
-                        <input type="text" name="cantidad-equipaje" class="form-control" id="cantidad-equipaje" placeholder="" value="{{ old('cantidad-equipaje') }}" required style="margin-left: 6px;" onkeypress="return soloNum(event)">
+                        <input type="text" name="cantidad-equipaje" class="form-control" id="cantidad-equipaje" placeholder="" value="{{ old('cantidad-equipaje') }}" required style="margin-left: 6px;" onkeypress="return soloNum(event)")>
                     </div>
                 </div>
                 <div class="form-row marginLeft input-group margenInferior">

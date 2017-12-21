@@ -67,7 +67,7 @@ class TaquillaController extends Controller
 
                             // ---  Imprimir Boleto
                             //Recuperar toda la informacion
-                            return $this->getdata(
+                           /* return $this->getdata(
                                 $pasajero->nombres." ".$pasajero->apellidos,
                                 $boleto->asiento,
                                 Carbon::parse($boleto->vuelo->salida)->format('h:i'),
@@ -81,7 +81,7 @@ class TaquillaController extends Controller
                                 $boleto->vuelo->pierna->ruta->siglas
                                 
 
-                            );
+                            );*/
                 break;
 
             case 'Reservar'://Reservar boleto
@@ -134,7 +134,7 @@ class TaquillaController extends Controller
             $id_adminitrativo=Auth::user()->administrativo_id;
             $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
             $boleto->EliminarRegistroTemporal($sucursal_id);
-            //return redirect('/taquilla');
+            return redirect('/taquilla');
         }
         else{
             $datos->boleto_id=$datos->boleto_id2;
@@ -143,7 +143,7 @@ class TaquillaController extends Controller
             $id_adminitrativo=Auth::user()->administrativo_id;
             $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
             $boleto->EliminarRegistroTemporal($sucursal_id); 
-            //return redirect('/taquilla');
+            return redirect('/taquilla');
 
         }            
     }
