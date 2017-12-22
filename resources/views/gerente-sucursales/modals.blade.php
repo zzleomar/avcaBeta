@@ -1,5 +1,5 @@
 <!--MODAL CANCELAR VUELO---->
-<form name="CancelarVuelo" id="CancelarVuelo" method="POST">
+<form name="CancelarVuelo" id="CancelarVuelo" method="POST" onkeypress = "return pulsar(event)">
                     {{ csrf_field() }}
 <input type="hidden" name="vuelo_id" id="vuelo_id" value="">
 <div class="modal fade bd-example-modal-lg" id="ModalCancelarVuelo" data-keyboard="false" data-backdrop="static">

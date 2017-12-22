@@ -133,7 +133,7 @@
 
 <!-- Modal -->
 <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Agregar Ruta</h5>
@@ -143,104 +143,71 @@
         </div>
       
       <div class="modal-body">
+    <form>   
         <div class="container" style="padding-left: 15px; padding-right: 15px;  ">
             <div class="row">
-    
-                    <div class="col mt-3">
-                      <div class="text-center">
-                         <select class="custom-select">
-                            <option value="1">Elija Origen</option>
-                              <option value="2">Amazonas</option>
-                              <option value="3">Anzoátegui</option>
-                              <option value="2">Apure</option>
-                              <option value="3">Aragua</option>
-                              <option value="2">Barinas</option>
-                              <option value="3">Bolivar</option>
-                              <option value="2">Carabobo</option>
-                              <option value="3">Cojedes</option>
-                              <option value="2">Delta Amacuro</option>
-                              <option value="3">Distrito Capital</option>
-                              <option value="2">Falcon</option>
-                              <option value="3">Guarico</option>
-                              <option value="2">Lara</option>
-                              <option value="3">Merida</option>
-                              <option value="2">Miranda</option>
-                              <option value="3">Monagas</option>
-                              <option value="2">Nueva Esparta</option>
-                              <option value="3">Portuguesa</option>
-                              <option value="2">Sucre</option>
-                              <option value="3">Táchira</option>
-                              <option value="2">Trujillo</option>
-                              <option value="3">Vargas</option>
-                              <option value="2">Yaracuy</option>
-                              <option value="3">Zulia</option>
-                          </select>
-                        </div>
+                    <div class="col col-sm-12 col-md-12">
+                      <label for="origen">Elija Origen</label>
+                            <div class="input-group">
+
+                            <div class="input-group-btn">
+                              <button type="button" class="btn btn-secondary dropdown-toggle"
+                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown"> Origen
+                              </button>
+                              <div class="dropdown-menu">
+                        @foreach($sucursales as $sucursal)
+                                <a class="dropdown-item" href="#info-vuelo" id="suO{{ $sucursal->id }}" >{{ $sucursal->nombre }}</a>
+                            @endforeach
+                              </div>
+                            </div>
+                             <input type="text" class="form-control" aria-label="Text input with dropdown button" id="origen" placeholder="Seleccione Sucursal de Origen" value="">
+                            <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
+
+
+                            </div>
                     </div>
+                    <div class="col col-sm-12 col-md-12">
+                      <label for="inputvuelos">Elija Destino</label>
+                            <div class="input-group">
+
+                            <div class="input-group-btn">
+                              <button type="button" class="btn btn-secondary dropdown-toggle"
+                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown"> Destino
+                              </button>
+                              <div class="dropdown-menu">
+                        @foreach($sucursales as $sucursal)
+                                <a class="dropdown-item" href="#info-vuelo" id="suD{{ $sucursal->id }}" >{{ $sucursal->nombre }}</a>
+                            @endforeach
+                              </div>
+                            </div>
+                             <input type="text" class="form-control" aria-label="Text input with dropdown button" id="origen" placeholder="Seleccione Sucursal de Destino" value="">
+                            <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
 
 
-                    <div class="col mt-3">
-                      <div class="text-center">
-                        <select class="custom-select">
-                            <option value="1">Elija Destino</option>
-                              <option value="2">Amazonas</option>
-                              <option value="3">Anzoátegui</option>
-                              <option value="2">Apure</option>
-                              <option value="3">Aragua</option>
-                              <option value="2">Barinas</option>
-                              <option value="3">Bolivar</option>
-                              <option value="2">Carabobo</option>
-                              <option value="3">Cojedes</option>
-                              <option value="2">Delta Amacuro</option>
-                              <option value="3">Distrito Capital</option>
-                              <option value="2">Falcon</option>
-                              <option value="3">Guarico</option>
-                              <option value="2">Lara</option>
-                              <option value="3">Merida</option>
-                              <option value="2">Miranda</option>
-                              <option value="3">Monagas</option>
-                              <option value="2">Nueva Esparta</option>
-                              <option value="3">Portuguesa</option>
-                              <option value="2">Sucre</option>
-                              <option value="3">Táchira</option>
-                              <option value="2">Trujillo</option>
-                              <option value="3">Vargas</option>
-                              <option value="2">Yaracuy</option>
-                              <option value="3">Zulia</option>
-                          </select>
-                        </div>
-                    </div>
-
+                            </div>
+                    </div></div>
           
 
-                    <form>
-                        <div class="form-row">
+                        <div class="row">
 
-                            <div class="form-group col-sm-12 col-md-6"> 
+                            <div class="form-group col-sm-12 col-md-4"> 
                               <label for="inputEmail4">Distancia Mls.</label>
-                              <input type="text" class="form-control" id="inputEmail4" placeholder="Distancia">
+                              <input type="text" class="form-control" id="inputEmail4" placeholder="Distancia" onkeypress="return soloNumDec(event)">
                             </div>
 
-                            <div class="form-group col-sm-12 col-md-6">
-                              <label for="inputEmail4">Duracion Hrs.</label>
-                              <input type="text" class="form-control" id="inputEmail4" placeholder="Duracion">
+                            <div class="form-group col-sm-12 col-md-4">
+                              <label for="inputEmail4">Duración Hrs.</label>
+                              <input type="time" class="form-control" id="inputEmail4" placeholder="Duración">
                             </div>
                             
 
-                            <div class="form-group col-sm-12 col-md-6">
+                            <div class="form-group col-sm-12 col-md-4">
                               <label for="inputEmail4">Tarifa Vuelo Bs.</label>
-                              <input type="text" class="form-control" id="inputEmail4" placeholder="precio">
-                            </div>
-
-                            <div class="form-group col-sm-12 col-md-6">
-                              <label for="inputEmail4">Tarifa Sobrepeso Bs.</label>
-                              <input type="text" class="form-control" id="inputEmail4" placeholder="precio">
+                              <input type="text" class="form-control" id="inputEmail4" placeholder="Precio">
                             </div>
                        </div>
-                    </form>
 
-      </div>
-    </div>
+    </div></form>
   </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Registrar</button>
