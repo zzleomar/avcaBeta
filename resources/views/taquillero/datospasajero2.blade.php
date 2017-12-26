@@ -24,7 +24,8 @@ font-weight: 700;">Datos del pasajero</h4>
                   <option value="N">N</option>
               </select>
           </div>  
-        <input type="text" class="form-control" placeholder="Identificación" name="cedula" onKeyUp="buscarPasajero2(this.value)">
+        <input type="text" class="form-control" placeholder="Identificación" name="cedula" onkeypress="return soloNumDec(event)">
+        <button type="button" class="btn btn-primary" onclick="buscarPasajero()">Buscar</button>
       </div>
     </div>              
 </div>          

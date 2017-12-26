@@ -58,5 +58,5 @@
   </div>
 
   @if($vuelo->estado=='retrasado')
-      <button type="button" class="btn btn-lg btn-outline-success" value="Ejecutar Vuelo" onclick="formOperativo('/sucursal/vuelo/ejecutado/{{ $vuelo->id }}')">Vuelo ejecutado</button>
+      <button type="button" class="btn btn-lg btn-outline-success" value="Ejecutar Vuelo" onclick="estadoVuelo('/sucursal/vuelo/ejecutado/{{ $vuelo->id }}')">Vuelo ejecutado</button>
   @endif

@@ -40,7 +40,6 @@
                                 <?php $id=Auth::user()->administrativo_id;
                                     $personal=Auth::user()->Personal($id); ?>
                                     {{ Auth::user()->tipo.": ".$personal->nombres." ".$personal->apellidos }}                              
-                               <!-- Isabel Lopez -->
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="userDropdown">                          <a href="#" class="dropdown-item">
@@ -72,7 +71,7 @@
         </nav>
     </header>
 
-    <main class="py-4">
+    <main class="py-4" id="contenedorPersonal">
         <div class="container">
             @auth
                 @include('partials.private-navbar')

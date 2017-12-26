@@ -17,10 +17,8 @@ class CreateSucursalesTable extends Migration
             $table->increments('id');
             $table->string('nombre',255)->nullable();
             $table->string('direccion',255)->nullable();
+            $table->string('nombre_aeropuerto',255)->nullable();
             $table->string('siglas',5);
-            $table->float('tasa_salida');
-            $table->float('tasa_mantenimiento');
-            $table->float('tasa_sobrepeso');
 
             $table->timestamps();
         });

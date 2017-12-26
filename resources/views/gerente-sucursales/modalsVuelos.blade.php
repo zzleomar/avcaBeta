@@ -1,5 +1,5 @@
 <!--MODAL CANCELAR VUELO---->
-<form name="CancelarVuelo" id="CancelarVuelo" method="POST" onkeypress = "return pulsar(event)">
+<form name="CancelarVuelo" id="FormEstadoVuelo" method="POST" onkeypress = "return pulsar(event)">
                     {{ csrf_field() }}
 <input type="hidden" name="vuelo_id" id="vuelo_id" value="">
 <div class="modal fade bd-example-modal-lg" id="ModalCancelarVuelo" data-keyboard="false" data-backdrop="static">
@@ -14,7 +14,7 @@ font-weight: 700;"></h4>
       </div>
       <div class="modal-body">
         <H2 id="notification">¿Esta seguro que desea cancelar el vuelo?</H2>
-        <button type="button" class="btn btn-lg btn-outline-secondary" onclick="cancelarVuelo('/gerente-sucursales/cancelar')">Cancelar Vuelo</button>
+        <button type="button" class="btn btn-lg btn-outline-secondary" onclick="estadoVuelo('/gerente-sucursales/cancelar')">Cancelar Vuelo</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Salir</button>

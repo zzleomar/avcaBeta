@@ -4,8 +4,9 @@
 @include('notifications::flash')
 
     <div class="row">
-        <div class="col-md-10 costo-center">            
-            <h4 class="text-center subtituloM">Chequeo de boleto Prueba</h4>
+        <div class="col-md-10 costo-center" id="targetL"> 
+            <h4 style="font-weight: 600;">Sucursal {{ $sucursal->nombre }}</h4>
+            <h4 class="subtituloM">CHEQUEO DE BOLETOS</h4>
             <div class="card">
                 <div class="card-body">            
                     <form class="visible" action="/taquilla/confirmar-boleto" accept-charset="utf-8" method="POST" onkeypress = "return pulsar(event)">                     
@@ -51,29 +52,19 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-      function calcular(){
-        var peso=$('input[name=peso-equipaje]').val();
-          if(peso>25){
-            var sobrepeso=peso-23;
-            var costo=sobrepeso*{{ $sucursal->tasa_sobrepeso }};
-            var costoT=costo.toFixed(2);
-            $('input[name=costo]').val(costoT); 
-          }else {
-            $('input[name=costo]').val(0); 
-          }
-        }
-        function chequear(){
-            var ci=document.getElementById("cedula").value;
-            var nacionalidad=document.getElementById("nacionalidad").value;
-            var vuelo=document.getElementById("vuelosAjax").value;
-            ci=nacionalidad+ci;
-            var url="{{ URL::to('/taquilla/confirmar/boleto') }}/"+ci+"/"+vuelo;
-            //alert(url);
-            $.get(url,function(data){ 
-                $('#ajax-datos-boleto').empty().html(data);
-              });
-            $.getScript("{{ asset('js/script.js') }}"); 
-        }
-        
-    </script>
+      function chequear(){
+          var ci=document.getElementById("cedula").value;
+          var nacionalidad=document.getElementById("nacionalidad").value;
+          var vuelo=document.getElementById("vuelosAjax").value;
+          ci=nacionalidad+ci;
+          var url="{{ URL::to('/taquilla/confirmar/boleto') }}/"+ci+"/"+vuelo;
+          //alert(url);
+          $.get(url,function(data){ 
+              $('#ajax-datos-boleto').empty().html(data);
+            });
+          $.getScript("{{ asset('js/script.js') }}"); 
+      }
+      
+      
+  </script>
 @endsection

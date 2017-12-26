@@ -34,8 +34,8 @@
     <thead class="thead-light">
       <tr>
         <th>Pilotos</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
+        <th>Horas Planificadas</th>
+        <th>Horas De Experiencia</th>
         <th>Asignar</th>
       </tr>
     </thead>
@@ -69,8 +69,8 @@
                <thead class="thead-light">
                     <tr>
                      <th>Copilotos</th>
-                     <th>Horas_Parciales</th>
-                     <th>Horas_Percibidas</th>
+                      <th>Horas Planificadas</th>
+                      <th>Horas De Experiencia</th>
                      <th>Asignar</th>
                    </tr>
                </thead>
@@ -103,8 +103,8 @@
     <thead class="thead-light">
       <tr>
         <th>Jefa de Cabina</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
+        <th>Horas Planificadas</th>
+        <th>Horas De Experiencia</th>
         <th>Asignar</th>
       </tr>
     </thead>
@@ -139,8 +139,8 @@
     <thead class="thead-light">
       <tr>
         <th>Sobrecargos</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
+        <th>Horas Planificadas</th>
+        <th>Horas De Experiencia</th>
         <th>Asignar</th>
       </tr>
     </thead>
@@ -182,8 +182,8 @@
       <tr>
         <th>Aeronave</th>
         <th>Modelo</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
+        <th>Horas Planificadas</th>
+        <th>Horas De Vuelo</th>
         <th>Asignar</th>
       </tr>
     </thead>

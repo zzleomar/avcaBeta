@@ -49,13 +49,13 @@
               <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Inicio</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link " href="{{ URL::to('/gerente-sucursales') }}" id="sucursales">Administración de Vuelos</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{{ URL::to('/gerente-sucursales/administracion-rutas') }}" id="adminrutas">Administración de Rutas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('/gerente-sucursales/administracion-aeronaves') }}" id="adminaeronaves">Administración de Aeronaves</a>
                   </li>
                 </ul>
               </div>

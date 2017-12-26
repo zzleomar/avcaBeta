@@ -4,9 +4,9 @@
 @include('notifications::flash')
 
 
-    <div class="card-body">
-    <h4 class="card-title centrarAux">Sucursal {{ $sucursal->nombre }}</h4>
-    <h4>INFORMACIÓN DE VUELOS</h4>
+    <div class="card-body" id="targetL">
+    <h4 class="card-title" style="font-weight: 600;">Sucursal {{ $sucursal->nombre }}</h4>
+    <h4 class="subtituloM">INFORMACIÓN DE VUELOS</h4>
 
 
     <div class="card text-center border-info mb-3 centrarAux" style="width: auto;">
@@ -188,7 +188,7 @@
 
               
 <div class="modal fade bd-example-modal-lg" id="myModalVuelo" data-keyboard="false" data-backdrop="static">
-<form method="post" id="formOperativo">    
+<form method="post" id="FormEstadoVuelo">    
                         {{ csrf_field() }}
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">

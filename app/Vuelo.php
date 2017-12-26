@@ -49,12 +49,17 @@ class Vuelo extends Model
     }
 
     public function scopeBuscador($query,$ruta,$estado){
-        return DB::table('vuelos')->
-            join('piernas','vuelos.id', '=', 'piernas.vuelo_id')->
-            join('rutas','piernas.ruta_id','=','rutas.id')->
-            select('vuelos.id','vuelos.salida','vuelos.estado')->
-            where([['rutas.id','=',$ruta],['vuelos.estado','=',$estado]])->get();       
+            return DB::table('vuelos')->
+                join('piernas','vuelos.id', '=', 'piernas.vuelo_id')->
+                join('rutas','piernas.ruta_id','=','rutas.id')->
+                select('vuelos.id','vuelos.salida','vuelos.estado')->
+                where([['rutas.id','=',$ruta],['vuelos.estado','=',$estado]])->get();          
     }
+
+    public function scopeFillBuscador($query,$estado){
+        return $query->where("estado","=",$estado);
+    }
+
 
     public function scopeSucursal($query, $dato, $estado){
         return DB::table('vuelos')
@@ -73,9 +78,18 @@ class Vuelo extends Model
         ->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')
         ->join('sucursales', 'rutas.destino_id', '=', 'sucursales.id')
         ->select('vuelos.id','vuelos.salida', 'vuelos.estado','sucursales.nombre')
-        ->where([['rutas.origen_id','=',$dato],['vuelos.salida','<',$fecha],['vuelos.estado','!=','ejecutado']])
+        ->where([['rutas.origen_id','=',$dato],['vuelos.salida','<',$fecha],['vuelos.estado','!=','ejecutado'],['vuelos.estado','!=','cancelado']])
         ->groupBy('vuelos.id','vuelos.salida', 'vuelos.estado','sucursales.nombre')
         ->orderBy('vuelos.salida','ASC')->get();
+    }
+
+    public function scopeVuelosRetrasados($query, $fecha){
+
+        $vuelos=$query->where([['vuelos.salida','<',$fecha],['vuelos.estado','!=','ejecutado'],['vuelos.estado','!=','cancelado']])->get();
+        foreach ($vuelos as $vuelo) {
+            $vuelo->estado="retrasado";
+            $vuelo->save();
+        }
     }
 
     public function scopeActualizar($query, $dato, $estado){

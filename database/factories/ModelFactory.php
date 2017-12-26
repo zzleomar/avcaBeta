@@ -53,9 +53,6 @@ $factory->define(User::class, function (Faker $faker) {
 
 $factory->define(Sucursal::class, function (Faker $faker) {
 	return [
-        'tasa_salida' => '5000',
-        'tasa_mantenimiento' => '2000',
-        'tasa_sobrepeso' => '1000',
 		'direccion' => $faker->address
     ];
 });

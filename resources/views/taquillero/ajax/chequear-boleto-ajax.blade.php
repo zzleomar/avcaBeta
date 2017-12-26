@@ -48,3 +48,17 @@
                 <input type="submit" class="btn btn-primary btn-lg btn-block my-2 " value="CONFIRMAR">
             </div>
 
+<script type="text/javascript">
+      function calcular(){
+        var peso=$('input[name=peso-equipaje]').val();
+          if(peso>23){
+            var sobrepeso=peso-23;
+            var costo=sobrepeso*(({{ $vuelo->pierna->ruta->tarifa_vuelo }}*10)/100); //la tasa de sobrepeso es el 10% de la tarifa del vuelo
+            var costoT=costo.toFixed(2);
+            $('input[name=costo]').val(costoT); 
+          }else {
+            $('input[name=costo]').val(0); 
+          }
+        }
+        
+</script>

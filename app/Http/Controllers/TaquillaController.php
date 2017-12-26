@@ -316,7 +316,7 @@ class TaquillaController extends Controller
         if($ocupados<$vuelo->pierna->aeronave->capacidad)
         {
             $fechas;
-            $costo=$vuelo->pierna->ruta->origen->tasa_mantenimiento+$vuelo->pierna->ruta->tarifa_vuelo+$vuelo->pierna->ruta->origen->tasa_salida;
+            $costo=$vuelo->pierna->ruta->tarifa_vuelo;
             $boleto=new Boleto();
             $boleto->Generar($ocupados,$vuelo->id,$costo);
             //Verificar si es la seguda pierna
@@ -343,7 +343,7 @@ class TaquillaController extends Controller
             }
             else{//si es un segundo viaje
                 $origen= Vuelo::find($nro);
-                $costoT=$origen->pierna->ruta->origen->tasa_mantenimiento+$origen->pierna->ruta->tarifa_vuelo+$origen->pierna->ruta->origen->tasa_salida+$costo;//calculo el costo total de las 2 piernas
+                $costoT=$origen->pierna->ruta->tarifa_vuelo+$costo;//calculo el costo total de las 2 piernas
                 return view('taquillero.ajax.info-disponibilidad2-ajax')->with('boleto',$boleto)->with('costoT',$costoT); 
             }
             

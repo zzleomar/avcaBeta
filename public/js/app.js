@@ -51,11 +51,14 @@ function formOperativo(action)
         }
           document.getElementById('formOperativo').onsubmit =true;
     }
-function cancelarVuelo(action)
+function estadoVuelo(action)
     {
-        document.getElementById('CancelarVuelo').action = action;
-        document.getElementById('CancelarVuelo').submit();
+        document.getElementById('FormEstadoVuelo').action = action;
+        document.getElementById('FormEstadoVuelo').submit();
     }
+  function EliminarRuta(){
+        document.getElementById('EliminarRutaForm').submit();
+  }
 
 function cancelar(id){
         document.getElementById('vuelo_id').value=id;
@@ -98,6 +101,9 @@ $(document).ready(function(){
       break;
     case '/gerente-sucursales/administracion-rutas':
       $('#adminrutas').addClass('active');
+      break;
+    case '/gerente-sucursales/administracion-aeronaves':
+      $('#adminaeronaves').addClass('active');
       break;
     default:
       //alert(pathname);
@@ -211,3 +217,71 @@ function planificarVuelo(action)
     }
   }
 }
+
+function capturarO(id,clave)
+  {
+    var nr="origenNR"+clave;
+    var nrid="origenid"+clave;
+    var datos;
+    var id2="suO"+id;
+    datos=document.getElementById(id2).innerHTML; 
+    document.getElementById(nr).value = datos; 
+    document.getElementById(nrid).value = id; 
+    
+  } 
+function capturarD(id,clave)
+  {
+    var nr="destinoNR"+clave;
+    var nrid="destinoid"+clave;
+    var datos;
+    var id2="suD"+id;
+    datos=document.getElementById(id2).innerHTML; 
+    document.getElementById(nr).value = datos; 
+    document.getElementById(nrid).value = id; 
+    
+  } 
+
+  function formrutas(){
+    var origen=$('#origenNR').val();
+    var destino=$('#destinoNR').val();
+    var distancia=$('#distanciaNR').val();
+    var duracion=$('#duracionNR').val();
+    var precio=$('#precioNR').val();
+
+  if(origen.length==0){    
+      alert('Debe ingresar el origen');
+      document.getElementById('nuevaRutaForm').onsubmit =false;
+  }
+  else{
+
+    if(destino.length==0){      
+      alert('Debe ingresar el destino');
+      document.getElementById('nuevaRutaForm').onsubmit =false;
+    }
+    else{
+
+      if(distancia.length==0){
+        document.getElementById('distanciaNR').setCustomValidity('Debe ingresar la distancia');
+        document.getElementById('nuevaRutaForm').onsubmit =false;
+      }
+      else{
+        document.getElementById('distanciaNR').setCustomValidity('');
+        if(duracion.length==0){
+          document.getElementById('duracionNR').setCustomValidity('Debe ingresar la duración');
+          document.getElementById('nuevaRutaForm').onsubmit =false;
+        }
+        else{
+          document.getElementById('duracionNR').setCustomValidity('');
+          if(precio.length==0){
+            document.getElementById('precioNR').setCustomValidity('Debe ingresar el costo');
+            document.getElementById('nuevaRutaForm').onsubmit =false;
+          }
+          else{
+            document.getElementById('precioNR').setCustomValidity('');
+            return true;
+          }
+        }
+      }
+    }
+  }
+  }

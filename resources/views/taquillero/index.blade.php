@@ -3,12 +3,13 @@
 @section('content')
 @include('notifications::flash')
     <div class="card-body" id="targetL">
-    <h4 class="card-title centrarAux">Venta Registro y Reservación de boletos</h4>
+    <h4 style="font-weight: 600;">Sucursal {{ $sucursal->nombre }}</h4>
+
+    <h4 class="subtituloM">VENTA Y RESERVE DE BOLETOS</h4>
 
     <div class="card text-center border-info mb-3 centrarAux" style="width: auto;">
      <div class="card-body ">
         <h4 class="card-title">Vuelo</h4>
-      <br>
 
                     
                 <div class="form-group">
@@ -50,6 +51,7 @@
  <script>
   function capturarV(id)
   {
+    
     var targetL = $('#targetL');
     targetL.loadingOverlay();
     var datos;

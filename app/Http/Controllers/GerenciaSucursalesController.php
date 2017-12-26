@@ -23,24 +23,20 @@ class GerenciaSucursalesController extends Controller
       $central= Sucursal::find(1);
       $destinos=$central->destinos;
       $sucursal=Sucursal::orderBy('nombre','ASC')->get();
+      $vuelo =new vuelo();
+      $vuelos1= $vuelo->FillBuscador("abierto")->get();
+      $vuelos2= $vuelo->FillBuscador("ejecutado")->get();
+      $vuelos3= $vuelo->FillBuscador("cancelado")->get();
+      $vuelo->VuelosRetrasados(date('Y-m-d H:i:s'));
+      $vuelos4= $vuelo->FillBuscador("retrasado")->get();
     	return view('gerente-sucursales.index')
+            ->with('abiertos',$vuelos1)
+            ->with('ejecutados',$vuelos2)
+            ->with('cancelados',$vuelos3)
+            ->with('retrasados',$vuelos4)
             ->with('origenes',$sucursal)
             ->with('destinos',$destinos)
             ->with('central',$central);
-    }
-
-    public function rutas(){
-      $rutas= Ruta::orderBy('id')->paginate(15);
-      $sucursales= Sucursal::orderBy('nombre','ASC')->get();
-     // dd($rutas);
-      return view('gerente-sucursales.administracion-rutas')->with('rutas',$rutas)->with('sucursales',$sucursales);
-
-    }
-
-    public function destinos($id){
-    	$sucursal = Sucursal::find($id);
-    	$destinos=$sucursal->destinos;
-    	return view('gerente-sucursales.ajax.destinos-ajax')->with('destinos',$destinos);
     }
 
     public function vuelos($origen,$destino){
@@ -52,13 +48,56 @@ class GerenciaSucursalesController extends Controller
         $vuelos2= $vuelo->Buscador($ruta->id,"ejecutado");
         $vuelos3= $vuelo->Buscador($ruta->id,"cancelado");
         $vuelos4= $vuelo->Buscador($ruta->id,"retrasado");
-   		$ruta2= array('ruta' => $Sorigen->nombre." --> ".$Sdestino->nombre, 'origen_id' => $Sorigen->id, 'destino_id' => $Sdestino->id  );
-   		return view('gerente-sucursales.ajax.vuelos-ajax')
-   			->with('abiertos',$vuelos1)
-   			->with('ejecutados',$vuelos2)
-   			->with('cancelados',$vuelos3)
-   			->with('retrasados',$vuelos4)
-   			->with('ruta',$ruta2);
+      $ruta2= array('ruta' => $Sorigen->nombre." --> ".$Sdestino->nombre, 'origen_id' => $Sorigen->id, 'destino_id' => $Sdestino->id  );
+      return view('gerente-sucursales.ajax.vuelos-ajax')
+        ->with('abiertos',$vuelos1)
+        ->with('ejecutados',$vuelos2)
+        ->with('cancelados',$vuelos3)
+        ->with('retrasados',$vuelos4)
+        ->with('ruta',$ruta2);
+    }
+
+    public function rutas(Request $datos){
+      $rutas;
+      if(isset($datos->origen)){
+        $rutas=$this->rutasO($datos->origen);
+      }
+      else{
+        if(isset($datos->destino)){
+          $rutas=$this->rutasD($datos->destino);
+        }
+        else{
+          //$rutas= Ruta::orderBy('id')->paginate(15);
+          $rutas= Ruta::orderBy('id')->get();
+        }
+      }
+      $sucursales= Sucursal::orderBy('nombre','ASC')->get();
+      return view('gerente-sucursales.administracion-rutas')->with('rutas',$rutas)->with('sucursales',$sucursales);
+
+    }
+    public function rutasO($id){
+      $sucursal=Sucursal::find($id);
+      $destinos= $sucursal->destinos()->get();
+     // $destinos= $sucursal->destinos()->paginate(15);
+      return $destinos;
+    }
+    public function rutasD($id){
+      $sucursal=Sucursal::find($id);
+      $origenes= $sucursal->origenes()->get();
+     // $origenes= $sucursal->origenes()->paginate(15);
+      return $origenes;
+    }
+
+    public function rutasAjax($id){
+      $ruta=Ruta::find($id);
+      $sucursales= Sucursal::orderBy('nombre','ASC')->get();
+      return view('gerente-sucursales.ajax.modificar-ruta-ajax')->with('ruta',$ruta)->with('sucursales',$sucursales);
+    }
+
+    public function destinos($id){
+    	$sucursal = Sucursal::find($id);
+    	$destinos=$sucursal->destinos;
+    	return view('gerente-sucursales.ajax.destinos-ajax')->with('destinos',$destinos);
     }
 
     public function vuelo($id){
@@ -292,6 +331,67 @@ class GerenciaSucursalesController extends Controller
         flash::success('El vuelo a sido planificado');
       return redirect('/gerente-sucursales');
 
+  }
+  public function NuevaRuta(Request $datos){
+    $nueva= new Ruta();
+    $origen=Sucursal::find($datos->origenid);
+    $destino=Sucursal::find($datos->destinoid);
+    if(sizeof($nueva->Buscador($datos->origenid,$datos->destinoid)->first())){
+      flash::error('La Ruta '.$origen->nombre." ---> ".$destino->nombre." Ya Existe");
+      return redirect('/gerente-sucursales/administracion-rutas');
+    }
+    else{
+      $nueva->origen_id=$datos->origenid;
+      $nueva->destino_id=$datos->destinoid;
+      $nueva->distancia=$datos->distancia;
+      $nueva->duracion=$datos->duracion;
+      $nueva->tarifa_vuelo=$datos->precio;
+      $nueva->siglas=$origen->siglas."-".$destino->siglas;
+      $nueva->save();
+      flash::success('La Ruta '.$origen->nombre." ---> ".$destino->nombre." Fue Registrado Correctamente");
+      return redirect('/gerente-sucursales/administracion-rutas');
+    }
+  }
+
+  public function EliminarRuta(Request $datos){
+    $ruta =Ruta::find($datos->ruta_id);
+    $ruta->delete();
+    flash::info('La Ruta '.$ruta->origen->nombre." ---> ".$ruta->destino->nombre." Fue Eliminada Correctamente");
+    return redirect('/gerente-sucursales/administracion-rutas');
+
+  }
+
+  public function ModificarRuta(Request $datos){
+      $ruta= Ruta::find($datos->ruta_id);
+      $ruta->distancia=$datos->distancia;
+      $ruta->duracion=$datos->duracion;
+      $ruta->tarifa_vuelo=$datos->precio;    
+      if(($ruta->origen->id!=$datos->origenid)||($ruta->destino->id!=$datos->destinoid)){
+          $origen=Sucursal::find($datos->origenid);
+          $destino=Sucursal::find($datos->destinoid);
+          if(sizeof($ruta->Buscador($datos->origenid,$datos->destinoid)->first())){
+            flash::error('La Ruta '.$origen->nombre." ---> ".$destino->nombre." Ya Existe");
+            return redirect('/gerente-sucursales/administracion-rutas');
+          }
+          else{
+            $ruta->origen_id=$datos->origenid;
+            $ruta->destino_id=$datos->destinoid;
+            $ruta->siglas=$origen->siglas."-".$destino->siglas;
+          }
+          $ruta->save();
+          flash::success('La Ruta '.$origen->nombre." ---> ".$destino->nombre." Fue Registrado Correctamente");
+          return redirect('/gerente-sucursales/administracion-rutas');
+      }
+      else{
+        $ruta->save();
+        flash::success('La Ruta '.$ruta->origen->nombre." ---> ".$ruta->destino->nombre." Fue Actualizada Correctamente");
+        return redirect('/gerente-sucursales/administracion-rutas');
+      }
+
+  }
+
+  public function aeronaves(){
+      return view('gerente-sucursales.administracion-aeronaves');
   }
 
 }
