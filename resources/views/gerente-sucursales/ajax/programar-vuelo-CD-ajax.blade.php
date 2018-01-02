@@ -9,7 +9,7 @@
 <div class="piernas"> 
       <p><strong>
       {{ $piernas['ruta1']->origen->nombre.' ---> '.$piernas['ruta1']->destino->nombre }}</strong></p>
-  <div class="input-group" style="display: ruby;">
+  <div class="input-group" style="display: block;">
       <div class="text-center marginLeft" style="display: inline-block;">
         <label class="labelPierna">Hora: </label>
         </div>
@@ -21,7 +21,7 @@
 <hr>
     <p><strong>
       {{ $piernas['ruta2']->origen->nombre.' ---> '.$piernas['ruta2']->destino->nombre }}</strong></p>
-    <div class="input-group" style="display: ruby;">
+    <div class="input-group" style="display: block;">
       <div class="text-center marginLeft" style="display: inline-block;">
         <label class="labelPierna">Hora: </label>
         </div>

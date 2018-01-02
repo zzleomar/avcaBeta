@@ -29,7 +29,7 @@
           <button type="button" class="btn btn-secondary dropdown-toggle"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown"> Origen
           </button>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu dropAux">
     @foreach($sucursales as $sucursal)
             <a class="dropdown-item" href="{{ (URL::to('/gerente-sucursales/administracion-rutas')).'?origen='.$sucursal->id }}">{{ $sucursal->nombre }}</a>
         @endforeach
@@ -41,16 +41,16 @@
           <button type="button" class="btn btn-secondary dropdown-toggle"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown"> Destino
           </button>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu dropAux">
     @foreach($sucursales as $sucursal)
             <a class="dropdown-item" href="{{ (URL::to('/gerente-sucursales/administracion-rutas')).'?destino='.$sucursal->id }}">{{ $sucursal->nombre }}</a>
         @endforeach
           </div>
         </div>
     </div></th>
-        <th>Distancia Mls.</th>
-        <th>Duracion Hrs.</th>
-        <th>Tarifa Vuelo Bs.</th>
+        <th class="ThCenter">Distancia Mls.</th>
+        <th class="ThCenter">Duracion Hrs.</th>
+        <th class="ThCenter">Tarifa Vuelo Bs.</th>
         <th></th>
         
       </tr>

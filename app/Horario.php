@@ -12,7 +12,7 @@ class Horario extends Model
         'entrada', 'salida'
     ];
 
-    public function administrativo(){
-    	return $this->hasMany('App\Administrativo');
+    public function empleados(){
+    	return $this->hasMany('App\Empleado');
     }
 }

@@ -125,6 +125,10 @@ body{
     border-color: #fff;
     color: black;
 }
+.dropAux{
+    overflow: scroll;
+    height: 500px;
+}
 
 .btnAux{
     background-color: #b3b3b3;
@@ -206,7 +210,12 @@ hr{
     height:450px;
 }
 .tablaAux{
+   /* width: auto;
+    margin: auto;*/
 
+}
+.ThCenter{
+    vertical-align: inherit;
 }
 .piernas{
     margin: auto;

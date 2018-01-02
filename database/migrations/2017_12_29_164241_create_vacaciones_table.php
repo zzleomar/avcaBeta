@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAeronaves extends Migration
+class CreateVacacionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateAeronaves extends Migration
      */
     public function up()
     {
-        Schema::create('aeronaves', function (Blueprint $table) {
+        Schema::create('vacaciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('capacidad');
-            $table->string('modelo',255);
-            $table->enum('estado',['activo','inactivo','mantenimiento']);
-            $table->timestamp('ultimo_mantenimiento')->nullable();
-            $table->string('matricula',12);
+            $table->float('monto');
+            $table->timestamp('fecha_inicio');
+            $table->timestamp('fecha_finalizacion')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateAeronaves extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aeronaves');
+        Schema::dropIfExists('vacaciones');
     }
 }

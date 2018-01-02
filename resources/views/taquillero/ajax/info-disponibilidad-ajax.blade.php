@@ -62,10 +62,7 @@
 
 
                             </div>
-  @else
-      @include('notifications::flash')
-  @endif
-                </div>
+                        </div>
 
             <div id="info-vuelo2"> <!-- OJOOOOOO INFORMACION de AJAX DEL SEGUNDO VUELO-->
               @if(sizeof($fechas)!=0)
@@ -91,6 +88,11 @@
                     <div id="info-vuelo-dispo2"></div>
                 
             </div>
+  @else
+      @include('notifications::flash')
+    </div>
+  @endif
+                
 </div>
  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_confirmacion_pagina_guardada">
   Aceptar

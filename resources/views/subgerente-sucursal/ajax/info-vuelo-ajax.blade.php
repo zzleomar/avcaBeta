@@ -41,7 +41,7 @@
         <th>Licencia</th>
       </tr>
     </thead>
-     @foreach($vuelo->personal_operativo as $tripulante)
+     @foreach($vuelo->tripulantes as $tripulante)
 
     <tbody>
       <th scope="row">{{ $tripulante->rango }}</th>

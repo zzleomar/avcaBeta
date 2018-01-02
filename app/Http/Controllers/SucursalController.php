@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Vuelo;
 use App\Sucursal;
 use App\User;
-use App\Administrativo;
+use App\Personal;
 use Auth;
 use Szykra\Notifications\Flash;
 use Illuminate\Support\Facades\DB;
@@ -13,9 +13,10 @@ use Illuminate\Http\Request;
 class SucursalController extends Controller
 {
     public function index(){
-        $id_adminitrativo=Auth::user()->administrativo_id;
-        $id= Administrativo::find($id_adminitrativo)->sucursal_id;
-        $sucursal= Sucursal::find($id);
+
+        $personal=Personal::find(Auth::user()->personal_id);
+        $sucursal= $personal->empleado->sucursal;
+
         $vuelo=new Vuelo();
         $datos1=$vuelo->Sucursal($sucursal->id,"abierto");
         $datos2=$vuelo->Sucursal($sucursal->id,"cerrado");
@@ -39,7 +40,7 @@ class SucursalController extends Controller
         $boletos['Pagado']= $vuelo->Disponibilidad($estado,$id);
         $estado[0]="Reservados";
         $boletos['Reservados']= $vuelo->Disponibilidad($estado,$id);
-        $vuelo->personal_operativo();
+        $vuelo->tripulantes();
        // dd($vuelo->pierna->aeronave->matricula);
         return view('subgerente-sucursal.ajax.info-vuelo-ajax')
                 ->with('boletos',$boletos)

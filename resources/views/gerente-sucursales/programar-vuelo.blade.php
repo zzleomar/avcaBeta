@@ -34,25 +34,30 @@
     <thead class="thead-light">
       <tr>
         <th>Pilotos</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
+        <th>Horas de Experiencia</th>
+        <th>Horas de Quincena</th>
         <th>Asignar</th>
       </tr>
     </thead>
-     @foreach($pilotos as $piloto)
+    <?php 
+        $size=sizeof($pilotos);
+        for ($i=0; $i < $size; $i++) { 
+         
+     ?>
 
     <tbody>
-      <th scope="row">{{ $piloto->nombres." ".$piloto->apellidos }}</th>
-        <td>82:10:00</td>
-        <td>02:10:00</td>
+      <th scope="row">{{ $pilotos[$i]->nombres." ".$pilotos[$i]->apellidos }}</th>
+        <td id="pihe{{ $pilotos[$i]->id }}"></td>
+        <td id="pihp{{ $pilotos[$i]->id }}"></td>
        <td>
           <label class="custom-control custom-radio">
-              <input id="piloto{{ $piloto->id }}" type="radio" class="custom-control-input pilotoRadio" name="piloto" value="{{ $piloto->id }}">
+              <input id="piloto{{ $pilotos[$i]->id }}" type="radio" class="custom-control-input pilotoRadio" name="piloto" value="{{ $pilotos[$i]->id }}">
               <span class="custom-control-indicator"></span>
             </label>    
        </td>
     </tbody>
-    @endforeach
+    <?php } ?>
+
   </table>
   </div>
     </div>
@@ -69,25 +74,31 @@
                <thead class="thead-light">
                     <tr>
                      <th>Copilotos</th>
-                     <th>Horas_Parciales</th>
-                     <th>Horas_Percibidas</th>
+                     <th>Horas de Experiencia</th>
+                     <th>Horas de Quincena</th>
                      <th>Asignar</th>
                    </tr>
                </thead>
-     @foreach($copilotos as $copiloto)
+    <?php 
+        $size=sizeof($copilotos);
+        for ($i=0; $i < $size; $i++) { 
+         
+     ?>
+
       <tbody>
-      <th scope="row">{{ $copiloto->nombres." ".$copiloto->apellidos }}</th>
-        <td>12:10:00</td>
-        <td>01:50:00</td>
+      <th scope="row">{{ $copilotos[$i]->nombres." ".$copilotos[$i]->apellidos }}</th>
+        <td id="copihe{{ $copilotos[$i]->id }}"></td>
+        <td id="copihp{{ $copilotos[$i]->id }}"></td>
        <td>
             <label class="custom-control custom-radio">
-                <input id="copiloto{{ $copiloto->id }}"  type="radio" class="custom-control-input" name="copiloto" value="{{ $copiloto->id }}">
+                <input id="copiloto{{ $copilotos[$i]->id }}"  type="radio" class="custom-control-input" name="copiloto" value="{{ $copilotos[$i]->id }}">
                 <span class="custom-control-indicator"></span>
       
               </label>      
        </td>
        </tbody> 
-       @endforeach
+    <?php } ?>
+
            </table>
         </div>
       </div>
@@ -103,24 +114,28 @@
     <thead class="thead-light">
       <tr>
         <th>Jefa de Cabina</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
+        <th>Horas de Experiencia</th>
+        <th>Horas de Quincena</th>
         <th>Asignar</th>
       </tr>
     </thead>
-      @foreach($jefacs as $jefac)
+    <?php 
+        $size=sizeof($jefacs);
+        for ($i=0; $i < $size; $i++) { 
+         
+     ?>
       <tbody>
-      <th scope="row">{{ $jefac->nombres." ".$jefac->apellidos }}</th>
-        <td>12:10:00</td>
-        <td>01:50:00</td>
+      <th scope="row">{{ $jefacs[$i]->nombres." ".$jefacs[$i]->apellidos }}</th>
+        <td id="jche{{ $jefacs[$i]->id }}"></td>
+        <td id="jchp{{ $jefacs[$i]->id }}"></td>
        <td>
       <label class="custom-control custom-radio">
-          <input id="jefac{{ $jefac->id }}"  type="radio" class="custom-control-input" name="jefac" value="{{ $jefac->id }}">
+          <input id="jefac{{ $jefacs[$i]->id }}"  type="radio" class="custom-control-input" name="jefac" value="{{ $jefacs[$i]->id }}">
           <span class="custom-control-indicator"></span>
         </label>
        </td>
-       </tbody> 
-       @endforeach
+       </tbody> <?php } ?>
+    
   </table>
   </div>
   </div>
@@ -139,25 +154,30 @@
     <thead class="thead-light">
       <tr>
         <th>Sobrecargos</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
+        <th>Horas de Experiencia</th>
+        <th>Horas de Quincena</th>
         <th>Asignar</th>
       </tr>
     </thead>
-    @foreach($sobrecargos as $sobrecargo)
+
+    <?php 
+        $size=sizeof($sobrecargos);
+        for ($i=0; $i < $size; $i++) { 
+         
+     ?>
     <tbody>
      
-      <th scope="row">{{ $sobrecargo->nombres." ".$sobrecargo->apellidos }}</th>
-        <td>13:10:00</td>
-        <td>02:20:00</td>
+      <th scope="row">{{ $sobrecargos[$i]->nombres." ".$sobrecargos[$i]->apellidos }}</th>
+        <td id="sohe{{ $sobrecargos[$i]->id }}"></td>
+        <td id="sohp{{ $sobrecargos[$i]->id }}"></td>
         <td>
           <label class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="t{{ $sobrecargo->id }}" name="sobrecargos[]" onclick="doIt(this)" value="{{ $sobrecargo->id }}">
+            <input type="checkbox" class="custom-control-input" id="t{{ $sobrecargos[$i]->id }}" name="sobrecargos[]" onclick="doIt(this)" value="{{ $sobrecargos[$i]->id }}">
             <span class="custom-control-indicator"></span>
           </label>
        </td>
-    </tbody>
-    @endforeach
+    </tbody><?php } ?>
+    
     </table>
 
 
@@ -182,29 +202,202 @@
       <tr>
         <th>Aeronave</th>
         <th>Modelo</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
+        <th>Horas de Vuelo Post-Mantenimiento</th>
         <th>Asignar</th>
       </tr>
     </thead>
-     @foreach($aeronaves as $aeronave)
+
+    <?php 
+        $size=sizeof($aeronaves);
+        for ($i=0; $i < $size; $i++) { 
+         
+     ?>
 
     <tbody>
-      <th>{{ $aeronave->matricula }}</th>
-      <th>{{ $aeronave->modelo }}</th>
-        <td>82:10:00</td>
-        <td>02:10:00</td>
+      <th>{{ $aeronaves[$i]->matricula }}</th>
+      <th>{{ $aeronaves[$i]->modelo }}</th>
+      <td id="aehm{{ $aeronaves[$i]->id }}"></td>
        <td>
           <label class="custom-control custom-radio">
-              <input id="aeronave{{ $aeronave->id }}" type="radio" class="custom-control-input" name="aeronave" value="{{ $aeronave->id }}">
+              <input id="aeronave{{ $aeronaves[$i]->id }}" type="radio" class="custom-control-input" name="aeronave" value="{{ $aeronaves[$i]->id }}">
               <span class="custom-control-indicator"></span>
             </label>    
        </td>
     </tbody>
-    @endforeach
+    <?php } ?>
   </table>
   </div>
     </div>
   </div>
   </div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+<?php 
+        $size=sizeof($pilotos);
+        for ($i=0; $i < $size; $i++) { 
+         
+     ?>
+          var acumulado=parseInt('<?php if(!(is_null($pihe[$i]->horas))){echo $pihe[$i]->horas;}else{ echo "000000";} ?>'); //tengo la cantidad en entero de horas, minutos y segundos
+          var acumulado=acumulado/100;  //elimino los segundos
+          var Auxhoras=acumulado/60; //saco las horas con posibles decimales
+          var horas=Math.trunc(Auxhoras); //saco las horas
+          var min=((Auxhoras-horas)*60).toFixed(2); //saco los minutos
+          if(parseInt(min)==0){
+            min='00';
+          } 
+          else {
+            min=parseInt(min);
+          }
+          var idpi='pihe'+'<?php echo $pilotos[$i]->id; ?>';
+          document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
+
+          var acumulado=parseInt('<?php if(!(is_null($pihp[$i]->horas))){echo $pihp[$i]->horas;}else{ echo "000000";} ?>'); //tengo la cantidad en entero de horas, minutos y segundos
+          var acumulado=acumulado/100;  //elimino los segundos
+          var Auxhoras=acumulado/60; //saco las horas con posibles decimales
+          var horas=Math.trunc(Auxhoras); //saco las horas
+          var min=((Auxhoras-horas)*60).toFixed(2); //saco los minutos
+          if(parseInt(min)==0){
+            min='00';
+          } 
+          else {
+            min=parseInt(min);
+          }
+          var idpi='pihp'+'<?php echo $pilotos[$i]->id; ?>';
+          document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
+
+<?php } ?>
+
+<?php 
+        $size=sizeof($copilotos);
+        for ($i=0; $i < $size; $i++) { 
+         
+     ?>
+          var acumulado=parseInt('<?php if(!(is_null($copihe[$i]->horas))){echo $copihe[$i]->horas;}else{ echo "000000";} ?>'); //tengo la cantidad en entero de horas, minutos y segundos
+          var acumulado=acumulado/100;  //elimino los segundos
+          var Auxhoras=acumulado/60; //saco las horas con posibles decimales
+          var horas=Math.trunc(Auxhoras); //saco las horas
+          var min=((Auxhoras-horas)*60).toFixed(2); //saco los minutos
+          if(parseInt(min)==0){
+            min='00';
+          } 
+          else {
+            min=parseInt(min);
+          }
+          var idpi='copihe'+'<?php echo $copilotos[$i]->id; ?>';
+          document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
+
+          var acumulado=parseInt('<?php if(!(is_null($copihp[$i]->horas))){echo $copihp[$i]->horas;}else{ echo "000000";} ?>'); //tengo la cantidad en entero de horas, minutos y segundos
+          var acumulado=acumulado/100;  //elimino los segundos
+          var Auxhoras=acumulado/60; //saco las horas con posibles decimales
+          var horas=Math.trunc(Auxhoras); //saco las horas
+          var min=((Auxhoras-horas)*60).toFixed(2); //saco los minutos
+          if(parseInt(min)==0){
+            min='00';
+          } 
+          else {
+            min=parseInt(min);
+          }
+          var idpi='copihp'+'<?php echo $copilotos[$i]->id; ?>';
+          document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
+
+<?php } ?>
+
+<?php 
+        $size=sizeof($jefacs);
+        for ($i=0; $i < $size; $i++) { 
+         
+     ?>
+          var acumulado=parseInt('<?php if(!(is_null($jche[$i]->horas))){echo $jche[$i]->horas;}else{ echo "000000";} ?>'); //tengo la cantidad en entero de horas, minutos y segundos
+          var acumulado=acumulado/100;  //elimino los segundos
+          var Auxhoras=acumulado/60; //saco las horas con posibles decimales
+          var horas=Math.trunc(Auxhoras); //saco las horas
+          var min=((Auxhoras-horas)*60).toFixed(2); //saco los minutos
+          if(parseInt(min)==0){
+            min='00';
+          } 
+          else {
+            min=parseInt(min);
+          }
+          var idpi='jche'+'<?php echo $jefacs[$i]->id; ?>';
+          document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
+
+          var acumulado=parseInt('<?php if(!(is_null($jchp[$i]->horas))){echo $jchp[$i]->horas;}else{ echo "000000";} ?>'); //tengo la cantidad en entero de horas, minutos y segundos
+          var acumulado=acumulado/100;  //elimino los segundos
+          var Auxhoras=acumulado/60; //saco las horas con posibles decimales
+          var horas=Math.trunc(Auxhoras); //saco las horas
+          var min=((Auxhoras-horas)*60).toFixed(2); //saco los minutos
+          if(parseInt(min)==0){
+            min='00';
+          } 
+          else {
+            min=parseInt(min);
+          }
+          var idpi='jchp'+'<?php echo $jefacs[$i]->id; ?>';
+          document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
+
+<?php } ?>
+
+<?php 
+        $size=sizeof($sobrecargos);
+        for ($i=0; $i < $size; $i++) { 
+         
+     ?>
+          var acumulado=parseInt('<?php if(!(is_null($sohe[$i]->horas))){echo $sohe[$i]->horas;}else{ echo "000000";} ?>'); //tengo la cantidad en entero de horas, minutos y segundos
+          var acumulado=acumulado/100;  //elimino los segundos
+          var Auxhoras=acumulado/60; //saco las horas con posibles decimales
+          var horas=Math.trunc(Auxhoras); //saco las horas
+          var min=((Auxhoras-horas)*60).toFixed(2); //saco los minutos
+          if(parseInt(min)==0){
+            min='00';
+          } 
+          else {
+            min=parseInt(min);
+          }
+          var idpi='sohe'+'<?php echo $sobrecargos[$i]->id; ?>';
+          document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
+
+          var acumulado=parseInt('<?php if(!(is_null($sohp[$i]->horas))){echo $sohp[$i]->horas;}else{ echo "000000";} ?>'); //tengo la cantidad en entero de horas, minutos y segundos
+          var acumulado=acumulado/100;  //elimino los segundos
+          var Auxhoras=acumulado/60; //saco las horas con posibles decimales
+          var horas=Math.trunc(Auxhoras); //saco las horas
+          var min=((Auxhoras-horas)*60).toFixed(2); //saco los minutos
+          if(parseInt(min)==0){
+            min='00';
+          } 
+          else {
+            min=parseInt(min);
+          }
+          var idpi='sohp'+'<?php echo $sobrecargos[$i]->id; ?>';
+          document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
+
+<?php } ?>
+
+
+<?php 
+        $size=sizeof($aeronaves);
+        for ($i=0; $i < $size; $i++) { 
+         
+     ?>
+          var acumulado=parseInt('<?php if(!(is_null($aehm[$i]->horas))){echo $aehm[$i]->horas;}else{ echo "000000";} ?>'); //tengo la cantidad en entero de horas, minutos y segundos
+          var acumulado=acumulado/100;  //elimino los segundos
+          var Auxhoras=acumulado/60; //saco las horas con posibles decimales
+          var horas=Math.trunc(Auxhoras); //saco las horas
+          var min=((Auxhoras-horas)*60).toFixed(2); //saco los minutos
+          if(parseInt(min)==0){
+            min='00';
+          } 
+          else {
+            min=parseInt(min);
+          }
+          var idpi='aehm'+'<?php echo $aeronaves[$i]->id; ?>';
+          document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
+
+
+<?php } ?>
+        
+});
+  
+</script>

@@ -13,15 +13,13 @@ class CreateAsistenciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('asistencia', function (Blueprint $table) {
+        Schema::create('asistencias', function (Blueprint $table) {
             $table->increments('id');
-            $table->time('hora_entrada');
-            $table->time('hora_salida');
-            $table->date('fecha');
+            $table->timestamp('entrada');    
+            $table->timestamp('salida')->nullable();    
+            $table->integer('empleado_id')->unsigned();
+            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
             $table->timestamps();
-            $table->integer('administrativo_id')->unsigned();
-            $table->foreign('administrativo_id')->references('id')->on('administrativos')->onDelete('cascade');
-
         });
     }
 
@@ -32,6 +30,6 @@ class CreateAsistenciasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asistencia');
+        Schema::dropIfExists('asistencias');
     }
 }

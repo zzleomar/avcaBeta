@@ -10,7 +10,7 @@ use App\Vuelo;
 use App\Pierna;
 use App\Boleto;
 use App\Aeronave;
-use App\Personal_operativo;
+use App\Tripulante;
 use Carbon\Carbon;
 
 class GerenciaSucursalesController extends Controller
@@ -24,11 +24,12 @@ class GerenciaSucursalesController extends Controller
       $destinos=$central->destinos;
       $sucursal=Sucursal::orderBy('nombre','ASC')->get();
       $vuelo =new vuelo();
-      $vuelos1= $vuelo->FillBuscador("abierto")->get();
-      $vuelos2= $vuelo->FillBuscador("ejecutado")->get();
-      $vuelos3= $vuelo->FillBuscador("cancelado")->get();
+      $vuelos1= $vuelo->FillBuscador("abierto",0)->get();
+      //dd($vuelos1[0]->pierna->ruta->origen->nombre);
+      $vuelos2= $vuelo->FillBuscador("ejecutado",0)->get();
+      $vuelos3= $vuelo->FillBuscador("cancelado",0)->get();
       $vuelo->VuelosRetrasados(date('Y-m-d H:i:s'));
-      $vuelos4= $vuelo->FillBuscador("retrasado")->get();
+      $vuelos4= $vuelo->FillBuscador("retrasado",0)->get();
     	return view('gerente-sucursales.index')
             ->with('abiertos',$vuelos1)
             ->with('ejecutados',$vuelos2)
@@ -44,10 +45,10 @@ class GerenciaSucursalesController extends Controller
         $Sorigen= Sucursal::find($origen);
         $Sdestino= Sucursal::find($destino);
         $ruta =  Ruta::Buscador($origen,$destino)->first();
-        $vuelos1= $vuelo->Buscador($ruta->id,"abierto");
-        $vuelos2= $vuelo->Buscador($ruta->id,"ejecutado");
-        $vuelos3= $vuelo->Buscador($ruta->id,"cancelado");
-        $vuelos4= $vuelo->Buscador($ruta->id,"retrasado");
+        $vuelos1= $vuelo->FillBuscador("abierto",$ruta->id)->get();
+        $vuelos2= $vuelo->FillBuscador("ejecutado",$ruta->id)->get();
+        $vuelos3= $vuelo->FillBuscador("cancelado",$ruta->id)->get();
+        $vuelos4= $vuelo->FillBuscador("retrasado",$ruta->id)->get();
       $ruta2= array('ruta' => $Sorigen->nombre." --> ".$Sdestino->nombre, 'origen_id' => $Sorigen->id, 'destino_id' => $Sdestino->id  );
       return view('gerente-sucursales.ajax.vuelos-ajax')
         ->with('abiertos',$vuelos1)
@@ -102,15 +103,33 @@ class GerenciaSucursalesController extends Controller
 
     public function vuelo($id){
         $vuelo= Vuelo::find($id);
-        $boletos=['Pagado','Reservados'];
-        $estado=[0 => "Pagado"];
-        $boletos['Pagado']= $vuelo->Disponibilidad($estado,$id);
-        $estado[0]="Reservados";
+        $boletos=['Pagados','Reservados','Chequeado','Cancelados'];
+
+        $estado[0]="Reservado";
         $boletos['Reservados']= $vuelo->Disponibilidad($estado,$id);
-        $vuelo->personal_operativo();
+
+        $estado[0]="Chequeado";
+        $boletos['Chequeados']= $vuelo->Disponibilidad($estado,$id);
+
+        $estado[0]="Cancelado";
+        $boletos['Cancelados']= $vuelo->Disponibilidad($estado,$id);
+
+        $estado=[0 => "Pagado"];
+        $boletos['Pagados']= $vuelo->Disponibilidad($estado,$id);
+
+        $boletos['Pagados']=$boletos['Pagados']+$boletos['Chequeados'];//En caso que el vuelo este en periodo de chequeo o ya fue ejecutado los boletos en estado chequeado se cuentan como pagados igualmente
+
+        $vuelo->tripulantes();
+        $he= array();
+        $actual=Carbon::now();
+        foreach($vuelo->tripulantes as $tripulante){
+          array_push($he, $tripulante->HorasExperiencia($tripulante->id,$actual->toDateTimeString())[0]);
+          
+        }
         return view('gerente-sucursales.ajax.ver-vuelo-ajax')
                 ->with('boletos',$boletos)
-                ->with('vuelo',$vuelo); 
+                ->with('vuelo',$vuelo)
+                ->with('he',$he); 
     }
 
     public function CancelarVuelo(Request $request){
@@ -153,17 +172,69 @@ class GerenciaSucursalesController extends Controller
             }
             else{
 
-              $personal= new Personal_operativo();
+              $personal= new Tripulante();
               $aeronave= new Aeronave();
               $horaA=$hora-4;
               $horaD=$hora+4;
               $antes=$year.'-'.$mes.'-'.$dia.' '.$horaA.':'.$minuto.':00';
-              $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';          
+              $despues=$year.'-'.$mes.'-'.$dia.' '.$horaD.':'.$minuto.':00';
+
+
+              //DATOS PARA CALCULAR HORAS PLANIFICADAS DEL PERSONAL PARA LA QUICENA
+              //Y LAS HORAS DE VUELO DE EXPERIENCIA
+              //
+              $actual2=Carbon::now();
+              $mes2=DATE("m",strtotime($salidaCarbon->toDateTimeString()));
+              $year2=DATE("Y",strtotime($salidaCarbon->toDateTimeString()));
+              $fechaincio=DATE("d",strtotime($salidaCarbon->toDateTimeString()));
+              if($fechaincio<15){ //dia de partida para calcular las horas de vuelos planificadas en la quicena
+                $fechaincio=$year2.'-'.$mes2.'-'.'1 12:00:00';
+                $fechafin=$year2.'-'.$mes2.'-'.'15 12:00:00';
+              }
+              else{
+                $fechaincio=$year2.'-'.$mes2.'-'.'15 12:00:00';
+                $fechafin=$year2.'-'.$mes2.'-'.'31 12:00:00';
+              }
+
+
               $pilotos=$personal->Disponibilidad("Piloto",$antes,$despues);
+              $pihe= array(); //HORAS DE EXPERIENCIA DEL PILOTO
+              $pihp= array(); //HORAS PLANIFICAS PARA LA QUINCENA
+              foreach ($pilotos as $piloto) {
+                array_push($pihe, $personal->HorasExperiencia($piloto->id,$actual2->toDateTimeString())[0]);
+                array_push($pihp, $personal->HorasPlanificadas($piloto->id,$fechaincio,$fechafin)[0]);
+              }
+
               $copilotos=$personal->Disponibilidad("Copiloto",$antes,$despues);
+              $copihe= array(); //HORAS DE EXPERIENCIA DEL COPILOTO
+              $copihp= array(); //HORAS PLANIFICAS PARA LA QUINCENA
+              foreach ($copilotos as $copiloto) {
+                array_push($copihe, $personal->HorasExperiencia($copiloto->id,$actual2->toDateTimeString())[0]);
+                array_push($copihp, $personal->HorasPlanificadas($copiloto->id,$fechaincio,$fechafin)[0]);
+              }
+
               $sobrecargos=$personal->Disponibilidad("Sobrecargo",$antes,$despues);
+              $sohe= array(); //HORAS DE EXPERIENCIA DEL SOBRECARGO
+              $sohp= array(); //HORAS PLANIFICAS PARA LA QUINCENA
+              foreach ($sobrecargos as $sobrecargo) {
+                array_push($sohe, $personal->HorasExperiencia($sobrecargo->id,$actual2->toDateTimeString())[0]);
+                array_push($sohp, $personal->HorasPlanificadas($sobrecargo->id,$fechaincio,$fechafin)[0]);
+              }
+
               $jefacs=$personal->Disponibilidad("Jefe de Cabina",$antes,$despues);
+              $jche= array(); //HORAS DE EXPERIENCIA DEL JEFA DE CABINA
+              $jchp= array(); //HORAS PLANIFICAS PARA LA QUINCENA
+              foreach ($jefacs as $jefac) {
+                array_push($jche, $personal->HorasExperiencia($jefac->id,$actual2->toDateTimeString())[0]);
+                array_push($jchp, $personal->HorasPlanificadas($jefac->id,$fechaincio,$fechafin)[0]);
+              }
+
+
               $aeronaves=$aeronave->Disponibilidad($antes,$despues);
+              $aehm= array(); //HORAS DE VUELOS DESPUES DEL MANTENIMIENTO DE LA AERONAVE
+              foreach ($aeronaves as $aeronaveF) {
+                array_push($aehm, $aeronave->HorasPostMantenimiento($aeronaveF->id)[0]);
+              }
               if(($origen!=$central->id)&&($destino!=$central->id)){
                 $pierna=3;
                 $ruta1=Ruta::Buscador($central->id,$origen)->first();
@@ -210,7 +281,16 @@ class GerenciaSucursalesController extends Controller
                         ->with('piernas',$piernas)
                         ->with('primero', $primero)
                         ->with('segundo', $segundo)
-                        ->with('tercero', $tercero);           
+                        ->with('tercero', $tercero)
+                        ->with('pihe',$pihe)
+                        ->with('pihp',$pihp)
+                        ->with('copihe',$copihe)
+                        ->with('copihp',$copihp)
+                        ->with('sohe',$sohe)
+                        ->with('sohp',$sohp)
+                        ->with('jche',$jche)
+                        ->with('jchp',$jchp)
+                        ->with('aehm',$aehm);           
               }
               else{
                 if($origen==$central->id){
@@ -247,7 +327,16 @@ class GerenciaSucursalesController extends Controller
                         ->with('sobrecargos',$sobrecargos)
                         ->with('piernas',$piernas)
                         ->with('primero', $primero)
-                        ->with('segundo', $segundo);             
+                        ->with('segundo', $segundo)
+                        ->with('pihe',$pihe)
+                        ->with('pihp',$pihp)
+                        ->with('copihe',$copihe)
+                        ->with('copihp',$copihp)
+                        ->with('sohe',$sohe)
+                        ->with('sohp',$sohp)
+                        ->with('jche',$jche)
+                        ->with('jchp',$jchp)
+                        ->with('aehm',$aehm);             
 
                 }
                 else{
@@ -284,7 +373,16 @@ class GerenciaSucursalesController extends Controller
                         ->with('sobrecargos',$sobrecargos)
                         ->with('piernas',$piernas)
                         ->with('primero', $primero)
-                        ->with('segundo', $segundo);               
+                        ->with('segundo', $segundo)
+                        ->with('pihe',$pihe)
+                        ->with('pihp',$pihp)
+                        ->with('copihe',$copihe)
+                        ->with('copihp',$copihp)
+                        ->with('sohe',$sohe)
+                        ->with('sohp',$sohp)
+                        ->with('jche',$jche)
+                        ->with('jchp',$jchp)
+                        ->with('aehm',$aehm);               
                   }
                 }
               }
@@ -295,12 +393,12 @@ class GerenciaSucursalesController extends Controller
   }
 
   public function PlanificarVuelo(Request $datos){
-    $piloto= Personal_operativo::find($datos->piloto);
-    $copiloto= Personal_operativo::find($datos->copiloto);
-    $jefac= Personal_operativo::find($datos->jefac);
-    $sobrecargo1= Personal_operativo::find($datos->sobrecargos[0]);
-    $sobrecargo2= Personal_operativo::find($datos->sobrecargos[1]);
-    $sobrecargo3= Personal_operativo::find($datos->sobrecargos[2]);
+    $piloto= Tripulante::find($datos->piloto);
+    $copiloto= Tripulante::find($datos->copiloto);
+    $jefac= Tripulante::find($datos->jefac);
+    $sobrecargo1= Tripulante::find($datos->sobrecargos[0]);
+    $sobrecargo2= Tripulante::find($datos->sobrecargos[1]);
+    $sobrecargo3= Tripulante::find($datos->sobrecargos[2]);
     for($i=0 ; $i<(sizeof($datos->hora)) ; $i++) {
       $vuelo = new Vuelo();
       $vuelo->estado= "abierto";
@@ -320,12 +418,12 @@ class GerenciaSucursalesController extends Controller
       $sobrecargo2->vuelos()->attach($vuelo->id);
       $sobrecargo3->vuelos()->attach($vuelo->id);
 
-      /*$vuelo->personal_operativo()->sync($piloto);
-      $vuelo->personal_operativo()->sync($copiloto);
-      $vuelo->personal_operativo()->sync($jefac);
-      $vuelo->personal_operativo()->sync($sobrecargo1);
-      $vuelo->personal_operativo()->sync($sobrecargo2);
-      $vuelo->personal_operativo()->sync($sobrecargo3);*/
+      /*$vuelo->Tripulante()->sync($piloto);
+      $vuelo->Tripulante()->sync($copiloto);
+      $vuelo->Tripulante()->sync($jefac);
+      $vuelo->Tripulante()->sync($sobrecargo1);
+      $vuelo->Tripulante()->sync($sobrecargo2);
+      $vuelo->Tripulante()->sync($sobrecargo3);*/
       
     }
         flash::success('El vuelo a sido planificado');
@@ -390,8 +488,84 @@ class GerenciaSucursalesController extends Controller
 
   }
 
-  public function aeronaves(){
-      return view('gerente-sucursales.administracion-aeronaves');
+  public function modeloAeronave($modelo){
+    return Aeronave::ModelosA($modelo)->get();
   }
 
+  public function estadoAeronave($estado){
+    return Aeronave::EstadosA($estado)->get();
+  }
+
+  public function aeronaves(Request $datos){
+
+      $aeronaves;
+      if(isset($datos->modelo)){
+        $aeronaves=$this->modeloAeronave($datos->modelo);
+      }
+      else{
+        if(isset($datos->estado)){
+          $aeronaves=$this->estadoAeronave($datos->estado);
+        }
+        else{
+          $aeronaves= Aeronave::orderBy('id')->get();
+        }
+      }
+      $aehm= array(); //HORAS DE VUELOS DESPUES DEL MANTENIMIENTO DE LA AERONAVE
+      foreach ($aeronaves as $aeronaveF) {
+        array_push($aehm, Aeronave::HorasPostMantenimiento($aeronaveF->id)[0]);
+      }
+      $modelos=Aeronave::Modelos()->get();
+      $estados=Aeronave::Estados()->get();
+      return view('gerente-sucursales.administracion-aeronaves')
+                  ->with('aeronaves',$aeronaves)
+                  ->with('aehm',$aehm)
+                  ->with('modelos',$modelos)
+                  ->with('estados',$estados);
+  }
+
+public function NuevaAeronave(Request $datos){
+    $nueva= new Aeronave();
+    if(sizeof($nueva->Buscador($datos->matricula)->first())){
+      flash::error('La Matricula ya existe registrada para otra Aeronave');
+      return redirect('/gerente-sucursales/administracion-rutas');
+    }
+    else{
+      $nueva->matricula=$datos->matricula;
+      $nueva->capacidad=$datos->capacidad;
+      $nueva->modelo=$datos->modelo;
+      $nueva->estado=$datos->estado;
+      $nueva->save();
+      flash::success('La Aeronave '.$nueva->matricula." Fue Registrado Correctamente");
+      return redirect('/gerente-sucursales/administracion-aeronaves');
+    }
+  }
+
+public function Eliminaraeronave(Request $datos){
+    $aeronave = Aeronave::find($datos->aeronave_id);
+    $aeronave->delete();
+    flash::info('La aeronave '.$aeronave->matricula." Fue Eliminada Correctamente");
+    return redirect('/gerente-sucursales/administracion-aeronaves');
+
+  }
+
+   public function AeronavesAjax($id){
+      $aeronave=Aeronave::find($id);
+      $sucursales= Sucursal::orderBy('nombre','ASC')->get();
+      return view('gerente-sucursales.ajax.modificar-aeronave-ajax')->with('aeronave',$aeronave);
+    }
+
+  public function ModificarAeronave(Request $datos){
+      $aeronave= Aeronave::find($datos->aeronave_id);
+      $aeronave->matricula=$datos->matricula;
+      $aeronave->capacidad=$datos->capacidad;
+      $aeronave->modelo=$datos->modelo;    
+      $aeronave->estado=$datos->estado;  
+      if($datos->estado=='mantenimiento'){
+        $aeronave->ultimo_mantenimiento=date('Y-m-d');
+      }  
+      $aeronave->save();
+      flash::success('La aeronave '.$aeronave->matricula." Fue Actualizada Correctamente");
+      return redirect('/gerente-sucursales/administracion-aeronaves');
+
+  }
 }

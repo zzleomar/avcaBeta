@@ -19,11 +19,11 @@ class CreateUsersTable extends Migration
             $table->string('tipo',255);
             $table->string('password',255);
             $table->string('email',40)->nullable();        
-            $table->integer('administrativo_id')->unsigned();
+            $table->integer('personal_id')->unsigned();
 
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('administrativo_id')->references('id')->on('administrativos')->onDelete('cascade');
+            $table->foreign('personal_id')->references('id')->on('personal')->onDelete('cascade');
         });
     }
 

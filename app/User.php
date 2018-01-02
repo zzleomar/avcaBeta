@@ -14,15 +14,14 @@ class User extends Authenticatable
     protected $table ="users";
 
     protected $fillable = [
-        'username','tipo','password','email','administrativo_id'
+        'username','tipo','password','email','personal_id'
     ];
 
-    public function administrativo(){
-        return $this->hasOne('App\Administrativo');
+    public function personal(){
+        return $this->hasOne('App\Personal');
     }
-    public function scopePersonal($query, $dato){
-        $administrativo=Administrativo::find($dato);
-        return Personal::find($administrativo->personal_id);
+    public function scopeDatosPersonal($query, $dato){
+        return Personal::find($dato)->first();
     }
 
 }

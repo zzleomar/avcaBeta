@@ -81,13 +81,11 @@ font-weight: 800;">Costo total: </label>
           
       </div>
 
-  @if(isset($estado))
-      @include('notifications::flash')
-  @endif
+      @if(isset($estado))
+          @include('notifications::flash')
+      @endif
   <!-- Si existe algun boleto con algun estado y es distinto de pagado-->
-  @if((isset($estado))and($estado=='Pagado'))
-      <button type="submit" value="Cancelar" class="btn btn-lg btn-outline-secondary" onclick="formOperativo('/taquilla/accion/Cancelar')">Cancelar Boleto</button>
-  @else
+  
     <div class="form-group">
             <label for="inputAddress">Dirección</label>
             <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion del pasajero" value="{{ $pasajero->direccion }}" required>
@@ -123,15 +121,17 @@ font-weight: 800;">Costo total: </label>
             </div>
         </div>
     </div>
-
+    @if((isset($estado))and($estado=='Pagado'))
+      <button type="submit" value="Cancelar" class="btn btn-lg btn-outline-secondary" onclick="formOperativo('/taquilla/accion/Cancelar')">Cancelar Boleto</button>
+   @else
     @if((isset($estado))and($estado=='Reservado'))
       <button type="submit" class="btn btn-lg btn-outline-success" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
       <button type="submit" class="btn btn-lg btn-outline-secondary" value="Liberar" onclick="formOperativo('/taquilla/accion/Liberar')">Cancelar Reservacion</button>
-    @elseif((isset($estado))and($estado=='Cancelado'))
-        <button type="submit" class="btn btn-lg btn-outline-secondary" value="Renovar" onclick="formOperativo('/taquilla/accion/Renovar')">Renovar</button>
-        @else
-          <button type="submit" class="btn btn-lg btn-outline-primary" value="Reservar" onclick="formOperativo('/taquilla/accion/Reservar')">Reservar</button>
-          <button type="submit" class="btn btn-lg btn-outline-secondary" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
-        @endif
+        @elseif((isset($estado))and($estado=='Cancelado'))
+            <button type="submit" class="btn btn-lg btn-outline-secondary" value="Renovar" onclick="formOperativo('/taquilla/accion/Renovar')">Renovar</button>
+            @else
+              <button type="submit" class="btn btn-lg btn-outline-primary" value="Reservar" onclick="formOperativo('/taquilla/accion/Reservar')">Reservar</button>
+              <button type="submit" class="btn btn-lg btn-outline-secondary" value="Pagar" onclick="formOperativo('/taquilla/accion/Pagar')">Pagar</button>
+            @endif
     @endif
   @endif

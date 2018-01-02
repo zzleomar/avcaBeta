@@ -21,8 +21,8 @@ class Vuelo extends Model
     public function pierna(){
         return $this->hasOne('App\Pierna');
     }
-    public function personal_operativo(){
-    	return $this->belongsToMany('App\Personal_operativo');
+    public function tripulantes(){
+    	return $this->belongsToMany('App\Tripulante');
     }
     public function scopeConsulta($query, $dato){
         return DB::table('vuelos')->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')->join('aeronaves', 'piernas.aeronave_id', '=', 'aeronaves.id')->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')->join('sucursales', 'rutas.destino_id', '=', 'sucursales.id')->select('vuelos.id','vuelos.salida', 'vuelos.estado', 'aeronaves.capacidad','sucursales.nombre','rutas.tarifa_vuelo', 'rutas.id')->where('rutas.origen_id',$dato)->get();
@@ -56,8 +56,18 @@ class Vuelo extends Model
                 where([['rutas.id','=',$ruta],['vuelos.estado','=',$estado]])->get();          
     }
 
-    public function scopeFillBuscador($query,$estado){
-        return $query->where("estado","=",$estado);
+    public function scopeFillBuscador($query,$estado,$ruta){
+        if($ruta==0){
+            return $query->where("estado","=",$estado)
+                         ->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')
+                         ->select('vuelos.id','vuelos.salida', 'vuelos.estado','piernas.ruta_id');
+        }
+        else{
+            return $query->where([["estado","=",$estado],["rutas.id","=",$ruta]])
+                         ->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')
+                         ->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')
+                         ->select('vuelos.id','vuelos.salida', 'vuelos.estado','piernas.ruta_id');
+        }
     }
 
 
@@ -88,6 +98,15 @@ class Vuelo extends Model
         $vuelos=$query->where([['vuelos.salida','<',$fecha],['vuelos.estado','!=','ejecutado'],['vuelos.estado','!=','cancelado']])->get();
         foreach ($vuelos as $vuelo) {
             $vuelo->estado="retrasado";
+            $vuelo->save();
+        }
+    }
+
+    public function scopeVuelosCerrados($query, $fecha){ //fecha=a la fecha actual+1hra
+
+        $vuelos=$query->where([['vuelos.salida','<',$fecha],['vuelos.estado','!=','retrasado'],['vuelos.estado','!=','ejecutado'],['vuelos.estado','!=','cancelado']])->get();
+        foreach ($vuelos as $vuelo) {
+            $vuelo->estado="cerrado";
             $vuelo->save();
         }
     }

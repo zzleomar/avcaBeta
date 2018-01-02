@@ -285,3 +285,37 @@ function capturarD(id,clave)
     }
   }
   }
+
+  function formAeronaves(){
+    var matricula=$('#matriculaN').val();
+    var capacidad=$('#capacidadN').val();
+    var modelo=$('#modeloN').val();
+
+    if(matricula.length==0){   
+     
+      document.getElementById('matriculaN').setCustomValidity('Debe ingresar la matricula');
+      document.getElementById('nuevaAeronaveForm').onsubmit =false;
+    }
+    else{
+      document.getElementById('matriculaN').setCustomValidity('');
+      if(modelo.length==0){      
+        document.getElementById('modeloN').setCustomValidity('Debe ingresar el modelo');
+        document.getElementById('nuevaAeronaveForm').onsubmit =false;
+      }
+      else{
+        document.getElementById('modeloN').setCustomValidity('');
+        if(capacidad.length==0){
+          document.getElementById('capacidadN').setCustomValidity('Debe ingresar la distancia');
+          document.getElementById('nuevaAeronaveForm').onsubmit =false;
+        }
+        else{
+          document.getElementById('capacidadN').setCustomValidity('');
+              return true;
+            }
+        }
+    }
+  }
+
+function EliminarAeronave(){
+        document.getElementById('EliminarAeronaveForm').submit();
+}

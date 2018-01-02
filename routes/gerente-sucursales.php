@@ -25,7 +25,11 @@ Route::group(['prefix' => 'gerente-sucursales','middleware' => ['auth', 'CheckRo
 	Route::post('/administracion-rutas/eliminar','GerenciaSucursalesController@EliminarRuta');
 	Route::post('/administracion-rutas/modificar','GerenciaSucursalesController@ModificarRuta');
 
+	Route::post('/administracion-aeronaves/nueva','GerenciaSucursalesController@NuevaAeronave');
+	Route::post('/administracion-aeronaves/eliminar','GerenciaSucursalesController@EliminarAeronave');
+	Route::post('/administracion-aeronaves/modificar','GerenciaSucursalesController@ModificarAeronave');
 
+	Route::get('/administracion-aeronaves/modificar/{id}','GerenciaSucursalesController@AeronavesAjax');
 
 
 

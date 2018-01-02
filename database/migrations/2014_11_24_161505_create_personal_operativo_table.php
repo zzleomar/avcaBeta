@@ -15,11 +15,8 @@ class CreatePersonalOperativoTable extends Migration
     {
         Schema::create('personal_operativo', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('rango',255);
-            $table->string('licencia',255);
-            $table->time('horas_extras')->nullable();
-            $table->integer('personal_id')->unsigned();
-            $table->foreign('personal_id')->references('id')->on('personal')->onDelete('cascade');
+            $table->integer('empleado_id')->unsigned();
+            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }

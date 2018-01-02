@@ -58,7 +58,7 @@
           var vuelo=document.getElementById("vuelosAjax").value;
           ci=nacionalidad+ci;
           var url="{{ URL::to('/taquilla/confirmar/boleto') }}/"+ci+"/"+vuelo;
-          //alert(url);
+          alert(url);
           $.get(url,function(data){ 
               $('#ajax-datos-boleto').empty().html(data);
             });

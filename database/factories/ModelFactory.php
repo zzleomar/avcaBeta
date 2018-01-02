@@ -3,13 +3,13 @@
 use Faker\Generator as Faker;
 use App\Pasajero;
 use App\Personal;
-use App\Administrativo;
+use App\Empleado;
 use App\Aeronave;
 use App\Sucursal;
 use App\User;
 use App\Vuelo;
 use App\Pierna;
-use App\Personal_operativo;
+use App\Tripulante;
 
 $factory->define(Vuelo::class, function (Faker $faker) {
     
@@ -26,7 +26,8 @@ $factory->define(Aeronave::class, function (Faker $faker) {
     return [
         'capacidad' => "64",
         'modelo' => "ATR-72",
-        'estado' => "Activo",
+        'estado' => "activo",
+        'ultimo_mantenimiento' => '2017-12-28',
         'matricula' => str_random(5)
     ];
 });
@@ -65,11 +66,12 @@ return [
 		'cedula' => $faker->postcode,
 		'tlf_movil' => $faker->phoneNumber,
 		'tlf_casa' => $faker->phoneNumber,
-		'direccion' => $faker->address
+		'direccion' => $faker->address,
+        'entrada' => $faker->dateTimeBetween('-2 year','2017-11-30 12:00:00',date_default_timezone_get())
     ];
 });
 
-$factory->define(Administrativo::class, function (Faker $faker) {
+$factory->define(Empleado::class, function (Faker $faker) {
     $x=$faker->randomDigit;
     if($x!=0){
     	$x=(($x/10)*27);
@@ -92,8 +94,6 @@ $factory->define(Administrativo::class, function (Faker $faker) {
     }
     return [
         
-        'horas_laboradas' => '00:00:00',
-        'horas_extras'    => '00:00:00',
 	//	'sucursal_id'     => $x,
 		'horario_id'      => $y
 		//'sucursal_id'     => $this->random('Sucursal')->id,
@@ -101,9 +101,8 @@ $factory->define(Administrativo::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(Personal_operativo::class, function (Faker $faker) {
+$factory->define(Tripulante::class, function (Faker $faker) {
     return [
-        'horas_extras'    => '00:00:00',
         'licencia' => $faker->postcode
     ];
 });

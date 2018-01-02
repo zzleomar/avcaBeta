@@ -30,12 +30,12 @@ font-weight: 700;"></h4>
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="card-title" style="font-size: 25px;
-font-weight: 700;">Datos del vuelo</h4>
+font-weight: 700;" id="rutaStringV"></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="cargandoAux">
         <div id="ajax-ver-vuelo"></div>
 
       </div>

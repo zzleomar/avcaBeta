@@ -90,21 +90,27 @@
                         </tr>
                       </thead>
 
-                        @foreach($retrasados as $vuelo)
+                         <?php 
+                            $retrasados->each(function($retrasados){
+
+                     ?>
 
                       <tbody>
                        
-                        <th scope="row">{{ $vuelo->id }}</th>
-                          <td></td>
-                          <td>{{ DATE('d/m/Y',strtotime($vuelo->salida)) }}</td>
-                          <td>{{ DATE('H:i:s',strtotime($vuelo->salida)) }}</td>
-                          <td>{{ $vuelo->estado }}</td>
+                        <th scope="row">{{ $retrasados->id }}</th>
+                           <!-- <td>{{ $retrasados->pierna->ruta->origen->nombre."--".$retrasados->pierna->ruta->destino->nombre }}
+                          </td> -->
+                          <td>{{ $retrasados->pierna->ruta->siglas }}
+                          </td>
+                          <td>{{ DATE('d/m/Y',strtotime($retrasados->salida)) }}</td>
+                          <td>{{ DATE('H:i:s',strtotime($retrasados->salida)) }}</td>
+                          <td>{{ $retrasados->estado }}</td>
                          <td>
-                          <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
+                          <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $retrasados->id }}','{{ $retrasados->pierna->ruta->siglas }}','{{ $retrasados->pierna->ruta->origen->nombre }}','{{ $retrasados->pierna->ruta->destino->nombre }}')">Ver</button>
                       </td>
                      
                       </tbody>
-                      @endforeach
+                     <?php }); ?>
                     </table>
                     </div>      
                   
@@ -121,7 +127,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
        @if((sizeof($abiertos))==0)
-                      <h5>No existen vuelos abiertos para esta ruta</h5>
+                      <h5>No existen vuelos abiertos</h5>
                     @else     
                <div class=" container card"> 
                   <div class="table-responsive divtablaAux">  
@@ -144,14 +150,16 @@
                       <tbody>
                        
                         <th scope="row">{{ $abiertos->id }}</th>
-                          <td>
+                          <!-- <td>{{ $abiertos->pierna->ruta->origen->nombre."--".$abiertos->pierna->ruta->destino->nombre }}
+                          </td> -->
+                          <td>{{ $abiertos->pierna->ruta->siglas }}
                           </td>
                           <td>{{ DATE('d/m/Y',strtotime($abiertos->salida)) }}</td>
                           <td>{{ DATE('H:i:s',strtotime($abiertos->salida)) }}</td>
                           <td>{{ $abiertos->estado }}</td>
                          <td>
                           <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#ModalCancelarVuelo" onclick="cancelar('{{ $abiertos->id  }}')">Cancelar</button>
-                          <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $abiertos->id }}')">Ver</button>
+                          <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $abiertos->id }}','{{ $abiertos->pierna->ruta->siglas }}','{{ $abiertos->pierna->ruta->origen->nombre }}','{{ $abiertos->pierna->ruta->destino->nombre }}')">Ver</button>
                       </td>
                      
                       </tbody>
@@ -169,7 +177,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
       @if((sizeof($cancelados))==0)
-                      <h5>No existen vuelos cancelados para esta ruta</h5>
+                      <h5>No existen vuelos cancelados</h5>
                     @else  
                <div class=" container card">
                   <div class="table-responsive divtablaAux">  
@@ -184,21 +192,27 @@
                           <th>Modificar</th>
                         </tr>
                       </thead>
-                        @foreach($cancelados as $vuelo)
+                       <?php 
+                            $cancelados->each(function($cancelados){
+
+                     ?>
 
                       <tbody>
                        
-                        <th scope="row">{{ $vuelo->id }}</th>
-                          <td>{{ $vuelo->pierna->ruta->origen->nombre." --> ".$vuelo->pierna->ruta->destino->nombre }}</td>
-                          <td>{{ DATE('d/m/Y',strtotime($vuelo->salida)) }}</td>
-                          <td>{{ DATE('H:i:s',strtotime($vuelo->salida)) }}</td>
-                          <td>{{ $vuelo->estado }}</td>
+                        <th scope="row">{{ $cancelados->id }}</th>
+
+                          <!-- <td>{{ $cancelados->pierna->ruta->origen->nombre."--".$cancelados->pierna->ruta->destino->nombre }}
+                          </td> -->
+                          <td>{{ $cancelados->pierna->ruta->siglas }}
+                          <td>{{ DATE('d/m/Y',strtotime($cancelados->salida)) }}</td>
+                          <td>{{ DATE('H:i:s',strtotime($cancelados->salida)) }}</td>
+                          <td>{{ $cancelados->estado }}</td>
                          <td>
-                          <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
+                          <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $cancelados->id }}','{{ $cancelados->pierna->ruta->siglas }}','{{ $cancelados->pierna->ruta->origen->nombre }}','{{ $cancelados->pierna->ruta->destino->nombre }}')">Ver</button>
                       </td>
                      
                       </tbody>
-                      @endforeach
+                      <?php }); ?>
                     </table>
                     </div>    
               </div>
@@ -211,7 +225,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12">
       @if((sizeof($ejecutados))==0)
-                      <h5>No existen vuelos Ejecutados para esta ruta</h5>
+                      <h5>No existen vuelos Ejecutados</h5>
                     @else  
                <div class=" container card">
                   <div class="table-responsive divtablaAux">  
@@ -226,21 +240,26 @@
                           <th>Modificar</th>
                         </tr>
                       </thead>
-                        @foreach($ejecutados as $vuelo)
+                       <?php 
+                            $ejecutados->each(function($ejecutados){
+
+                     ?>
 
                       <tbody>
                        
-                        <th scope="row">{{ $vuelo->id }}</th>
-                          <td></td>
-                          <td>{{ DATE('d/m/Y',strtotime($vuelo->salida)) }}</td>
-                          <td>{{ DATE('H:i:s',strtotime($vuelo->salida)) }}</td>
-                          <td>{{ $vuelo->estado }}</td>
+                        <th scope="row">{{ $ejecutados->id }}</th>
+                          <!-- <td>{{ $ejecutados->pierna->ruta->origen->nombre."--".$ejecutados->pierna->ruta->destino->nombre }}
+                          </td> -->
+                          <td>{{ $ejecutados->pierna->ruta->siglas }}
+                          <td>{{ DATE('d/m/Y',strtotime($ejecutados->salida)) }}</td>
+                          <td>{{ DATE('H:i:s',strtotime($ejecutados->salida)) }}</td>
+                          <td>{{ $ejecutados->estado }}</td>
                          <td>
-                            <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $vuelo->id }}')">Ver</button>
+                            <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#VerVuelo" onclick="detallesVuelo('{{ $ejecutados->id }}','{{ $ejecutados->pierna->ruta->siglas }}','{{ $ejecutados->pierna->ruta->origen->nombre }}','{{ $ejecutados->pierna->ruta->destino->nombre }}')">Ver</button>
                         </td>
                      
                       </tbody>
-                      @endforeach
+                      <?php }); ?>
                     </table>
                     </div>    
               </div>
@@ -296,17 +315,24 @@
     var origen=document.getElementById('item-origen').value; 
     var destino=document.getElementById('item-destino').value; 
     var url="{{ URL::to('/gerente-sucursales/vuelos') }}/"+origen+"/"+destino;
-   // alert(url);
+   //alert(url);
     $.get(url,function(data){ 
         $('#ajax-vuelos').empty().html(data);
         targetL.loadingOverlay('remove');
       });
   }
-  function detallesVuelo(id){
+  function detallesVuelo(id,siglas,origenN,destinoN){
+
+    var targetL = $('#cargandoAux');
+    targetL.loadingOverlay();
+    document.getElementById("rutaStringV").innerHTML=origenN+"-->"+destinoN; 
+
       var url="{{ URL::to('/gerente-sucursales/vuelo/') }}/"+id; 
       //alert(url);
         $.get(url,function(data){ 
           $('#ajax-ver-vuelo').empty().html(data);
+          targetL.loadingOverlay('remove');
+
         }); 
   }
   function programar(){
@@ -317,7 +343,7 @@
     var hora=document.getElementById('horaSalida').value; 
     var fecha=document.getElementById('fechaSalida').value; 
     if((hora=="")||(fecha=="")){
-      alert("Introdusca los datos completos de la salida");
+      //alert("Introdusca los datos completos de la salida");
       targetL.loadingOverlay('remove');
     }
     else{

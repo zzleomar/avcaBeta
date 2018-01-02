@@ -37,8 +37,8 @@
                         @else
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" id="userDropdown" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                <?php $id=Auth::user()->administrativo_id;
-                                    $personal=Auth::user()->Personal($id); ?>
+                                <?php 
+                                    $personal=Auth::user()->DatosPersonal(Auth::user()->personal_id); ?>
                                     {{ Auth::user()->tipo.": ".$personal->nombres." ".$personal->apellidos }}                              
                             </a>
 

@@ -11,7 +11,8 @@ use App\Sucursal;
 use App\Ruta;
 use App\Equipaje;
 use App\User;
-use App\Administrativo;
+use App\Empleado;
+use App\Personal;
 use App\Http\Requests\confirmarRequest;
 use Auth;
 use Szykra\Notifications\Flash;
@@ -26,18 +27,19 @@ class TaquillaController extends Controller
       date_default_timezone_set('America/Caracas');
     }
     public function index(){
-        //tomo el id del administrativo que esta haciendo uso del sistema
-        $id_adminitrativo=Auth::user()->administrativo_id;
-        //tomo el id de la sucursal a la cual trabaja
-        $id= Administrativo::find($id_adminitrativo)->sucursal_id;
-        //tomo los datos de la sucursal
-        $sucursal= Sucursal::find($id);
+        //busco los datos del trabajador que esta haciendo uso del sistema
+        $personal=Personal::find(Auth::user()->personal_id);
+        //capturo la sucursal en la que trabaja
+        $sucursal= $personal->empleado->sucursal;
         $vuelos= new Vuelo();
         //busco todos los destinos programados de la fecha actual en adelante
         $actual = Carbon::now();
-        $datos=$vuelos->Destinos($id,$actual->toDateTimeString());
+        $actual2=Carbon::now();
+        $actual2->addHours(); //agg 1hra para buscar y actualizar los vuelos que ya estan cerrados
+        $actual2->VuelosCerrados($actual2->toDateTimeString());
+        $datos=$vuelos->Destinos($sucursal->id,$actual->toDateTimeString());
         //retorno a la vista con los datos
-        //$id_adminitrativo=Auth::user()->administrativo_id;
+        //$id_empleado=Auth::user()->administrativo_id;
         $boleto= new Boleto();
         $boleto->EliminarRegistroTemporal($sucursal->id);
         return view('taquillero.index')->with('vuelos', $datos)->with('sucursal', $sucursal);
@@ -133,8 +135,9 @@ class TaquillaController extends Controller
         }
         if($datos->boleto_id2==0)//si es una sola pierna
         {
-            $id_adminitrativo=Auth::user()->administrativo_id;
-            $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
+            $personal=Personal::find(Auth::user()->personal_id);
+            $sucursal= $personal->empleado->sucursal;
+            $sucursal_id= $sucursal->id;
             $boleto->EliminarRegistroTemporal($sucursal_id);
             return redirect('/taquilla');
         }
@@ -142,8 +145,9 @@ class TaquillaController extends Controller
             $datos->boleto_id=$datos->boleto_id2;
             $datos->boleto_id2=0;
             $this->Accion($datos,$accion);
-            $id_adminitrativo=Auth::user()->administrativo_id;
-            $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
+            $personal=Personal::find(Auth::user()->personal_id);
+            $sucursal= $personal->empleado->sucursal;
+            $sucursal_id= $sucursal->id;
             $boleto->EliminarRegistroTemporal($sucursal_id); 
             return redirect('/taquilla');
 
@@ -182,11 +186,14 @@ class TaquillaController extends Controller
         $boleto->save();
     }
     public function ContenidoChequear(){
-        $id_adminitrativo=Auth::user()->administrativo_id;
-        $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
-        $sucursal=Sucursal::find($sucursal_id);
+        $personal=Personal::find(Auth::user()->personal_id);
+        $sucursal= $personal->empleado->sucursal;
+        
         $actual = Carbon::now();
-        $vuelos=Vuelo::Sucursal($sucursal_id,"abierto");
+        $actual2=Carbon::now();
+        $actual2->addHours(); //agg 1hra para buscar y actualizar los vuelos que ya estan cerrados
+        $actual2->VuelosCerrados($actual2->toDateTimeString());
+        $vuelos=Vuelo::Sucursal($sucursal->id,"abierto");
         foreach ($vuelos as $key => $vuelo) {
             $inicio = Carbon::parse($vuelo->salida);
             $fin = Carbon::parse($vuelo->salida);
@@ -283,8 +290,9 @@ class TaquillaController extends Controller
         $fechas= $vuelo->Horarios($origen,$destino,$actual->toDateTimeString());
         $cont=$this->fechasDisponibles($fechas);
        if((sizeof($fechas))!=$cont){
-            $id_adminitrativo=Auth::user()->administrativo_id;
-            $sucursal_id= Administrativo::find($id_adminitrativo)->sucursal_id;
+            $personal=Personal::find(Auth::user()->personal_id);
+            $sucursal= $personal->empleado->sucursal;
+            $sucursal_id= $sucursal->id;
             if($origen==$sucursal_id){
                 return view('taquillero.ajax.info-vuelo-ajax')->with('fechas',$fechas);
             }
@@ -313,11 +321,13 @@ class TaquillaController extends Controller
         $vuelo= Vuelo::find($id);
         $ocupados=$this->ConsultarDisponibilidad($vuelo);
         //si hay disponibilidad
+        //
         if($ocupados<$vuelo->pierna->aeronave->capacidad)
         {
             $fechas;
             $costo=$vuelo->pierna->ruta->tarifa_vuelo;
             $boleto=new Boleto();
+
             $boleto->Generar($ocupados,$vuelo->id,$costo);
             //Verificar si es la seguda pierna
             if($nro==0){
@@ -328,6 +338,7 @@ class TaquillaController extends Controller
                 $actual = Carbon::now();
                 $datos=$vuelos2->Destinos($destino->id,$actual->toDateTimeString());
                 if(sizeof($datos)==0){
+                    $fechas=null;
                     flash::info('No hay destinos disponible');
                 }
                 else{

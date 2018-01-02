@@ -20,7 +20,10 @@ class CreatePersonales extends Migration
             $table->string('cedula',255);
             $table->string('tlf_movil',255)->nullable();
             $table->string('tlf_casa',255)->nullable();
-            $table->string('direccion',255)->nullable();;
+            $table->string('direccion',255)->nullable();
+            $table->timestamp('entrada');
+            $table->integer('sueldo_base_id')->unsigned()->nullable();
+            $table->foreign('sueldo_base_id')->references('id')->on('sueldos_base')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePersonalOperativoVueloTable extends Migration
+class CreateTripulanteVueloTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePersonalOperativoVueloTable extends Migration
      */
     public function up()
     {
-        Schema::create('personal_operativo_vuelo', function (Blueprint $table) {
+        Schema::create('tripulante_vuelo', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('personal_operativo_id')->unsigned()->nullable();
+            $table->integer('tripulante_id')->unsigned()->nullable();
             $table->integer('vuelo_id')->unsigned()->nullable();
 
-            $table->foreign('personal_operativo_id')->references('id')->on('personal_operativo')->onDelete('cascade');
+            $table->foreign('tripulante_id')->references('id')->on('tripulantes')->onDelete('cascade');
 
             $table->foreign('vuelo_id')->references('id')->on('vuelos')->onDelete('cascade');
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreatePersonalOperativoVueloTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personal_operativo_vuelo');
+        Schema::dropIfExists('tripulante_vuelo');
     }
 }

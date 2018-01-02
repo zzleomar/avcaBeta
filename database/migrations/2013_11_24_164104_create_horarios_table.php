@@ -17,8 +17,8 @@ class CreateHorariosTable extends Migration
             
             $table->increments('id');
       
-            $table->time('entrada')->nullable();    
-            $table->time('salida')->nullable();       
+            $table->time('entrada');    
+            $table->time('salida');       
           
             $table->timestamps();
         });

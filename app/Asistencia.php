@@ -8,11 +8,11 @@ class Asistencia extends Model
 {
     protected $table = 'asistencias';
     protected $fillable = [
-    	'hora_entrada','hora_salida','fecha'];
+    	'entrada','salida','empleado_id'];
 }
 
-public function administrativo(){
-	return $this->hasOne('App\Administrativo');
+public function empleado(){
+	return $this->belongsTo('App\Empleado');
 }
 
 

@@ -10,8 +10,8 @@ class Sucursal extends Model
     protected $table = 'sucursales';
     protected $fillable = ['nombre','direccion','nombre_aeropuerto','siglas'];
 
-    public function administrativos(){
-    	return $this->hasMany('App\Administrativo');
+    public function empleados(){
+    	return $this->hasMany('App\Empleado');
     }
 
     public function destinos(){//retorna los destinos para su sucursal
