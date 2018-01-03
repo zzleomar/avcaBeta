@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckRoleSucursal
+class CheckRoleGerenteRRHH
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class CheckRoleSucursal
     public function handle($request, Closure $next)
     {
         if($request->user()){
-            if(($request->user()->tipo=='Operador de Trafico')||($request->user()->tipo=='Subgerente de Sucursal')||($request->user()->tipo=='Asistente de RRHH')){
+            if($request->user()->tipo=='Gerente de RRHH') {
                 return $next($request);
             }
             else{

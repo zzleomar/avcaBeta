@@ -105,6 +105,19 @@ $(document).ready(function(){
     case '/gerente-sucursales/administracion-aeronaves':
       $('#adminaeronaves').addClass('active');
       break;
+    case '/RRHH':
+      $('#adminPersonal').addClass('active');
+      break;
+    case '/RRHH/asistencia':
+      $('#adminAsistencia').addClass('active');
+      break;
+    case '/gerente-RRHH/nomina':
+      $('#OpcNomina').addClass('active');
+      break;
+    case '/gerente-RRHH/tabulador-salarial':
+      $('#OpcTabuladorSalarial').addClass('active');
+      break;
+
     default:
       //alert(pathname);
       break;

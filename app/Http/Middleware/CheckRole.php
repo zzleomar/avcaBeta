@@ -32,6 +32,14 @@ class CheckRole
                 case 'Gerente General': //si es un Gerente General
                     return redirect('gerencia-general');
                     break;
+
+                case 'Gerente de RRHH': //si es un Gerente de RRHH
+                    return redirect('gerente-RRHH');
+                    break;
+
+                case 'Asistente de RRHH': //si es un Asistente de RRHH
+                    return redirect('RRHH');
+                    break;
                 
                 default:
                     //redirecciona a un error usuario no identificado

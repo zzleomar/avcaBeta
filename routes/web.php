@@ -25,6 +25,8 @@ Route::group(['prefix' => 'inicio','middleware' => ['auth', 'CheckRole']],functi
 
 require 'gerencia-general.php';
 require 'gerente-sucursales.php';
+require 'gerente-RRHH.php';
+require 'asistente-RRHH.php';
 require 'taquilla.php';
 require 'subgerente-sucursal.php';
 

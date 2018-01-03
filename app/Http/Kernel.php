@@ -61,7 +61,9 @@ class Kernel extends HttpKernel
         'CheckRole' => \App\Http\Middleware\CheckRole::class, 
         'CheckRoleOperador' => \App\Http\Middleware\CheckRoleOperador::class, 
         'CheckRoleGerenteSucursales' => \App\Http\Middleware\CheckRoleGerenteSucursales::class, 
+        'CheckRoleGerenteRRHH' => \App\Http\Middleware\CheckRoleGerenteRRHH::class, 
         'CheckRoleSubgerenteSucursal' => \App\Http\Middleware\CheckRoleSubgerenteSucursal::class, 
+        'CheckRoleAsistenteRRHH' => \App\Http\Middleware\CheckRoleAsistenteRRHH::class, 
         'CheckRoleGerenteGeneral' => \App\Http\Middleware\CheckRoleGerenteGeneral::class, 
         'CheckRoleSucursal' => \App\Http\Middleware\CheckRoleSucursal::class, 
     ];

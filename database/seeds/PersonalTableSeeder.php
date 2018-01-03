@@ -26,10 +26,24 @@ class PersonalTableSeeder extends Seeder
                 );
 	       });
 
+        factory(Personal::class, 20)->create()
+            ->each(function ($h) {
+               $h->empleado()->save(factory(App\Empleado::class)->make([
+                     'sucursal_id' => $h->id-20,
+                     'cargo' => 'Asistente de RRHH',
+                     ])
+                );
+                $h->empleado->administrativo()->create([]);
+               $h->user()->save(factory(App\User::class)->make([
+                            'tipo' => 'Asistente de RRHH',
+                        ])
+                );
+           });
+
 	    factory(Personal::class, 20)->create()
             ->each(function ($u) {
                $u->empleado()->save(factory(App\Empleado::class)->make([
-                        'sucursal_id' => ($u->id-20),
+                        'sucursal_id' => ($u->id-40),
                         'cargo' => 'Operador de Trafico',
                         ])
                 );
@@ -42,7 +56,7 @@ class PersonalTableSeeder extends Seeder
         factory(Personal::class,1)->create()
             ->each(function ($u) {
                $u->empleado()->save(factory(App\Empleado::class)->make([
-                        'sucursal_id' => 15,
+                        'sucursal_id' => 16,
                         'cargo' => 'Operador de Trafico',
                         ])
                 );
@@ -57,7 +71,7 @@ class PersonalTableSeeder extends Seeder
         factory(Personal::class,1)->create()
             ->each(function ($u) {
                $u->empleado()->save(factory(App\Empleado::class)->make([
-                        'sucursal_id' => 15,
+                        'sucursal_id' => 16,
                         'cargo' => 'Subgerente de Sucursal',
                         ])
                 );
@@ -87,13 +101,43 @@ class PersonalTableSeeder extends Seeder
         factory(Personal::class,1)->create()
             ->each(function ($u) {
                $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => 16,
+                        'cargo' => 'Asistente de RRHH',
+                        ])
+                );
+                $u->empleado->administrativo()->create([]);
+                $u->user()->create([
+                        'username' => 'admin4',
+                        'tipo' => 'Asistente de RRHH',
+                        'password' => bcrypt('1234567'),
+                        'email' => 'admin4@gmail.com'
+                        ]);
+             });
+        factory(Personal::class,1)->create()
+            ->each(function ($u) {
+               $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => 1,
+                        'cargo' => 'Gerente de RRHH',
+                        ])
+                );
+                $u->empleado->administrativo()->create([]);
+                $u->user()->create([
+                        'username' => 'admin5',
+                        'tipo' => 'Gerente de RRHH',
+                        'password' => bcrypt('1234567'),
+                        'email' => 'admin5@gmail.com'
+                        ]);
+             });
+        factory(Personal::class,1)->create()
+            ->each(function ($u) {
+               $u->empleado()->save(factory(App\Empleado::class)->make([
                         'sucursal_id' => 1,
                         'cargo' => 'Gerente General',
                         ])
                 );
                 $u->empleado->administrativo()->create([]);
                 $u->user()->create([
-                        'username' => 'admin4',
+                        'username' => 'admin6',
                         'tipo' => 'Gerente General',
                         'password' => bcrypt('1234567'),
                         'email' => 'admin4@gmail.com'

@@ -36,6 +36,12 @@
                   <li class="nav-item">
                     <a class="nav-link" id="chequeo" href="{{ URL::to('/taquilla/confirmar-boleto') }}">Chequeo Boleto</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="adminPersonal" href="{{ URL::to('/RRHH') }}">Administración de Personal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/RRHH/asistencia') }}">Registro de Asistencia</a>
+                  </li>
                 </ul>
               </div>
 
@@ -82,40 +88,41 @@
         @break
 
 
-        @case('Gerente de Finanzas')
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-th" aria-hidden="true"></i> Menú</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="#">Action 1</a>
-                            <a class="dropdown-item" href="#">Planificar vuelo</a>
-                        </div>
-                    </li>
+        @case('Asistente de RRHH')
+            <div class="container">
+              <div class="container py-3  avcaColor">
+
+            <div class="card text-center">
+              <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link" id="adminPersonal" href="{{ URL::to('/RRHH') }}">Administración de Personal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/RRHH/asistencia') }}">Registro de Asistencia</a>
+                  </li>
                 </ul>
+              </div>
         @break
 
 
         @case('Gerente de RRHH')
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-th" aria-hidden="true"></i> Menú</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="#">Action 1</a>
-                            <a class="dropdown-item" href="#">Planificar vuelo</a>
-                        </div>
-                    </li>
+            <div class="container">
+              <div class="container py-3  avcaColor">
+
+            <div class="card text-center">
+              <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link" id="adminPersonal" href="{{ URL::to('/RRHH') }}">Administración de Personal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="OpcNomina" href="{{ URL::to('/gerente-RRHH/nomina') }}">Generación de Nomina</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="OpcTabuladorSalarial" href="{{ URL::to('/gerente-RRHH/tabulador-salarial') }}">Tabulador Salarial</a>
+                  </li>
                 </ul>
+              </div>
         @break
 @endswitch
