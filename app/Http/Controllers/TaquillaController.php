@@ -35,8 +35,8 @@ class TaquillaController extends Controller
         //busco todos los destinos programados de la fecha actual en adelante
         $actual = Carbon::now();
         $actual2=Carbon::now();
-        $actual2->addHours(); //agg 1hra para buscar y actualizar los vuelos que ya estan cerrados
-        $actual2->VuelosCerrados($actual2->toDateTimeString());
+        $actual2->addHours(1); //agg 1hra para buscar y actualizar los vuelos que ya estan cerrados
+        $vuelos->VuelosCerrados($actual2->toDateTimeString());
         $datos=$vuelos->Destinos($sucursal->id,$actual->toDateTimeString());
         //retorno a la vista con los datos
         //$id_empleado=Auth::user()->administrativo_id;
