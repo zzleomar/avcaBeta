@@ -30,4 +30,8 @@ class Personal extends Model
         return $this->hasMany('App\Vauche');
     }
 
+    public function scopeBuscarCI($query, $dato){
+        return $query->where('cedula',$dato);
+    }
+
 }

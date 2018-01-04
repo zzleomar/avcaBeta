@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<link rel="shortcut icon" href="favicon.ico">
+</head>
+<body>
+<header id="header" class="">
+		
+	</header><!-- /header -->	
+
+<!-- <nav class="">
+    <ul>
+        <li><a href="#"></a></li> 
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+     <li><a href="#"></a></li>
+    </ul> 
+</nav> -->
+
+<section>
+<div class="container py-3">
+ 
+
+ <div class="card text-center border-info mb-3" style=" width: 61.7rem;">
+     <div class="card-body ">
+        <h4 class="card-title">Consulta de inasistencias</h4>
+      <br>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center" >
+              <tr class="bg-white " >
+               <th class="border  border-primary border-left-0">
+                <select class="form-control table-primary border-0 text-dark font-weight-bold" id="">
+                  <option class="bg-white">Sucursales</option>
+                  <option class="bg-white">Sucre</option>
+                  <option class="bg-white">Anzuategui</option>
+                  <option class="bg-white">Marzo</option>
+                  <option class="bg-white">Abril</option>
+                  <option class="bg-white">Mayo</option>
+                  <option class="bg-white">Junio</option>
+                  <option class="bg-white">Julio</option>
+                  <option class="bg-white">Agosto</option>
+                  <option class="bg-white">Septiembre</option>
+                  <option class="bg-white">Octubre</option>
+                  <option class="bg-white">Nobiembre</option>
+                  <option class="bg-white">Diciembre</option>
+                </select>              
+                </th>
+
+              <th class="border  border-primary"> 
+
+                    <form>
+                      <div class="form-group">
+                        <input type="email" class="form-control table-info border-0 text-dark" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Identificacion">                       
+                     </div>
+                    </form>
+                    
+                </th>
+
+               <th class="border  border-primary ">Nombre</th>
+
+               <th class="border  border-primary ">Apellido</th>
+
+               <th class="border  border-primary">
+                <select class="form-control table-primary border-0 text-dark font-weight-bold" id="">
+                  <option class="bg-white">Cargos </option>
+                  <option class="bg-white">...</option>
+                  <option class="bg-white">...</option>
+                  <option class="bg-white">....</option>
+                  <option class="bg-white">....</option>
+                  </select></th>
+
+              <th class="border  border-primary">
+                  <select class="form-control table-primary border-0 text-dark font-weight-bold" id="exampleFormControlSelect1">
+                  <option class="bg-white">En el mes</option>
+                  <option class="bg-white">Enero</option>
+                  <option class="bg-white">Febrero</option>
+                  <option class="bg-white">Marzo</option>
+                  <option class="bg-white">Abril</option>
+                  <option class="bg-white">Mayo</option>
+                  <option class="bg-white">Junio</option>
+                  <option class="bg-white">Julio</option>
+                  <option class="bg-white">Agosto</option>
+                  <option class="bg-white">Septiembre</option>
+                  <option class="bg-white">Octubre</option>
+                  <option class="bg-white">Nobiembre</option>
+                  <option class="bg-white">Diciembre</option>
+                </select></th>
+
+              <th class="border  border-primary border-right-0 border-left-0">
+               <select class="form-control table-primary border-0 text-dark font-weight-bold" id="exampleFormControlSelect1">
+                  <option class="bg-white">Al Año</option>
+                  <option class="bg-white">...</option>
+                  <option class="bg-white">...</option>
+                  <option class="bg-white">....</option>
+                  <option class="bg-white">....</option>
+                  </select></th>
+              </tr>
+              <tr>
+                <td>Maiquetía</td>
+                <td>21/10/2017</td>
+                <td>12</td>
+                <td>2000</td>
+                <td>habilitado</td>
+                <td>5 <button type="button" class="btn btn-outline-success border-0" data-toggle="modal" data-target="#exampleModal">Justificar</button>                 
+                </td>       
+                                   
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                   <div class="modal-content text-center">
+                      <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel"> Justificar</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                       </div>
+                     <div class="modal-body">
+                      <form>
+
+                      <div class="form-inline align-items-center">
+                         <div class="form-group col-md-9">
+                                 <label for="inputIdentificacion4" class="col-sm-3 col-form-label">Dias</label>
+                                <div class="input-group">  
+                                 <div class="input-group-addon"> # </div>  
+
+                                 <input type="password" class="form-control" id="inputPassword4" placeholder="Nº de Dias a Justificar">
+                               </div>
+                           </div>                            
+                           </div>   
+              <br>                                      
+                             <div class="form-group">
+                                <label for="inputAddress">Breve Justificación</label>
+                                  <input type="text" class="form-control form-control-lg"" id="inputAddress" placeholder="Breve decripcion">
+                             </div>
+
+
+                      
+                      </form>
+
+
+                         
+                     </div>
+                     <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fa fa-window-close" aria-hidden="true"></i> Cancelar</button>
+                      <button type="button" class="btn btn-primary"> <i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>
+                     </div>
+                   </div>
+                 </div>
+                </div>
+
+
+
+                <td>habilitado</td>
+              </tr>
+              <tr>
+                <td>Cumaná</td>
+                <td>28/05/2017</td>
+                <td>21</td>
+                <td>4500</td>
+                <td>cancelado</td>
+                <td>5 <button type="button" class="btn btn-outline-success border-0" data-toggle="modal" data-target="#exampleModal">Justificar</button>                 
+                </td>       
+                                   
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                   <div class="modal-content text-center">
+                      <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel"> Justificar</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                       </div>
+                     <div class="modal-body">
+                      <form>
+
+                      <div class="form-inline align-items-center">
+                         <div class="form-group col-md-9">
+                                 <label for="inputIdentificacion4" class="col-sm-3 col-form-label">Dias</label>
+                                <div class="input-group">  
+                                 <div class="input-group-addon"> # </div>  
+
+                                 <input type="password" class="form-control" id="inputPassword4" placeholder="Nº de Dias a Justificar">
+                               </div>
+                           </div>                            
+                           </div>   
+              <br>                                      
+                             <div class="form-group">
+                                <label for="inputAddress">Breve Justificación</label>
+                                  <input type="text" class="form-control form-control-lg"" id="inputAddress" placeholder="Breve decripcion">
+                             </div>
+
+
+                      
+                      </form>
+
+
+                         
+                     </div>
+                     <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fa fa-window-close" aria-hidden="true"></i> Cancelar</button>
+                      <button type="button" class="btn btn-primary"> <i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>
+                     </div>
+                   </div>
+                 </div>
+                </div>
+
+
+
+                <td>habilitado</td>
+              </tr>
+              <tr>
+                <td>Valencia</td>
+                <td>13/11/2017</td>
+                <td>65</td>
+                <td>3400</td>
+                <td>habilitado</td>
+                <td>5 <button type="button" class="btn btn-outline-success border-0" data-toggle="modal" data-target="#exampleModal">Justificar</button>                 
+                </td>       
+                                   
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                   <div class="modal-content text-center">
+                      <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel"> Justificar</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                       </div>
+                     <div class="modal-body">
+                      <form>
+
+                      <div class="form-inline align-items-center">
+                         <div class="form-group col-md-9">
+                                 <label for="inputIdentificacion4" class="col-sm-3 col-form-label">Dias</label>
+                                <div class="input-group">  
+                                 <div class="input-group-addon"> # </div>  
+
+                                 <input type="password" class="form-control" id="inputPassword4" placeholder="Nº de Dias a Justificar">
+                               </div>
+                           </div>                            
+                           </div>   
+              <br>                                      
+                             <div class="form-group">
+                                <label for="inputAddress">Breve Justificación</label>
+                                  <input type="text" class="form-control form-control-lg"" id="inputAddress" placeholder="Breve decripcion">
+                             </div>
+
+
+                      
+                      </form>
+
+
+                         
+                     </div>
+                     <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fa fa-window-close" aria-hidden="true"></i> Cancelar</button>
+                      <button type="button" class="btn btn-primary"> <i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>
+                     </div>
+                   </div>
+                 </div>
+                </div>
+
+
+
+
+                <td>habilitado</td>
+              </tr>
+              <tr>
+                <td>Barcelona</td>
+                <td>23/04/2017</td>
+                <td>65</td>
+                <td>3300</td>
+                <td>habilitado</td>
+                <td>5 <button type="button" class="btn btn-outline-success border-0" data-toggle="modal" data-target="#exampleModal">Justificar</button>                 
+                </td>       
+                                   
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                   <div class="modal-content text-center">
+                      <div class="modal-header">
+                         <h5 class="modal-title" id="exampleModalLabel"> Justificar</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                       </div>
+                     <div class="modal-body">
+                      <form>
+
+                      <div class="form-inline align-items-center">
+                         <div class="form-group col-md-9">
+                                 <label for="inputIdentificacion4" class="col-sm-3 col-form-label">Dias</label>
+                                <div class="input-group">  
+                                 <div class="input-group-addon"> # </div>  
+
+                                 <input type="password" class="form-control" id="inputPassword4" placeholder="Nº de Dias a Justificar">
+                               </div>
+                           </div>                            
+                           </div>   
+              <br>                                      
+                             <div class="form-group">
+                                <label for="inputAddress">Breve Justificación</label>
+                                  <input type="text" class="form-control form-control-lg"" id="inputAddress" placeholder="Breve decripcion">
+                             </div>
+
+
+                      
+                      </form>
+
+
+                         
+                     </div>
+                     <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal"> <i class="fa fa-window-close" aria-hidden="true"></i> Cancelar</button>
+                      <button type="button" class="btn btn-primary"> <i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>
+                     </div>
+                   </div>
+                 </div>
+                </div>
+
+
+
+                <td>habilitado</td>
+              </tr>
+
+            </table>
+          </div>
+
+
+
+            
+      </div>
+  </div>   
+
+
+
+  </div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+<footer>
+	
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//js/popper.min.js"></script>
+<script type="text/javascript" src="//js/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -15,7 +15,7 @@ class CreateAsistenciasTable extends Migration
     {
         Schema::create('asistencias', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamp('entrada');    
+            $table->timestamp('entrada')->nullable();
             $table->timestamp('salida')->nullable();    
             $table->integer('empleado_id')->unsigned();
             $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');

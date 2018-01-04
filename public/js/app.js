@@ -117,6 +117,9 @@ $(document).ready(function(){
     case '/gerente-RRHH/tabulador-salarial':
       $('#OpcTabuladorSalarial').addClass('active');
       break;
+    case '/gerente-RRHH':
+      $('#gerentRRHHIni').addClass('active');
+      break;
 
     default:
       //alert(pathname);

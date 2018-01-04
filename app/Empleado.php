@@ -35,4 +35,5 @@ class Empleado extends Model
     public function asistencias(){
     	return $this->hasMany('App\Asistencia');
     }
+
 }

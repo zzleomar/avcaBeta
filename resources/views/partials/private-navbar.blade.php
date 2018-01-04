@@ -114,6 +114,9 @@
               <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                   <li class="nav-item">
+                    <a class="nav-link" id="gerentRRHHIni" href="{{ URL::to('/gerente-RRHH') }}">Inicio</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" id="adminPersonal" href="{{ URL::to('/RRHH') }}">Administración de Personal</a>
                   </li>
                   <li class="nav-item">

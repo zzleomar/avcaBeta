@@ -63,7 +63,7 @@ $factory->define(Personal::class, function (Faker $faker) {
 return [
         'nombres' => $faker->firstName,
 		'apellidos' => $faker->lastName,
-		'cedula' => $faker->postcode,
+		'cedula' => 'V'.$faker->postcode,
 		'tlf_movil' => $faker->phoneNumber,
 		'tlf_casa' => $faker->phoneNumber,
 		'direccion' => $faker->address,
