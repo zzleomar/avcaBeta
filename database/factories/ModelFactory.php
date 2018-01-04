@@ -95,7 +95,7 @@ $factory->define(Empleado::class, function (Faker $faker) {
     return [
         
 	//	'sucursal_id'     => $x,
-		'horario_id'      => $y
+		//'horario_id'      => $y
 		//'sucursal_id'     => $this->random('Sucursal')->id,
 		//'horario_id'      => $this->random('Horario')->id
     ];
