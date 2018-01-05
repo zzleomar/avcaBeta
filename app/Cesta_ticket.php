@@ -9,10 +9,13 @@ class Cesta_ticket extends Model
     protected $table ="cesta_tickets";
 
     protected $fillable = [
-        'monto','dias'
+        'monto','dias','personal_id','unidadTributaria_id'
     ];
 
-    public function vouche(){
-    	return $this->hasOne('App\Vouche');
+    public function personal(){
+    	return $this->belongsTo('App\Personal');
+    }
+    public function unidadTributaria(){
+    	return $this->belongsTo('App\Tabulador','unidadTributaria_id','id');
     }
 }

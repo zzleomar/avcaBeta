@@ -15,9 +15,9 @@ class Vuelo extends Model
     public function boletos(){
     	return $this->hasMany('App\boleto');
     }
-    /*public function piernas(){
-        return $this->hasMany('App\Pierna');
-    }*/
+    Public function demorado(){
+        return $this->hasOne('App\Demorado');
+    }
     public function pierna(){
         return $this->hasOne('App\Pierna');
     }

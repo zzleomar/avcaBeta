@@ -20,8 +20,8 @@ class Personal extends Model
     	return $this->hasOne('App\Tripulante');
     }
 
-    Public function sueldo_base(){
-        return $this->belongsTo('App\Sueldo_base');
+    Public function cesta_tickets(){
+        return $this->hasMany('App\Cesta_ticket');
     }
     public function user(){
         return $this->hasOne('App\User');

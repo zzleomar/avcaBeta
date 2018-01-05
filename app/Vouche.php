@@ -9,34 +9,32 @@ class Vouche extends Model
 	protected $table = 'vouches';
 
      protected $fillable = [
-        'sueldo_base_id','personal_id','nomina_id',
-        'utilidad_id','vacacion_id','deduccion_id',
-        'compensacion_id','cesta_ticket_id'
+        'sueldo_base','personal_id','nomina_id',
+        'utilidad','vacacion','deduccion',
+        'compensacion','antiguedad','ausencias','sueldoMinimo_id','escala_id','antiguedad_id','compensacion_id','constante_id'
     ];
-    Public function sueldo_base(){
-        return $this->belongsTo('App\Sueldo_base');
-    }
+
+
     Public function personal(){
         return $this->belongsTo('App\Personal');
     }
      Public function nomina(){
         return $this->belongsTo('App\Nomina');
     }
-    Public function utilidad(){
-        return $this->belongsTo('App\Utilidad');
+    public function sueldoMinimo(){
+        return $this->belongsTo('App\Tabulador','sueldoMinimo_id','id');
     }
-    Public function compensacion(){
-        return $this->belongsTo('App\Compensacion');
+    public function escala(){
+        return $this->belongsTo('App\Tabulador','escala_id','id');
     }
-
-    public function deduccion(){
-    	return $this->hasOne('App\Deduccion');
+    public function antiguedad(){
+        return $this->belongsTo('App\Tabulador','antiguedad_id','id');
     }
-    public function cesta_ticket(){
-    	return $this->hasOne('App\Cesta_ticket');
+    public function compensacion(){
+        return $this->belongsTo('App\Tabulador','compensacion_id','id');
     }
-    public function vacacion(){
-    	return $this->hasOne('App\Vacacion');
+    public function constante(){
+        return $this->belongsTo('App\Tabulador','constante_id','id');
     }
     
 }

@@ -4,16 +4,32 @@
 @include('notifications::flash')
 
 <div id="targetL" class="py-3">
-    <table class="table">
+    
+
+ 
+<div id="AccordionAdminPersonal" data-children=".item" style="font-weight: 600;">
+
+<a data-toggle="collapse" data-parent="#AccordionAdminPersonal" href="#AccordionAdminPersonal2" aria-expanded="false" aria-controls="AccordionAdminPersonal2"><button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
+  Generar Nomina
+</button></a>
+<a data-toggle="collapse" data-parent="#AccordionAdminPersonal" href="#AccordionAdminPersonal1" aria-expanded="true" aria-controls="AccordionAdminPersonal1"><button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
+  Datos del Personal
+</button></a>
+  <hr style="clear: both;">
+<div class="item">
+    <div id="AccordionAdminPersonal1" class="collapse show" role="tabpanel">
+
+<table class="table">
       <thead class="thead-light">
         <tr align="center">
-          <th>Administración de Personal</th>
+          <th>ADMINISTRACIÓN DE PERSONAL</th>
         </tr>
       </thead>
     </table>
 
- 
-
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NuevaEmpleadoModal" style="margin-bottom: 20px;  float: left;">
+              Agregar Empleado
+            </button>
 
 <div class="divtablaAux">
 <table class="table table-responsive-md table-hover text-center tablaAux">
@@ -92,12 +108,52 @@
     @php }
     @endphp
   </table>
-</div><br>
+</div><br></div></div>
+<div class="item">
+  <div id="AccordionAdminPersonal2" class="collapse" role="tabpanel">
+    <table class="table">
+      <thead class="thead-light">
+        <tr align="center">
+          <th>CONTROL DE NÓMINA</th>
+        </tr>
+      </thead>
+    </table>
+    <div class="form-row">    
+        <div class="form-group col-md-2">
+          <label class="custom-control custom-radio">Actual
+              <input type="radio" class="custom-control-input" id="actualNomina" name="reporte" value="1" onclick="seleccion()" checked><span class="custom-control-indicator"></span>
+          </label>
+        </div>
+        <div class="form-group col-md-2">
+          <label class="custom-control custom-radio">Otra
+              <input type="radio" class="custom-control-input" id="otraNomina" name="reporte" value="2"  onclick="seleccion()"><span class="custom-control-indicator"></span>
+          </label>
+        </div>
+        <div class="form-group col-md-2 oculto" id="opcNominaSelect" style="margin-top: 3px;">
+            <select name="nomina" class="opcTipo form-control-lg" id="opcnomina" required>
+                <option value="0">Seleccione Fecha</option>
+                <option value="idnomina" >Enero 2018</option>
+                <option value="idnomina" >Diciembre 2017</option>
+                <option value="idnomina" >Noviembre 2017</option>
+            </select>
+          </div>
+        <div class="form-group col-md-2" style="margin-top: 3px;">
+          @php
+          $urlN=URL::to('/RRHH/nomina/generar');
+          @endphp
+          <button type="button" class="btn btn-lg btn-success" onclick="Fomrnomina('{{ $urlN }}')">Mostrar</button>
+        </div>
+        </div>
+      </div>
+      <div id="ajax-nomina">
+        
+      </div>
+      </div> 
+  </div>
+</div>
 
 <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NuevaEmpleadoModal">
-              Agregar Empleado
-            </button>
+            
     
   <!----- MODALS ----------------------------------------->
 <!------------------------ MODALS ---------------------->
@@ -129,9 +185,25 @@
          document.getElementById('tipoCid22').value='0';
          document.getElementById('tipoCid2').value='0';
          document.getElementById('horarioN').value=''; 
-         document.getElementById('licencia').value=''; 
+         document.getElementById('licencia').value='';
+         var radio3=$('input:radio[name=reporte]:checked').val();
+         if(radio3==2){
+            $("#opcNominaSelect").show();
+         }
+
+
 });
 
+function seleccion(){
+  var radio3=$('input:radio[name=reporte]:checked').val();
+  if(radio3==2){
+      $("#opcNominaSelect").show();
+  }
+  else {
+      $("#opcNominaSelect").hide();
+  }
+
+}
   function ConfirmarEliminarEmpleado(id,nombre){
     alert(id);
         document.getElementById('empleado_id').value=id;

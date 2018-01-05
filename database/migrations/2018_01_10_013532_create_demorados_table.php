@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVacacionesTable extends Migration
+class CreateDemoradosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateVacacionesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vacaciones', function (Blueprint $table) {
+        Schema::create('demorados', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('monto');
-            $table->timestamp('fecha_inicio');
-            $table->timestamp('fecha_finalizacion')->nullable();
+            $table->time('demora');
+            $table->timestamp('salida_demorada');
+            $table->integer('vuelo_id')->unsigned()->nullable();
+            $table->foreign('vuelo_id')->references('id')->on('vuelos')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateVacacionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vacaciones');
+        Schema::dropIfExists('demorados');
     }
 }

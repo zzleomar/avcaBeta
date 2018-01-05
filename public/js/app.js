@@ -7,7 +7,36 @@ function pulsar(e) {
   tecla = (document.all) ? e.keyCode : e.which;
   return (tecla != 13);
 }
-
+function Fomrnomina(url){
+  var targetL = $('#targetL');
+  targetL.loadingOverlay();      
+  var radio3=$('input:radio[name=reporte]:checked').val();
+   if(radio3==2){
+      var nomina=document.getElementById('opcnomina').value;
+      if(nomina==0){
+          document.getElementById('opcnomina').setCustomValidity('Debe seleccionar la nomina');
+          targetL.loadingOverlay('remove');
+      }
+      else{
+        document.getElementById('opcnomina').setCustomValidity(''); 
+        url=url+"/"+radio3+"/"+nomina;
+         $.get(url,function(data){ 
+                $('#ajax-nomina').empty().html(data);
+                targetL.loadingOverlay('remove');
+        });       
+      }
+       
+   }
+   else{
+      nomina='0';
+      url=url+"/"+radio3+"/"+nomina;
+        alert(url);
+         $.get(url,function(data){ 
+                $('#ajax-nomina').empty().html(data);
+                targetL.loadingOverlay('remove');
+        });
+   }
+}
 function formOperativo(action)
     {
         document.getElementById('formOperativo').action = action;
@@ -236,11 +265,6 @@ function planificarVuelo(action)
       }
     }
   }
-}
-function nuevoEmpleado(){
-  cedula
-  nombres
-  apellidos
 }
 function capturarO(id,clave)
   {

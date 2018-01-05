@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDeduccionesTable extends Migration
+class CreateTabuladoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateDeduccionesTable extends Migration
      */
     public function up()
     {
-        Schema::create('deducciones', function (Blueprint $table) {
+        Schema::create('tabuladores', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('monto');
-            $table->time('ausencias');
+            $table->char('descripcion',255);
+            $table->float('digito');
+            $table->enum('estado',['Activo','Caducado']);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateDeduccionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deducciones');
+        Schema::dropIfExists('tabuladores');
     }
 }

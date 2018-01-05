@@ -16,6 +16,8 @@ Route::group(['prefix' => 'RRHH','middleware' => ['auth', 'CheckRoleAsistenteRRH
 	Route::post('/administracion-empleados/modificar','PersonalController@modificar');
 
 
+	Route::get('/nomina/generar/{opc}/{nomina}','NominaController@generar');
+
 	Route::get('/administracion-empleados/ajaxModificar/{id}','PersonalController@ajaxDatosModificar');
 	
 

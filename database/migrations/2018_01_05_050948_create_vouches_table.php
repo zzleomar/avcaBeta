@@ -15,24 +15,33 @@ class CreateVouchesTable extends Migration
     {
         Schema::create('vouches', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sueldo_base_id')->unsigned();
+            $table->float('sueldo_base')->unsigned();
             $table->integer('personal_id')->unsigned();
-            $table->integer('nomina_id')->unsigned();
-            $table->integer('utilidad_id')->unsigned()->nullable();
-            $table->integer('vacacion_id')->unsigned()->nullable();
-            $table->integer('deduccion_id')->unsigned()->nullable();
+            $table->integer('nomina_id')->unsigned()->nullable();
+            $table->float('utilidad')->unsigned()->nullable();
+            $table->float('vacacion')->unsigned()->nullable();
+            $table->float('deduccion')->unsigned()->nullable();
+            $table->float('compensacion')->unsigned()->nullable();
+            $table->float('antiguedad')->unsigned()->nullable();
+            $table->time('ausencias')->nullable();
+
+            $table->integer('sueldoMinimo_id')->unsigned()->nullable();
+            $table->integer('escala_id')->unsigned()->nullable();
+            $table->integer('antiguedad_id')->unsigned()->nullable();
             $table->integer('compensacion_id')->unsigned()->nullable();
-            $table->integer('cesta_ticket_id')->unsigned()->nullable();
+            $table->integer('constante_id')->unsigned()->nullable();
 
 
-            $table->foreign('sueldo_base_id')->references('id')->on('sueldos_base')->onDelete('cascade');
+
             $table->foreign('personal_id')->references('id')->on('personal')->onDelete('cascade');
             $table->foreign('nomina_id')->references('id')->on('nominas')->onDelete('cascade');
-            $table->foreign('utilidad_id')->references('id')->on('utilidades')->onDelete('cascade');
-            $table->foreign('vacacion_id')->references('id')->on('vacaciones')->onDelete('cascade');
-            $table->foreign('deduccion_id')->references('id')->on('deducciones')->onDelete('cascade');
-            $table->foreign('compensacion_id')->references('id')->on('compensaciones')->onDelete('cascade');
-            $table->foreign('cesta_ticket_id')->references('id')->on('cesta_tickets')->onDelete('cascade');
+
+            $table->foreign('sueldoMinimo_id')->references('id')->on('tabuladores')->onDelete('cascade');
+            $table->foreign('escala_id')->references('id')->on('tabuladores')->onDelete('cascade');
+            $table->foreign('antiguedad_id')->references('id')->on('tabuladores')->onDelete('cascade');
+            $table->foreign('compensacion_id')->references('id')->on('tabuladores')->onDelete('cascade');
+            $table->foreign('constante_id')->references('id')->on('tabuladores')->onDelete('cascade');
+
 
             $table->timestamps();
 
