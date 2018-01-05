@@ -336,7 +336,7 @@
         }); 
   }
   function programar(){
-    var targetL = $('#cargandoAux');
+    var targetL = $('#cargandoAuxP');
     targetL.loadingOverlay();
     var origen=document.getElementById('origen_id').value; 
     var destino=document.getElementById('destino_id').value; 

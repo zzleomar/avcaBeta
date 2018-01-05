@@ -26,7 +26,7 @@
     <thead class="thead-light">
       <tr>
         <th class="ThCenter">Matricula</th>
-        <th class="ThCenter">Ultimo Matenimiento</th>
+        <th class="ThCenter">Horas de Uso</th>
         <th class="ThCenter">Uso Planificado</th>
         <th>
         	<div class="text-center" style="display: flex;">
@@ -68,8 +68,8 @@
      ?>
     <tbody>
         <td>{{ $aeronaves[$i]->matricula }}</td>     
-        <td>{{ DATE('d/m/Y',strtotime($aeronaves[$i]->ultimo_mantenimiento)) }}</td>
         <td id="aehm{{ $aeronaves[$i]->id }}"></td>
+        <td id="aehp{{ $aeronaves[$i]->id }}"></td>
         <td>{{ $aeronaves[$i]->modelo }}</td>
       <td>{{ $aeronaves[$i]->estado }}</td>
         
@@ -124,6 +124,24 @@
             min=parseInt(min);
           }
           var idpi='aehm'+'<?php echo $aeronaves[$i]->id; ?>';
+          <?php if(($aeronaves[$i]->estado!='mantenimiento')&&($aeronaves[$i]->estado!='inactivo')){ ?>
+          document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
+          <?php }else{ ?>
+          document.getElementById(idpi).innerHTML="NO APLICA";
+            <?php } ?>
+
+          acumulado=parseInt('<?php if(!(is_null($aehp[$i]->horas))){echo $aehp[$i]->horas;}else{ echo "000000";} ?>'); //tengo la cantidad en entero de horas, minutos y segundos
+          acumulado=acumulado/100;  //elimino los segundos
+          Auxhoras=acumulado/60; //saco las horas con posibles decimales
+          horas=Math.trunc(Auxhoras); //saco las horas
+          min=((Auxhoras-horas)*60).toFixed(2); //saco los minutos
+          if(parseInt(min)==0){
+            min='00';
+          } 
+          else {
+            min=parseInt(min);
+          }
+          idpi='aehp'+'<?php echo $aeronaves[$i]->id; ?>';
           <?php if(($aeronaves[$i]->estado!='mantenimiento')&&($aeronaves[$i]->estado!='inactivo')){ ?>
           document.getElementById(idpi).innerHTML=horas+":"+min+":00 Hrs";
           <?php }else{ ?>

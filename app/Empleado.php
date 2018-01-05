@@ -17,7 +17,7 @@ class Empleado extends Model
     }
 
     Public function horarios(){
-        return $this->belongsToMany('App\Horario');
+        return $this->belongsTo('App\Horario');
     }
 
     public function personal(){

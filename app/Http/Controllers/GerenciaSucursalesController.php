@@ -202,7 +202,7 @@ class GerenciaSucursalesController extends Controller
               $pihp= array(); //HORAS PLANIFICAS PARA LA QUINCENA
               foreach ($pilotos as $piloto) {
                 array_push($pihe, $personal->HorasExperiencia($piloto->id,$actual2->toDateTimeString())[0]);
-                array_push($pihp, $personal->HorasPlanificadas($piloto->id,$fechaincio,$fechafin)[0]);
+                array_push($pihp, $personal->VuelosPlanificadas($piloto->id,$fechaincio,$fechafin)[0]);
               }
 
               $copilotos=$personal->Disponibilidad("Copiloto",$antes,$despues);
@@ -210,7 +210,7 @@ class GerenciaSucursalesController extends Controller
               $copihp= array(); //HORAS PLANIFICAS PARA LA QUINCENA
               foreach ($copilotos as $copiloto) {
                 array_push($copihe, $personal->HorasExperiencia($copiloto->id,$actual2->toDateTimeString())[0]);
-                array_push($copihp, $personal->HorasPlanificadas($copiloto->id,$fechaincio,$fechafin)[0]);
+                array_push($copihp, $personal->VuelosPlanificadas($copiloto->id,$fechaincio,$fechafin)[0]);
               }
 
               $sobrecargos=$personal->Disponibilidad("Sobrecargo",$antes,$despues);
@@ -218,7 +218,7 @@ class GerenciaSucursalesController extends Controller
               $sohp= array(); //HORAS PLANIFICAS PARA LA QUINCENA
               foreach ($sobrecargos as $sobrecargo) {
                 array_push($sohe, $personal->HorasExperiencia($sobrecargo->id,$actual2->toDateTimeString())[0]);
-                array_push($sohp, $personal->HorasPlanificadas($sobrecargo->id,$fechaincio,$fechafin)[0]);
+                array_push($sohp, $personal->VuelosPlanificadas($sobrecargo->id,$fechaincio,$fechafin)[0]);
               }
 
               $jefacs=$personal->Disponibilidad("Jefe de Cabina",$antes,$despues);
@@ -226,7 +226,7 @@ class GerenciaSucursalesController extends Controller
               $jchp= array(); //HORAS PLANIFICAS PARA LA QUINCENA
               foreach ($jefacs as $jefac) {
                 array_push($jche, $personal->HorasExperiencia($jefac->id,$actual2->toDateTimeString())[0]);
-                array_push($jchp, $personal->HorasPlanificadas($jefac->id,$fechaincio,$fechafin)[0]);
+                array_push($jchp, $personal->VuelosPlanificadas($jefac->id,$fechaincio,$fechafin)[0]);
               }
 
 
@@ -426,7 +426,7 @@ class GerenciaSucursalesController extends Controller
       $vuelo->Tripulante()->sync($sobrecargo3);*/
       
     }
-        flash::success('El vuelo a sido planificado');
+        flash::success('El vuelo ha sido planificado');
       return redirect('/gerente-sucursales');
 
   }
@@ -510,15 +510,19 @@ class GerenciaSucursalesController extends Controller
           $aeronaves= Aeronave::orderBy('id')->get();
         }
       }
-      $aehm= array(); //HORAS DE VUELOS DESPUES DEL MANTENIMIENTO DE LA AERONAVE
+      $actual = Carbon::now();
+      $aehm= array(); //HORAS DE VUELOS DESPUES DEL MANTENIMIENTO A LA FECHA ACTUAL
+      $aehp= array(); //HORAS DE VUELOS PLANIFICADAS DESPUES DE LA FECHA ACTUAL
       foreach ($aeronaves as $aeronaveF) {
-        array_push($aehm, Aeronave::HorasPostMantenimiento($aeronaveF->id)[0]);
+        array_push($aehm, Aeronave::HorasUso($aeronaveF->id,$actual->toDateTimeString())[0]);
+        array_push($aehp, Aeronave::HorasPlanificadas($aeronaveF->id,$actual->toDateTimeString())[0]);
       }
       $modelos=Aeronave::Modelos()->get();
       $estados=Aeronave::Estados()->get();
       return view('gerente-sucursales.administracion-aeronaves')
                   ->with('aeronaves',$aeronaves)
                   ->with('aehm',$aehm)
+                  ->with('aehp',$aehp)
                   ->with('modelos',$modelos)
                   ->with('estados',$estados);
   }

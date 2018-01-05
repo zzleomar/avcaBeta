@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCestaTikesTable extends Migration
+class CreateCestaTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCestaTikesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cesta_tikes', function (Blueprint $table) {
+        Schema::create('cesta_tickets', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('dias')->unsigned();
             $table->float('monto');
@@ -28,6 +28,6 @@ class CreateCestaTikesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cesta_tikes');
+        Schema::dropIfExists('cesta_tickets');
     }
 }

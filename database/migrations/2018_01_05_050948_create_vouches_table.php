@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVauchesTable extends Migration
+class CreateVouchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateVauchesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vauches', function (Blueprint $table) {
+        Schema::create('vouches', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('sueldo_base_id')->unsigned();
             $table->integer('personal_id')->unsigned();
@@ -22,7 +22,7 @@ class CreateVauchesTable extends Migration
             $table->integer('vacacion_id')->unsigned()->nullable();
             $table->integer('deduccion_id')->unsigned()->nullable();
             $table->integer('compensacion_id')->unsigned()->nullable();
-            $table->integer('cesta_tike_id')->unsigned()->nullable();
+            $table->integer('cesta_ticket_id')->unsigned()->nullable();
 
 
             $table->foreign('sueldo_base_id')->references('id')->on('sueldos_base')->onDelete('cascade');
@@ -32,7 +32,7 @@ class CreateVauchesTable extends Migration
             $table->foreign('vacacion_id')->references('id')->on('vacaciones')->onDelete('cascade');
             $table->foreign('deduccion_id')->references('id')->on('deducciones')->onDelete('cascade');
             $table->foreign('compensacion_id')->references('id')->on('compensaciones')->onDelete('cascade');
-            $table->foreign('cesta_tike_id')->references('id')->on('cesta_tikes')->onDelete('cascade');
+            $table->foreign('cesta_ticket_id')->references('id')->on('cesta_tickets')->onDelete('cascade');
 
             $table->timestamps();
 
@@ -46,6 +46,6 @@ class CreateVauchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vauches');
+        Schema::dropIfExists('vouches');
     }
 }

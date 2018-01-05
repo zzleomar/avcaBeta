@@ -13,6 +13,6 @@ class Horario extends Model
     ];
 
     public function empleados(){
-    	return $this->belongsToMany('App\Empleado');
+    	return $this->hasMany('App\Empleado');
     }
 }

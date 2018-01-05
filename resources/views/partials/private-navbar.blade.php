@@ -40,7 +40,7 @@
                     <a class="nav-link" id="adminPersonal" href="{{ URL::to('/RRHH') }}">Administración de Personal</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/RRHH/asistencia') }}">Registro de Asistencia</a>
+                    <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/RRHH/asistencia') }}">Administración de Asistencia</a>
                   </li>
                 </ul>
               </div>
@@ -99,7 +99,7 @@
                     <a class="nav-link" id="adminPersonal" href="{{ URL::to('/RRHH') }}">Administración de Personal</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/RRHH/asistencia') }}">Registro de Asistencia</a>
+                    <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/RRHH/asistencia') }}">Administración de Asistencia</a>
                   </li>
                 </ul>
               </div>

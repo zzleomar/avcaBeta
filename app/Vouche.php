@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Vauche extends Model
+class Vouche extends Model
 {
-	protected $table = 'vauches';
+	protected $table = 'vouches';
 
      protected $fillable = [
         'sueldo_base_id','personal_id','nomina_id',
         'utilidad_id','vacacion_id','deduccion_id',
-        'compensacion_id','cesta_tike_id'
+        'compensacion_id','cesta_ticket_id'
     ];
     Public function sueldo_base(){
         return $this->belongsTo('App\Sueldo_base');
@@ -32,18 +32,11 @@ class Vauche extends Model
     public function deduccion(){
     	return $this->hasOne('App\Deduccion');
     }
-    public function cesta_tike(){
-    	return $this->hasOne('App\Cesta_tike');
+    public function cesta_ticket(){
+    	return $this->hasOne('App\Cesta_ticket');
     }
     public function vacacion(){
     	return $this->hasOne('App\Vacacion');
     }
     
 }
-
-
-
-
-
-
-

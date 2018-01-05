@@ -61,7 +61,7 @@ font-weight: 700;">Programar vuelo</h4>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" id="cargandoAux">
+      <div class="modal-body" id="cargandoAuxP">
          <div class="row">
             <div class="col mt-6">
               <div class="input-group">

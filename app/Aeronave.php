@@ -59,4 +59,28 @@ class Aeronave extends Model
                                       vuelos.estado!='cancelado'");
     }
 
+    public function scopeHorasUso($query,$aeronave,$actual){
+        return DB::select("SELECT SUM(rutas.duracion) as horas
+                           FROM vuelos 
+                                JOIN piernas ON vuelos.id=piernas.vuelo_id 
+                                JOIN aeronaves ON piernas.aeronave_id=aeronaves.id 
+                                JOIN rutas ON piernas.ruta_id=rutas.id 
+                                WHERE aeronaves.id='$aeronave' AND 
+                                      vuelos.salida> aeronaves.ultimo_mantenimiento AND 
+                                      vuelos.salida < '$actual' AND
+                                      vuelos.estado!='cancelado'");
+    }
+
+    public function scopeHorasPlanificadas($query,$aeronave,$actual){
+
+        return DB::select("SELECT SUM(rutas.duracion) as horas
+                           FROM vuelos 
+                                JOIN piernas ON vuelos.id=piernas.vuelo_id 
+                                JOIN aeronaves ON piernas.aeronave_id=aeronaves.id 
+                                JOIN rutas ON piernas.ruta_id=rutas.id 
+                                WHERE aeronaves.id='$aeronave' AND 
+                                      vuelos.salida> '$actual' AND 
+                                      vuelos.estado!='cancelado'");
+    }
+
 }

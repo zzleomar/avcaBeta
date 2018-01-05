@@ -69,4 +69,17 @@ class Tripulante extends Model
                                  vuelos.salida<'$final' AND 
                                  vuelos.estado!='cancelado'");
     }
+
+    public function scopeVuelosPlanificadas($query, $id, $inicio, $final){
+        return DB::select("SELECT COUNT(vuelos.id) as cantidad
+                           FROM tripulantes 
+                           JOIN tripulante_vuelo ON tripulantes.id=tripulante_vuelo.tripulante_id 
+                           JOIN vuelos ON tripulante_vuelo.vuelo_id=vuelos.id 
+                           JOIN piernas ON vuelos.id=piernas.vuelo_id 
+                           JOIN rutas ON piernas.ruta_id=rutas.id 
+                           WHERE tripulantes.id='$id' AND 
+                                 vuelos.salida>'$inicio' AND 
+                                 vuelos.salida<'$final' AND 
+                                 vuelos.estado!='cancelado'");
+    }
 }
