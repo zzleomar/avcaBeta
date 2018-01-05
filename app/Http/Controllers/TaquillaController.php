@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Boleto;
 use App\Pasajero;
@@ -18,8 +16,6 @@ use Auth;
 use Szykra\Notifications\Flash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-
-
 class TaquillaController extends Controller
 {
     public function __construct(){
@@ -53,7 +49,6 @@ class TaquillaController extends Controller
         if(sizeOf($pasajeroAux)){ //si el pasajero esta registrado
             $pasajero=$pasajeroAux;
             $this->ActualizarDatosPasajero($datos,$pasajero);
-
         }
         else{ //si el pasajero no esta registrado
             $pasajero=$this->RegistrarPasajero($datos);
@@ -66,12 +61,10 @@ class TaquillaController extends Controller
                                 $datos->boleto_id=$consulta->id;
                             }
                             $this->CambiarEstado($datos->boleto_id,$pasajero,"Pagado");
-
                             flash::success('El boleto '.$datos->boleto_id.' ha sido pagado');
-
                             // ---  Imprimir Boleto
                             //Recuperar toda la informacion
-                           /* return $this->getdata(
+                           return $this->getdata(
                                 $pasajero->nombres." ".$pasajero->apellidos,
                                 $boleto->asiento,
                                 Carbon::parse($boleto->vuelo->salida)->format('h:i'),
@@ -82,12 +75,14 @@ class TaquillaController extends Controller
                                 $boleto->vuelo->pierna->ruta->destino->siglas,
                                 $boleto->id,
                                 Carbon::parse($boleto->vuelo->salida)->format('h:i'),
-                                $boleto->vuelo->pierna->ruta->siglas
+                                $boleto->vuelo->pierna->ruta->siglas,
+                                $pasajero->cedula,
+                                explode(' ', $pasajero->nombres,2)[0]." ".explode(' ', $pasajero->apellidos, 2)[0],
+                                $boleto->costo." VEF"
                                 
-
-                            );*/
+                                
+                            );
                 break;
-
             case 'Reservar'://Reservar boleto
                 $actual = Carbon::now();
                 $salidaCarbon = Carbon::parse($boleto->vuelo->salida);
@@ -101,7 +96,6 @@ class TaquillaController extends Controller
                     flash::success('El boleto '.$datos->boleto_id.' ha sido reservado');
                 }
                 break;
-
             case 'Renovar'://Reutilizar un boleto pagado y luego cancelado
                 $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Cancelado")->first();
                 if(sizeOf($consulta)){
@@ -110,7 +104,6 @@ class TaquillaController extends Controller
                 $this->CambiarEstado($datos->boleto_id,$pasajero,"Pagado");
                 flash::success('El boleto ha sido renovado');
                 break;
-
             case 'Cancelar'://Cancelar boleto pagado
                 $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Pagado")->first();
                 if(sizeOf($consulta)){
@@ -119,7 +112,6 @@ class TaquillaController extends Controller
                 $this->CambiarEstado($datos->boleto_id,$pasajero,"Cancelado");
                 flash::success('El boleto '.$datos->boleto_id.' ha sido cancelado posee un lapso de un año para renovarlo');//busco el boleto que esta pagado
                 break;
-
             case 'Liberar'://Cancelar Reservación
                 $consulta=$boleto->Buscar($boleto->vuelo_id,$pasajero->id,"Reservado")->first();
                 if(sizeOf($consulta)){
@@ -150,10 +142,8 @@ class TaquillaController extends Controller
             $sucursal_id= $sucursal->id;
             $boleto->EliminarRegistroTemporal($sucursal_id); 
             return redirect('/taquilla');
-
         }            
     }
-
     public function EliminarBoleto($id){
         $boleto=Boleto::find($id);
         $boleto->delete();
@@ -169,15 +159,15 @@ class TaquillaController extends Controller
     }
     public function RegistrarPasajero(Request $request){
         //ESTE MÉTODO ESTA CONECTADO CON EL METODO ACCIÖN 
-    	$pasajero = new Pasajero();
-    	$pasajero->cedula=$request->nacionalidad.$request->cedula;
-    	$pasajero->nombres=$request->nombres;
-    	$pasajero->apellidos=$request->apellidos;
-    	$pasajero->direccion=$request->direccion;
-    	$pasajero->tlf_movil=$request->tlf_movil;
-    	$pasajero->tlf_casa=$request->tlf_casa;
-    	$pasajero->save();
-    	return $pasajero;
+        $pasajero = new Pasajero();
+        $pasajero->cedula=$request->nacionalidad.$request->cedula;
+        $pasajero->nombres=$request->nombres;
+        $pasajero->apellidos=$request->apellidos;
+        $pasajero->direccion=$request->direccion;
+        $pasajero->tlf_movil=$request->tlf_movil;
+        $pasajero->tlf_casa=$request->tlf_casa;
+        $pasajero->save();
+        return $pasajero;
     }
     public function CambiarEstado($id, $pasajero, $estado){
         $boleto = Boleto::find($id);
@@ -191,22 +181,21 @@ class TaquillaController extends Controller
         
         $actual = Carbon::now();
         $actual2=Carbon::now();
-        $actual2->addHours(); //agg 1hra para buscar y actualizar los vuelos que ya estan cerrados
-        $actual2->VuelosCerrados($actual2->toDateTimeString());
+        $actual2->addHours(1); //agg 1hra para buscar y actualizar los vuelos que ya estan cerrados
+        Vuelo::VuelosCerrados($actual2->toDateTimeString());
+
         $vuelos=Vuelo::Sucursal($sucursal->id,"abierto");
         foreach ($vuelos as $key => $vuelo) {
             $inicio = Carbon::parse($vuelo->salida);
             $fin = Carbon::parse($vuelo->salida);
             $inicio->subHours(2); //inicio
             $fin->subHours(1); //inicio
-
             if(!(($actual->gt($inicio))&&($actual->lt($fin)))){
                 //si la fecha y hora actual no es despues del inicio del chequeo 
                 //y no es antes del final del chequeo del vuelo
                 unset($vuelos[$key]);
                 
             }
-
         }
         return view('taquillero/confirmacionBoleto')->with('vuelos',$vuelos)->with('sucursal',$sucursal);
     }
@@ -268,6 +257,8 @@ class TaquillaController extends Controller
             $equipaje->costo_sobrepeso=$request->costo;
             $equipaje->cantidad=$request['cantidad-equipaje'];
             $equipaje->save();
+
+
         }
         flash::success('El boleto ha sido chequeado exitosamente');
         return redirect('/taquilla/confirmar-boleto');
@@ -280,7 +271,6 @@ class TaquillaController extends Controller
             if($ocupados>=$vuelo->pierna->aeronave->capacidad){
                 $cont=$cont+1;
             }
-
        }
        return $cont;
     }
@@ -305,7 +295,6 @@ class TaquillaController extends Controller
             return view('taquillero.ajax.info-error');
         }
     }
-
     public function ConsultarDisponibilidad($vuelo){
         //creo un array con los estados de boletos que disminuyen la disponibilidad
         //$estados=["Reservado","Pagado","Temporal"];
@@ -315,7 +304,6 @@ class TaquillaController extends Controller
         $ocupados=$ocupados+8;//le sumo los asientos reservados para 3era edad, discapasitados y de menore sin acompañantes
         return $ocupados;
     }
-
     public function ajaxVueloDisp($id,$nro){
         //busco datos del vuelo a cosultar disponibilidad
         $vuelo= Vuelo::find($id);
@@ -327,7 +315,6 @@ class TaquillaController extends Controller
             $fechas;
             $costo=$vuelo->pierna->ruta->tarifa_vuelo;
             $boleto=new Boleto();
-
             $boleto->Generar($ocupados,$vuelo->id,$costo);
             //Verificar si es la seguda pierna
             if($nro==0){
@@ -347,7 +334,6 @@ class TaquillaController extends Controller
                     if((sizeof($fechas))==$cont){
                         flash::info('No hay fechas disponibles para retorno');
                     }
-
                 }
                     
                 return view('taquillero.ajax.info-disponibilidad-ajax')->with('boleto',$boleto)->with('vuelos2', $datos)->with('sucursal', $origen)->with('sucursal2', $destino)->with('fechas',$fechas);    
@@ -364,7 +350,6 @@ class TaquillaController extends Controller
             return view('taquillero.ajax.info-error');
         }
     }
-
     public function ajaxVueloPasajero($idboleto,$nacionalidad,$id,$auxB){
         $cedula=$nacionalidad.$id;
         $boleto= Boleto::find($idboleto);
@@ -393,19 +378,16 @@ class TaquillaController extends Controller
             }
             else{
                 $pendiente=$boleto->Pendiente($pasajero->id);
-
                 if(sizeOf($pendiente)!=0){
                     if(sizeOf($pendiente)==2){ //el sistema le permite a un pasajero solo tener hasta dos boletos cancelados en caso que fuera sido un vuelo de 2 piernas
                      $pendiente[0]->costo=$pendiente[0]->costo+$pendiente[1]->costo;   
                     }
-
                     if($boleto->costo>$pendiente[0]->costo){
                         $costo=$boleto->costo-$pendiente[0]->costo;
                     }
                     else{
                         $costo=0;
                     }
-
                     flash::info('Este pasajero posee un boleto pendiente de '.$pendiente[0]->costo);
                     return view('taquillero.ajax.info-vuelo-pasajero-ajax')
                     ->with('pasajero',$pasajero)
@@ -414,7 +396,6 @@ class TaquillaController extends Controller
                     ->with('boleto_id2',$auxB)
                     ->with('pendiente',$pendiente[0])
                     ->with('costo',$costo);
-
                 }
                 if($auxB!=0)//si es un vuelo de una sola pierna
                 {
@@ -426,11 +407,9 @@ class TaquillaController extends Controller
                 }
                 switch ($consulta->estado) {
                     case 'Reservado':
-
                         flash::info('Este pasajero posee un boleto reservado para este vuelo');
                         break;
                     case 'Pagado':
-
                         flash::error('Este pasajero ya posee un boleto para este vuelo');
                         break;
                 }
@@ -457,19 +436,19 @@ class TaquillaController extends Controller
                 ->with('costo',$auxcosto);
         }
     }
-
-    public function generarpdf($data){
+    public function generarpdf($data, $nombre){
         
         $view =  \View::make('pdf.invoice', compact('data'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        //return $pdf->stream('invoice');   
-        return $pdf->download('invoice');
+        return $pdf->stream('invoice');   
+        //return $pdf->download($nombre);
     }
-
     public function getdata(
-        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $boletonro,$embarquehasta, $idvuelo)
+        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $boletonro,$embarquehasta, $idvuelo, $cedula, $nombrecorto, $costo)
     {
+        //$embarque = explode(':', $embarquehasta);
+        $retraso = Carbon::parse($embarquehasta);
         $data =  [
             'nombreapellido'            => $nombrecompleto,
             'hora'                      => $hora,
@@ -480,21 +459,17 @@ class TaquillaController extends Controller
             'origen_min'                => $origenmin,
             'destino_min'               => $destinomin,
             'boletonro'                 => $boletonro,
-            'embarquehasta'             => $embarquehasta,
+            'embarquehasta'             => $retraso->subHours(1)->format('h:i A'),
             'idvuelo'                   => $idvuelo,
-
-
+            'cedula'                    => $cedula,
+            'nombrecorto'               => $nombrecorto,
+            'costo'                     => $costo,
             
           
-
         ];
-       return $this->generarpdf($data);
+       return $this->generarpdf($data, "boleto".$cedula);
     }
-
 }
-
-
-
 /*Estados de los boletos
 --Reservado=cuando esta reservado no pagado
 --Pagado=cuando esta pagado
@@ -502,7 +477,6 @@ class TaquillaController extends Controller
 --Cancelado=cuando el boleto fue pagado y luego cancelado o el vuelo postergado
 --Temporal= es cuando se genera un boleto que se esta vendiendo o reservando aunque no esta completada la venta
 */
-
 /*
 Estados de los vuelos
 --abierto=cuando el gerente de sucursales lo planifica y inicia la venta
@@ -511,7 +485,5 @@ Estados de los vuelos
 --retrasado=cuando se pasa la hora de salida
 --ejecutado=cuando el subgerente de sucursal notifica que ya la aeronave partio a su destino
  */
-
-
  //PROBLEMA LOS BOLETOS NO PODEMOS RELACIONARLO CON LA TABLA VUELO SI UN VUELO POSEE VARIAS PIERNAS PORQUE UN BOLETO ES DISTINTO POR CADA PIERNA... SOLUCIÓN O RELACIONAR EL BOLETO DIRECCTAMENTE CON PIERNA O ELIMINAR LA TABLA PIERNA O DEJAR LA TABLA PIERNA PERO COLOCAR CADA VUELO UNA PIERNA SI EL DESTINO SE REQUIERE VARIAS PIERNAS NO SE REGISTRA UN SOLO VUELO SINO IGUAL VARIOS VUELOS
         //AL BOLETO LE AGG LOS CAMPOS CODIGO ASIENTO Y COSTO TOTAL
