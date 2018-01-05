@@ -1,58 +1,39 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+La aplicación desarrollada permite las siguientes funcionalidades:
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Registrar, actualizar y consultar las diferentes rutas de vuelo.
 
-## About Laravel
+Crear los distintos vuelos a realizar por la empresa.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+Asignar los recursos necesarios para la ejecución del vuelo, tales como ruta, aeronave, tripulación, fecha y hora.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Administrar la información requerida para las operaciones de venta, reservación y chequeo de boletos.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+Generar las etiquetas de los equipajes.
 
-## Learning Laravel
+Calcular el monto a cancelar en caso de sobrepeso de equipaje.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+Emitir la factura correspondiente en el caso de sobrepeso de equipaje.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+Generar reportes de boletos vendidos, chequeados y/o reservados.
 
-## Laravel Sponsors
+Generar reportes por vuelos ejecutados, diferidos y/o suspendidos.
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
+Registrar, actualizar y consultar los datos de los trabajadores.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+Registrar la hora de entrada y salida de cada trabajador.
 
-## Contributing
+Registrar las inasistencias justificadas.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Calcular la nómina.
 
-## Security Vulnerabilities
+Calcular el bono de alimentación.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Calcular el monto del bono vacacional de cada trabajador.
 
-## License
+Calcular el monto por concepto de utilidades correspondientes a cada trabajador.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Generar los reportes de ausencias.
+
+Generar los estados de cuenta de los trabajadores.
+
+Generar reportes de nóminas por sucursal, cargo, fecha de ingreso y por rango de fechas especificadas por el usuario.
