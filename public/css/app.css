@@ -172,6 +172,10 @@ body{
 }
 .marginLeft{
     margin-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 .modal-lg{
     box-shadow: 0px 3px 5px #000;
@@ -230,6 +234,24 @@ hr{
     padding-bottom: 15px;
     box-shadow: 2px 2px 14px;
     width: 70%;
+}
+
+.form-perso-help{
+    font-size: 1.5rem;
+}
+.duracionInput{
+    width: 4rem;
+    font-size: 1.5rem;
+    text-align: right;
+}
+.form-group-duracion{
+    margin-top: -10px;    
+}
+#separadorD {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 @media (min-width: 1600px){
     .container {

@@ -60,6 +60,11 @@
           
 
                         <div class="row">
+                            
+                            <div class="form-group col-sm-12 col-md-4">
+                              <label for="inputEmail4">Tarifa Vuelo Bs.</label>
+                              <input type="text" class="form-control" placeholder="Precio" id="precioNR" name="precio" onkeypress="return soloNumDec(event)" required>
+                            </div>
 
                             <div class="form-group col-sm-12 col-md-4"> 
                               <label for="inputEmail4">Distancia Mls.</label>
@@ -68,14 +73,12 @@
 
                             <div class="form-group col-sm-12 col-md-4">
                               <label for="inputEmail4">Duración Hrs.</label>
-                              <input type="time" class="form-control" id="inputEmail4" placeholder="Duración" id="duracionNR" name="duracion" required>
+                              <div class="form-group-duracion"> <input type="text" class="duracionInput" name="horas" id="horasD" onkeypress="return soloNum(event)"><span id="separadorD">:</span>
+                              <input type="text" class="duracionInput" name="minutos" id="minutosD" onkeypress="return soloNum(event)">
+                            </div>
                             </div>
                             
 
-                            <div class="form-group col-sm-12 col-md-4">
-                              <label for="inputEmail4">Tarifa Vuelo Bs.</label>
-                              <input type="text" class="form-control" placeholder="Precio" id="precioNR" name="precio" onkeypress="return soloNumDec(event)" required>
-                            </div>
                        </div>
     </div>
   </div></div>

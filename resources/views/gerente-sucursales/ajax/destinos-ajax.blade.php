@@ -9,3 +9,7 @@
 
               @endforeach
         </select>
+        
+        @foreach($destinos as $destino)
+                <input type="hidden" id="suD{{ $destino->destino->id }}X" value="{{ $destino->destino->nombre }}">
+        @endforeach

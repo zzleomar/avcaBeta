@@ -99,8 +99,54 @@
   altura=altura-470;
   altura=altura+"px";
   $(".divtablaAux").css("min-height",altura);
+    $("#horasD").keyup(function(){
+      if(($('#horasD').val()>0)&&($('#horasD').val()<10)){
+          var auxD=parseInt($('#horasD').val());
+          auxD2='0'+auxD;
+          $('#horasD').val(auxD2);
+        }
+        else{
+          if($('#horasD').val()>100){
+            alert("Valor invalido");
+            $('#horasD').val(99);
+          }
+          else{
+            if($('#horasD').val()==''){
+              $('#horasD').val('00');
+            }
+            else{
+              var auxD=parseInt($('#horasD').val());
+              $('#horasD').val(auxD);
+            }
+          }
+        }
+      });
+    $("#minutosD").keyup(function(){
+      if(($('#minutosD').val()>0)&&($('#minutosD').val()<10)){
+          var auxD=parseInt($('#minutosD').val());
+          auxD2='0'+auxD;
+          $('#minutosD').val(auxD2);
+        }
+        else{
+          if($('#minutosD').val()>60){
+            alert("Valor invalido");
+            $('#minutosD').val(59);
+          }
+          else{
+            if($('#minutosD').val()==''){
+              $('#minutosD').val('00');
+            }
+            else{
+              var auxD=parseInt($('#minutosD').val());
+              $('#minutosD').val(auxD);
+            }
+          }
+        }
+      });
 
 });
+
+
 
   function ConfirmarEliminarRuta(id,siglas){
         document.getElementById('ruta_id').value=id;

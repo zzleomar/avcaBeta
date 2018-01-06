@@ -20,6 +20,7 @@
           <a class="btn btn2 btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosEjecutados" aria-expanded="false" aria-controls="VuelosEjecutados">
             Vuelos Ejecutados
           </a>
+          <button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#ProgramarVuelo">Nuevo Vuelo</button>
        </div>
 
 
@@ -230,5 +231,4 @@
 
 
  <h1 align="center">
-      <button type="button" class="btn btn2 btn-primary" data-toggle="modal" data-target="#ProgramarVuelo">Nuevo Vuelo</button>
   </h1>

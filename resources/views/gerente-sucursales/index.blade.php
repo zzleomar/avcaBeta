@@ -25,6 +25,9 @@
 
               @endforeach
         </select>
+        @foreach($origenes as $origen)
+            <input type="hidden" id="suO{{ $origen->id }}X" value="{{ $origen->nombre }}">
+        @endforeach
       </div>
     </div>
     <div class="centradoM">
@@ -33,13 +36,18 @@
             Seleccione el Destino
         </div>
         <select class="custom-select" id="item-destino" onchange="vuelosAjax()">
-            <option selected>Sucursal-Destino</option>
+            <option selected value="0">Sucursal-Destino</option>
               @foreach($destinos as $destino)
 
                 <option value="{{ $destino->destino->id }}" >{{ $destino->destino->nombre }}</option>
 
+
               @endforeach
         </select>
+
+        @foreach($destinos as $destino)
+                <input type="hidden" id="suD{{ $destino->destino->id }}X" value="{{ $destino->destino->nombre }}">
+        @endforeach
       </div>
     </div>
 </div>
@@ -48,6 +56,8 @@
       
             <div id="exampleAccordion" data-children=".item">
          <div class="opcionesAccordion">
+          
+          <button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#ProgramarVuelo">Nuevo Vuelo</button>
           <a class="btn btn2 btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosAbiertos" aria-expanded="true" aria-controls="VuelosAbiertos">
             Vuelos Abiertos
           </a>
@@ -307,19 +317,24 @@
         $('#ajax-destino').empty().html(data);
         targetL.loadingOverlay('remove');
       });
+    capturarO(id,"X");
   }
   function vuelosAjax()
   {
-    var targetL = $('#targetL');
-    targetL.loadingOverlay();
-    var origen=document.getElementById('item-origen').value; 
-    var destino=document.getElementById('item-destino').value; 
-    var url="{{ URL::to('/gerente-sucursales/vuelos') }}/"+origen+"/"+destino;
-   //alert(url);
-    $.get(url,function(data){ 
-        $('#ajax-vuelos').empty().html(data);
-        targetL.loadingOverlay('remove');
-      });
+    if(document.getElementById('item-destino').value!=0){
+      var targetL = $('#targetL');
+      targetL.loadingOverlay();
+      var origen=document.getElementById('item-origen').value; 
+      var destino=document.getElementById('item-destino').value; 
+      var url="{{ URL::to('/gerente-sucursales/vuelos') }}/"+origen+"/"+destino;
+     //alert(url);
+      $.get(url,function(data){ 
+          $('#ajax-vuelos').empty().html(data);
+          targetL.loadingOverlay('remove');
+        });
+      capturarD(destino,"X");
+    }
+
   }
   function detallesVuelo(id,siglas,origenN,destinoN){
 
@@ -337,25 +352,39 @@
   }
   function programar(){
     var targetL = $('#cargandoAuxP');
-    targetL.loadingOverlay();
-    var origen=document.getElementById('origen_id').value; 
-    var destino=document.getElementById('destino_id').value; 
-    var hora=document.getElementById('horaSalida').value; 
-    var fecha=document.getElementById('fechaSalida').value; 
-    if((hora=="")||(fecha=="")){
-      //alert("Introdusca los datos completos de la salida");
-      targetL.loadingOverlay('remove');
+    var origen=document.getElementById('origenidX').value; 
+    var destino=document.getElementById('destinoidX').value; 
+    if(destino!=''){
+      targetL.loadingOverlay();
+      var hora=document.getElementById('horaSalida').value; 
+      var fecha=document.getElementById('fechaSalida').value; 
+      if((hora=="")||(fecha=="")){
+        if(hora==""){
+          document.getElementById('horaSalida').setCustomValidity("Debe ingresar la hora");
+        }
+        else{
+          document.getElementById('horaSalida').setCustomValidity("");
+          document.getElementById('fechaSalida').setCustomValidity("Debe ingresar la fecha");
+          alert("entro");
+        }
+        targetL.loadingOverlay('remove');
+      }
+      else{
+        document.getElementById('fechaSalida').setCustomValidity("");
+        document.getElementById('horaSalida').setCustomValidity("");
+        var salida=fecha+" "+hora+":00";
+        num=0;
+        var url="{{ URL::to('/gerente-sucursales/consultar/disponibilidad') }}/"+salida+"/"+origen+"/"+destino; 
+        //alert(url);
+         $.get(url,function(data){ 
+            $('#ajax-reprogramar-vuelo').empty().html(data);
+            targetL.loadingOverlay('remove');
+          });
+      } 
     }
-    else{
-      var salida=fecha+" "+hora+":00";
-      num=0;
-      var url="{{ URL::to('/gerente-sucursales/consultar/disponibilidad') }}/"+salida+"/"+origen+"/"+destino; 
-      //alert(url);
-       $.get(url,function(data){ 
-          $('#ajax-reprogramar-vuelo').empty().html(data);
-          targetL.loadingOverlay('remove');
-        });
-    } 
+    else {
+      alert("Necesita Seleccionar un destino");
+    }
   }
   
 

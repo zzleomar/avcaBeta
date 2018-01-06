@@ -62,6 +62,46 @@ font-weight: 700;">Programar vuelo</h4>
         </button>
       </div>
       <div class="modal-body" id="cargandoAuxP">
+        <div class="col col-sm-12 col-md-12 btn-aux-magin" id="rutaAux">
+                <div class="input-group">
+
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-secondary dropdown-toggle"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown"> Origen
+                  </button>
+                  <div class="dropdown-menu dropAux">
+            @foreach($origenes as $sucursal)
+                    <a class="dropdown-item" id="suO{{ $sucursal->id }}" onclick="capturarO('{{ $sucursal->id }}','X')">{{ $sucursal->nombre }}</a>
+                @endforeach
+                  </div>
+                </div>
+                 <input type="text" class="form-control" aria-label="Text input with dropdown button" id="origenNRX" placeholder="Seleccione Sucursal de Origen" value="{{ $central->nombre }}" readonly required>
+                 <input type="hidden" name="origenid" id="origenidX" value="{{ $central->id }}">
+                <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
+
+
+                </div>
+        </div>
+        <div class="col col-sm-12 col-md-12 btn-aux-magin" id="rutaAux">
+                <div class="input-group">
+
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-secondary dropdown-toggle"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown"> Destino
+                  </button>
+                  <div class="dropdown-menu dropAux">
+            @foreach($origenes as $sucursal)
+                    <a class="dropdown-item" id="suD{{ $sucursal->id }}" onclick="capturarD('{{ $sucursal->id }}','X')">{{ $sucursal->nombre }}</a>
+                @endforeach
+                  </div>
+                </div>
+                 <input type="text" class="form-control" aria-label="Text input with dropdown button" id="destinoNRX" placeholder="Seleccione Sucursal de Destino" value="" readonly required>
+                 <input type="hidden" name="destinoid" id="destinoidX" value="">
+                <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
+
+
+                </div>
+        </div>
          <div class="row">
             <div class="col mt-6">
               <div class="input-group">
@@ -69,13 +109,13 @@ font-weight: 700;">Programar vuelo</h4>
                     <label class="infoTitulo">Fecha del Vuelo: </label>
                     </div>
                     <div class="text-center marginLeft">
-                      <input type="date" placeholder="introduzca fecha mm/dd/yyyy" name="fechaSalida" id="fechaSalida" value="" /><br>
+                      <input type="date" placeholder="introduzca fecha mm/dd/yyyy" name="fechaSalida" id="fechaSalida" class="form-perso-help" value="" required /><br>
                   </div> 
                   <div class="text-center marginLeft">
                     <label class="infoTitulo">Hora: </label>
                     </div>
                   <div class="text-center marginLeft">
-                      <input type="time" placeholder="introduzca hora 12:00 AM" name="horaSalida" id="horaSalida" value="" /><br>
+                      <input type="time" placeholder="introduzca hora 12:00 AM" name="horaSalida" id="horaSalida" class="form-perso-help" value="" required oninvalid="setCustomValidity('Seleccione una hora valida')" oninput="setCustomValidity('')" /><br>
                   </div> 
                   <button type="button" class="btn btn-primary" onclick="programar()">Programar</button>
               </div>
@@ -91,307 +131,3 @@ font-weight: 700;">Programar vuelo</h4>
   </div>
 </div>
 </form>
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-   <div class="modal-content">
-      
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      
-
-        
-
- <div id="exampleAccordion" data-children=".item">
-   
-    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion1" aria-expanded="true" aria-controls="exampleAccordion1">
-      Selecion de piloto
-    </a>
- 
-
-    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion2" aria-expanded="false" aria-controls="exampleAccordion2">
-      Seleccion de Copiloto
-    </a>
-
-    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion3" aria-expanded="false" aria-controls="exampleAccordion3">
-      Seleccion de Jefe de Cabina
-    </a>
- 
-    <a class="btn btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion4" aria-expanded="false" aria-controls="exampleAccordion4">
-      Seleccion de aeromosas
-    </a>
-
-
-
-  <div class="item">
-   
-    <div id="exampleAccordion1" class="collapse show" role="tabpanel">
-     <div class="card card-body">
-    
-     <div class="table-responsive"> 
-  <table class="table table-hover text-center">
-    <thead class="thead-light">
-      <tr>
-        <th>Pilotos</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
-        <th>Estatus</th>
-        <th>Asignar</th>
-      </tr>
-    </thead>
-    <tbody>
-     
-      <th scope="row">Pepitooo</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-       <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                  El propio
-            </label>
-         </div>      
-       </td>
-   
-    </tbody>
-    <tbody>
-     
-      <th scope="row">Juancito</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-       <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                  El propio
-            </label>
-         </div>      
-       </td>
-   
-    </tbody>
-  </table>
-  </div>
-    </div>
-  </div>
-  </div>
-
-
-  <div class="item">
-    <div id="exampleAccordion2" class="collapse" role="tabpanel">
-      <div class="card card-body">
-    
-        <div class="table-responsive"> 
-           <table class="table table-hover text-center">
-               <thead class="thead-light">
-                    <tr>
-                     <th>Copilotos</th>
-                     <th>Horas_Parciales</th>
-                     <th>Horas_Percibidas</th>
-                     <th>Estatus</th>
-                     <th>Asignar</th>
-                   </tr>
-               </thead>
-               <tbody>
-     
-      <th scope="row">Pepitooo</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-        <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                 mariguanero
-            </label>
-         </div>      
-       </td>
-              
-                       </tbody>
-                       <tbody>
-     
-      <th scope="row">Juancito</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-       <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                  El propio
-            </label>
-         </div>      
-       </td>
-              
-                       </tbody>
-           </table>
-        </div>
-      </div>
-     </div>
-  </div>
-  
- <div class="item">
-   <div id="exampleAccordion3" class="collapse" role="tabpanel">
-  <div class="card card-body">
-    
-     <div class="table-responsive"> 
-  <table class="table table-hover text-center">
-    <thead class="thead-light">
-      <tr>
-        <th>Jefe_de_Cabina</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
-        <th>Estatus</th>
-        <th>Asignar</th>
-      </tr>
-    </thead>
-    <tbody>
-     
-      <th scope="row">Pepitooo</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-        <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                 mariguanero
-            </label>
-         </div>      
-       </td>
-   
-    </tbody>
-    <tbody>
-     
-      <th scope="row">Juancito</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-       <td>
-          <div class="form-check">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                  El propio
-            </label>
-         </div>      
-       </td>
-   
-    </tbody>
-  </table>
-  </div>
-  </div>
-</div>
-  </div>
-
-
- <div class="item">
-   
-    <div id="exampleAccordion4" class="collapse" role="tabpanel">
-     
-     <div class="card card-body">
-    
-     <div class="table-responsive"> 
-  <table class="table table-hover text-center">
-    <thead class="thead-light">
-      <tr>
-        <th>Aeromosas</th>
-        <th>Horas_Parciales</th>
-        <th>Horas_Percibidas</th>
-        <th>Estatus</th>
-        <th>Asignar</th>
-      </tr>
-    </thead>
-    <tbody>
-     
-      <th scope="row">Pepitaaaa</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-        <td>
-         <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> 1
-              </label>
-        </div>
-        <div class="form-check form-check-inline">
-             <label class="form-check-label">
-                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> 2
-            </label>
-        </div> 
-        <div class="form-check form-check-inline">
-             <label class="form-check-label">
-                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> 3
-              </label>
-        </div>    
-       </td>
-   
-    </tbody>
-    <tbody>
-     
-      <th scope="row">Juancita</th>
-        <td>80 tiraderas</td>
-        <td>20 sigaderas</td>
-        <td>singando</td>
-          <td>
-         <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> 1
-              </label>
-          </div>
-          <div class="form-check form-check-inline">
-             <label class="form-check-label">
-                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> 2
-            </label>
-          </div> 
-          <div class="form-check form-check-inline">
-             <label class="form-check-label">
-                 <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> 3
-              </label>
-          </div>    
-       </td>
-   
-    </tbody>
-  </table>
-
-
-
-  </div>
-  </div>
-
-
-
-
-
-
-</div>
-
-
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Guardar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-
-
-
-
-
-
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-</div>
-</div>
-</div>

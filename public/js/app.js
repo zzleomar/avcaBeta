@@ -128,10 +128,10 @@ $(document).ready(function(){
 });
 
 function soloNum(e){
-    tecla = (document.all) ? e.keyCode : e.which;
 
+    tecla = (document.all) ? e.keyCode : e.which;
     //Tecla de retroceso para borrar, siempre la permite
-    if (tecla==8){
+    if ((tecla==8)||(tecla==0)){
         return true;
     }
         
@@ -145,7 +145,7 @@ function soloNumDec(e){
     tecla = (document.all) ? e.keyCode : e.which;
 
     //Tecla de retroceso para borrar, siempre la permite
-    if (tecla==8){
+    if ((tecla==8)||(tecla==0)){
         return true;
     }
         
@@ -239,8 +239,14 @@ function capturarO(id,clave)
     var nr="origenNR"+clave;
     var nrid="origenid"+clave;
     var datos;
-    var id2="suO"+id;
-    datos=document.getElementById(id2).innerHTML; 
+    if(clave=='B'){
+      var id2="suO"+id+clave;
+      datos=document.getElementById(id2).value;     
+    }
+    else {
+      var id2="suO"+id;
+      datos=document.getElementById(id2).innerHTML;     
+    }
     document.getElementById(nr).value = datos; 
     document.getElementById(nrid).value = id; 
     
@@ -250,8 +256,14 @@ function capturarD(id,clave)
     var nr="destinoNR"+clave;
     var nrid="destinoid"+clave;
     var datos;
-    var id2="suD"+id;
-    datos=document.getElementById(id2).innerHTML; 
+    if(clave=='X'){
+      var id2="suD"+id+clave;
+      datos=document.getElementById(id2).value;     
+    }
+    else {
+      var id2="suD"+id;
+      datos=document.getElementById(id2).innerHTML;     
+    }
     document.getElementById(nr).value = datos; 
     document.getElementById(nrid).value = id; 
     
