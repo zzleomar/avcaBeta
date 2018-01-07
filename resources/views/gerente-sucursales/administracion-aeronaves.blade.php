@@ -3,24 +3,18 @@
 @section('content')
 @include('notifications::flash')
 
-<div id="targetL">
-<table class="table">
+
+<div id="targetL" class="py-3">
+    <table class="table">
       <thead class="thead-light">
         <tr align="center">
-          <th>
-            
-  Administración de Aeronaves
-
-          </th>
+          <th>Administración de Aeronaves</th>
         </tr>
       </thead>
     </table>
 
 
- 
-
-
-<div class="container divtablaAux">
+<div class="divtablaAux">
 <table class="table table-responsive-md table-hover text-center tablaAux">
 
     <thead class="thead-light">
@@ -83,11 +77,12 @@
     </tbody>
     <?php } ?>
   </table>
-</div>
+</div><br>
 
 <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NuevaAeronaveModal">
-              Agregar Aeronave
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NuevaAeronaveModal" style="margin-bottom: 20px;">
+              Agregar Personal
             </button>
     
   <!----- MODALS ----------------------------------------->
@@ -103,7 +98,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
   var altura = $(document).height();
-  altura=altura-470;
+  altura=altura-380;
   altura=altura+"px";
   $(".divtablaAux").css("min-height",altura);
 
@@ -155,7 +150,7 @@
 
   function ConfirmarEliminarAerovane(id,matricula){
         document.getElementById('aeronave_id').value=id;
-        alert(id);
+       // alert(id);
         document.getElementById('tituloModalEliAeronave').innerHTML="AERONAVE "+matricula;
   }
 

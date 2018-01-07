@@ -71,8 +71,8 @@
         </nav>
     </header>
 
-    <main class="py-4" id="contenedorPersonal">
-        <div class="container">
+    <main class="" id="contenedorPersonal">
+        <div>
             @auth
                 @include('partials.private-navbar')
             @endauth

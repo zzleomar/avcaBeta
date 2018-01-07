@@ -176,6 +176,7 @@ class TaquillaController extends Controller
         $boleto->save();
     }
     public function ContenidoChequear(){
+    //Carga los vuelo que estan habilitados para ser chequiados
         $personal=Personal::find(Auth::user()->personal_id);
         $sucursal= $personal->empleado->sucursal;
         
@@ -200,6 +201,7 @@ class TaquillaController extends Controller
         return view('taquillero/confirmacionBoleto')->with('vuelos',$vuelos)->with('sucursal',$sucursal);
     }
     public function ChequearBoletoAjax($ci,$vuelo_id){
+    //Este metodo carga los datos del pasajero que esta chequiando su boleto y puede mostrar los msj de error en caso que no exita el pasajero o no tenga boletos en el vuelo donde se esta chequiando
         $vuelo= Vuelo::find($vuelo_id);
         $ruta = array('origen' => Sucursal::find($vuelo->pierna->ruta->origen_id)->nombre, 'destino' => Sucursal::find($vuelo->pierna->ruta->destino_id)->nombre );
         $pasajero = Pasajero::BuscarCI($ci)->first();
@@ -246,7 +248,8 @@ class TaquillaController extends Controller
         }
         
     }
-    public function ChequearBoleto(Request $request){ //chequiar boleto
+    public function ChequearBoleto(Request $request){ 
+    //Cambia el estado de un boleto a chequiado
         $boleto = Boleto::find($request->boleto_id);
         $boleto->estado='Chequeado';
         $boleto->save();
@@ -351,6 +354,7 @@ class TaquillaController extends Controller
         }
     }
     public function ajaxVueloPasajero($idboleto,$nacionalidad,$id,$auxB){
+    //Carga el formulario para la información del pasajero que esta comprando un boleto ademas informa si el pasajero posee ya una reserva un boleto ya comprado para el vuelo o un boleto cancelado que puede renovar
         $cedula=$nacionalidad.$id;
         $boleto= Boleto::find($idboleto);
         $pasajeroAux=Pasajero::BuscarCI($cedula)->first();

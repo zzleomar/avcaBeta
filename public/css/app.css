@@ -13,8 +13,16 @@
 body{
     font-family: century gothic;
 }
+.avcaColor{
+    width: 99%;
+    margin: auto;
+}
 .btn2{
     font-size: 14px;
+}
+.contenidoPerso, #targetL{
+    width: 95%;
+    margin: auto;
 }
 .centradoM{
     margin: auto;
@@ -104,13 +112,6 @@ body{
     font-weight: 600;
 }
 
-.avcaColor{
-   
-    box-shadow:         3px 3px 4px #b1b1b1;
-    -webkit-box-shadow: 3px 3px 4px #b1b1b1;
-    -moz-box-shadow:    3px 3px 4px #b1b1b1;
-    -o-box-shadow:      3px 3px 4px #b1b1b1;
-}
 
 .margenInferior{
     margin-bottom: 15px;

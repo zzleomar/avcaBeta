@@ -2,7 +2,7 @@
 
 @section('content')
 @include('notifications::flash')
-<div id="targetL">
+<div id="targetL" class="py-3">
     <table class="table">
       <thead class="thead-light">
         <tr align="center">
@@ -81,14 +81,15 @@
         <div class="item">
          
           <div id="VuelosRetrasados" class="collapse" role="tabpanel">
-           <div class="row">
-                <div class="col-md-12 col-sm-12">
-      @if((sizeof($retrasados))==0)
+           
+
+
+          @if((sizeof($retrasados))==0)
                       <h5>No existen vuelos Retrasados</h5>
-                    @else 
-               <div class=" container card">  
-                  <div class="table-responsive divtablaAux">  
-                    <table class="table table-hover text-center tablaAux">
+          @else 
+              <div class="divtablaAux">
+                  <table class="table table-responsive-md table-hover text-center tablaAux">
+
                       <thead class="thead-light">
                         <tr>
                           <th>#Vuelo</th>
@@ -122,26 +123,19 @@
                       </tbody>
                      <?php }); ?>
                     </table>
-                    </div>      
-                  
-              </div>
-      @endif
-
-      </div></div>
+                  </div>
+            @endif
         </div>
         </div>
 
 
         <div class="item">
           <div id="VuelosAbiertos" class="collapse show" role="tabpanel">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
        @if((sizeof($abiertos))==0)
                       <h5>No existen vuelos abiertos</h5>
                     @else     
-               <div class=" container card"> 
-                  <div class="table-responsive divtablaAux">  
-                    <table class="table table-hover text-center tablaAux">
+              <div class="divtablaAux">
+                  <table class="table table-responsive-md table-hover text-center tablaAux">
                       <thead class="thead-light">
                         <tr>
                           <th>#Vuelo</th>
@@ -175,21 +169,16 @@
                       </tbody>
                      <?php }); ?>
                     </table>
-                    </div>  
+                    </div> 
+      @endif 
               </div>
-      @endif
-      </div></div>
-           </div>
-        </div>
+      </div>
         
        <div class="item">
          <div id="VuelosCancelados" class="collapse" role="tabpanel">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
       @if((sizeof($cancelados))==0)
                       <h5>No existen vuelos cancelados</h5>
                     @else  
-               <div class=" container card">
                   <div class="table-responsive divtablaAux">  
                     <table class="table table-hover text-center tablaAux">
                       <thead class="thead-light">
@@ -225,15 +214,10 @@
                       <?php }); ?>
                     </table>
                     </div>    
-              </div>
               @endif
       </div></div>
-      </div>
-        </div>
         <div class="item">
          <div id="VuelosEjecutados" class="collapse" role="tabpanel">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
       @if((sizeof($ejecutados))==0)
                       <h5>No existen vuelos Ejecutados</h5>
                     @else  
@@ -272,11 +256,8 @@
                       <?php }); ?>
                     </table>
                     </div>    
-              </div>
               @endif
       </div></div>
-      </div>
-        </div>
 
       </div>
 

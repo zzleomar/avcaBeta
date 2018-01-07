@@ -28,12 +28,9 @@
         <div class="item">
          
           <div id="VuelosRetrasados" class="collapse" role="tabpanel">
-           <div class="row">
-                <div class="col-md-12 col-sm-12">
       @if((sizeof($retrasados))==0)<br>
                       <h5>No existen vuelos Retrasados para esta ruta</h5>
                     @else 
-               <div class=" container card">  
                   <div class="table-responsive divtablaAux">  
                     <table class="table table-hover text-center tablaAux">
                       <thead class="thead-light">
@@ -71,22 +68,17 @@
                     </table>
                     </div>      
                   
-              </div>
       @endif
 
-      </div></div>
         </div>
         </div>
 
 
         <div class="item">
           <div id="VuelosAbiertos" class="collapse show" role="tabpanel">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
        @if((sizeof($abiertos))==0)<br>
                       <h5>No existen vuelos abiertos para esta ruta</h5>
                     @else     
-               <div class=" container card"> 
                   <div class="table-responsive divtablaAux">  
                     <table class="table table-hover text-center tablaAux">
                       <thead class="thead-light">
@@ -123,17 +115,13 @@
                       </tbody>
                      <?php }); ?>
                     </table>
-                    </div>  
               </div>
       @endif
-      </div></div>
            </div>
         </div>
         
        <div class="item">
          <div id="VuelosCancelados" class="collapse" role="tabpanel">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
       @if((sizeof($cancelados))==0)<br>
                       <h5>No existen vuelos cancelados para esta ruta</h5>
                     @else  
@@ -173,15 +161,11 @@
                       <?php }); ?>
                     </table>
                     </div>    
-              </div>
               @endif
-      </div></div>
       </div>
         </div>
         <div class="item">
          <div id="VuelosEjecutados" class="collapse" role="tabpanel">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
       @if((sizeof($ejecutados))==0)<br>
                       <h5>No existen vuelos Ejecutados para esta ruta</h5>
                     @else  
@@ -220,9 +204,7 @@
                       <?php }); ?>
                     </table>
                     </div>    
-              </div>
               @endif
-      </div></div>
       </div>
         </div>
 

@@ -1,8 +1,7 @@
 
 @switch(Auth::user()->tipo)
         @case('Operador de Trafico')
-            <div class="container">
-              <div class="container py-3  avcaColor">
+              <div class="avcaColor">
 
             <div class="card text-center">
               <div class="card-header">
@@ -21,8 +20,7 @@
         @break
  
         @case('Subgerente de Sucursal')
-            <div class="container">
-              <div class="container py-3  avcaColor">
+              <div class="avcaColor">
 
             <div class="card text-center">
               <div class="card-header">
@@ -49,7 +47,7 @@
 
 
         @case('Gerente de Sucursales')
-              <div class="container py-3  avcaColor">
+              <div class="avcaColor">
 
             <div class="card text-center">
               <div class="card-header">
@@ -89,8 +87,7 @@
 
 
         @case('Asistente de RRHH')
-            <div class="container">
-              <div class="container py-3  avcaColor">
+              <div class="avcaColor">
 
             <div class="card text-center">
               <div class="card-header">
@@ -107,8 +104,7 @@
 
 
         @case('Gerente de RRHH')
-            <div class="container">
-              <div class="container py-3  avcaColor">
+              <div class="avcaColor">
 
             <div class="card text-center">
               <div class="card-header">

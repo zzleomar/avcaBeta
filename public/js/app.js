@@ -59,6 +59,9 @@ function estadoVuelo(action)
   function EliminarRuta(){
         document.getElementById('EliminarRutaForm').submit();
   }
+  function EliminarEmpleado(accion){
+        document.getElementById('EliminarEmpleadoForm').submit();
+  }
 
 function cancelar(id){
         document.getElementById('vuelo_id').value=id;

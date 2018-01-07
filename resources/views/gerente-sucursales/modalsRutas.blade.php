@@ -122,7 +122,7 @@ font-weight: 700;"></h4>
 
 
 
-<!-- Modal Nueva Ruta -->
+<!-- Modal Modificar Ruta -->
     <form action="{{ URL::to('/gerente-sucursales/administracion-rutas/modificar') }}" method="post" id="ModificarRutaForm" name="ModificarRutaForm">   
                         {{ csrf_field() }}
 

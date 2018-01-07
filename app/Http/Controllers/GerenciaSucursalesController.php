@@ -442,7 +442,7 @@ class GerenciaSucursalesController extends Controller
       $nueva->origen_id=$datos->origenid;
       $nueva->destino_id=$datos->destinoid;
       $nueva->distancia=$datos->distancia;
-      $nueva->duracion=$datos->duracion;
+      $nueva->duracion=$datos->horas.":".$datos->minutos.":00";
       $nueva->tarifa_vuelo=$datos->precio;
       $nueva->siglas=$origen->siglas."-".$destino->siglas;
       $nueva->save();

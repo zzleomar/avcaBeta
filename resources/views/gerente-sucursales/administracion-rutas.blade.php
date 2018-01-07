@@ -3,7 +3,7 @@
 @section('content')
 @include('notifications::flash')
 
-<div id="targetL">
+<div id="targetL" class="py-3">
     <table class="table">
       <thead class="thead-light">
         <tr align="center">
@@ -11,12 +11,6 @@
         </tr>
       </thead>
     </table>
-
-
-
-<section>
-    <div class="text-center">
-        <div class="text-center">
         
 
 <div class="divtablaAux">
@@ -82,7 +76,6 @@
   Agregar Ruta
 </button>
 
-
   <!----- MODALS ----------------------------------------->
 <!------------------------ MODALS ---------------------->
  
@@ -90,13 +83,15 @@
 
 <!------------------------------------- MODALS --------->
 <!-------------- MODALS -------------------------------->
+</div>
+
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
   $(document).ready(function(){
   var altura = $(document).height();
-  altura=altura-470;
+  altura=altura-380;
   altura=altura+"px";
   $(".divtablaAux").css("min-height",altura);
     $("#horasD").keyup(function(){
