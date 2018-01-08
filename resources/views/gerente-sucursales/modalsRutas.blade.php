@@ -8,7 +8,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Nueva Ruta</h5>
+          <h5 class="modal-title" id="exampleModalLabel" style="font-size: 25px;font-weight: 700;">Nueva Ruta</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -102,8 +102,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-          <h4 class="card-title" id="tituloModalEliRuta" style="font-size: 25px;
-font-weight: 700;"></h4>
+          <h4 class="card-title" id="tituloModalEliRuta" style="font-size: 25px;font-weight: 700;"></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -130,7 +129,7 @@ font-weight: 700;"></h4>
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="TituloModalModificarRuta"></h5>
+          <h5 class="modal-title" id="TituloModalModificarRuta" style="font-size: 25px;font-weight: 700;"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>

@@ -10,7 +10,7 @@ class Personal extends Model
     protected $table ="personal";
 
     protected $fillable =[
-	'nombres','apellidos','cedula','tlf_movil','tlf_casa','direccion','sueldo_base_id'
+	'nombres','apellidos','cedula','tlf_movil','tlf_casa','direccion','sueldo_base_id','entrada'
 	];
 
     public function empleado(){

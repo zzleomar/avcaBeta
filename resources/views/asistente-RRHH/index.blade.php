@@ -118,6 +118,163 @@
         document.getElementById('tituloModalEliEmpleado').innerHTML=nombre;
   }
 
+  function datosSP(id,nombre){
+        var identificador=nombre+"id";
+        var identificador2=nombre+"N";
+        var identificador3=nombre+"T"+id;
+        var titulo=document.getElementById(identificador3).innerHTML;
+        document.getElementById(identificador).value=id;
+        document.getElementById(identificador2).value=titulo;
+        if(nombre=='cargo'){
+          var identificador4=nombre+"N2";
+          document.getElementById(identificador4).value=titulo;
+        }
+  }
+  function helpCollapse(id){
+    if(id==1){
+      id2=2;
+    }
+    else{
+      id2=1;
+    }
+    var ident='#AccordionInfoPersonal'+id;
+    var ident2='#AccordionInfoPersonal'+id2;
+    if($(ident).is(':hidden')){
+      $(ident).collapse('show');
+      if(!($(ident2).is(':hidden'))){
+        $(ident2).collapse('hide');
+      }
+    }
+  }
+  function nuevoEmpleado(action, otro){
+        var cedula=document.getElementById('cedula').value;
+        var nombres=document.getElementById('nombres').value;
+        var apellidos=document.getElementById('apellidos').value;
+        var direccion=document.getElementById('direccion').value;
+        var tlf_movil=document.getElementById('tlf_movil').value;
+        var tlf_casa=document.getElementById('tlf_casa').value;        
+        var fechaEntrada=document.getElementById('fechaEntrada').value;        
+        var sucursalN=document.getElementById('sucursalN').value;        
+        var tipo=document.getElementById('tipoCid2').value;
+        var horarioN=document.getElementById('horarioN').value; 
+        if(cedula.length==0){
+          $('#AccordionInfoPersonal2').collapse('hide');
+          $('#AccordionInfoPersonal1').collapse('show');
+          document.getElementById('cedula').setCustomValidity("Debe ingresar la identificación del empleado");
+          return false;
+        } 
+        else {  
+          document.getElementById('cedula').setCustomValidity("");             
+        if (nombres.length==0) 
+        {
+          $('#AccordionInfoPersonal2').collapse('hide');
+          $('#AccordionInfoPersonal1').collapse('show');
+          document.getElementById('nombres').setCustomValidity("Debe ingresar el nombre");
+          return false;
+        }
+        else {
+          document.getElementById('nombres').setCustomValidity("");
+          if (apellidos.length==0) 
+          {
+            $('#AccordionInfoPersonal2').collapse('hide');
+            $('#AccordionInfoPersonal1').collapse('show');
+            document.getElementById('apellidos').setCustomValidity('Debe ingresar el apellido');
+            return false;
+          }
+          else{
+            document.getElementById('apellidos').setCustomValidity('');
+            if (direccion.length==0) 
+            {
+              $('#AccordionInfoPersonal2').collapse('hide');
+              $('#AccordionInfoPersonal1').collapse('show');
+              document.getElementById('direccion').setCustomValidity('Debe ingresar la dirección');
+              return false;
+            }
+            else{
+              document.getElementById('direccion').setCustomValidity('');   
+              if ((tlf_movil.length==0)&&(tlf_casa.length==0)) 
+              {
+                $('#AccordionInfoPersonal2').collapse('hide');
+                $('#AccordionInfoPersonal1').collapse('show');
+                document.getElementById('tlf_movil').setCustomValidity('Debe ingresar un número de Tlf');
+                return false;
+              }
+              else {
+                document.getElementById('tlf_movil').setCustomValidity('');
+                if (fechaEntrada.length==0){
+                  $('#AccordionInfoPersonal1').collapse('hide');
+                  $('#AccordionInfoPersonal2').collapse('show');
+                  if(otro!=1)
+                    alert('Debe ingresar la fecha de ingreso');
+                  return false;
+                }
+                else{
+                    if ((tipo.length==0)||(tipo=='0')){
+                      $('#AccordionInfoPersonal1').collapse('hide');
+                      $('#AccordionInfoPersonal2').collapse('show');
+                      if(otro!=1){
+                        alert('Debe seleccionar el cargo que ejerce');
+                      }
+                      return false;
+                    }
+                  else{
+                    if (sucursalN.length==0){
+                        $('#AccordionInfoPersonal1').collapse('hide');
+                        $('#AccordionInfoPersonal2').collapse('show');
+                        if(otro!=1){
+                          alert('Debe seleccionar la sucursal donde labora');
+                        }
+                        return false;
+                      }
+                    else {
+                      if (horarioN.length==0){
+                        $('#AccordionInfoPersonal1').collapse('hide');
+                        $('#AccordionInfoPersonal2').collapse('show');
+                        if(otro!=1){
+                          alert('Debe seleccionar el horario en el cual labora');
+                        }
+                        return false;
+                      }
+                      else{
+                        document.getElementById('nuevaEmpleadoForm').action = action;
+                        return true;
+                      }
+                      
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }      
+        }
+
+  }
+  function cargoEleccion(){
+    document.getElementById('tipoCid2').value='1';
+  }
+
+  function tipoCargo(tipo){
+    document.getElementById('tipoCid2').value='0';
+    switch (tipo) {
+      case '1':
+            $('#opcTripulante').hide();
+            $('#opcAdministrativo').hide();
+            $('#opcOperativo').show();
+        break;
+      case '2':
+            $('#opcAdministrativo').hide();
+            $('#opcOperativo').hide();
+            $('#opcTripulante').show();
+        break;
+      case '3':
+            $('#opcTripulante').hide();
+            $('#opcOperativo').hide();
+            $('#opcAdministrativo').show();
+        break;
+    }
+    document.getElementById('tipoCid').value=tipo;
+  }
 
   
 </script>

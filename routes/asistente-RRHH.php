@@ -12,6 +12,7 @@ Route::group(['prefix' => 'RRHH','middleware' => ['auth', 'CheckRoleAsistenteRRH
 	Route::get('/','PersonalController@index');
 
 	Route::post('/administracion-empleados/eliminar','PersonalController@eliminar');
+	Route::post('/administracion-empleados/nueva','PersonalController@nuevo');
 
 
 

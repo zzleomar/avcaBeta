@@ -346,7 +346,6 @@
         else{
           document.getElementById('horaSalida').setCustomValidity("");
           document.getElementById('fechaSalida').setCustomValidity("Debe ingresar la fecha");
-          alert("entro");
         }
         targetL.loadingOverlay('remove');
       }

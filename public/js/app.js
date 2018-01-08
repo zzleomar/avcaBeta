@@ -7,6 +7,7 @@ function pulsar(e) {
   tecla = (document.all) ? e.keyCode : e.which;
   return (tecla != 13);
 }
+
 function formOperativo(action)
     {
         document.getElementById('formOperativo').action = action;
@@ -236,7 +237,11 @@ function planificarVuelo(action)
     }
   }
 }
-
+function nuevoEmpleado(){
+  cedula
+  nombres
+  apellidos
+}
 function capturarO(id,clave)
   {
     var nr="origenNR"+clave;
