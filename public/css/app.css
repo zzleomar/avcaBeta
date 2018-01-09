@@ -85,7 +85,8 @@ body{
     width:auto;
     height:55px;
 }
-.navperso{
+.oculto{
+    display: none;
 }
 .fondo-header{
            box-shadow: 0px 2px 7px #000;
@@ -213,6 +214,7 @@ hr{
 .divtablaAux{
     overflow:scroll;
     height:450px;
+    clear: both;
 }
 .tablaAux{
    /* width: auto;

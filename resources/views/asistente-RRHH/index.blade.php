@@ -78,9 +78,13 @@
         @endif
         
        <td>
-                      <div class="d-flex flex-row">
-              <div class="p-2"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalModificarEmpleado">Modificar</button></div>
-              <div class="p-2"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalEliminarEmpleado" onclick="ConfirmarEliminarEmpleado('{{ $empleados[$i]->id }}','{{ $titulo }}')">Eliminar</button></div>
+            <div class="d-flex flex-row">
+              <div class="p-2">
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalModificarEmpleado" onclick="ajaxModificarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">Modificar</button>
+              </div>
+              <div class="p-2">
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalEliminarEmpleado" onclick="ConfirmarEliminarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">Eliminar</button>
+              </div>
             </div>
        </td>
    
@@ -111,9 +115,25 @@
   altura=altura-380;
   altura=altura+"px";
   $(".divtablaAux").css("min-height",altura);
+  //REINICIO DE VARIABLES PARA EVITAR ERRORES POR LA CACHE
+  //
+  
+        document.getElementById('cedula').value='';
+        document.getElementById('nombres').value='';
+        document.getElementById('apellidos').value='';
+         document.getElementById('direccion').value='';
+         document.getElementById('tlf_movil').value='';
+         document.getElementById('tlf_casa').value='';        
+         document.getElementById('fechaEntrada').value='';        
+         document.getElementById('sucursalN').value='';        
+         document.getElementById('tipoCid22').value='0';
+         document.getElementById('tipoCid2').value='0';
+         document.getElementById('horarioN').value=''; 
+         document.getElementById('licencia').value=''; 
 });
 
   function ConfirmarEliminarEmpleado(id,nombre){
+    alert(id);
         document.getElementById('empleado_id').value=id;
         document.getElementById('tituloModalEliEmpleado').innerHTML=nombre;
   }
@@ -146,7 +166,9 @@
       }
     }
   }
-  function nuevoEmpleado(action, otro){
+  function FormEmpleado(action, otro,opc){
+        var tipoCid2="tipoCid2"+opc;
+        var  tipoCid="tipoCid"+opc;
         var cedula=document.getElementById('cedula').value;
         var nombres=document.getElementById('nombres').value;
         var apellidos=document.getElementById('apellidos').value;
@@ -155,8 +177,10 @@
         var tlf_casa=document.getElementById('tlf_casa').value;        
         var fechaEntrada=document.getElementById('fechaEntrada').value;        
         var sucursalN=document.getElementById('sucursalN').value;        
-        var tipo=document.getElementById('tipoCid2').value;
+        var tipo=document.getElementById(tipoCid2).value;
+        var tipo2=document.getElementById(tipoCid).value;
         var horarioN=document.getElementById('horarioN').value; 
+        var licencia=document.getElementById('licencia').value; 
         if(cedula.length==0){
           $('#AccordionInfoPersonal2').collapse('hide');
           $('#AccordionInfoPersonal1').collapse('show');
@@ -218,28 +242,55 @@
                       return false;
                     }
                   else{
-                    if (sucursalN.length==0){
-                        $('#AccordionInfoPersonal1').collapse('hide');
-                        $('#AccordionInfoPersonal2').collapse('show');
-                        if(otro!=1){
-                          alert('Debe seleccionar la sucursal donde labora');
-                        }
-                        return false;
+                      if(tipo2!=2){
+                          if (sucursalN.length==0){
+                              $('#AccordionInfoPersonal1').collapse('hide');
+                              $('#AccordionInfoPersonal2').collapse('show');
+                              if(otro!=1){
+                                alert('Debe seleccionar la sucursal donde labora');
+                              }
+                              return false;
+                            }
+                          else {
+                            if (horarioN.length==0){
+                              $('#AccordionInfoPersonal1').collapse('hide');
+                              $('#AccordionInfoPersonal2').collapse('show');
+                              if(otro!=1){
+                                alert('Debe seleccionar el horario en el cual labora');
+                              }
+                              return false;
+                            }
+                            else{
+                                if(opc==2){
+                                  document.getElementById('nuevaEmpleadoForm').action = action;
+                                }
+                                else {
+                                  document.getElementById('ModificarEmpleadoForm').action = action;
+                                }
+                                return true;
+                            }
+                            
+                          }
+                        
                       }
                     else {
-                      if (horarioN.length==0){
-                        $('#AccordionInfoPersonal1').collapse('hide');
-                        $('#AccordionInfoPersonal2').collapse('show');
-                        if(otro!=1){
-                          alert('Debe seleccionar el horario en el cual labora');
+                      if (licencia.length==0){
+                          $('#AccordionInfoPersonal1').collapse('hide');
+                          $('#AccordionInfoPersonal2').collapse('show');
+                          if(otro!=1){
+                            alert('Debe ingresar No aplica en caso de no poseer licencia');
+                          }
+                          return false;
                         }
-                        return false;
-                      }
-                      else{
-                        document.getElementById('nuevaEmpleadoForm').action = action;
-                        return true;
-                      }
-                      
+                        else{
+                          if(opc==2){
+                            document.getElementById('nuevaEmpleadoForm').action = action;
+                          }
+                          else {
+                            document.getElementById('ModificarEmpleadoForm').action = action;
+                          }
+                          return true;
+                        }
                     }
                   }
                 }
@@ -250,30 +301,53 @@
         }
 
   }
-  function cargoEleccion(){
-    document.getElementById('tipoCid2').value='1';
+  function cargoEleccion(opc){
+    var tipoCid2="tipoCid2"+opc;
+    document.getElementById(tipoCid2).value='1';
   }
 
-  function tipoCargo(tipo){
-    document.getElementById('tipoCid2').value='0';
+  function tipoCargo(tipo,opc){
+    var tipoCid2="tipoCid2"+opc;
+    var tipoCid="tipoCid"+opc;
+    document.getElementById(tipoCid2).value='0';
+    var opcTripulante='#opcTripulante'+opc;
+    var opcAdministrativo='#opcAdministrativo'+opc;
+    var opcOperativo='#opcOperativo'+opc;
+    var CdatosEmpleado='#CdatosEmpleado'+opc;
     switch (tipo) {
       case '1':
-            $('#opcTripulante').hide();
-            $('#opcAdministrativo').hide();
-            $('#opcOperativo').show();
+            $(opcTripulante).hide();
+            $(opcAdministrativo).hide();
+            $(opcOperativo).show();
+            $(CdatosEmpleado).show();
         break;
       case '2':
-            $('#opcAdministrativo').hide();
-            $('#opcOperativo').hide();
-            $('#opcTripulante').show();
+            $(opcAdministrativo).hide();
+            $(opcOperativo).hide();
+            $(opcTripulante).show();
+            $(CdatosEmpleado).hide();
         break;
       case '3':
-            $('#opcTripulante').hide();
-            $('#opcOperativo').hide();
-            $('#opcAdministrativo').show();
+            $(opcTripulante).hide();
+            $(opcOperativo).hide();
+            $(opcAdministrativo).show();
+            $(CdatosEmpleado).show();
         break;
     }
-    document.getElementById('tipoCid').value=tipo;
+    document.getElementById(tipoCid).value=tipo;
+  }
+
+  function ajaxModificarEmpleado(id,nombre){
+    document.getElementById('TituloModalModificarPersonal').innerHTML=nombre;
+    var targetL = $('#cargandoAux');
+    targetL.loadingOverlay();
+    var url="{{ URL::to('/RRHH/administracion-empleados/ajaxModificar') }}/"+id;
+    alert(url);
+      $.get(url,function(data){ 
+        $('#ModalAjaxModificarEmpleado').empty().html(data);
+        targetL.loadingOverlay('remove');
+      }); 
+    
   }
 
   

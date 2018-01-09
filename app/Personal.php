@@ -48,7 +48,7 @@ class Personal extends Model
     }
 
     public function scopePcargo($query, $dato){
-        return DB::select("SELECT personal.id, personal.nombres,personal.apellidos,personal.cedula,personal.tlf_movil,personal.tlf_casa,personal.direccion, personal.sueldo_base_id, empleados.cargo,tripulantes.rango,empleados.sucursal_id, sucursales.nombre as sucursal
+        return DB::select("SELECT personal.id as personal_id, personal.nombres,personal.apellidos,personal.cedula,personal.tlf_movil,personal.tlf_casa,personal.direccion, personal.sueldo_base_id, empleados.cargo,tripulantes.rango,empleados.sucursal_id, sucursales.nombre as sucursal
             FROM personal
             LEFT join empleados ON personal.id=empleados.personal_id
             LEFT join tripulantes ON personal.id=tripulantes.personal_id
@@ -57,11 +57,11 @@ class Personal extends Model
     }
 
     public function scopeOrdenados($query){
-        return DB::select("SELECT personal.id, personal.nombres,personal.apellidos,personal.cedula,personal.tlf_movil,personal.tlf_casa,personal.direccion, personal.sueldo_base_id, empleados.cargo,tripulantes.rango,empleados.sucursal_id, sucursales.nombre as sucursal FROM personal LEFT join empleados ON personal.id=empleados.personal_id LEFT join tripulantes ON personal.id=tripulantes.personal_id LEFT JOIN sucursales ON empleados.sucursal_id=sucursales.id order by(personal.apellidos)");
+        return DB::select("SELECT personal.id as personal_id, personal.nombres,personal.apellidos,personal.cedula,personal.tlf_movil,personal.tlf_casa,personal.direccion, personal.sueldo_base_id, empleados.cargo,tripulantes.rango,empleados.sucursal_id, sucursales.nombre as sucursal FROM personal LEFT join empleados ON personal.id=empleados.personal_id LEFT join tripulantes ON personal.id=tripulantes.personal_id LEFT JOIN sucursales ON empleados.sucursal_id=sucursales.id order by(personal.apellidos)");
     }
 
     public function scopePsucursal($query, $dato){
-        return DB::select("SELECT personal.id, personal.nombres,personal.apellidos,personal.cedula,personal.tlf_movil,personal.tlf_casa,personal.direccion, personal.sueldo_base_id, empleados.cargo,tripulantes.rango,empleados.sucursal_id, sucursales.nombre as sucursal FROM personal LEFT join empleados ON personal.id=empleados.personal_id LEFT join tripulantes ON personal.id=tripulantes.personal_id LEFT JOIN sucursales ON empleados.sucursal_id=sucursales.id WHERE empleados.sucursal_id='$dato' order by(personal.apellidos)");
+        return DB::select("SELECT personal.id as personal_id, personal.nombres,personal.apellidos,personal.cedula,personal.tlf_movil,personal.tlf_casa,personal.direccion, personal.sueldo_base_id, empleados.cargo,tripulantes.rango,empleados.sucursal_id, sucursales.nombre as sucursal FROM personal LEFT join empleados ON personal.id=empleados.personal_id LEFT join tripulantes ON personal.id=tripulantes.personal_id LEFT JOIN sucursales ON empleados.sucursal_id=sucursales.id WHERE empleados.sucursal_id='$dato' order by(personal.apellidos)");
     }
 
 }

@@ -13,6 +13,13 @@ Route::group(['prefix' => 'RRHH','middleware' => ['auth', 'CheckRoleAsistenteRRH
 
 	Route::post('/administracion-empleados/eliminar','PersonalController@eliminar');
 	Route::post('/administracion-empleados/nueva','PersonalController@nuevo');
+	Route::post('/administracion-empleados/modificar','PersonalController@modificar');
+
+
+	Route::get('/administracion-empleados/ajaxModificar/{id}','PersonalController@ajaxDatosModificar');
+	
+
+
 
 
 

@@ -12,7 +12,9 @@
         </tr>
       </thead>
     </table>
-
+<button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaAeronaveModal" style="margin-bottom: 20px; float: left;">
+              Agregar Aeronave
+            </button>
 
 <div class="divtablaAux">
 <table class="table table-responsive-md table-hover text-center tablaAux">
@@ -81,9 +83,7 @@
 
 <!-- Button trigger modal -->
 
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NuevaAeronaveModal" style="margin-bottom: 20px;">
-              Agregar Personal
-            </button>
+            
     
   <!----- MODALS ----------------------------------------->
 <!------------------------ MODALS ---------------------->

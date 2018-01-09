@@ -174,5 +174,29 @@ class PersonalTableSeeder extends Seeder
              });
 
 
+
+        /* //UN personal_operativo
+         factory(Personal::class, 5)->create()
+            ->each(function ($u) {
+               $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => ($u->id-60),
+                        'cargo' => 'Supervisor de Rampa',
+                        ])
+                );
+                $u->empleado->personal_operativo()->create([]);
+             });
+
+        //Administrativo
+        factory(Personal::class, 20)->create()
+            ->each(function ($a) {
+               $a->empleado()->save(factory(App\Empleado::class)->make([
+                     'sucursal_id' => $a->id-40,
+                     'cargo' => 'Obrero',
+                     ])
+                );
+                $a->empleado->administrativo()->create([]);
+                );
+           });*/
+
     }
 }

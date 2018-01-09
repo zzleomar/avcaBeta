@@ -4,7 +4,8 @@
       
             <div id="exampleAccordion" data-children=".item">
          <div class="opcionesAccordion">
-          <a class="btn btn2 btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosAbiertos" aria-expanded="true" aria-controls="VuelosAbiertos">
+          
+          <button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#ProgramarVuelo">Nuevo Vuelo</button><a class="btn btn2 btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosAbiertos" aria-expanded="true" aria-controls="VuelosAbiertos">
             Vuelos Abiertos
           </a>
 
@@ -20,7 +21,6 @@
           <a class="btn btn2 btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosEjecutados" aria-expanded="false" aria-controls="VuelosEjecutados">
             Vuelos Ejecutados
           </a>
-          <button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#ProgramarVuelo">Nuevo Vuelo</button>
        </div>
 
 

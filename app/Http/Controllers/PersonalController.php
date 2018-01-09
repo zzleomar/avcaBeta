@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Szykra\Notifications\Flash;
 use Illuminate\Http\Request;
 use App\Personal;
+use App\Empleado;
 use App\Horario;
+use App\Personal_operativo;
+use App\Tripulante;
 use App\Sucursal;
+use App\Administrativo;
 
 class PersonalController extends Controller
 {
@@ -44,14 +48,13 @@ class PersonalController extends Controller
     }
 
     public function eliminar(Request $datos){
-        $personal=Personal::find($datos->empleado_id)->first();
+        $personal=Personal::find($datos->empleado_id);
         $personal->delete();
         flash::info('El empleado '.$personal->apellidos." ".$personal->nombres." ha sido eliminado del sistema");
         return redirect('/RRHH');
     }
 
     public function nuevo(Request $datos){
-        dd($datos->all());
         $nuevo= new Personal();
         $nuevo->nombres=$datos->nombres;
         $nuevo->apellidos=$datos->apellidos;
@@ -60,21 +63,148 @@ class PersonalController extends Controller
         $nuevo->tlf_casa=$datos->tlf_casa;
         $nuevo->direccion=$datos->direccion;
         $nuevo->entrada=$datos->fechaEntrada;
+        $nuevo->save();
+        switch ($datos->tipoC) { //Segun el tipo de personal
+            case '1':
+                $nuevoEmpleado= new Empleado();
+                $nuevoEmpleado->cargo=$datos->cargo1;
+                $sucursal=Sucursal::find($datos->sucursalid);
+                $horario=Horario::find($datos->horarioid);
+                $nuevoEmpleado->sucursal()->associate($sucursal);
+                $nuevoEmpleado->horario()->associate($horario);
+                $nuevo->empleado()->save($nuevoEmpleado);
 
-        /*
-        si $datos->tipoC!=1 es personal_operativo
-            "cargo1"
+                $nuevoPersonalOperativo= new Personal_operativo();
+                $nuevoEmpleado->personal_operativo()->save($nuevoPersonalOperativo);
+                break;
+            case '2':
+                $nuevoTripulante= new Tripulante();
+                $nuevoTripulante->rango=$datos->cargo2;
+                $nuevoTripulante->licencia=$datos->licencia;
+                $nuevo->tripulante()->save($nuevoTripulante);
+                break;
+            case '3':
+                $nuevoEmpleado= new Empleado();
+                $nuevoEmpleado->cargo=$datos->cargo3;
+                $sucursal=Sucursal::find($datos->sucursalid);
+                $horario=Horario::find($datos->horarioid);
+                $nuevoEmpleado->sucursal()->associate($sucursal);
+                $nuevoEmpleado->horario()->associate($horario);
+                $nuevo->empleado()->save($nuevoEmpleado);
 
-        si $datos->tipoC!=2 es tripulante
-            "cargo2" 
+                $nuevoAdministrativo= new Administrativo();
+                $nuevoEmpleado->administrativo()->save($nuevoAdministrativo);
+                break;
+        }
+        flash::info('El empleado '.$nuevo->apellidos." ".$nuevo->nombres." ha sido registrado en el sistema");
+        return redirect('/RRHH');
 
-        si $datos->tipoC!=3 es administrativo  
-            "cargo3"
+    }
+
+    public function ajaxDatosModificar($id){
+        $personal=Personal::find($id);
+        $sucursales=Sucursal::orderBy("nombre")->get();
+        $horarios=Horario::orderBy("id")->get();
+        return view('asistente-RRHH.ajax.datos-personal-ajax')
+                        ->with('empleado',$personal)
+                        ->with('horarios',$horarios)
+                        ->with('sucursales',$sucursales);
 
 
-      "sucursalid" => "19"
-      "horarioid" => "2"
-         */
+    }
 
+    public function modificar(Request $datos){
+        $personal=Personal::BuscarCI($datos->cedula)->first();
+        if(sizeof($personal)){
+            $personal->nombres=$datos->nombres;
+            $personal->apellidos=$datos->apellidos;
+            $personal->cedula=$datos->nacionalidad.$datos->cedula;
+            $personal->tlf_movil=$datos->tlf_movil;
+            $personal->tlf_casa=$datos->tlf_casa;
+            $personal->direccion=$datos->direccion;
+            $personal->entrada=$datos->fechaEntrada;
+            $personal->save();
+            switch ($datos->tipoC) { //Segun el tipo de personal
+                case '1':
+                    if(is_null($personal->empleado)){ //De tripulante a Personal_operativo
+                        $tripulante=Tripulante::find($personal->tripulante->id);
+                        $tripulante->delete();
+
+                        $nuevoEmpleado= new Empleado();
+                        $nuevoEmpleado->cargo=$datos->cargo1;
+                        $sucursal=Sucursal::find($datos->sucursalid);
+                        $horario=Horario::find($datos->horarioid);
+                        $nuevoEmpleado->sucursal()->associate($sucursal);
+                        $nuevoEmpleado->horario()->associate($horario);
+                        $personal->empleado()->save($nuevoEmpleado);
+
+                        $nuevoPersonalOperativo= new Personal_operativo();
+                        $nuevoEmpleado->personal_operativo()->save($nuevoPersonalOperativo);
+                    }
+                    else{
+                        $empleado=Empleado::find($personal->empleado->id);
+                        $empleado->cargo=$datos->cargo1;
+                        $empleado->save();
+                        if(is_null($personal->empleado->personal_operativo)){//De administrativo a Personal operativo
+                            $administrativo=Administrativo::find($personal->empleado->administrativo->id);
+                            $administrativo->delete();
+                            $nuevoPersonalOperativo= new Personal_operativo();
+                            $empleado->personal_operativo()->save($nuevoPersonalOperativo);
+
+                        }
+                    }
+                    break;
+                case '2':
+
+                    if(is_null($personal->empleado)){ //De tripulante a tripulante                        
+                        $tripulante=Tripulante::find($personal->tripulante->id);
+                        $tripulante->rango=$datos->cargo2;
+                        $tripulante->licencia=$datos->licencia;
+                        $tripulante->save();                        
+                    }
+                    else{ //De empleado a tripulante
+                            $empleado=Empleado::find($personal->empleado->id);
+                            $empleado->delete();
+                            $nuevoTripulante= new Tripulante();
+                            $nuevoTripulante->rango=$datos->cargo2;
+                            $nuevoTripulante->licencia=$datos->licencia;
+                            $personal->tripulante()->save($nuevoTripulante);
+                        }
+                    break;
+                case '3':
+                    if(is_null($personal->empleado)){ //De tripulante a Administrativo
+                        $tripulante=Tripulante::find($personal->tripulante->id);
+                        $tripulante->delete();
+
+                        $nuevoEmpleado= new Empleado();
+                        $nuevoEmpleado->cargo=$datos->cargo3;
+                        $sucursal=Sucursal::find($datos->sucursalid);
+                        $horario=Horario::find($datos->horarioid);
+                        $nuevoEmpleado->sucursal()->associate($sucursal);
+                        $nuevoEmpleado->horario()->associate($horario);
+                        $personal->empleado()->save($nuevoEmpleado);
+
+                        $nuevoAdministrativo= new Administrativo();
+                        $nuevoEmpleado->administrativo()->save($nuevoAdministrativo);
+                    }
+                    else{
+                        $empleado=Empleado::find($personal->empleado->id);
+                        $empleado->cargo=$datos->cargo3;
+                        $empleado->save();
+                        if(is_null($personal->empleado->administrativo)){//De Personal operativo a administrativo
+                            $personal_operativo=Personal_operativo::find($personal->empleado->personal_operativo->id);
+                            $personal_operativo->delete();
+
+                            $nuevoAdministrativo= new Administrativo();
+                            $empleado->administrativo()->save($nuevoAdministrativo);
+
+                        }
+                    }
+                    break;
+            }
+
+            flash::info('Los datos del empleado '.$personal->apellidos." ".$personal->nombres." han sido modificado");
+            return redirect('/RRHH');
+        }
     }
 }

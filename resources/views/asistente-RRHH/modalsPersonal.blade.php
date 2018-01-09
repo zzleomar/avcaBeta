@@ -1,217 +1,8 @@
 
 @php
   $urlNew=URL::to('/RRHH/administracion-empleados/nueva');
+  $urlmod=URL::to('/RRHH/administracion-empleados/modificar');
 @endphp
-<!-- Modal Nueva Empleado -->
-<form name="nuevaEmpleadoForm" id="nuevaEmpleadoForm" method="POST" onsubmit=" return nuevoEmpleado('{{ $urlNew }}','1')" >
-
-                        {{ csrf_field() }}
-
-    <div class="modal fade bd-example-modal-lg" id="NuevaEmpleadoModal" data-keyboard="false" data-backdrop="static">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel" style="font-size: 25px;font-weight: 700;">Nueva Empleado</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-      
-      <div class="modal-body">
-        <div class="container" style="padding-left: 15px; padding-right: 15px;  ">
-             <div id="AccordionInfoPersonal" data-children=".item" style="font-weight: 600;">
-             INFORMACIÓN
-             <br>
-                  <a class="btn btn-primary btn-aux-magin" data-toggle="collapse" data-parent="#AccordionInfoPersonal" href="#AccordionInfoPersonal1" aria-expanded="true" aria-controls="AccordionInfoPersonal1" onclick="helpCollapse('1')">
-                    Persona
-                  </a>
-               
-
-                  <a class="btn btn-primary btn-aux-magin" data-toggle="collapse" data-parent="#AccordionInfoPersonal" href="#AccordionInfoPersonal2" aria-expanded="false" aria-controls="AccordionInfoPersonal2" onclick="helpCollapse('2')">
-                    Profesional
-                  </a>
-                 <div class="item">
-                    <div id="AccordionInfoPersonal1" class="collapse show" role="tabpanel">
-                     <div class="card card-body">
-                      <div class="form-group col-md-6">
-                          <label for="inputIdentificacion4">Identificación:</label>
-                         <div class="input-group">  
-                            <div class="input-group-addon">
-                                <select name="nacionalidad" id="nacionalidad" class="nationality">
-                                    <option value="V">V</option>
-                                    <option value="E">E</option>
-                                    <option value="E">N</option>
-                                </select>
-                            </div>  
-                          <input type="text" class="form-control" placeholder="Identificación" name="cedula" id="cedula" onkeypress="return soloNumDec(event)" required>
-                        </div>
-                      </div> 
-                      <div class="form-row">
-                          <div class="form-group col-md-6">
-                            <div class="input-group mb-2 mb-sm-0">
-                            <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-                              <input type="Nombre" class="form-control" id="nombres" placeholder="Ingrese el nombre" name="nombres" required>
-                                      <div id="Comentarios"></div></div>
-                              </div>
-                              <div class="form-group col-md-6">
-                                  <div class="input-group mb-2 mb-sm-0">
-                                    <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-                                    <input type="text" class="form-control" id="apellidos" placeholder="Ingrese el Apellidos" name="apellidos" required>
-                                  </div>
-                              </div>
-                              
-                          </div>
-
-
-                        <div class="form-group">
-                                <label for="inputAddress">Dirección</label>
-                                <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion del empleado" required>
-                          </div>
-
-
-                        <div class="form-row">
-                          
-                            <div class="form-group col-md-6">
-                                    <label for="inputNombre"> Telefono Movil</label>
-                                <div class="input-group mb-2 mb-sm-0">
-                                    <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
-                                      <input type="text" class="form-control" id="tlf_movil" placeholder="Ejemplo 0414 098 1234" name="tlf_movil" required>
-                                      </div>
-                              </div>                            
-                            <div class="form-group col-md-6">
-                                    <label for="inputNombre">Telefono Fijo</label>
-
-                                    <div class="input-group mb-2 mb-sm-0">
-                                    <div class="input-group-addon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
-                                      <input type="text" class="form-control" id="tlf_casa" placeholder="Ejemplo 0293 098 1234" name="tlf_casa">
-                                    </div>
-                              </div> 
-                          </div>   
-                      
-                     </div>
-                   </div>
-                 </div>
-
-                  <div class="item">
-                    <div id="AccordionInfoPersonal2" class="collapse" role="tabpanel">
-                     <div class="card card-body">
-                      <div class="form-row">
-                          
-                            <div class="form-group col-md-6">
-                                    <label class="infoTitulo">Fecha de entrada</label>
-                                <div class="input-group mb-2 mb-sm-0">
-                                    <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
-                                      <input type="date" placeholder="introduzca fecha mm/dd/yyyy" name="fechaEntrada" id="fechaEntrada" class="form-perso-help" value="" required />
-                                      </div>
-                              </div> 
-                      <br>
-                    <div class="col col-sm-12 col-md-12 btn-aux-magin">
-                            <div class="input-group">
-
-                            <div class="input-group-btn">
-                              <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
-                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Tipo
-                              </button>
-                              <div class="dropdown-menu ">
-                                <a class="dropdown-item" id="tipoC1" onclick="tipoCargo('1')">Operativo</a>
-                                <a class="dropdown-item" id="tipoC2" onclick="tipoCargo('2')">Tripulante</a>
-                                <a class="dropdown-item" id="tipoC3" onclick="tipoCargo('3')">Administrativo</a>
-                              </div>
-                            </div>
-                            <select name="cargo1" class="opcTipo form-control-lg" id="opcOperativo" style="display: none; " onchange="cargoEleccion()">
-                              <option value="0">Seleccione un cargo</option>
-                              <option value="Operador de Tráfico" >Operador de Tráfico</option>
-                              <option value="Controlador de Tráfico" >Controlador de Tráfico</option>
-                              <option value="Supervisor de Mantenimiento">Supervisor de Mantenimiento</option>
-                              <option value="Mecánico">Mecánico</option>
-                            </select>
-
-                            <select name="cargo2" class="opcTipo form-control-lg" id="opcTripulante" style="display: none;" onchange="cargoEleccion()">
-                              <option value="0">Seleccione un rango</option>
-                              <option value="Piloto">Piloto</option>
-                              <option value="Copiiloto">Copiloto</option>
-                              <option value="Jefe de Cabina">Jefe de Cabina</option>
-                              <option value="Sobrecargo">Sobrecargo</option>
-                            </select>
-                            <select name="cargo3" class="opcTipo form-control-lg" id="opcAdministrativo" style="display: none;" onchange="cargoEleccion()">
-                              <option value="0">Seleccione un cargo</option>
-                              <option value="Obrero">Obrero</option>
-                              <option value="Beder">Beder</option>
-                              <option value="Asistente de RRHH">Asistente de RRHH</option>
-                              <option value="SubGerente de Sucursal">SubGerente de Sucursal</option>
-                              <option value="Gerente de RRHH">Gerente de RRHH</option>
-                              <option value="Gerente de Finanzas">Gerente de Finanzas</option>
-                              <option value="Gerente de Sucursales">Gerente de Mantenimiento y Soporte</option>
-                              <option value="Gerente de Sucursales">Gerente General</option>
-                            </select>
-                            <input type="hidden" name="tipoC" id="tipoCid" value="0">
-                            <input type="hidden" name="tipoC2" id="tipoCid2" value="0">
-                       </div>
-
-
-                            </div>
-                            <br>
-                      <div class="col col-sm-12 col-md-12 btn-aux-magin">
-                            <div class="input-group">
-
-                            <div class="input-group-btn">
-                              <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
-                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Sucursal
-                              </button>
-                              <div class="dropdown-menu ">
-                                @foreach($sucursales as $sucursal)
-                                <a class="dropdown-item" id="sucursalT{{ $sucursal->id }}" onclick="datosSP('{{ $sucursal->id }}','sucursal')">{{ $sucursal->nombre }}</a>
-                                @endforeach
-                              </div>
-                            </div>
-                             <input type="text" class="form-control" aria-label="Text input with dropdown button" id="sucursalN" placeholder="Seleccione la sucursal donde labora" value="" readonly required>
-                             <input type="hidden" name="sucursalid" id="sucursalid" value="">
-                            <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
-
-
-                            </div>
-                    </div>
-                    <br>
-                    <div class="col col-sm-12 col-md-12 btn-aux-magin">
-                            <div class="input-group">
-
-                            <div class="input-group-btn">
-                              <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
-                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Horario
-                              </button>
-                              <div class="dropdown-menu ">
-                                @foreach($horarios as $horario)
-                                <a class="dropdown-item" id="horarioT{{ $horario->id }}"  onclick="datosSP('{{ $horario->id }}','horario')">{{ $horario->entrada." ".$horario->salida }}</a>
-                                @endforeach
-                              </div>
-                            </div>
-                             <input type="text" class="form-control" aria-label="Text input with dropdown button" id="horarioN" placeholder="Seleccione el horario de trabajo" value="" readonly required>
-                             <input type="hidden" name="horarioid" id="horarioid" value="">
-                            <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
-
-
-                            </div>
-                    </div>
-                    </div>
-                    <br>
-                    
-
-                     </div>
-                   </div>
-                 </div>
-
-              </div>
-            </div>
-                <button type="submit" class="btn btn-lg btn-primary btn-aux-magin" id="BotonGuardarEmpleado" onclick="nuevoEmpleado('{{ $urlNew }}','0')">Registrar</button>
-          </div>
-                <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
-                </div>
-        
-     </div>
-  </div></div>
-  </form>
-
 
   <!--MODAL ELIMINAR Empleado---->
 
@@ -244,14 +35,14 @@
 
 
 <!-- Modal Modificar Empleado -->
-    <form action="{{ URL::to('/RRHH/administracion-empleados/modificar') }}" method="post" id="ModificarEmpleadoForm" name="ModificarEmpleadoForm">   
+    <form method="post" id="ModificarEmpleadoForm" name="ModificarEmpleadoForm" onsubmit=" return FormEmpleado('{{ $urlmod }}','1','1')">   
                         {{ csrf_field() }}
 
     <div class="modal fade bd-example-modal-lg" id="ModalModificarEmpleado" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="TituloModalModificarEmpleado" style="font-size: 25px;font-weight: 700;"></h5>
+          <h5 class="modal-title" id="TituloModalModificarPersonal" style="font-size: 25px;font-weight: 700;"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -260,9 +51,234 @@
       <div class="modal-body" id="cargandoAux">
         <div class="container" id="ModalAjaxModificarEmpleado" style="padding-left: 15px; padding-right: 15px;  ">
             
-  </div></div>
+  </div>
+                <button type="submit" class="btn btn-lg btn-primary" id="BotonGuardarEmpleado" onclick="FormEmpleado('{{ $urlmod }}','0','1')">Actualizar</button></div>
                 <div class="modal-footer">
-                <button type="submit" class="btn btn-lg btn-primary" id="BotonGuardarEmpleado">Actualizar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                  
+                </div>
+        
+     </div>
+  </div></div>
+  </form>
+
+
+  <!-- Modal Nueva Empleado -->
+<form name="nuevaEmpleadoForm" id="nuevaEmpleadoForm" method="POST" onsubmit=" return FormEmpleado('{{ $urlNew }}','1','2')" >
+
+                        {{ csrf_field() }}
+
+    <div class="modal fade bd-example-modal-lg" id="NuevaEmpleadoModal" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" style="font-size: 25px;font-weight: 700;">Nueva Empleado</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+      
+      <div class="modal-body">
+        <div class="container" style="padding-left: 15px; padding-right: 15px;  ">
+             <div id="AccordionInfoPersonal" data-children=".item" style="font-weight: 600;">
+             INFORMACIÓN
+             <br>
+                  <a class="btn btn-primary btn-aux-magin" data-toggle="collapse" data-parent="#AccordionInfoPersonal" href="#AccordionInfoPersonal1" aria-expanded="true" aria-controls="AccordionInfoPersonal1" onclick="helpCollapse('1')">
+                    Persona
+                  </a>
+               
+
+                  <a class="btn btn-primary btn-aux-magin" data-toggle="collapse" data-parent="#AccordionInfoPersonal" href="#AccordionInfoPersonal2" aria-expanded="false" aria-controls="AccordionInfoPersonal2" onclick="helpCollapse('2')">
+                    Profesional
+                  </a>
+                 <div class="item">
+                    <div id="AccordionInfoPersonal1" class="collapse show" role="tabpanel">
+                     <div class="card card-body">
+                      <div class="form-row">
+                      <div class="form-group col-md-6">
+                          <label for="inputIdentificacion4">Identificación:</label>
+                         <div class="input-group">  
+                            <div class="input-group-addon">
+                                <select name="nacionalidad" id="nacionalidad" class="nationality">
+                                    <option value="V">V</option>
+                                    <option value="E">E</option>
+                                    <option value="E">N</option>
+                                </select>
+                            </div>  
+                          <input type="text" class="form-control" placeholder="Identificación" name="cedula" id="cedula" onkeypress="return soloNumDec(event)" >
+                        </div>
+                      </div> 
+                      </div>
+                      <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <div class="input-group mb-2 mb-sm-0">
+                            <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
+                              <input type="Nombre" class="form-control" id="nombres" placeholder="Ingrese el nombre" name="nombres" >
+                                      <div id="Comentarios"></div></div>
+                              </div>
+                              <div class="form-group col-md-6">
+                                  <div class="input-group mb-2 mb-sm-0">
+                                    <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
+                                    <input type="text" class="form-control" id="apellidos" placeholder="Ingrese el Apellidos" name="apellidos" >
+                                  </div>
+                              </div>
+                              
+                          </div>
+
+
+                        <div class="form-group">
+                                <label for="inputAddress">Dirección</label>
+                                <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion del empleado" >
+                          </div>
+
+
+                        <div class="form-row">
+                          
+                            <div class="form-group col-md-6">
+                                    <label for="inputNombre"> Telefono Movil</label>
+                                <div class="input-group mb-2 mb-sm-0">
+                                    <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
+                                      <input type="text" class="form-control" id="tlf_movil" placeholder="Ejemplo 0414 098 1234" name="tlf_movil" >
+                                      </div>
+                              </div>                            
+                            <div class="form-group col-md-6">
+                                    <label for="inputNombre">Telefono Fijo</label>
+
+                                    <div class="input-group mb-2 mb-sm-0">
+                                    <div class="input-group-addon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
+                                      <input type="text" class="form-control" id="tlf_casa" placeholder="Ejemplo 0293 098 1234" name="tlf_casa">
+                                    </div>
+                              </div> 
+                          </div>   
+                      
+                     </div>
+                   </div>
+                 </div>
+
+                  <div class="item">
+                    <div id="AccordionInfoPersonal2" class="collapse" role="tabpanel">
+                     <div class="card card-body">
+                      <div class="form-row">
+                          
+                            <div class="form-row col-md-6">
+                                    <label class="infoTitulo">Fecha de entrada</label>
+                                <div class="input-group mb-2 mb-sm-0">
+                                    <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
+                                      <input type="date" placeholder="introduzca fecha mm/dd/yyyy" name="fechaEntrada" id="fechaEntrada" class="form-perso-help" value=""  />
+                                      </div>
+                              </div> 
+                      <br>
+                    <div class="col col-sm-12 col-md-12 btn-aux-magin">
+                            <div class="input-group">
+
+                            <div class="input-group-btn">
+                              <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
+                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Tipo
+                              </button>
+                              <div class="dropdown-menu ">
+                                <a class="dropdown-item" id="tipoC1" onclick="tipoCargo('1','2')">Operativo</a>
+                                <a class="dropdown-item" id="tipoC2" onclick="tipoCargo('2','2')">Tripulante</a>
+                                <a class="dropdown-item" id="tipoC3" onclick="tipoCargo('3','2')">Administrativo</a>
+                              </div>
+                            </div>
+                            <select name="cargo1" class="opcTipo oculto form-control-lg" id="opcOperativo2"  onchange="cargoEleccion('2')">
+                              <option value="0">Seleccione un cargo</option>
+                              <option value="Operador de Tráfico" >Operador de Tráfico</option>
+                              <option value="Controlador de Tráfico" >Controlador de Tráfico</option>
+                              <option value="Supervisor de Mantenimiento">Supervisor de Mantenimiento</option>
+                              <option value="Mecánico">Mecánico</option>
+                            </select>
+
+                            <div class="oculto" id="opcTripulante2">
+                            <div class="form-row">
+                            <div class="col-md-6">
+                                    <select name="cargo2" class="opcTipo form-control-lg" id="" onchange="cargoEleccion('2')">
+                                          <option value="0">Seleccione un rango</option>
+                                          <option value="Piloto">Piloto</option>
+                                          <option value="Copiiloto">Copiloto</option>
+                                          <option value="Jefe de Cabina">Jefe de Cabina</option>
+                                          <option value="Sobrecargo">Sobrecargo</option>
+                                        </select>
+                                        </div>                            
+                                      <div class="col-md-6">
+                                              <div class="input-group mb-2 mb-sm-0">
+                                              <div class="input-group-addon"> <i class="fa fa-plane" aria-hidden="true"></i> </div>
+                                                <input type="text" class="form-control" id="licencia" placeholder="Ingrese la licencia" name="licencia" >
+                                              </div>
+                                        </div> 
+                                    </div>  
+                            </div>
+                            <select name="cargo3" class="opcTipo oculto form-control-lg" id="opcAdministrativo2" onchange="cargoEleccion('2')">
+                              <option value="0">Seleccione un cargo</option>
+                              <option value="Obrero">Obrero</option>
+                              <option value="Beder">Beder</option>
+                              <option value="Asistente de RRHH">Asistente de RRHH</option>
+                              <option value="SubGerente de Sucursal">SubGerente de Sucursal</option>
+                              <option value="Gerente de RRHH">Gerente de RRHH</option>
+                              <option value="Gerente de Finanzas">Gerente de Finanzas</option>
+                              <option value="Gerente de Sucursales">Gerente de Mantenimiento y Soporte</option>
+                              <option value="Gerente de Sucursales">Gerente General</option>
+                            </select>
+                            <input type="hidden" name="tipoC" id="tipoCid2" value="0">
+                            <input type="hidden" name="tipoC2" id="tipoCid22" value="0">
+                       </div>
+
+
+                            </div>
+                            <br>
+                            <div class="oculto" id="CdatosEmpleado2">
+                              <div class="form-row">
+                          
+                            <div class="form-group col-md-6">
+                                    <div class="input-group">
+
+                                      <div class="input-group-btn">
+                                            <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Sucursal
+                                            </button>
+                                            <div class="dropdown-menu ">
+                                              @foreach($sucursales as $sucursal)
+                                              <a class="dropdown-item" id="sucursalT{{ $sucursal->id }}" onclick="datosSP('{{ $sucursal->id }}','sucursal')">{{ $sucursal->nombre }}</a>
+                                              @endforeach
+                                            </div>
+                                        </div>
+                                         <input type="text" class="form-control" aria-label="Text input with dropdown button" id="sucursalN" placeholder="Seleccione la sucursal donde labora" value="" readonly >
+                                         <input type="hidden" name="sucursalid" id="sucursalid" value="">
+                                        <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
+                                  </div>
+                              </div>                            
+                            <div class="form-group col-md-6">
+                                    <div class="input-group">
+                                      <div class="input-group-btn">
+                                        <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Horario
+                                        </button>
+                                        <div class="dropdown-menu ">
+                                          @foreach($horarios as $horario)
+                                          <a class="dropdown-item" id="horarioT{{ $horario->id }}"  onclick="datosSP('{{ $horario->id }}','horario')">{{ $horario->entrada." ".$horario->salida }}</a>
+                                          @endforeach
+                                        </div>
+                                      </div>
+                                       <input type="text" class="form-control" aria-label="Text input with dropdown button" id="horarioN" placeholder="Seleccione el horario de trabajo" value="" readonly >
+                                       <input type="hidden" name="horarioid" id="horarioid" value="">
+                                      <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
+                                    </div>
+                              </div> 
+                          </div> 
+                  </div><!-- FIn de datos Empleado -->
+                    <br>
+                    
+
+                     </div>
+                   </div>
+                 </div>
+
+              </div>
+            </div>
+                <button type="submit" class="btn btn-lg btn-primary btn-aux-magin" id="BotonGuardarEmpleado" onclick="FormEmpleado('{{ $urlNew }}','0','2')">Registrar</button>
+          </div>
+                <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
                 </div>
         
      </div>

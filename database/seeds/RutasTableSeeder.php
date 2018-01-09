@@ -74,5 +74,20 @@ class RutasTableSeeder extends Seeder
 		    	]);
         	}
         }
+
+        //CREAR RUTA
+        //
+       /* $siglas1=Sucursal::find('1')->siglas; //origen
+        $siglas2=Sucursal::find('2')->siglas; //destino
+        $siglas=$siglas1."-".$siglas2;
+        DB::table('rutas')->insert([
+            'distancia' => '2000',
+            'tarifa_vuelo' => '20000',
+            'duracion' => "00:40:00",
+            'siglas' => $siglas,
+            'destino_id' => '1',
+            'origen_id' => '2'
+        ]);*/
+        
     }
 }

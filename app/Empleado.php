@@ -9,14 +9,14 @@ class Empleado extends Model
     protected $table = 'empleados';
 
      protected $fillable = [
-        'cargo','personal_id','sucursal_id'
+        'cargo','personal_id','sucursal_id','horario_id'
     ];
 
     Public function sucursal(){
     	return $this->belongsTo('App\Sucursal');
     }
 
-    Public function horarios(){
+    Public function horario(){
         return $this->belongsTo('App\Horario');
     }
 

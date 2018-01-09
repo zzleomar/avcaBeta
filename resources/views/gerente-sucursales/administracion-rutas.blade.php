@@ -12,7 +12,9 @@
       </thead>
     </table>
         
-
+<button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin-bottom: 20px;  float: left;">
+  Agregar Ruta
+</button>
 <div class="divtablaAux">
 <table class="table table-responsive-md table-hover text-center tablaAux">
 
@@ -72,9 +74,7 @@
 </div>
   <br>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NuevaRutaModal" style="margin-bottom: 20px;">
-  Agregar Ruta
-</button>
+
 
   <!----- MODALS ----------------------------------------->
 <!------------------------ MODALS ---------------------->
