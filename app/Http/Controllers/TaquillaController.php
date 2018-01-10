@@ -64,8 +64,8 @@ class TaquillaController extends Controller
                             flash::success('El boleto '.$datos->boleto_id.' ha sido pagado');
                             // ---  Imprimir Boleto
                             //Recuperar toda la informacion
-                           return $this->getdata(
-                                $pasajero->nombres." ".$pasajero->apellidos,
+                           return $this->getboleto(
+                                ucwords($pasajero->nombres)." ".ucwords($pasajero->apellidos),
                                 $boleto->asiento,
                                 Carbon::parse($boleto->vuelo->salida)->format('h:i'),
                                 Carbon::parse($boleto->vuelo->salida)->format('d/m'),
@@ -78,7 +78,8 @@ class TaquillaController extends Controller
                                 $boleto->vuelo->pierna->ruta->siglas,
                                 $pasajero->cedula,
                                 explode(' ', $pasajero->nombres,2)[0]." ".explode(' ', $pasajero->apellidos, 2)[0],
-                                $boleto->costo." VEF"
+                                $boleto->costo." VEF",
+                                "B-".$boleto->id
                                 
                                 
                             );
@@ -440,16 +441,16 @@ class TaquillaController extends Controller
                 ->with('costo',$auxcosto);
         }
     }
-    public function generarpdf($data, $nombre){
+    public function generarboleto($data, $nombre){
         
-        $view =  \View::make('pdf.invoice', compact('data'))->render();
+        $view =  \View::make('pdf.boleto', compact('data'))->render();
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('invoice');   
+        return $pdf->stream('boleto');   
         //return $pdf->download($nombre);
     }
-    public function getdata(
-        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $boletonro,$embarquehasta, $idvuelo, $cedula, $nombrecorto, $costo)
+    public function getboleto(
+        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $boletonro,$embarquehasta, $idvuelo, $cedula, $nombrecorto, $costo, $boletoid)
     {
         //$embarque = explode(':', $embarquehasta);
         $retraso = Carbon::parse($embarquehasta);
@@ -468,10 +469,11 @@ class TaquillaController extends Controller
             'cedula'                    => $cedula,
             'nombrecorto'               => $nombrecorto,
             'costo'                     => $costo,
+            'boletoid'                  => $boletoid,
             
           
         ];
-       return $this->generarpdf($data, "boleto".$cedula);
+       return $this->generarboleto($data, "boleto".$cedula);
     }
 }
 /*Estados de los boletos
