@@ -72,9 +72,7 @@ class TaquillaController extends Controller
                                 $boleto->vuelo->pierna->ruta->origen->nombre,
                                 $boleto->vuelo->pierna->ruta->destino->nombre,
                                 $boleto->vuelo->pierna->ruta->origen->siglas,
-                                $boleto->vuelo->pierna->ruta->destino->siglas,
-                                $boleto->id,
-                                Carbon::parse($boleto->vuelo->salida)->format('h:i'),
+                                $boleto->vuelo->pierna->ruta->destino->siglas,                      
                                 $boleto->vuelo->pierna->ruta->siglas,
                                 $pasajero->cedula,
                                 explode(' ', $pasajero->nombres,2)[0]." ".explode(' ', $pasajero->apellidos, 2)[0],
@@ -184,7 +182,9 @@ class TaquillaController extends Controller
         $actual = Carbon::now();
         $actual2=Carbon::now();
         $actual2->addHours(1); //agg 1hra para buscar y actualizar los vuelos que ya estan cerrados
-        Vuelo::VuelosCerrados($actual2->toDateTimeString());
+        
+        //Revisr Vuelo Cerrado
+        //Vuelo::VuelosCerrados($actual2->toDateTimeString());
 
         $vuelos=Vuelo::Sucursal($sucursal->id,"abierto");
         foreach ($vuelos as $key => $vuelo) {
@@ -249,23 +249,88 @@ class TaquillaController extends Controller
         }
         
     }
-    public function ChequearBoleto(Request $request){ 
-    //Cambia el estado de un boleto a chequiado
+
+    //Generacion de Boarding Pass
+    public function getboardp( 
+        $cedula, $nombrecompleto, $origen, $destino, $idvuelo, $fecha, $hora, $boletoid, $equipaje, $peso, $sobrepeso,
+        $origenmin, $destinomin, $nombrecorto){
+
+        $data = [
+            'cedula'                    => $cedula,
+            'nombreapellido'            => $nombrecompleto,
+            'origen'                    => $origen,
+            'destino'                   => $destino,
+            'idvuelo'                   => $idvuelo,
+            'fecha'                     => $fecha, 
+            'hora'                      => $hora,
+            'boletoid'                  => $boletoid,
+            'equipaje'                  => $equipaje,
+            'peso'                      => $peso,
+            'sobrepeso'                 => $sobrepeso,
+            'origenmin'                 => $origenmin,
+            'destinomin'                => $destinomin,
+            'nombrecorto'               => $nombrecorto,
+
+        ];
+
+        return $this->generarboardp($data, "Boarding Pass".$cedula);
+
+
+    }
+    public function ChequearBoleto(Request $request){
+        //Cambia el estado de un boleto a chequiado
         $boleto = Boleto::find($request->boleto_id);
         $boleto->estado='Chequeado';
         $boleto->save();
+        $equipaje= new Equipaje();
         if($request->cantidad!=0){
-            $equipaje= new Equipaje();
+            
             $equipaje->peso=$request['peso-equipaje'];
             $equipaje->boleto_id=$request->boleto_id;
             $equipaje->costo_sobrepeso=$request->costo;
             $equipaje->cantidad=$request['cantidad-equipaje'];
             $equipaje->save();
-
-
         }
+        else{
+           
+            $equipaje->peso = "N/A";
+            $equipaje->boleto_id = "N/A";
+            $equipaje->costo_sobrepeso = "N/A";
+            $equipaje->cantidad = "N/A";
+        }
+        $pasajero = $boleto->pasajero;
+        return $this->getboardp(
+            $pasajero->cedula, //cedula
+            ucwords($pasajero->nombres)." ".ucwords($pasajero->apellidos), //nombreapellido
+            $boleto->vuelo->pierna->ruta->origen->nombre, //origen
+            $boleto->vuelo->pierna->ruta->destino->nombre, //destino
+            $boleto->vuelo->pierna->ruta->siglas, //idvuelo
+            Carbon::parse($boleto->vuelo->salida)->format('d/m'), //fecha
+            Carbon::parse($boleto->vuelo->salida)->format('h:i'), //hora
+            "B-".$boleto->id,  //boletoid
+            "E-".$equipaje->boleto_id, //equipaje
+            $equipaje->peso, //peso
+            $equipaje->costo_sobrepeso, //sobrepeso
+            $boleto->vuelo->pierna->ruta->origen->siglas, //origenmin
+            $boleto->vuelo->pierna->ruta->destino->siglas, //destinomin 
+            ucwords(explode(' ', $pasajero->nombres,2)[0])." ". ucwords(explode(' ', $pasajero->apellidos, 2)[0]) //nombrecorto
+            
+            
+            
+           
+            
+            
+            
+            
+            
+                      
+           
+        );
+       
+
         flash::success('El boleto ha sido chequeado exitosamente');
-        return redirect('/taquilla/confirmar-boleto');
+
+        //return redirect('/taquilla/confirmar-boleto');
     }
     public function fechasDisponibles($fechas){
         $cont=0;
@@ -449,11 +514,19 @@ class TaquillaController extends Controller
         return $pdf->stream('boleto');   
         //return $pdf->download($nombre);
     }
+
+    public function generarboardp($data, $nombre){
+        $view = \View::make('pdf.boardingpass', compact('data'))->render();
+        $pdf  = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('boardingpass');
+    }
+
     public function getboleto(
-        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $boletonro,$embarquehasta, $idvuelo, $cedula, $nombrecorto, $costo, $boletoid)
+        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $boletonro, $idvuelo, $cedula, $nombrecorto, $costo, $boletoid)
     {
-        //$embarque = explode(':', $embarquehasta);
-        $retraso = Carbon::parse($embarquehasta);
+        
+      
         $data =  [
             'nombreapellido'            => $nombrecompleto,
             'hora'                      => $hora,
@@ -463,13 +536,12 @@ class TaquillaController extends Controller
             'destino'                   => $destino,
             'origen_min'                => $origenmin,
             'destino_min'               => $destinomin,
-            'boletonro'                 => $boletonro,
-            'embarquehasta'             => $retraso->subHours(1)->format('h:i A'),
             'idvuelo'                   => $idvuelo,
             'cedula'                    => $cedula,
             'nombrecorto'               => $nombrecorto,
             'costo'                     => $costo,
             'boletoid'                  => $boletoid,
+
             
           
         ];
