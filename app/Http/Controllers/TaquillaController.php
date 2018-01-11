@@ -253,7 +253,7 @@ class TaquillaController extends Controller
     //Generacion de Boarding Pass
     public function getboardp( 
         $cedula, $nombrecompleto, $origen, $destino, $idvuelo, $fecha, $hora, $boletoid, $equipaje, $peso, $sobrepeso,
-        $origenmin, $destinomin, $nombrecorto){
+        $origenmin, $destinomin, $nombrecorto, $maletas){
 
         $data = [
             'cedula'                    => $cedula,
@@ -270,6 +270,7 @@ class TaquillaController extends Controller
             'origenmin'                 => $origenmin,
             'destinomin'                => $destinomin,
             'nombrecorto'               => $nombrecorto,
+            'maletas'                   => $maletas
 
         ];
 
@@ -314,7 +315,8 @@ class TaquillaController extends Controller
             $equipaje->costo_sobrepeso, //sobrepeso
             $boleto->vuelo->pierna->ruta->origen->siglas, //origenmin
             $boleto->vuelo->pierna->ruta->destino->siglas, //destinomin 
-            ucwords(explode(' ', $pasajero->nombres,2)[0])." ". ucwords(explode(' ', $pasajero->apellidos, 2)[0]) //nombrecorto
+            ucwords(explode(' ', $pasajero->nombres,2)[0])." ". ucwords(explode(' ', $pasajero->apellidos, 2)[0]), //nombrecorto
+            $equipaje->boletoid
             
             
             
