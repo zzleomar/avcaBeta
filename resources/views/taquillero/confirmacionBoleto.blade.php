@@ -44,8 +44,9 @@
             </form></div>  
     </div>
 <div class="float-right" style="margin-top: 10px; margin-right: 5px;">
-      <button type="button" class="btn btn-lg btn-outline-secondary ">Generar Lista de Chequeo</button>
+      <button type="button" class="btn btn-lg btn-outline-secondary " data-toggle="modal" data-target="#lista">Generar Lista de Chequeo</button>
     </div>
+    @include('taquillero.auxlistachequeo')
   </div>
 </div>
 

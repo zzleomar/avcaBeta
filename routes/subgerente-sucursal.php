@@ -13,7 +13,10 @@ Route::group(['prefix' => 'sucursal','middleware' => ['auth', 'CheckRoleSubgeren
 
 
 
-
+	Route::get('/reportes/ingresos', function () {
+		    return view('subgerente-sucursal.reportes');
+		});
+	
 
 
 });

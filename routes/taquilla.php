@@ -13,6 +13,7 @@ Route::group(['prefix' => 'taquilla','middleware' => ['auth', 'CheckRoleOperador
 	Route::get('confirmar/boleto/{id}/{vuelo}','TaquillaController@ChequearBoletoAjax');
 	Route::post('confirmar-boleto','TaquillaController@ChequearBoleto');
 
+
 });
 
 
