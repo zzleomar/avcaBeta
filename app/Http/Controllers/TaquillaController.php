@@ -278,12 +278,13 @@ class TaquillaController extends Controller
 
     }
     public function ChequearBoleto(Request $request){
+       // dd($request->all());
         //Cambia el estado de un boleto a chequiado
         $boleto = Boleto::find($request->boleto_id);
         $boleto->estado='Chequeado';
         $boleto->save();
         $equipaje= new Equipaje();
-        if($request->cantidad!=0){
+        if($request['cantidad-equipaje']!=0){
             
             $equipaje->peso=$request['peso-equipaje'];
             $equipaje->boleto_id=$request->boleto_id;
