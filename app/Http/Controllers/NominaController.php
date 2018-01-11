@@ -20,6 +20,7 @@ class NominaController extends Controller
             if(!(is_null($nomina))) //Si la nomina actual esta creada
             {//Enviar información a la vista
                 dd($nomina->vouche[0]->personal);//
+                
             }
             else{
                 dd("Es una nomina nueva");//Hacer calculos por personal
