@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-6" style="margin: auto">
+<div class="container col-md-6" id="container-sesion">
             <div class="card card-default py-3">
                 <div class="card-heading d-flex justify-content-center ">
                     <img src="{{ asset('img/icon-user-default.png') }}" alt="Usuario" class="rounded-circle">
@@ -67,7 +65,19 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+    
+$(document).ready(function(){
+  var altura = $(document).height();
+  altura=(altura/2)-300;
+  altura=altura+"px";
+  $("#container-sesion").css("margin-top",altura);
+
+});
+
+</script>
 @endsection

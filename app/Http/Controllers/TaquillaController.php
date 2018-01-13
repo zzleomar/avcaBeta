@@ -524,7 +524,7 @@ class TaquillaController extends Controller
     }
 
     public function getboleto(
-        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $boletonro, $idvuelo, $cedula, $nombrecorto, $costo, $boletoid)
+        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $idvuelo, $cedula, $nombrecorto, $costo, $boletoid)
     {
         
       

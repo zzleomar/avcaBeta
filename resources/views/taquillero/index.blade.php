@@ -5,7 +5,7 @@
     <div class="card-body" id="targetL">
     <h4 style="font-weight: 600;">Sucursal {{ $sucursal->nombre }}</h4>
 
-    <h4 class="subtituloM">VENTA Y RESERVE DE BOLETOS</h4>
+    <h4 class="subtituloM">VENTA Y RESERVA DE BOLETOS</h4>
 
     <div class="card text-center border-info mb-3 centrarAux" style="width: auto;">
      <div class="card-body ">
