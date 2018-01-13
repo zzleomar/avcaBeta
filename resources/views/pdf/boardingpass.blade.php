@@ -7,7 +7,12 @@
           font: arial;
 
         font-size: 12px;
+
       
+      }
+
+      div{
+        padding: 10px;
       }
     </style>
    
@@ -87,5 +92,21 @@
       {{$data['hora']}}
     </SPAN>
 
+   
+    
+        <div>
+          <img src="img/maleta.png" width="200" height="200"  left="{{i*200}"> 
+        </div>
+    
+   
+
+
+
+    
+   
+      
+    
+   
+   
     
     
