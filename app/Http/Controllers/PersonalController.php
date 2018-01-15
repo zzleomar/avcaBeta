@@ -10,21 +10,33 @@ use App\Horario;
 use App\Personal_operativo;
 use App\Tripulante;
 use App\Sucursal;
+use Auth;
 use App\Administrativo;
 
 class PersonalController extends Controller
 {
+    public function IdSucursalAuth(){
+        $personal= Personal::find(Auth::user()->personal_id);
+        return $personal->empleado->sucursal_id;
+    }
     public function index(Request $datos){
+        $idS=0;
+        $sucursal=null;
+        if(Auth::user()->tipo!="Gerente de RRHH"){
+            $idS=$this->IdSucursalAuth();
+            $sucursal=Sucursal::find($idS);
+        }
         $cargos=Personal::Cargos(); //selecciono todo los cargos existentes
         $sucursales=Sucursal::orderBy("nombre")->get(); //selecciono todas las sucursales ordenadas por el nombre
         $horarios=Horario::orderBy("id")->get();
     	if(isset($datos->cargo)){
-            $empleados=Personal::Pcargo($datos->cargo);//busco todo el personal que posee un cargo en particular
+            $empleados=Personal::Pcargo($datos->cargo,$idS);//busco todo el personal que posee un cargo en particular
 	    	return view('asistente-RRHH.index')
                         ->with('empleados',$empleados)
                         ->with('cargos',$cargos)
                         ->with('horarios',$horarios)
-                        ->with('sucursales',$sucursales);
+                        ->with('sucursales',$sucursales)
+                        ->with('sucursal',$sucursal);
     	}
     	else{
     		if(isset($datos->sucursal)){
@@ -33,15 +45,17 @@ class PersonalController extends Controller
                         ->with('empleados',$empleados)
                         ->with('cargos',$cargos)
                         ->with('horarios',$horarios)
-                        ->with('sucursales',$sucursales);
+                        ->with('sucursales',$sucursales)
+                        ->with('sucursal',$sucursal);
     		}
     		else{
-    			$empleados=Personal::Ordenados();
+    			$empleados=Personal::Ordenados($idS);
 
 	    		return view('asistente-RRHH.index')
                         ->with('empleados',$empleados)
                         ->with('cargos',$cargos)
                         ->with('horarios',$horarios)
+                        ->with('sucursal',$sucursal)
                         ->with('sucursales',$sucursales);
     		}
     	}
@@ -51,7 +65,7 @@ class PersonalController extends Controller
         $personal=Personal::find($datos->empleado_id);
         $personal->delete();
         flash::info('El empleado '.$personal->apellidos." ".$personal->nombres." ha sido eliminado del sistema");
-        return redirect('/RRHH');
+        return redirect('/gerencia/RRHH');
     }
 
     public function nuevo(Request $datos){
@@ -97,17 +111,24 @@ class PersonalController extends Controller
                 break;
         }
         flash::info('El empleado '.$nuevo->apellidos." ".$nuevo->nombres." ha sido registrado en el sistema");
-        return redirect('/RRHH');
+        return redirect('/gerencia/RRHH');
 
     }
 
     public function ajaxDatosModificar($id){
+        $idS=0;
+        $sucursal;
+        if(Auth::user()->tipo!="Gerente de RRHH"){
+            $idS=$this->IdSucursalAuth();
+            $sucursal=Sucursal::find($idS);
+        }
         $personal=Personal::find($id);
         $sucursales=Sucursal::orderBy("nombre")->get();
         $horarios=Horario::orderBy("id")->get();
         return view('asistente-RRHH.ajax.datos-personal-ajax')
                         ->with('empleado',$personal)
                         ->with('horarios',$horarios)
+                        ->with('sucursal',$sucursal)
                         ->with('sucursales',$sucursales);
 
 
@@ -204,7 +225,7 @@ class PersonalController extends Controller
             }
 
             flash::info('Los datos del empleado '.$personal->apellidos." ".$personal->nombres." han sido modificado");
-            return redirect('/RRHH');
+            return redirect('/gerencia/RRHH');
         }
     }
 }

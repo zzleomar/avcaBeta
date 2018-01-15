@@ -18,19 +18,23 @@ class Tabulador extends Model
         return $this->hasMany('App\Cesta_ticket','unidadTributaria_id','id');
     }
     Public function sueldosMinimos(){
-        return $this->hasMany('App\Cesta_ticket','sueldoMinimo_id','id');
+        return $this->hasMany('App\Vouche','sueldoMinimo_id','id');
     }
     Public function escalas(){
-        return $this->hasMany('App\Cesta_ticket','escala_id','id');
+        return $this->hasMany('App\Vouche','escala_id','id');
     }
     Public function antiguedades(){
-        return $this->hasMany('App\Cesta_ticket','antiguedad_id','id');
+        return $this->hasMany('App\Vouche','antiguedad_id','id');
     }
     Public function compensaciones(){
-        return $this->hasMany('App\Cesta_ticket','compensacion_id','id');
+        return $this->hasMany('App\Vouche','compensacion_id','id');
     }
     Public function constantes(){
-        return $this->hasMany('App\Cesta_ticket','constante_id','id');
+        return $this->hasMany('App\Vouche','constante_id','id');
+    }
+
+    Public function scopebuscar($query, $tabulador){
+        return $query->where([['descripcion',"=",$tabulador],['estado',"=","Activo"]]);
     }
     
 

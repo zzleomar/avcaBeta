@@ -1,4 +1,17 @@
 <?php 
+Route::group(['prefix' => 'gerencia','middleware' => ['auth', 'RoleRRHH']],function(){
+
+	Route::get('/RRHH','PersonalController@index');
+	Route::get('/RRHH/nomina/generar/{opc}/{nomina}','NominaController@generar');
+
+
+	Route::post('/RRHH/administracion-empleados/eliminar','PersonalController@eliminar');
+	Route::post('/RRHH/administracion-empleados/nueva','PersonalController@nuevo');
+	Route::post('/RRHH/administracion-empleados/modificar','PersonalController@modificar');
+
+	Route::get('/RRHH/administracion-empleados/ajaxModificar/{id}','PersonalController@ajaxDatosModificar');
+
+});
 
 Route::group(['prefix' => 'RRHH','middleware' => ['auth', 'CheckRoleAsistenteRRHH','CheckRoleSucursal']],function(){
 
@@ -7,25 +20,6 @@ Route::group(['prefix' => 'RRHH','middleware' => ['auth', 'CheckRoleAsistenteRRH
 
 
 	Route::post('/asistencia/registrar/{asistencia}','AsistenciaController@nueva');
-
-
-	Route::get('/','PersonalController@index');
-
-	Route::post('/administracion-empleados/eliminar','PersonalController@eliminar');
-	Route::post('/administracion-empleados/nueva','PersonalController@nuevo');
-	Route::post('/administracion-empleados/modificar','PersonalController@modificar');
-
-
-	Route::get('/nomina/generar/{opc}/{nomina}','NominaController@generar');
-
-	Route::get('/administracion-empleados/ajaxModificar/{id}','PersonalController@ajaxDatosModificar');
-	
-
-
-
-
-
-
 
 
 });

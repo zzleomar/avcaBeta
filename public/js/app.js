@@ -138,7 +138,7 @@ $(document).ready(function(){
     case '/gerente-sucursales/administracion-aeronaves':
       $('#adminaeronaves').addClass('active');
       break;
-    case '/RRHH':
+    case '/gerencia/RRHH':
       $('#adminPersonal').addClass('active');
       break;
     case '/RRHH/asistencia':

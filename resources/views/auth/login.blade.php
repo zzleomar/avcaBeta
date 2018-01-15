@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container col-md-6" id="container-sesion">
-            <div class="card card-default py-3">
-                <div class="card-heading d-flex justify-content-center ">
+<div class="container" id="container-sesion">
+    <div class="col-md-4 col-md-offset-4" style="margin: auto;">
+            <div class="card card-default py-3 center-block" style="margin: 0px;">
+                <div class="card-heading d-flex justify-content-center " style="margin: auto;">
                     <img src="{{ asset('img/icon-user-default.png') }}" alt="Usuario" class="rounded-circle">
                 </div>
-
                 <div class="card-body">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
@@ -65,6 +65,8 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
 </div>
 @endsection
 

@@ -88,7 +88,9 @@
                               </button>
                               <div class="dropdown-menu ">
                                 <a class="dropdown-item" id="tipoC1" onclick="tipoCargo('1','1')">Operativo</a>
+                              @if(Auth::user()->tipo=='Gerente de RRHH')
                                 <a class="dropdown-item" id="tipoC2" onclick="tipoCargo('2','1')">Tripulante</a>
+                              @endif
                                 <a class="dropdown-item" id="tipoC3" onclick="tipoCargo('3','1')">Administrativo</a>
                               </div>
                             </div>
@@ -179,21 +181,35 @@
                                     <div class="form-row">
                                 
                                   <div class="form-group col-md-6">
-                                          <div class="input-group">
 
+                                          <div class="input-group">
+                                          @if(Auth::user()->tipo=='Gerente de RRHH')
                                             <div class="input-group-btn">
                                                   <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
                                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Sucursal
                                                   </button>
                                                   <div class="dropdown-menu ">
-                                                    @foreach($sucursales as $sucursal)
-                                                    <a class="dropdown-item" id="sucursalT{{ $sucursal->id }}" onclick="datosSP('{{ $sucursal->id }}','sucursal')">{{ $sucursal->nombre }}</a>
+                                                    @foreach($sucursales as $sucursal1)
+                                                    <a class="dropdown-item" id="sucursalT{{ $sucursal1->id }}" onclick="datosSP('{{ $sucursal1->id }}','sucursal')">{{ $sucursal1->nombre }}</a>
                                                     @endforeach
                                                   </div>
                                               </div>
                                                <input type="text" class="form-control" aria-label="Text input with dropdown button" id="sucursalN" placeholder="Seleccione la sucursal donde labora" value="{{ $empleado->empleado->sucursal->nombre }}" readonly >
                                                <input type="hidden" name="sucursalid" id="sucursalid" value="{{ $empleado->empleado->sucursal_id }}">
                                               <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
+                                              @else
+                                                  <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
+                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Sucursal
+                                                    </button>
+                                                    <div class="dropdown-menu ">
+                                                      <a class="dropdown-item" id="sucursalT{{ $sucursal->id }}" onclick="datosSP('{{ $sucursal->id }}','sucursal')">{{ $sucursal->nombre }}</a>
+                                                    </div>
+                                                </div>
+                                                 <input type="text" class="form-control" aria-label="Text input with dropdown button" id="sucursalN" placeholder="Seleccione la sucursal donde labora" value="{{ $empleado->empleado->sucursal->nombre }}" readonly >
+                                                 <input type="hidden" name="sucursalid" id="sucursalid" value="{{ $empleado->empleado->sucursal_id }}">
+                                                <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
+                                              @endif
                                         </div>
                                     </div>                            
                                   <div class="form-group col-md-6">

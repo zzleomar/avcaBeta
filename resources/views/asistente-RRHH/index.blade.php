@@ -4,7 +4,9 @@
 @include('notifications::flash')
 
 <div id="targetL" class="py-3">
-    
+    @if(Auth::user()->tipo!='Gerente de RRHH')
+      <h4 class="card-title" style="font-weight: 600;">Sucursal {{ $sucursal->nombre }}</h4>
+    @endif
 
  
 <div id="AccordionAdminPersonal" data-children=".item" style="font-weight: 600;">
@@ -46,12 +48,14 @@
 		          </button>
 		          <div class="dropdown-menu">
                 @foreach($cargos as $cargo)
-		            <a class="dropdown-item" href="{{ (URL::to('/RRHH')).'?cargo='.$cargo->cargo }}">{{ $cargo->cargo }}</a>
+		            <a class="dropdown-item" href="{{ (URL::to('/gerencia/RRHH')).'?cargo='.$cargo->cargo }}">{{ $cargo->cargo }}</a>
                 @endforeach
 		          </div>
 		        </div>
 		    </div>
         </th>
+    @if(Auth::user()->tipo=='Gerente de RRHH')
+
         <th class="ThCenter">
         	<div class="text-center" style="display: flex;">
 		        <div class="input-group-btn" style="margin: auto;">
@@ -59,13 +63,14 @@
 		                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Sucursal
 		          </button>
 		          <div class="dropdown-menu">
-                @foreach($sucursales as $sucursal)
-		            <a class="dropdown-item" href="{{ (URL::to('/RRHH')).'?sucursal='.$sucursal->id }}">{{ $sucursal->nombre }}</a>
+                @foreach($sucursales as $sucursal2)
+		            <a class="dropdown-item" href="{{ (URL::to('/gerencia/RRHH')).'?sucursal='.$sucursal2->id }}">{{ $sucursal2->nombre }}</a>
                 @endforeach
 		          </div>
 		        </div>
 		    </div>
         </th>
+      @endif
         
         <th></th>
         
@@ -90,7 +95,10 @@
             $titulo=$empleados[$i]->cargo." ".$empleados[$i]->apellidos." ".$empleados[$i]->nombres;
             @endphp
         	<td>{{ $empleados[$i]->cargo }}</td>
+    @if(Auth::user()->tipo=='Gerente de RRHH')
+
           <td>{{ $empleados[$i]->sucursal }}</td>
+    @endif
         @endif
         
        <td>
@@ -139,7 +147,7 @@
           </div>
         <div class="form-group col-md-2" style="margin-top: 3px;">
           @php
-          $urlN=URL::to('/RRHH/nomina/generar');
+          $urlN=URL::to('/gerencia/RRHH/nomina/generar');
           @endphp
           <button type="button" class="btn btn-lg btn-success" onclick="Fomrnomina('{{ $urlN }}')">Mostrar</button>
         </div>
@@ -205,7 +213,7 @@ function seleccion(){
 
 }
   function ConfirmarEliminarEmpleado(id,nombre){
-    alert(id);
+    //alert(id);
         document.getElementById('empleado_id').value=id;
         document.getElementById('tituloModalEliEmpleado').innerHTML=nombre;
   }
@@ -413,7 +421,7 @@ function seleccion(){
     document.getElementById('TituloModalModificarPersonal').innerHTML=nombre;
     var targetL = $('#cargandoAux');
     targetL.loadingOverlay();
-    var url="{{ URL::to('/RRHH/administracion-empleados/ajaxModificar') }}/"+id;
+    var url="{{ URL::to('/gerencia/RRHH/administracion-empleados/ajaxModificar') }}/"+id;
     alert(url);
       $.get(url,function(data){ 
         $('#ModalAjaxModificarEmpleado').empty().html(data);

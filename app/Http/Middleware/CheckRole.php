@@ -16,6 +16,7 @@ class CheckRole
     public function handle($request, Closure $next)
     {
         if($request->user()){
+
             switch ($request->user()->tipo) {
                 case 'Operador de Trafico': //si es un operador
                     return redirect('taquilla');
@@ -34,11 +35,11 @@ class CheckRole
                     break;
 
                 case 'Gerente de RRHH': //si es un Gerente de RRHH
-                    return redirect('gerente-RRHH');
+                    return redirect('/gerencia/RRHH');
                     break;
 
                 case 'Asistente de RRHH': //si es un Asistente de RRHH
-                    return redirect('RRHH');
+                    return redirect('RRHH/asistencia');
                     break;
                 
                 default:
