@@ -116,10 +116,7 @@
                     <a class="nav-link" id="adminPersonal" href="{{ URL::to('/gerencia/RRHH') }}">Administración de Personal</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="OpcNomina" href="{{ URL::to('/gerente-RRHH/nomina') }}">Generación de Nomina</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="OpcTabuladorSalarial" href="{{ URL::to('/gerente-RRHH/tabulador-salarial') }}">Tabulador Salarial</a>
+                    <a class="nav-link" id="OpcTabuladorSalarial" href="#">Tabulador Salarial</a>
                   </li>
                 </ul>
               </div>

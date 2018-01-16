@@ -50,16 +50,20 @@ class NominaController extends Controller
                     $Faux->subMonths(2);
                     $inicio=$this->UltimoDiaMesAnterior($Faux->month,$Faux->year);
                     $inicio->addDay();
-                    $deducciones =array();
+                    $vouches =array();
                     foreach ($empleados as $empleado) {
                         $sueldobase=$this->calcularSueldoBase($empleado);
                         $compensacion=0;
                         $antiguedad=$this->calcularAntiguedad($empleado,$sueldobase,$compensacion,$actual);
                         $ausencias=$this->ausencias($empleado,$inicio,$final,$sueldobase);
-                        $deduc=$this->calcularDeducciones($sueldobase,$ausencias);
-                        $utilidades=0;
+                        $deduc=$this->calcularDeducciones($sueldobase,$ausencias,$inicio, $final);
+
+                        $utilidades=$this->calculoUtilizades($sueldobase,$actual);
                         $vacaciones=$this->calculoVacaciones($empleado,$sueldobase,$actual);
                         $cestatikes=$this->calculoCestatikes($ausencias);
+                        if($cestatikes<0){
+                            $cestatikes=0;
+                        }
                         $empleadoA= array("empleado" => $empleado,
                                           "deducciones" => $deduc,
                                             "sueldobase" => $sueldobase,
@@ -68,14 +72,70 @@ class NominaController extends Controller
                                             "utilidades" => $utilidades,
                                             "ausencias" => $ausencias,
                                             "vacaciones" => $vacaciones,
-                                            "cestatikes" => "0");
-                        array_push($deducciones, $empleadoA);
+                                            "cestatikes" => $cestatikes);
+                        array_push($vouches, $empleadoA);
                         //FAlta unos calculos y congretar montos datos para la tabla nomina y generarla con su vouches
-                }//FIN FOREACH EMPLEADO
-                dd($deducciones);
+                    }//FIN FOREACH EMPLEADO
                     
                 }
-                        
+
+                $tripulantes=Tripulante::all();
+                foreach ($tripulantes as $tripulante){
+                    $sueldobase=$this->calcularSueldoBase($tripulante);
+                    $compensacion=$this->calculocompenzacion($sueldobase);
+                    $antiguedad=$this->calcularAntiguedad($tripulante,$sueldobase,$compensacion,$actual);
+                    $ausencias="0";
+                    $deduc="0";
+
+                    $utilidades=$this->calculoUtilizades($sueldobase,$actual);
+                    $vacaciones=$this->calculoVacaciones($tripulante,$sueldobase,$actual);
+                    $cestatikes=$this->calculoCestatikes($ausencias);
+                    if($cestatikes<0){
+                        $cestatikes=0;
+                    }
+                    $empleadoA= array("empleado" => $tripulante,
+                                      "deducciones" => $deduc,
+                                        "sueldobase" => $sueldobase,
+                                        "antiguedad" => $antiguedad,
+                                        "bonocompensacion" => $compensacion,
+                                        "utilidades" => $utilidades,
+                                        "ausencias" => $ausencias,
+                                        "vacaciones" => $vacaciones,
+                                        "cestatikes" => $cestatikes);
+                    array_push($vouches, $empleadoA);
+
+                }
+                $newnomina=new nomina();
+                $newnomina->fecha=$actual->toDateTimeString();
+                $newnomina->save();
+                $monto_sueldos=0;
+                $monto_compensacion=0;
+                $monto_deducciones=0;
+                $monto_antiguedad=0;
+                foreach ($vouches as $vouche) {
+                    $newvouche=new Vouche();
+                    $newvouche->sueldo_base=$vouche['sueldobase'];
+                    $newvouche->personal_id=$vouche['empleado']->personal_id;
+                    $newvouche->nomina_id=$newnomina->id;
+                    $newvouche->utilidad=$vouche['utilidades'];
+                    $newvouche->vacacion=$vouche['vacaciones'];
+                    $newvouche->deduccion=$vouche['deducciones'];
+                    $newvouche->compensacion=$vouche['bonocompensacion'];
+                    $newvouche->antiguedad=$vouche['antiguedad'];
+                    $newvouche->ausencias=$vouche['ausencias'];
+                    $newvouche->sueldoMinimo_id=Tabulador::buscar("sueldo minimo")->first()->id;
+                    $newvouche->escala_id=Tabulador::buscar("escala")->first()->id;
+                    $newvouche->antiguedad_id=Tabulador::buscar("antiguedad")->first()->id;
+                    $newvouche->compensacion_id=Tabulador::buscar("bono compensacion")->first()->id;
+                    $newvouche->constante_id=Tabulador::buscar("constante")->first()->id;
+                    $newnomina->monto_sueldos=$newnomina->monto_sueldos+$newvouche->sueldo_base;
+                    $newnomina->monto_compensacion=$newnomina->monto_compensacion+$newvouche->compensacion;
+                    $newnomina->monto_deducciones=$newnomina->monto_deducciones+$newvouche->deduccion;
+                    $newnomina->monto_antiguedad=$newnomina->monto_antiguedad+$newvouche->antiguedad;
+                    $newvouche->save();
+                }
+                $newnomina->save();
+                dd($newnomina);
                 dd("Es una nomina nueva");//Hacer calculos por personal
         	} //FIN SI ES UNA NOMINA NUEVA
         }
@@ -85,14 +145,25 @@ class NominaController extends Controller
     	}
     }
 
+    public function calculocompenzacion($sueldobase){
+        $compensacion=Tabulador::buscar("bono compensacion")->first();
+        return ($sueldobase*$compensacion->digito)/100;
+    }
+    public function calculoUtilizades($sueldobase,$actual){
+        $utilidades=0;
+        if($actual->month==12){
+            $utilidades=$sueldobase*3;
+        }
+        return round($utilidades,2);
+    }
     public function calculoVacaciones($empleado,$sueldobase,$actual){
         $vacaciones=0;
         $personal=Personal::find($empleado->personal_id);
         $entrada=Carbon::parse($personal->entrada);
-        if($entrada->mes==$actual->mes){
+        if($entrada->month==$actual->month){
             $vacaciones=$sueldobase;
         }
-        return $vacaciones;        
+        return round($vacaciones,2);
     }
     public function calcularSueldoBase($empleado){
         $escala=Tabulador::buscar("escala")->first();
@@ -105,7 +176,7 @@ class NominaController extends Controller
                 $sueldoBase=$sueldoBase*$escala->digito;
             }
         }
-        return $sueldoBase;
+        return round($sueldoBase,2);
     }
     public function calcularAntiguedad($empleado,$sueldobase,$bonocompensacion,$actual){
         $antiguedad=Tabulador::buscar("antiguedad")->first();
@@ -117,8 +188,12 @@ class NominaController extends Controller
             if(($yearT-$year)>=0.5){
                 $year++;
             }
+            return round((($sueldobase+$bonocompensacion)*(($antiguedad->digito/100)*$year)), 2);
+
         }
-        dd(($sueldobase+$bonocompensacion)*(($antiguedad->digito/100)*$year));
+        else{
+            return 0;
+        }
 
     }
     public function ausencias($empleado, $inicio, $final,$sueldobase){
@@ -186,15 +261,24 @@ class NominaController extends Controller
         return $deduc;
         
     }
-    public calcularDeducciones($sueldobase,$deduc){
+
+    public function calculoCestatikes($deducciones){
+        $ut=Tabulador::buscar("unidad tributaria")->first();
+        $cesta=Tabulador::buscar("cesta")->first();
+        $diasNolaborados=$deducciones/8;
+        return (round(($cesta->digito*$ut->digito*(30-(intval($diasNolaborados)))),2));
+    }
+
+    public function calcularDeducciones($sueldobase,$deduc, $inicio, $final){
         if($deduc==999){
             return $sueldobase;
         }
         else{
             $Tdias=$inicio->diffInDays($final);
-            $horas=$Tdias*40; //Total de horas que se debio laborar
-            $deduc=($deduc*$sueldobase)/$horas;
-            return $deduc;
+            $horas=(intval(($Tdias+1)/7))*40;//Total de horas que se debio laborar
+            $deduc2=($deduc*$sueldobase)/$horas;
+            return round($deduc,2);
         }
     }
 }
+

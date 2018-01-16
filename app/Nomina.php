@@ -10,7 +10,7 @@ class Nomina extends Model
     protected $table ="nominas";
 
     protected $fillable = [
-        'fecha'
+        'fecha','monto_sueldos','monto_compensacion','monto_deducciones','monto_antiguedad'
     ];
 
     public function vouche(){
