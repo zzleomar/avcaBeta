@@ -21,7 +21,7 @@ class User extends Authenticatable
         return $this->hasOne('App\Personal');
     }
     public function scopeDatosPersonal($query, $dato){
-        return Personal::find($dato)->first();
+        return Personal::find($dato);
     }
 
 }

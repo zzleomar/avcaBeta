@@ -41,7 +41,7 @@
                     <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/RRHH/asistencia') }}">Administración de Asistencia</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/sucursal/reportes/ingresos') }}">Reportes de Ingresos</a>
+                    <a class="nav-link" id="ReporIngres" href="{{ URL::to('/sucursal/reportes/ingresos') }}">Reportes de Ingresos</a>
                   </li>
                 </ul>
               </div>

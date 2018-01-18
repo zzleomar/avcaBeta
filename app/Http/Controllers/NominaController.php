@@ -26,16 +26,30 @@ class NominaController extends Controller
         }
         return $salida;
     }
-    public function generar($opc, $nomina){
+    public function generar($tipo, $opc, $nomina){
     	if($opc=='1'){ //si es la nomina actual
         	$actual=Carbon::now();
             $nomina=Nomina::Actual($actual->month,$actual->year)->first();
             if(!(is_null($nomina))) //Si la nomina actual esta creada
             {//Enviar información a la vista
-                dd($nomina->vouche[0]->personal);//
+                if($tipo==2){
+                    $nomina=Nomina::find('1');
+                    $vouches=$nomina->vouches;
+                    return view('gerente-RRHH.ajax.nomina-ajax')
+                                ->with('vouches',$vouches)
+                                ->with('nomina',$nomina);
+                    //es GERENTE RRHH
+                }
+                else{
+                    dd($nomina->vouche[0]->personal);
+                    //ES SUBGERENTE DE SUCURSAL
+                }
                 
             }
             else{
+                if($tipo==1){
+                    dd("la nomina no esta creada"); //redireccionar
+                }
                 $Faux=$actual->copy();
                 $Faux->subMonth();
                 $final=$this->UltimoDiaMesAnterior($Faux->month,$Faux->year);
@@ -58,12 +72,13 @@ class NominaController extends Controller
                         $ausencias=$this->ausencias($empleado,$inicio,$final,$sueldobase);
                         $deduc=$this->calcularDeducciones($sueldobase,$ausencias,$inicio, $final);
 
-                        $utilidades=$this->calculoUtilizades($sueldobase,$actual);
-                        $vacaciones=$this->calculoVacaciones($empleado,$sueldobase,$actual);
+                        $utilidades=$this->calculoUtilizades($sueldobase,$actual,$compensacion,$antiguedad);
+                        $vacaciones=$this->calculoVacaciones($empleado,$sueldobase,$actual,$compensacion,$antiguedad);
                         $cestatikes=$this->calculoCestatikes($ausencias);
                         if($cestatikes<0){
                             $cestatikes=0;
                         }
+
                         $empleadoA= array("empleado" => $empleado,
                                           "deducciones" => $deduc,
                                             "sueldobase" => $sueldobase,
@@ -87,8 +102,8 @@ class NominaController extends Controller
                     $ausencias="0";
                     $deduc="0";
 
-                    $utilidades=$this->calculoUtilizades($sueldobase,$actual);
-                    $vacaciones=$this->calculoVacaciones($tripulante,$sueldobase,$actual);
+                    $utilidades=$this->calculoUtilizades($sueldobase,$actual,$compensacion,$antiguedad);
+                    $vacaciones=$this->calculoVacaciones($tripulante,$sueldobase,$actual,$compensacion,$antiguedad);
                     $cestatikes=$this->calculoCestatikes($ausencias);
                     if($cestatikes<0){
                         $cestatikes=0;
@@ -135,11 +150,20 @@ class NominaController extends Controller
                     $newvouche->save();
                 }
                 $newnomina->save();
-                dd($newnomina);
+                return view('gerente-RRHH.ajax.nomina-ajax')->with('vouches',$vouches)->with('nomina',$newnomina);
                 dd("Es una nomina nueva");//Hacer calculos por personal
         	} //FIN SI ES UNA NOMINA NUEVA
         }
     	else{ //si es otra nomina
+            if($tipo==2){
+                    dd("otra nomina");
+                    //es GERENTE RRHH
+                }
+                else{
+                    dd("otra nomina");
+                    //ES SUBGERENTE DE SUCURSAL
+                }
+            if($ti)
     		$nomina=Nomina::find($nomina);
 
     	}
@@ -149,19 +173,21 @@ class NominaController extends Controller
         $compensacion=Tabulador::buscar("bono compensacion")->first();
         return ($sueldobase*$compensacion->digito)/100;
     }
-    public function calculoUtilizades($sueldobase,$actual){
+    public function calculoUtilizades($sueldobase,$actual,$compensacion,$antiguedad){
+        $utilidadesDi=Tabulador::buscar("utilidad")->first();
         $utilidades=0;
-        if($actual->month==12){
-            $utilidades=$sueldobase*3;
+        if($actual->month==11){
+            $utilidades=(($sueldobase+$compensacion+$antiguedad)/30)*$utilidadesDi->digito;
         }
-        return round($utilidades,2);
+        return round($sueldobase,2);
     }
-    public function calculoVacaciones($empleado,$sueldobase,$actual){
+    public function calculoVacaciones($empleado,$sueldobase,$actual,$compensacion,$antiguedad){
+        $vacacionesDi=Tabulador::buscar("vacaciones")->first();
         $vacaciones=0;
         $personal=Personal::find($empleado->personal_id);
         $entrada=Carbon::parse($personal->entrada);
         if($entrada->month==$actual->month){
-            $vacaciones=$sueldobase;
+            $vacaciones=(($sueldobase+$compensacion+$antiguedad)/30)*$vacacionesDi->digito;
         }
         return round($vacaciones,2);
     }
@@ -258,6 +284,7 @@ class NominaController extends Controller
                 }
             }
         }
+
         return $deduc;
         
     }
@@ -277,7 +304,7 @@ class NominaController extends Controller
             $Tdias=$inicio->diffInDays($final);
             $horas=(intval(($Tdias+1)/7))*40;//Total de horas que se debio laborar
             $deduc2=($deduc*$sueldobase)/$horas;
-            return round($deduc,2);
+            return round($deduc2,2);
         }
     }
 }

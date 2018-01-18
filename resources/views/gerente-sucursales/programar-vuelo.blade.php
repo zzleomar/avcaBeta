@@ -6,24 +6,24 @@
 <div id="AccordionProgVuelo" data-children=".item">
 
     <a class="btn btn-primary btn-collAc" data-toggle="collapse" data-parent="#AccordionProgVuelo" href="#AccordionProgVuelo1" aria-expanded="true" aria-controls="AccordionProgVuelo1">
-      Seleción de Piloto
+      Piloto
     </a>
  
 
     <a class="btn btn-primary btn-collAc" data-toggle="collapse" data-parent="#AccordionProgVuelo" href="#AccordionProgVuelo2" aria-expanded="false" aria-controls="AccordionProgVuelo2">
-      Selección de Copiloto
+      Copiloto
     </a>
 
     <a class="btn btn-primary btn-collAc" data-toggle="collapse" data-parent="#AccordionProgVuelo" href="#AccordionProgVuelo3" aria-expanded="false" aria-controls="AccordionProgVuelo3">
-      Selección de Jefe de Cabina
+      Jefe de Cabina
     </a>
  
     <a class="btn btn-primary btn-collAc" data-toggle="collapse" data-parent="#AccordionProgVuelo" href="#AccordionProgVuelo4" aria-expanded="false" aria-controls="AccordionProgVuelo4">
-      Selección de Sobrecargos
+      Sobrecargos
     </a>
 
     <a class="btn btn-primary btn-collAc" data-toggle="collapse" data-parent="#AccordionProgVuelo" href="#AccordionProgVuelo5" aria-expanded="false" aria-controls="AccordionProgVuelo5">
-      Seleción de Aeronave
+      Aeronave
     </a>
 
 

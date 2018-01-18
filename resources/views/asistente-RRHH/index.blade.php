@@ -12,7 +12,7 @@
 <div id="AccordionAdminPersonal" data-children=".item" style="font-weight: 600;">
 
 <a data-toggle="collapse" data-parent="#AccordionAdminPersonal" href="#AccordionAdminPersonal2" aria-expanded="false" aria-controls="AccordionAdminPersonal2"><button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
-  Generar Nomina
+  Mostrar Nomina
 </button></a>
 <a data-toggle="collapse" data-parent="#AccordionAdminPersonal" href="#AccordionAdminPersonal1" aria-expanded="true" aria-controls="AccordionAdminPersonal1"><button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
   Datos del Personal
@@ -48,8 +48,9 @@
 		          </button>
 		          <div class="dropdown-menu">
                 @foreach($cargos as $cargo)
-		            <a class="dropdown-item" href="{{ (URL::to('/gerencia/RRHH')).'?cargo='.$cargo->cargo }}">{{ $cargo->cargo }}</a>
+                <a class="dropdown-item" href="{{ (URL::to('/gerencia/RRHH')).'?cargo='.$cargo->cargo }}">{{ $cargo->cargo }}</a>
                 @endforeach
+                <a class="dropdown-item" href="{{ (URL::to('/gerencia/RRHH')) }}">Todos</a>
 		          </div>
 		        </div>
 		    </div>
@@ -66,6 +67,7 @@
                 @foreach($sucursales as $sucursal2)
 		            <a class="dropdown-item" href="{{ (URL::to('/gerencia/RRHH')).'?sucursal='.$sucursal2->id }}">{{ $sucursal2->nombre }}</a>
                 @endforeach
+                <a class="dropdown-item" href="{{ (URL::to('/gerencia/RRHH')) }}"></a>
 		          </div>
 		        </div>
 		    </div>
@@ -147,9 +149,14 @@
           </div>
         <div class="form-group col-md-2" style="margin-top: 3px;">
           @php
-          $urlN=URL::to('/gerencia/RRHH/nomina/generar');
+          $urlN=URL::to('/gerencia/RRHH/nomina/generar/1');
+          $urlN2=URL::to('/gerencia/RRHH/nomina/generar/2');
           @endphp
-          <button type="button" class="btn btn-lg btn-success" onclick="Fomrnomina('{{ $urlN }}')">Mostrar</button>
+          @if(Auth::user()->tipo!='Gerente de RRHH')
+            <button type="button" class="btn btn-lg btn-success" onclick="Fomrnomina('{{ $urlN }}')">Mostrar</button>
+          @else
+            <button type="button" class="btn btn-lg btn-success" onclick="Fomrnomina('{{ $urlN2 }}')">Mostrar</button>
+          @endif
         </div>
         </div>
       </div>

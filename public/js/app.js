@@ -129,6 +129,9 @@ $(document).ready(function(){
     case '/sucursal':
       $('#vuelos').addClass('active');
       break;
+    case '/sucursal/reportes/ingresos':
+      $('#ReporIngres').addClass('active');
+      break;
     case '/gerente-sucursales':
       $('#sucursales').addClass('active');
       break;

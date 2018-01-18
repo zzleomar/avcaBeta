@@ -2,7 +2,7 @@
 Route::group(['prefix' => 'gerencia','middleware' => ['auth', 'RoleRRHH']],function(){
 
 	Route::get('/RRHH','PersonalController@index');
-	Route::get('/RRHH/nomina/generar/{opc}/{nomina}','NominaController@generar');
+	Route::get('/RRHH/nomina/generar/{tipo}/{opc}/{nomina}','NominaController@generar');
 
 
 	Route::post('/RRHH/administracion-empleados/eliminar','PersonalController@eliminar');

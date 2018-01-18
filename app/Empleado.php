@@ -23,6 +23,9 @@ class Empleado extends Model
     public function personal(){
         return $this->hasOne('App\Personal');
     }
+    public function datosPersonal($id){
+        return Personal::find($id);
+    }
 
     public function administrativo(){
         return $this->hasOne('App\Administrativo');
