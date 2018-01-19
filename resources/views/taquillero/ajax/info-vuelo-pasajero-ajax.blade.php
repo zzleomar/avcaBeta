@@ -68,14 +68,14 @@ font-weight: 800;">Costo total: </label>
         <label for="inputNombre">Nombres:</label>
         <div class="input-group mb-2 mb-sm-0">
         <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-          <input type="Nombre" class="form-control" id="nombres" placeholder="Nombres" name="nombres" value="{{ $pasajero->nombres }}" required>
+          <input type="Nombre" class="form-control" id="nombres" placeholder="Nombres" name="nombres" value="{{ ucwords($pasajero->nombres) }}" required>
                   </div>
           </div>
           <div class="form-group col-md-6">
                 <label for="inputApellido">Apellidos:</label>
               <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-                <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos" value="{{ $pasajero->apellidos }}" required>
+                <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos" value="{{ ucwords($pasajero->apellidos) }}" required>
               </div>
           </div>
           

@@ -46,6 +46,7 @@
     <SPAN style="position: absolute; top: 235 px; left: 490 px;">
       {{$data['costo']}}
     </SPAN>
+    
 
     
     

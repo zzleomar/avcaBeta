@@ -44,12 +44,12 @@ class PersonalTableSeeder extends Seeder
             ->each(function ($u) {
                $u->empleado()->save(factory(App\Empleado::class)->make([
                         'sucursal_id' => ($u->id-40),
-                        'cargo' => 'Operador de Trafico',
+                        'cargo' => 'Operador de Tráfico',
                         ])
                 );
                 $u->empleado->personal_operativo()->create([]);
                 $u->user()->save(factory(App\User::class)->make([
-                                'tipo' => 'Operador de Trafico',
+                                'tipo' => 'Operador de Tráfico',
                             ])
                     );
              });
@@ -57,13 +57,13 @@ class PersonalTableSeeder extends Seeder
             ->each(function ($u) {
                $u->empleado()->save(factory(App\Empleado::class)->make([
                         'sucursal_id' => 16,
-                        'cargo' => 'Operador de Trafico',
+                        'cargo' => 'Operador de Tráfico',
                         ])
                 );
                 $u->empleado->personal_operativo()->create([]);
                 $u->user()->create([
                         'username' => 'admin',
-                        'tipo' => 'Operador de Trafico',
+                        'tipo' => 'Operador de Tráfico',
                         'password' => bcrypt('1234567'),
                         'email' => 'admin@gmail.com'
                         ]);

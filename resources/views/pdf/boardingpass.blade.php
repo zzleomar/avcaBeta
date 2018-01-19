@@ -100,16 +100,11 @@
    
    
    
-    @php
-      $equipaje = $data['equipaje'];      
-    @endphp  
-        @if($equipaje ==  3)
-         
-            
-          
-         
-        @elseif($equipaje == 2)
-          <img src="img/maleta.png" width="250" height="250" style="position: absolute; top: 350px; "> 
+   
+
+
+    @for ($i = 1; $i <= $data['equipaje']; $i++)
+      <img src="img/maleta.png" width="250" height="250" style="position: absolute; top: 350px; left: 1px"> 
             <SPAN style="position: absolute; top: 410 px; left: 30 px;">
               1
             </SPAN>
@@ -137,15 +132,7 @@
             <SPAN style="position: absolute; top: 550 px; left: 190 px;">
               {{$data['hora']}}
             </SPAN>
-
-
-        @elseif($equipaje == 1)
-           
-        @else
-          <h1> No hay equipaje </h1>
-           
-               
-        @endif
+    @endfor
       
     
      

@@ -72,7 +72,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel" style="font-size: 25px;font-weight: 700;">Nueva Empleado</h5>
+          <h5 class="modal-title" id="exampleModalLabel" style="font-size: 25px;font-weight: 700;">Nuevo Empleado</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -83,14 +83,16 @@
              <div id="AccordionInfoPersonal" data-children=".item" style="font-weight: 600;">
              INFORMACIÓN
              <br>
-                  <a class="btn btn-primary btn-aux-magin" data-toggle="collapse" data-parent="#AccordionInfoPersonal" href="#AccordionInfoPersonal1" aria-expanded="true" aria-controls="AccordionInfoPersonal1" onclick="helpCollapse('1')">
+                  <!-- <a class="btn btn-primary btn-aux-magin" data-toggle="collapse" data-parent="#AccordionInfoPersonal" href="#AccordionInfoPersonal1" aria-expanded="true" aria-controls="AccordionInfoPersonal1" onclick="helpCollapse('1')">
                     Persona
                   </a>
+                -->
                
 
-                  <a class="btn btn-primary btn-aux-magin" data-toggle="collapse" data-parent="#AccordionInfoPersonal" href="#AccordionInfoPersonal2" aria-expanded="false" aria-controls="AccordionInfoPersonal2" onclick="helpCollapse('2')">
+                  <!-- <a class="btn btn-primary btn-aux-magin" data-toggle="collapse" data-parent="#AccordionInfoPersonal" href="#AccordionInfoPersonal2" aria-expanded="false" aria-controls="AccordionInfoPersonal2" onclick="helpCollapse('2')">
                     Profesional
                   </a>
+                -->
                  <div class="item">
                     <div id="AccordionInfoPersonal1" class="collapse show" role="tabpanel">
                      <div class="card card-body">
@@ -113,13 +115,13 @@
                           <div class="form-group col-md-6">
                             <div class="input-group mb-2 mb-sm-0">
                             <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-                              <input type="Nombre" class="form-control" id="nombres" placeholder="Ingrese el nombre" name="nombres" >
+                              <input type="Nombre" class="form-control" id="nombres" placeholder="Ingresar Nombres" name="nombres" >
                                       <div id="Comentarios"></div></div>
                               </div>
                               <div class="form-group col-md-6">
                                   <div class="input-group mb-2 mb-sm-0">
                                     <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-                                    <input type="text" class="form-control" id="apellidos" placeholder="Ingrese el Apellidos" name="apellidos" >
+                                    <input type="text" class="form-control" id="apellidos" placeholder="Ingresar Apellidos" name="apellidos" >
                                   </div>
                               </div>
                               
@@ -128,21 +130,21 @@
 
                         <div class="form-group">
                                 <label for="inputAddress">Dirección</label>
-                                <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion del empleado" >
+                                <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Ingresar Dirección" >
                           </div>
 
 
                         <div class="form-row">
                           
                             <div class="form-group col-md-6">
-                                    <label for="inputNombre"> Telefono Movil</label>
+                                    <label for="inputNombre"> Teléfono Móvil</label>
                                 <div class="input-group mb-2 mb-sm-0">
                                     <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
                                       <input type="text" class="form-control" id="tlf_movil" placeholder="Ejemplo 0414 098 1234" name="tlf_movil" >
                                       </div>
                               </div>                            
                             <div class="form-group col-md-6">
-                                    <label for="inputNombre">Telefono Fijo</label>
+                                    <label for="inputNombre">Télefono Fijo</label>
 
                                     <div class="input-group mb-2 mb-sm-0">
                                     <div class="input-group-addon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
@@ -293,7 +295,8 @@
 
               </div>
             </div>
-                <button type="submit" class="btn btn-lg btn-primary btn-aux-magin" id="BotonGuardarEmpleado" onclick="FormEmpleado('{{ $urlNew }}','0','2')">Registrar</button>
+                <button type="submit" class="btn btn-lg btn-primary btn-aux-magin" id="x1" onclick="FormEmpleado('{{ $urlNew }}','0','2')">Continuar</button>
+                 <button type="submit" class="btn btn-lg btn-primary btn-aux-magin oculto" id="x2" onclick="FormEmpleado('{{ $urlNew }}','0','2')">Registrar Empleado</button>
           </div>
                 <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>

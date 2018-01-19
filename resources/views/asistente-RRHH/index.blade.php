@@ -315,8 +315,16 @@ function seleccion(){
                 if (fechaEntrada.length==0){
                   $('#AccordionInfoPersonal1').collapse('hide');
                   $('#AccordionInfoPersonal2').collapse('show');
-                  if(otro!=1)
-                    alert('Debe ingresar la fecha de ingreso');
+                  if(otro!=1){
+                    //$('#x1').display('none');
+                    document.getElementById('x1').display = 'none';
+                    document.getElementById('x2').display = 'block';
+                    //$('#x2').display('initial');
+                  }
+
+                    //alert('Debe ingresar la fecha de ingreso');
+
+
                   return false;
                 }
                 else{
