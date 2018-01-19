@@ -9,6 +9,7 @@ use App\vouche;
 use App\Tripulante;
 use App\Tabulador;
 use App\Personal;
+use Auth;
 use App\Asistencia;
 use App\Empleado;
 
@@ -29,15 +30,18 @@ class NominaController extends Controller
     public function generar($tipo, $opc, $nomina){
     	if($opc=='1'){ //si es la nomina actual
         	$actual=Carbon::now();
+            setlocale(LC_TIME, "es");
+            $mes=strftime('%B');
             $nomina=Nomina::Actual($actual->month,$actual->year)->first();
             if(!(is_null($nomina))) //Si la nomina actual esta creada
             {//Enviar información a la vista
                 if($tipo==2){
-                    $nomina=Nomina::find('1');
+                    
                     $vouches=$nomina->vouches;
                     return view('gerente-RRHH.ajax.nomina-ajax')
                                 ->with('vouches',$vouches)
-                                ->with('nomina',$nomina);
+                                ->with('nomina',$nomina)
+                                ->with('mes',$mes);
                     //es GERENTE RRHH
                 }
                 else{
@@ -123,11 +127,7 @@ class NominaController extends Controller
                 $newnomina=new nomina();
                 $newnomina->fecha=$actual->toDateTimeString();
                 $newnomina->save();
-                $monto_sueldos=0;
-                $monto_compensacion=0;
-                $monto_deducciones=0;
-                $monto_antiguedad=0;
-                foreach ($vouches as $vouche) {
+                foreach ($vouches as $vouche){
                     $newvouche=new Vouche();
                     $newvouche->sueldo_base=$vouche['sueldobase'];
                     $newvouche->personal_id=$vouche['empleado']->personal_id;
@@ -150,22 +150,46 @@ class NominaController extends Controller
                     $newvouche->save();
                 }
                 $newnomina->save();
-                return view('gerente-RRHH.ajax.nomina-ajax')->with('vouches',$vouches)->with('nomina',$newnomina);
-                dd("Es una nomina nueva");//Hacer calculos por personal
+                return view('gerente-RRHH.ajax.nomina-ajax')->with('vouches',$vouches)->with('nomina',$newnomina)
+                            ->with('mes',$mes);
+
+                //Hacer calculos por personal
         	} //FIN SI ES UNA NOMINA NUEVA
         }
     	else{ //si es otra nomina
-            if($tipo==2){
-                    dd("otra nomina");
-                    //es GERENTE RRHH
+            setlocale(LC_TIME, "es");
+            $nomina=Nomina::find($nomina);
+            $faux=Carbon::parse($nomina->fecha);
+            $mes=$faux->formatLocalized('%B');
+            if($tipo==2){//Si es un Gerente de RRHH
+                    $vouches=$nomina->vouches;
+                            
+            }
+            else{
+                $personal=Personal::find(Auth::user()->personal_id);
+                $sucursal= $personal->empleado->sucursal;
+                $idvouces=$nomina->vouchesS($sucursal->id,$nomina->id)->get();
+                $vouches=array();
+                
+                $nomina->monto_sueldos=0;
+                $nomina->monto_compensacion=0;
+                $nomina->monto_deducciones=0;
+                $nomina->monto_antiguedad=0;
+                foreach ($idvouces as $idvouche) {
+                    $voucheAux=Vouche::find($idvouche)->first();
+                    $nomina->monto_sueldos=$nomina->monto_sueldos+$voucheAux->sueldo_base;
+                    $nomina->monto_compensacion=$nomina->monto_compensacion+$voucheAux->compensacion;
+                    $nomina->monto_deducciones=$nomina->monto_deducciones+$voucheAux->deduccion;
+                    $nomina->monto_antiguedad=$nomina->monto_antiguedad+$voucheAux->antiguedad;
+                    array_push($vouches, $voucheAux);
                 }
-                else{
-                    dd("otra nomina");
-                    //ES SUBGERENTE DE SUCURSAL
-                }
-            if($ti)
-    		$nomina=Nomina::find($nomina);
+               //ES SUBGERENTE DE SUCURSAL
+            }
 
+            return view('gerente-RRHH.ajax.nomina-ajax')
+                            ->with('vouches',$vouches)
+                            ->with('nomina',$nomina)
+                            ->with('mes',$mes);
     	}
     }
 

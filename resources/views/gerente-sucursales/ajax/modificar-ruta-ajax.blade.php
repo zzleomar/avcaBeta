@@ -48,13 +48,17 @@
                               <label for="inputEmail4">Distancia Mls.</label>
                               <input type="text" class="form-control" placeholder="Distancia" id="distanciaNR" name="distancia" onkeypress="return soloNumDec(event)" value="{{ $ruta->distancia }}" required>
                             </div>
+                            
 
                             <div class="form-group col-sm-12 col-md-4">
                               <label for="inputEmail4">Duración Hrs.</label>
-                              <input type="time" class="form-control" id="inputEmail4" placeholder="Duración" id="duracionNR" name="duracion" value="{{ $ruta->duracion }}" required>
-                            </div>
-                            
 
+                              <div class="form-group-duracion"> <input type="text" class="duracionInput" name="horas" id="horasD" onkeypress="return soloNum(event)" value="{{ DATE('i',strtotime($ruta->duracion)) }}"><span id="separadorD">:</span>
+                              <input type="text" class="duracionInput" name="minutos" id="minutosD" onkeypress="return soloNum(event)" value="{{ DATE('s',strtotime($ruta->duracion)) }}">
+                            </div>
+                            </div>
+
+                            
                             <div class="form-group col-sm-12 col-md-4">
                               <label for="inputEmail4">Tarifa Vuelo Bs.</label>
                               <input type="text" class="form-control" placeholder="Precio" id="precioNR" name="precio" onkeypress="return soloNumDec(event)" value="{{ $ruta->tarifa_vuelo }}" required>

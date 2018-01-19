@@ -22,4 +22,13 @@ class Nomina extends Model
                      ->whereYear('fecha', $year);
     	/*return DB::select("Select nominas.* from nominas where MONTH(fecha)='$mes' and YEAR(fecha)='$year'");*/
     }
+
+    public function scopevouchesS($query,$idS,$idN){
+        return $query->where("empleados.sucursal_id",$idS)
+            ->where("nominas.id",$idN)
+            ->join('vouches', 'nominas.id', '=', 'vouches.nomina_id')
+            ->join('personal', 'vouches.personal_id', '=', 'personal.id')
+            ->join('empleados', 'personal.id', '=', 'empleados.personal_id')
+            ->select('vouches.id');
+    }
 }

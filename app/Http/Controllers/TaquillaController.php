@@ -191,7 +191,7 @@ class TaquillaController extends Controller
             $inicio = Carbon::parse($vuelo->salida);
             $fin = Carbon::parse($vuelo->salida);
             $inicio->subHours(2); //inicio
-            $fin->subHours(1); //inicio
+            $fin->subHours(1); //final
             if(!(($actual->gt($inicio))&&($actual->lt($fin)))){
                 //si la fecha y hora actual no es despues del inicio del chequeo 
                 //y no es antes del final del chequeo del vuelo

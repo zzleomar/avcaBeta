@@ -34,7 +34,8 @@ class RutasTableSeeder extends Seeder
                     'duracion' => "00:40:00",
                     'siglas' => $siglas,
                     'destino_id' => $j,
-                    'origen_id' => $i
+                    'origen_id' => $i,
+                    'estado' => 'activa'
                 ]);
                 $siglas=$siglas2."-".$siglas1;
                 DB::table('rutas')->insert([
@@ -43,7 +44,9 @@ class RutasTableSeeder extends Seeder
                     'duracion' => "00:40:00",
                     'siglas' => $siglas,
                     'destino_id' => $i,
-                    'origen_id' => $j
+                    'origen_id' => $j,
+                    'estado' => 'activa'
+
                 ]);
         }
  
@@ -70,7 +73,8 @@ class RutasTableSeeder extends Seeder
 	        		'duracion' => "00:40:00",
                     'siglas' => $siglas,
 	        		'destino_id' => $j,
-	    			'origen_id' => $i
+	    			'origen_id' => $i,
+                    'estado' => 'activa'
 		    	]);
         	}
         }

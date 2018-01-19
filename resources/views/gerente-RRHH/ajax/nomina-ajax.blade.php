@@ -1,6 +1,6 @@
  <div class="card mb-3">
      <div class="card-body ">
-<h4 class="card-title text-center">Nómina</h4>
+<h4 class="card-title text-center">Nómina de {{ ucwords($mes) }}</h4>
 
          <div style="display: none;"> <div class="form-row  col-md-auto col-sm-7 col-6">
                <div class="form-row">    

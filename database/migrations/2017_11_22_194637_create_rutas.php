@@ -21,6 +21,8 @@ class CreateRutas extends Migration
             $table->float('tarifa_vuelo');
             $table->integer('destino_id')->unsigned()->nullable();
             $table->integer('origen_id')->unsigned()->nullable();
+            $table->enum('estado',['activa','inactiva'])->nullable();
+
             //Laves Foreing
             $table->foreign('destino_id')->references('id')->on('sucursales')->onDelete('cascade');
             $table->foreign('origen_id')->references('id')->on('sucursales')->onDelete('cascade');

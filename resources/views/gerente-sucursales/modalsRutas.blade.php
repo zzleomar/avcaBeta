@@ -109,8 +109,8 @@
         </div>
       
       <div class="modal-body">
-        <H2 id="notification">¿Esta seguro que desea eliminar esta ruta?</H2>
-        <button type="button" class="btn btn-lg btn-outline-secondary" onclick="EliminarRuta('/gerente-sucursales/administracion-rutas/eliminar')">Eliminar</button>
+        <H2 id="notification">¿Esta seguro que desea inhabilitar esta ruta?</H2>
+        <button type="button" class="btn btn-lg btn-outline-secondary" onclick="EliminarRuta('/gerente-sucursales/administracion-rutas/eliminar')">Aceptar</button>
       </div>
                 <div class="modal-footer">
                 </div>
@@ -118,6 +118,65 @@
      </div>
   </div></div>
   </form>
+
+  <!--MODAL ELIMINAR RUTA---->
+
+  <form action="{{ URL::to('/gerente-sucursales/administracion-rutas/eliminar') }}" method="post" id="EliminarRutaForm" name="EliminarRutaForm" onkeypress = "return pulsar(event)">   
+                        {{ csrf_field() }}
+<input type="hidden" name="ruta_id" id="ruta_id" value="">
+
+
+    <div class="modal fade bd-example-modal-lg" id="ModalEliminarRuta" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="card-title" id="tituloModalEliRuta" style="font-size: 25px;font-weight: 700;"></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+      
+      <div class="modal-body">
+        <H2 id="notification">¿Esta seguro que desea inhabilitar esta ruta?</H2>
+        <button type="button" class="btn btn-lg btn-outline-secondary" onclick="EliminarRuta('/gerente-sucursales/administracion-rutas/eliminar')">Aceptar</button>
+      </div>
+                <div class="modal-footer">
+                </div>
+        
+     </div>
+  </div></div>
+  </form>
+
+<!--MODAL HABILITAR RUTA---->
+
+  <form action="{{ URL::to('/gerente-sucursales/administracion-rutas/habilitar') }}" method="post" id="HabilitarRutaForm" name="HabilitarRutaForm" onkeypress = "return pulsar(event)">   
+                        {{ csrf_field() }}
+<input type="hidden" name="ruta_idH" id="ruta_idH" value="">
+
+
+    <div class="modal fade bd-example-modal-lg" id="ModalHabilitarRuta" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="card-title" id="tituloModalHabRuta" style="font-size: 25px;font-weight: 700;"></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+      
+      <div class="modal-body">
+        <H2 id="notification">¿Esta seguro que desea Habilitar esta ruta?</H2>
+        <button type="button" class="btn btn-lg btn-outline-secondary" onclick="HabilitarRuta('/gerente-sucursales/administracion-rutas/habilitar')">Aceptar</button>
+      </div>
+                <div class="modal-footer">
+                </div>
+        
+     </div>
+  </div></div>
+  </form>
+
+
+
 
 
 

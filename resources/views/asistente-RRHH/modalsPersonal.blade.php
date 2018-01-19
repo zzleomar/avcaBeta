@@ -22,8 +22,8 @@
         </div>
       
       <div class="modal-body">
-        <H2 id="notification">¿Esta seguro que desea eliminar esta empleado?</H2>
-        <button type="button" class="btn btn-lg btn-outline-secondary" onclick="EliminarEmpleado('/gerencia/RRHH/administracion-empleados/eliminar')">Eliminar</button>
+        <H2 id="notification">¿Esta seguro que desea inhabilitar este empleado?</H2>
+        <button type="button" class="btn btn-lg btn-outline-secondary" onclick="EliminarEmpleado('/gerencia/RRHH/administracion-empleados/eliminar')">Aceptar</button>
       </div>
                 <div class="modal-footer">
                 </div>
