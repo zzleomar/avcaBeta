@@ -18,7 +18,7 @@
    
   </head>
   <body>
-    <img src="img/boardingpass.png" width="750" height="300"> 
+    <img src="img/boardingpass.png" width="750" height="300" style="position: absolute;"> 
     
     <!-- Lado Derecho -->
     <SPAN style="position: absolute; top: 70 px; left: 30 px;">
@@ -56,7 +56,13 @@
     </SPAN>
     <!-- Lado Izquierdo -->
     <SPAN style="position: absolute; top: 70 px; left: 555 px;">
-      {{$data['equipaje']}}
+      @if($data['equipaje'] > 0)
+        {{"E - ".$data['equipaje']}}
+     
+      @else
+         {{$data['equipaje']}}
+      @endif
+      
     </SPAN>
     <SPAN style="position: absolute; top: 70 px; left: 630 px;">
       {{$data['peso']}}
@@ -91,13 +97,62 @@
     <SPAN style="position: absolute; top: 245 px; left: 675 px;">
       {{$data['hora']}}
     </SPAN>
-
    
+   
+   
+    @php
+      $equipaje = $data['equipaje'];      
+    @endphp  
+        @if($equipaje ==  3)
+         
+            
+          
+         
+        @elseif($equipaje == 2)
+          <img src="img/maleta.png" width="250" height="250" style="position: absolute; top: 350px; "> 
+            <SPAN style="position: absolute; top: 410 px; left: 30 px;">
+              1
+            </SPAN>
+            <SPAN style="position: absolute; top: 410 px; left: 190 px;">
+              {{$data['boletoid']}}
+            </SPAN>
+            <SPAN style="position: absolute; top: 445 px; left: 30 px;">
+              {{$data['cedula']}}
+            </SPAN>
+            <SPAN style="position: absolute; top: 485 px; left: 30 px;">
+              {{$data['nombreapellido']}}
+            </SPAN>
+             <SPAN style="position: absolute; top: 515 px; left: 40 px;">
+              {{$data['origenmin']}}
+            </SPAN>
+            <SPAN style="position: absolute; top: 515 px; left: 190 px;">
+              {{$data['destinomin']}}
+            </SPAN>
+            <SPAN style="position: absolute; top: 550 px; left: 20 px;">
+              {{$data['idvuelo']}}
+            </SPAN>
+            <SPAN style="position: absolute; top: 550 px; left: 100 px;">
+              {{$data['fecha']}}
+            </SPAN>
+            <SPAN style="position: absolute; top: 550 px; left: 190 px;">
+              {{$data['hora']}}
+            </SPAN>
+
+
+        @elseif($equipaje == 1)
+           
+        @else
+          <h1> No hay equipaje </h1>
+           
+               
+        @endif
+      
     
-        <div>
-          <img src="img/maleta.png" width="200" height="200"  left="{{i*200}"> 
-        </div>
-    
+     
+
+
+  
+  
    
 
 

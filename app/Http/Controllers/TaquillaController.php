@@ -310,7 +310,7 @@ class TaquillaController extends Controller
             Carbon::parse($boleto->vuelo->salida)->format('d/m'), //fecha
             Carbon::parse($boleto->vuelo->salida)->format('h:i'), //hora
             "B-".$boleto->id,  //boletoid
-            "E-".$equipaje->boleto_id, //equipaje
+            $equipaje->cantidad, //equipaje
             $equipaje->peso, //peso
             $equipaje->costo_sobrepeso, //sobrepeso
             $boleto->vuelo->pierna->ruta->origen->siglas, //origenmin
@@ -526,7 +526,7 @@ class TaquillaController extends Controller
     }
 
     public function getboleto(
-        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $boletonro, $idvuelo, $cedula, $nombrecorto, $costo, $boletoid)
+        $nombrecompleto, $asiento, $hora,$fecha, $origen, $destino,$origenmin,$destinomin, $idvuelo, $cedula, $nombrecorto, $costo, $boletoid)
     {
         
       
