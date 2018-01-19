@@ -4,17 +4,17 @@
 @if(!isset($pasajero))
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputNombre">Nombre del pasajero:</label>
+        <label for="inputNombre">Nombres:</label>
         <div class="input-group mb-2 mb-sm-0">
         <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-          <input type="Nombre" class="form-control" id="nombres" placeholder="Ingrese el nombre" name="nombres" required>
+          <input type="Nombre" class="form-control" id="nombres" placeholder="Ingresar Nombres" name="nombres" required>
                   <div id="Comentarios"></div></div>
           </div>
           <div class="form-group col-md-6">
-                <label for="inputApellido">Apellido del pasajero:</label>
+                <label for="inputApellido">Apellidos:</label>
               <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
-                <input type="text" class="form-control" id="apellidos" placeholder="Ingrese el Apellidos" name="apellidos" required>
+                <input type="text" class="form-control" id="apellidos" placeholder="Ingresar Apellidos" name="apellidos" required>
               </div>
           </div>
           
@@ -23,25 +23,25 @@
 
     <div class="form-group">
             <label for="inputAddress">Dirección</label>
-            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion del pasajero" required>
+            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Ingresar Dirección" required>
       </div>
 
 
     <div class="form-row">
       
         <div class="form-group col-md-6">
-                <label for="inputNombre"> Telefono Movil</label>
+                <label for="inputNombre"> Teléfono Móvil</label>
             <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
                   <input type="text" class="form-control" id="tlf_movil" placeholder="Ejemplo 0414 098 1234" name="tlf_movil" required>
                   </div>
           </div>                            
         <div class="form-group col-md-6">
-                <label for="inputNombre">Telefono Fijo</label>
+                <label for="inputNombre">Teléfono Fijo</label>
 
                 <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
-                  <input type="text" class="form-control" id="tlf_casa" placeholder="" placeholder="Ejemplo 0293 098 1234" name="tlf_casa">
+                  <input type="text" class="form-control" id="tlf_casa" placeholder="Ejemplo 0293 098 1234" name="tlf_casa">
                 </div>
           </div> 
       </div>      
@@ -65,14 +65,14 @@ font-weight: 800;">Costo total: </label>
 
   <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputNombre">Nombre del pasajero:</label>
+        <label for="inputNombre">Nombres:</label>
         <div class="input-group mb-2 mb-sm-0">
         <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
           <input type="Nombre" class="form-control" id="nombres" placeholder="Nombres" name="nombres" value="{{ $pasajero->nombres }}" required>
                   </div>
           </div>
           <div class="form-group col-md-6">
-                <label for="inputApellido">Apellido del pasajero:</label>
+                <label for="inputApellido">Apellidos:</label>
               <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-user-o" aria-hidden="true"></i> </div>
                 <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos" value="{{ $pasajero->apellidos }}" required>
@@ -88,21 +88,21 @@ font-weight: 800;">Costo total: </label>
   
     <div class="form-group">
             <label for="inputAddress">Dirección</label>
-            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direccion del pasajero" value="{{ $pasajero->direccion }}" required>
+            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Ingresar Dirección" value="{{ $pasajero->direccion }}" required>
     </div>
 
 
     <div class="form-row">
       
         <div class="form-group col-md-6">
-                <label for="inputNombre"> Telefono Movil</label>
+                <label for="inputNombre"> Teléfono Móvil</label>
             <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-mobile" aria-hidden="true"></i> </div>
                   <input type="text" class="form-control" id="tlf_movil" placeholder="Ejemplo 0414 098 1234" name="tlf_movil" value="{{ $pasajero->tlf_movil }}" required>
             </div>
         </div>                            
         <div class="form-group col-md-6">
-                <label for="inputNombre">Telefono Fijo</label>
+                <label for="inputNombre">Teléfono Fijo</label>
 
                 <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
@@ -117,7 +117,7 @@ font-weight: 800;">Costo total: </label>
           <div class="col-sm-6">
             <div class="input-group mb-2 mb-sm-0">
                 <div class="input-group-addon"> <i class="fa fa-money" aria-hidden="true"></i> </div>
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail2" name="costo" value="{{ number_format($costo,2,',','.') }}">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail2" name="costo" value="{{ number_format($costo,2,',','.').' Bs' }}">
             </div>
         </div>
     </div>

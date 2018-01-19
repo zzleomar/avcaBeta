@@ -1,5 +1,5 @@
 <div class="text-center">
-            Seleccione el Destino
+            Destino
         </div>
         <select class="custom-select" id="item-destino" onchange="vuelosAjax()">
             <option selected>Sucursal-Destino</option>

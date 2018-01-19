@@ -13,7 +13,7 @@ class SucursalesTableSeeder extends Seeder
     {
     	
 		$sucursal = factory(App\Sucursal::class)->create([
-		    'nombre' => 'Caracas – Maiquetía',
+		    'nombre' => 'Caracas',
 		    'nombre_aeropuerto' => ' ',
 		    'siglas' => 'CCS'
 		]);
@@ -23,7 +23,7 @@ class SucursalesTableSeeder extends Seeder
 		    'siglas' => 'PYH'
 		]);
 		$sucursal = factory(App\Sucursal::class)->create([
-		    'nombre' => 'San Tomé – Anzoátegui',
+		    'nombre' => 'Barcelona',
 		    'nombre_aeropuerto' => ' ',
 		    'siglas' => 'SOM'
 		]);
@@ -63,7 +63,7 @@ class SucursalesTableSeeder extends Seeder
 		    'siglas' => 'TUV'
 		]);
 		$sucursal = factory(App\Sucursal::class)->create([
-		    'nombre' => 'Punto Fijo – Falcón',
+		    'nombre' => 'Punto Fijo',
 		    'nombre_aeropuerto' => ' ',
 		    'siglas' => 'LSP'
 		]);
@@ -78,12 +78,12 @@ class SucursalesTableSeeder extends Seeder
 		    'siglas' => 'MUN'
 		]);
 		$sucursal = factory(App\Sucursal::class)->create([
-		    'nombre' => 'Porlamar – Isla de Margarita',
+		    'nombre' => 'Porlamar',
 		    'nombre_aeropuerto' => ' ',
 		    'siglas' => 'PMV'
 		]);
 		$sucursal = factory(App\Sucursal::class)->create([
-		    'nombre' => 'Acarigua - Portuguesa',
+		    'nombre' => 'Acarigua',
 		    'nombre_aeropuerto' => ' ',
 		    'siglas' => 'AGV'
 		]);
@@ -93,7 +93,7 @@ class SucursalesTableSeeder extends Seeder
 		    'siglas' => 'CUM'
 		]);
 		$sucursal = factory(App\Sucursal::class)->create([
-		    'nombre' => 'San Cristobal - Táchira',
+		    'nombre' => 'San Cristobal',
 		    'nombre_aeropuerto' => ' ',
 		    'siglas' => 'SCI'
 		]);
@@ -103,7 +103,7 @@ class SucursalesTableSeeder extends Seeder
 		    'siglas' => 'VLV'
 		]);
 		$sucursal = factory(App\Sucursal::class)->create([
-		    'nombre' => 'San Felipe -Yaracuy',
+		    'nombre' => 'San Felipe',
 		    'nombre_aeropuerto' => ' ',
 		    'siglas' => 'SNF'
 		]);

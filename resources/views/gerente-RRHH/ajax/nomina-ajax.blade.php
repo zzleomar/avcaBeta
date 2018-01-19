@@ -1,6 +1,6 @@
  <div class="card mb-3">
      <div class="card-body ">
-<h4 class="card-title text-center">Pagos del Personal mes</h4>
+<h4 class="card-title text-center">Nómina</h4>
 
          <div style="display: none;"> <div class="form-row  col-md-auto col-sm-7 col-6">
                <div class="form-row">    
@@ -66,14 +66,13 @@
                <th class="border  border-primary border-left-0">
                Sucursal           
                 </th>
-              <th class="border  border-primary">Cedula</th>
+              <th class="border  border-primary">Cédula</th>
                <th class="border  border-primary ">Empleado</th>
                <th class="border  border-primary ">Cargos</th>
                <th class="border  border-primary">Sueldo</th>
-               <th class="border  border-primary">Compensacion</th>
-               <th class="border  border-primary">Antiguedad</th>
+               <th class="border  border-primary">Compensación</th>
+               <th class="border  border-primary">Antig&uuml;edad</th>
                <th class="border  border-primary">Deducción</th>
-              <th class="border  border-primary border-right-0 border-left-0"> Total</th>
               
 
               </tr>
@@ -88,15 +87,14 @@
                       <td>{{ $vouche->personal->cedula }}</td>
                       <td>{{ $vouche->personal->apellidos." ".$vouche->personal->nombre }}</td>
                       @if(is_null($vouche->personal->empleado))
-                        <td>$vouche->personal->tripulante->rango</td>
+                        <td>{{ $vouche->personal->tripulante->rango }}</td>
                       @else
                         <td>{{ $vouche->personal->empleado->cargo }}</td>
                       @endif
                         <td>{{ $vouche->sueldo_base }} Bs.</td>
                         <td>{{ $vouche->compensacion }} Bs.</td>
                         <td>{{ $vouche->antiguedad }} Bs.</td>
-                        <td>{{ $vouche->deduccion }} Bs.</td>
-                        <td>{{ ($vouche->sueldo_base+$vouche->compensacion+$vouche->antiguedad)-$vouche->deduccion }} Bs.</td>      
+                        <td>{{ $vouche->deduccion }} Bs.</td> 
                                     
                     </tr> 
                 @else
@@ -116,8 +114,7 @@
                       <td>{{ $vouche->sueldo_base }} Bs.</td>
                         <td>{{ $vouche->compensacion }} Bs.</td>
                         <td>{{ $vouche->antiguedad }} Bs.</td>
-                        <td>{{ $vouche->deduccion }} Bs.</td>
-                        <td>{{ ($vouche->sueldo_base+$vouche->compensacion+$vouche->antiguedad)-$vouche->deduccion }} Bs.</td>       
+                        <td>{{ $vouche->deduccion }} Bs.</td>     
                                     
                     </tr> 
 
@@ -130,7 +127,7 @@
           
               <div class="form-row align-items-center">
                   <div class="form-group col-md-3">
-                    <label for="inputApellido"> Total Compensacion:</label>
+                    <label for="inputApellido"> Total Compensación:</label>
                   <div class="input-group mb-2 mb-sm-0">
                     <div class="input-group-addon"> <i class="fa fa-money" aria-hidden="true"></i> </div>
                     <input type="text" readonly="" class="form-control-plaintext p-1 border  border-info border-top-0 border-left-0" id="staticEmail2" value="{{ $nomina->monto_compensacion }}">
@@ -154,7 +151,7 @@
                     <label for="inputApellido"> Total a pagar:</label>
                   <div class="input-group mb-2 mb-sm-0">
                     <div class="input-group-addon"> <i class="fa fa-money" aria-hidden="true"></i> </div>
-                    <input type="text" readonly="" class="form-control-plaintext p-1 border  border-info border-top-0 border-left-0" id="staticEmail2" value="{{ ($nomina->monto_sueldos+$nomina->monto_antiguedad+$nomina->monto_compensacion)-$nomina->monto_deducciones }}">
+                    <input type="text" readonly="" class="form-control-plaintext p-1 border  border-info border-top-0 border-left-0" id="staticEmail2" value="{{ ($nomina->monto_sueldos+$nomina->monto_antiguedad+$nomina->monto_compensación)-$nomina->monto_deducciones }}">
                   </div>
               </div>
             </div>
@@ -168,7 +165,7 @@
                <th class="border  border-primary border-left-0">
                Sucursal           
                 </th>
-              <th class="border  border-primary">Cedula</th>
+              <th class="border  border-primary">Cédula</th>
                <th class="border  border-primary ">Nombre Apellido</th>
                <th class="border  border-primary ">Cargos</th>
                <th class="border  border-primary">Sueldo</th>

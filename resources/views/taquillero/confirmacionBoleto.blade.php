@@ -18,16 +18,16 @@
                               <select name="nacionalidad" id="nacionalidad" class="nationality form-control-lg">
                                   <option value="V">V</option>
                                   <option value="E">E</option>
-                                  <option value="N">N</option>
+                                  <option value="N">P</option>
                               </select>
                           </div>  
                         <input type="text" class="form-control" placeholder="Identificación" id="cedula" name="cedula" onkeypress="return soloNumDec(event)" onKeyUp="buscarPasajero(this.value)">
                       </div>
                       <div class="input-group costo-center">
-                        <label for="cedula" class="col-sm-2 col-form-label">Destino:</label>
+                        <label for="cedula" class="col-sm-2 col-form-label">Vuelo:</label>
                         <div class="input-group col-sm-8">  
                               <select name="vuelos" id="vuelosAjax" class="nationality form-control-lg  col-sm-12">
-                                <option value="0">Seleccione el Destino</option>
+                                <option value="0">Seleccione Vuelo</option>
                                 @foreach($vuelos as $vuelo)
                                   <option value="{{ $vuelo->id }}">{{ $vuelo->nombre }}</option>
                                   @endforeach

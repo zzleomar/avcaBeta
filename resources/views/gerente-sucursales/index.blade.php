@@ -33,7 +33,7 @@
     <div class="centradoM">
       <div class="form-group" id="ajax-destino">
          <div class="text-center">
-            Seleccione el Destino
+             Destino
         </div>
         <select class="custom-select" id="item-destino" onchange="vuelosAjax()">
             <option selected value="0">Sucursal-Destino</option>
@@ -57,7 +57,7 @@
             <div id="exampleAccordion" data-children=".item">
          <div class="opcionesAccordion">
           
-          <button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#ProgramarVuelo">Nuevo Vuelo</button>
+          <button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#ProgramarVuelo">Nuevo Vuelo</button>
           <a class="btn btn2 btn-primary" data-toggle="collapse" data-parent="#exampleAccordion" href="#VuelosAbiertos" aria-expanded="true" aria-controls="VuelosAbiertos">
             Vuelos Abiertos
           </a>

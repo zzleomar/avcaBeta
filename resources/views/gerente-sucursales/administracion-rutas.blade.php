@@ -12,7 +12,7 @@
       </thead>
     </table>
         
-<button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin-bottom: 20px;  float: left;">
+<button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin-bottom: 20px;  float: left;">
   Agregar Ruta
 </button>
 <div class="divtablaAux">
@@ -45,8 +45,8 @@
         </div>
     </div></th>
         <th class="ThCenter">Distancia Mls.</th>
-        <th class="ThCenter">Duracion Hrs.</th>
-        <th class="ThCenter">Tarifa Vuelo Bs.</th>
+        <th class="ThCenter">Duración Hrs.</th>
+        <th class="ThCenter">Tarifa Bs.</th>
         <th></th>
         
       </tr>

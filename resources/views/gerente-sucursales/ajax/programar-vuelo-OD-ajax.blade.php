@@ -4,7 +4,7 @@
  @include('gerente-sucursales.programar-vuelo')
 
 <div class="subtituloM" style="margin-bottom: 20px;">   
-  <h4>HORAS DE SALIDAS DE IDA Y VUELTA</h4></div>
+  <h4>HORARIO DE SALIDA Y RETORNO</h4>
 <hr> 
 <div class="piernas"> 
     <p><strong>
@@ -14,12 +14,12 @@
         <label class="labelPierna">Hora: </label>
         </div>
       <div class="text-center marginLeft" style="display: inline-block;">
-          <input type="time" placeholder="introduzca hora 12:00 AM" name="hora[]"  id="hora1" min="{{ DATE('H:i:s',strtotime($primero['despues'])) }}" max="{{ DATE('H:i:s',strtotime($primero['antes'])) }}" value="{{ DATE('H:i:s',strtotime($primero['despues'])) }}" oninvalid="setCustomValidity('Seleccione una hora valida')"
+          <input type="time" placeholder="introduzca hora 12:00 AM" name="hora[]"  id="hora1" min="{{ DATE('h:i:s',strtotime($primero['despues'])) }}" max="{{ DATE('h:i:s',strtotime($primero['antes'])) }}" value="{{ DATE('h:i:s',strtotime($primero['despues'])) }}" oninvalid="setCustomValidity('Seleccione una hora valida')"
             oninput="setCustomValidity('')" /><br>
       </div>
       
   </div><small id="salidaHelpBlock" style="margin-bottom: 30px;" class="form-text text-muted">
-        La hora para esta salida debe estar despues de {{ DATE('H:i:s',strtotime($primero['despues'])) }} y antes de {{ DATE('H:i:s',strtotime($primero['antes'])) }}
+        La hora para esta salida debe estar despues de {{ DATE('h:i:s',strtotime($primero['despues'])) }} y antes de {{ DATE('h:i:s',strtotime($primero['antes'])) }}
       </small>
 <hr>
     <p><strong>
@@ -29,7 +29,7 @@
         <label class="labelPierna">Hora: </label>
         </div>
       <div class="text-center marginLeft" style="display: inline-block; margin-bottom: 30px;">
-          <input type="text" placeholder="introduzca hora 12:00 AM" name="hora[]"  id="hora2" value="{{ DATE('H:i:s',strtotime($segundo)) }}" readonly class="form-control-plaintext" style="width: 66px;" /><br>
+          <input type="text" placeholder="introduzca hora 12:00 AM" name="hora[]"  id="hora2" value="{{ DATE('h:i:s',strtotime($segundo)) }}" readonly class="form-control-plaintext" style="width: 66px;" /><br>
       </div>
       
   </div>
@@ -41,12 +41,12 @@
         <label class="labelPierna">Hora: </label>
         </div>
       <div class="text-center marginLeft" style="display: inline-block;">
-          <input type="time" placeholder="introduzca hora 12:00 AM" name="hora[]"  id="hora1" min="{{ DATE('H:i:s',strtotime($tercero['despues'])) }}" max="{{ DATE('H:i:s',strtotime($tercero['antes'])) }}" value="{{ DATE('H:i:s',strtotime($tercero['despues'])) }}" oninvalid="setCustomValidity('Seleccione una hora valida')"
+          <input type="time" placeholder="introduzca hora 12:00 AM" name="hora[]"  id="hora1" min="{{ DATE('H:i:s',strtotime($tercero['despues'])) }}" max="{{ DATE('h:i:s',strtotime($tercero['antes'])) }}" value="{{ DATE('h:i:s',strtotime($tercero['despues'])) }}" oninvalid="setCustomValidity('Seleccione una hora valida')"
             oninput="setCustomValidity('')" /><br>
       </div>
       
   </div><small id="salidaHelpBlock" style="margin-bottom: 30px;" class="form-text text-muted">
-        La hora para esta salida debe estar despues de {{ DATE('H:i:s',strtotime($tercero['despues'])) }} y antes de {{ DATE('H:i:s',strtotime($tercero['antes'])) }}
+        La hora para esta salida debe estar despues de {{ DATE('h:i:s',strtotime($tercero['despues'])) }} y antes de {{ DATE('h:i:s',strtotime($tercero['antes'])) }}
       </small>
 </div>
         

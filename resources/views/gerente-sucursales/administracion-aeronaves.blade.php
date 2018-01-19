@@ -12,7 +12,7 @@
         </tr>
       </thead>
     </table>
-<button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaAeronaveModal" style="margin-bottom: 20px; float: left;">
+<button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaAeronaveModal" style="margin-bottom: 20px; float: left;">
               Agregar Aeronave
             </button>
 

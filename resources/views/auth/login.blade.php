@@ -12,7 +12,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                            <label for="username" class="control-label">Username</label>
+                            <label for="username" class="control-label">Nombre de Usuario</label>
 
                             <div>
                                 <input id="username" type="username" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
@@ -43,7 +43,7 @@
                             <div class="col-12">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Recuerdame?
+                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> ¿Recuerdame?
                                     </label>
                                 </div>
                             </div>

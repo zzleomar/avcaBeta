@@ -1,5 +1,5 @@
 <div class="subtituloM" style="margin-bottom: 20px;">   
-  <h4>ASIGNACIÓN DE PERSONAL Y AERONAVE</h4>
+  <h4>ASIGNAR PERSONAL Y AERONAVE</h4>
 </div>
 <hr>  
 
@@ -38,7 +38,7 @@
           <tr>
             <th>Pilotos</th>
             <th>Horas de Experiencia</th>
-            <th>Vuenlos en Quincena</th>
+            <th>Vuelos en Quincena</th>
             <th>Asignar</th>
           </tr>
         </thead>

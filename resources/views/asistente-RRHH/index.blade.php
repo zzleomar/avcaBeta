@@ -11,10 +11,10 @@
  
 <div id="AccordionAdminPersonal" data-children=".item" style="font-weight: 600;">
 
-<a data-toggle="collapse" data-parent="#AccordionAdminPersonal" href="#AccordionAdminPersonal2" aria-expanded="false" aria-controls="AccordionAdminPersonal2"><button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
+<a data-toggle="collapse" data-parent="#AccordionAdminPersonal" href="#AccordionAdminPersonal2" aria-expanded="false" aria-controls="AccordionAdminPersonal2"><button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
   Mostrar Nomina
 </button></a>
-<a data-toggle="collapse" data-parent="#AccordionAdminPersonal" href="#AccordionAdminPersonal1" aria-expanded="true" aria-controls="AccordionAdminPersonal1"><button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
+<a data-toggle="collapse" data-parent="#AccordionAdminPersonal" href="#AccordionAdminPersonal1" aria-expanded="true" aria-controls="AccordionAdminPersonal1"><button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
   Datos del Personal
 </button></a>
   <hr style="clear: both;">

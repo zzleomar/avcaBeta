@@ -4,7 +4,7 @@
  @include('gerente-sucursales.programar-vuelo')
 
 <div class="subtituloM" style="margin-bottom: 20px;">   
-  <h4>HORAS DE SALIDAS DE IDA Y VUELTA</h4></div>
+  <h4>HORARIO DE SALIDA Y RETORNO</h4></div>
 <hr> 
 <div class="piernas"> 
       <p><strong>

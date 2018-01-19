@@ -38,7 +38,8 @@ body{
 }
 .btn-collAc{
     width: 18%;
-    font-size: 12px;
+    font-size: 1rem;
+    font-family: verdana;
     color: #000;
 }
 /* Footer */

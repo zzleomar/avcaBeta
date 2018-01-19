@@ -1,5 +1,5 @@
 <div class="subtituloM" style="margin-bottom: 20px;">   
-  <h4>ASIGNACIÓN DE PERSONAL Y AERONAVE</h4></div>
+  <h4>ASIGNAR PERSONAL Y AERONAVE</h4></div>
 <hr>      
 <div id="AccordionProg" data-children=".item">
    

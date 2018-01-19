@@ -24,18 +24,18 @@
                     <div class="form-row">
                           <div class="form-group col-md-4">
                             <div class="input-group mb-2 mb-sm-0">
-                                <label class="col-md-5" style="font-size: 0.8rem;"> Cantidad de Equipaje </label>
+                                <label class="col-md-5" style="font-size: 1rem;"> Cantidad de Equipaje </label>
                                 <input type="text" name="cantidad-equipaje" class="form-control" id="cantidad-equipaje" placeholder="" value="{{ old('cantidad-equipaje') }}" required style="margin-left: 6px;" onkeypress="return soloNum(event)")>
                               </div></div>
                               <div class="form-group col-md-4">
                                   <div class="input-group mb-2 mb-sm-0">
-                                    <label class="col-md-5" style="font-size: 0.8rem;">Peso Total</label>
+                                    <label class="col-md-5" style="font-size: 1rem;">Peso Total</label>
                                     <input type="text" step="any" name="peso-equipaje" class="form-control" id="peso" placeholder="" value="{{ old('peso-equipaje') }}" required onkeypress="return soloNumDec(event)" onKeyUp="calcular()"><div class="input-group-addon">Kg</div>
                                   </div>
                               </div>
                               <div class="form-group col-md-4">
                                   <div class="input-group mb-2 mb-sm-0">
-                                    <label class="col-md-5" style="font-size: 0.8rem;">Costo del sobrepeso</label>
+                                    <label class="col-md-5" style="font-size: 1rem;">Costo del sobrepeso</label>
                                     <input type="text" name="costo" class="form-control" id="costo" placeholder=""  value="{{ old('costo') }}" readonly>
                                     <div class="input-group-addon">Bs</div>
 

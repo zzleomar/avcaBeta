@@ -20,7 +20,7 @@ font-weight: 700;">Datos del pasajero</h4>
               <select name="nacionalidad" id="nacionalidad" class="nationality">
                   <option value="V">V</option>
                   <option value="E">E</option>
-                  <option value="E">N</option>
+                  <option value="P">P</option>
               </select>
           </div>  
         <input type="text" class="form-control" placeholder="Identificación" name="cedula" id="cedula" onkeypress="return soloNumDec(event)">

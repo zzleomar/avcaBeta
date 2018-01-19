@@ -152,22 +152,22 @@ class GerenciaSucursalesController extends Controller
       $salidaCarbon = Carbon::parse($salida);
       $actual->addHours(4); //agg 4hras a la hora actual con el fin de permitir planificar vuelos con minimo 4hras de antelación
       if(($hora>20)&&($destino!=$central->id)){
-            flash::error('No se permiten vuelos en este horario para esta ruta seleccione un horario para antes de las 6pm');
+            flash::error('No se permiten vuelos en este horario. Seleccione un horario para antes de las 06:00 pm');
             return view('taquillero.ajax.info-error');
       }
       else{
         if(!($salidaCarbon->gt($actual))){ //si la salida no es despues de la fecha actual
-            flash::error('Solo se permiten programar vuelos con por lo menos 4 horas de anticipación');
+            flash::error('Fecha inválida');
             return view('taquillero.ajax.info-error');
         }
         else{
             if(($hora<8)&&($origen!=$central->id)){
-                flash::error('No se pemiten vuelos en este horario para esta ruta seleccione un horario a partir de las 8am');
+                flash::error('No se pemiten vuelos en este horario. Seleccione un horario a partir de las 08:00 am');
                 return view('taquillero.ajax.info-error');
         }
         else{
             if($hora<6){
-                flash::error('No se pemiten vuelos en este horario para esta ruta seleccione un horario a partir de las 6am');
+                flash::error('No se pemiten vuelos en este horario. Seleccione un horario a partir de las 06:00 am');
                 return view('taquillero.ajax.info-error');
             }
             else{
