@@ -21,6 +21,7 @@ class CreatePersonales extends Migration
             $table->string('tlf_movil',255)->nullable();
             $table->string('tlf_casa',255)->nullable();
             $table->string('direccion',255)->nullable();
+            $table->enum('estado',['activo','inactivo'])->nullable();
             $table->timestamp('entrada');
             $table->integer('nivel')->unsigned()->nullable();
             $table->timestamps();

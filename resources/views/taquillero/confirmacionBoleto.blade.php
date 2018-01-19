@@ -44,7 +44,7 @@
             </form></div>  
     </div>
 <div class="float-right" style="margin-top: 10px; margin-right: 5px;">
-      <button type="button" class="btn btn-lg btn-outline-secondary " data-toggle="modal" data-target="#lista">Generar Lista de Chequeo</button>
+      <button type="button" class="btn btn-lg btn-outline-secondary " data-toggle="modal" data-target="#lista" onclick="listaseleccionar()">Generar Lista de Chequeo</button>
     </div>
     @include('taquillero.auxlistachequeo')
   </div>
@@ -53,7 +53,8 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-      function chequear(){
+      $(document).ready(function(){
+        function chequear(){
           var ci=document.getElementById("cedula").value;
           var nacionalidad=document.getElementById("nacionalidad").value;
           var vuelo=document.getElementById("vuelosAjax").value;
@@ -62,9 +63,20 @@
           //alert(url);
           $.get(url,function(data){ 
               $('#ajax-datos-boleto').empty().html(data);
-            });
+          });
           $.getScript("{{ asset('js/script.js') }}"); 
+        }
+    });
+      function listaseleccionar(){
+        var url="{{ URL::to('/taquilla/listachequeo')}}/";
+        alert(url);
+        $.get(url,function(data){ 
+          $('#contenidolista').empty().html(data);
+        });
       }
+
+
+
       
       
   </script>

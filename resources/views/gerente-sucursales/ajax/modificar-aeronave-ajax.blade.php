@@ -19,11 +19,24 @@
 
               <div class="form-group col-sm-12 col-md-6">
 <label style="font-weight: 600;">Estado</label>
-                <select class="form-control" name="estado">
-                	<option value="{{ $aeronave->estado }}" selected>{{ $aeronave->estado }}</option>
-                  <option value="activo">activo</option>
-                  <option value="inactivo">inactivo</option>
-                  <option value="mantenimiento">mantenimiento</option>
+                <select class="form-control form-control-lg" name="estado">
+                	@switch($aeronave->estado)
+                      @case('activo')
+                        <option value="activo" selected>activo</option>
+                        <option value="inactivo">inactivo</option>
+                        <option value="mantenimiento">mantenimiento</option>
+                      @break
+                      @case('inactivo')
+                        <option value="inactivo" selected>inactivo</option>
+                        <option value="activo">activo</option>
+                        <option value="mantenimiento">mantenimiento</option>
+                      @break
+                      @case('mantenimiento')
+                        <option value="mantenimiento" selected>mantenimiento</option>
+                        <option value="activo">activo</option>
+                        <option value="inactivo">inactivo</option>
+                      @break
+                  @endswitch
                 </select>
               </div>
 </div>

@@ -102,37 +102,45 @@
    
    
 
+    @if($data['equipaje'] > 3)
+      @php
+        $data['equipaje'] = 3
+      @endphp
+    @endif
 
-    @for ($i = 1; $i <= $data['equipaje']; $i++)
-      <img src="img/maleta.png" width="250" height="250" style="position: absolute; top: 350px; left: 1px"> 
-            <SPAN style="position: absolute; top: 410 px; left: 30 px;">
-              1
+    @for ($i = 0; $i < $data['equipaje']; $i++)
+      <img src="img/maleta.png" width="250" height="250" style="position: absolute; top: 350px; left: {{$i*255}}px"> 
+            <SPAN style="position: absolute; top: 410 px; left: {{30 + $i*270}} px;">
+              {{$i + 1}}
             </SPAN>
-            <SPAN style="position: absolute; top: 410 px; left: 190 px;">
+            <SPAN style="position: absolute; top: 410 px; left: {{190 + $i*270}} px;">
               {{$data['boletoid']}}
             </SPAN>
-            <SPAN style="position: absolute; top: 445 px; left: 30 px;">
+            <SPAN style="position: absolute; top: 445 px; left: {{30  + $i*270}}px;">
               {{$data['cedula']}}
             </SPAN>
-            <SPAN style="position: absolute; top: 485 px; left: 30 px;">
+            <SPAN style="position: absolute; top: 485 px; left: {{30  + $i*270}}px;">
               {{$data['nombreapellido']}}
             </SPAN>
-             <SPAN style="position: absolute; top: 515 px; left: 40 px;">
+             <SPAN style="position: absolute; top: 515 px; left: {{40  + $i*270}}px;">
               {{$data['origenmin']}}
             </SPAN>
-            <SPAN style="position: absolute; top: 515 px; left: 190 px;">
+            <SPAN style="position: absolute; top: 515 px; left: {{190 + $i*270}} px;">
               {{$data['destinomin']}}
             </SPAN>
-            <SPAN style="position: absolute; top: 550 px; left: 20 px;">
+            <SPAN style="position: absolute; top: 550 px; left: {{20  + $i*270}}px;">
               {{$data['idvuelo']}}
             </SPAN>
-            <SPAN style="position: absolute; top: 550 px; left: 100 px;">
+            <SPAN style="position: absolute; top: 550 px; left: {{100 + $i*270}} px;">
               {{$data['fecha']}}
             </SPAN>
-            <SPAN style="position: absolute; top: 550 px; left: 190 px;">
+            <SPAN style="position: absolute; top: 550 px; left: {{190 + $i*270}} px;">
               {{$data['hora']}}
             </SPAN>
     @endfor
+
+
+    window.location.href = response.FILEURL;
       
     
      

@@ -67,6 +67,7 @@ return [
 		'tlf_movil' => $faker->phoneNumber,
 		'tlf_casa' => $faker->phoneNumber,
 		'direccion' => $faker->address,
+        'estado' => 'activo',
         'entrada' => $faker->dateTimeBetween('-2 year','2017-11-30 12:00:00',date_default_timezone_get())
     ];
 });

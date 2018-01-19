@@ -12,10 +12,10 @@ Route::group(['prefix' => 'sucursal','middleware' => ['auth', 'CheckRoleSubgeren
 	Route::post('/vuelo/ejecutado/{id}','SucursalController@CulminarVuelo');
 
 
-	Route::get('/reportes/ingresos','ReporteController@ReporteIngreso');
 	
 
 
 });
+	Route::get('/reportes/ingresos','ReporteController@ReporteIngreso')->middleware('CheckRoleGerenteSucursalesSubgerente');
 
  ?>

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Szykra\Notifications\Flash;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Personal;
 use App\Empleado;
+use App\Nomina;
 use App\Horario;
 use App\Personal_operativo;
 use App\Tripulante;
@@ -20,6 +22,15 @@ class PersonalController extends Controller
         return $personal->empleado->sucursal_id;
     }
     public function index(Request $datos){
+        $nominas=Nomina::all();
+        setlocale(LC_TIME, "es");
+        $fechas=array();
+        foreach ($nominas as $nomina) {
+            $salida=Carbon::parse($nomina->fecha);
+            $datos=array("id" => $nomina->id,
+                        "nombre" => $salida->formatLocalized('%B %Y'));
+            array_push($fechas, $datos);
+        }
         $idS=0;
         $sucursal=null;
         if(Auth::user()->tipo!="Gerente de RRHH"){
@@ -36,7 +47,8 @@ class PersonalController extends Controller
                         ->with('cargos',$cargos)
                         ->with('horarios',$horarios)
                         ->with('sucursales',$sucursales)
-                        ->with('sucursal',$sucursal);
+                        ->with('sucursal',$sucursal)
+                        ->with('fechas', $fechas);
     	}
     	else{
     		if(isset($datos->sucursal)){
@@ -46,7 +58,8 @@ class PersonalController extends Controller
                         ->with('cargos',$cargos)
                         ->with('horarios',$horarios)
                         ->with('sucursales',$sucursales)
-                        ->with('sucursal',$sucursal);
+                        ->with('sucursal',$sucursal)
+                        ->with('fechas', $fechas);
     		}
     		else{
     			$empleados=Personal::Ordenados($idS);
@@ -56,15 +69,17 @@ class PersonalController extends Controller
                         ->with('cargos',$cargos)
                         ->with('horarios',$horarios)
                         ->with('sucursal',$sucursal)
-                        ->with('sucursales',$sucursales);
+                        ->with('sucursales',$sucursales)
+                        ->with('fechas', $fechas);
     		}
     	}
     }
 
     public function eliminar(Request $datos){
         $personal=Personal::find($datos->empleado_id);
-        $personal->delete();
-        flash::info('El empleado '.$personal->apellidos." ".$personal->nombres." ha sido eliminado del sistema");
+        $personal->estado="inactivo";
+        $personal->save();
+        flash::info('El empleado '.$personal->apellidos." ".$personal->nombres." ha sido inhabilitado");
         return redirect('/gerencia/RRHH');
     }
 

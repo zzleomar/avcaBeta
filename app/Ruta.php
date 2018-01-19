@@ -10,7 +10,7 @@ class Ruta extends Model
     protected $table ="rutas";
 
     protected $fillable = [
-    	'distancia','duracion','tarifa_vuelo','destino_id','origen_id','siglas'
+    	'distancia','duracion','tarifa_vuelo','destino_id','origen_id','siglas','estado'
     ];
 
     public function origen(){
@@ -25,6 +25,12 @@ class Ruta extends Model
 
     public function scopeBuscador($query, $origen,$destino){
         return $query->where('destino_id',$destino)
-                    ->where('origen_id',$origen);
+                    ->where('origen_id',$origen)
+                    ->where('estado',"activa");
+    }
+    public function scopeRutaInactiva($query, $origen,$destino){
+        return $query->where('destino_id',$destino)
+                    ->where('origen_id',$origen)
+                    ->where('estado',"inactiva");
     }
 }

@@ -2,7 +2,6 @@
 
 @section('content')
 @include('notifications::flash')
-
 <div id="targetL" class="py-3">
     @if(Auth::user()->tipo!='Gerente de RRHH')
       <h4 class="card-title" style="font-weight: 600;">Sucursal {{ $sucursal->nombre }}</h4>
@@ -12,7 +11,7 @@
 <div id="AccordionAdminPersonal" data-children=".item" style="font-weight: 600;">
 
 <a data-toggle="collapse" data-parent="#AccordionAdminPersonal" href="#AccordionAdminPersonal2" aria-expanded="false" aria-controls="AccordionAdminPersonal2"><button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
-  Mostrar Nomina
+  Mostrar Nómina
 </button></a>
 <a data-toggle="collapse" data-parent="#AccordionAdminPersonal" href="#AccordionAdminPersonal1" aria-expanded="true" aria-controls="AccordionAdminPersonal1"><button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
   Datos del Personal
@@ -55,6 +54,7 @@
 		        </div>
 		    </div>
         </th>
+
     @if(Auth::user()->tipo=='Gerente de RRHH')
 
         <th class="ThCenter">
@@ -104,12 +104,13 @@
         @endif
         
        <td>
+
             <div class="d-flex flex-row">
               <div class="p-2">
                 <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalModificarEmpleado" onclick="ajaxModificarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">Modificar</button>
               </div>
               <div class="p-2">
-                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalEliminarEmpleado" onclick="ConfirmarEliminarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">Eliminar</button>
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalEliminarEmpleado" onclick="ConfirmarEliminarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">Inhabilitar</button>
               </div>
             </div>
        </td>
@@ -139,14 +140,18 @@
               <input type="radio" class="custom-control-input" id="otraNomina" name="reporte" value="2"  onclick="seleccion()"><span class="custom-control-indicator"></span>
           </label>
         </div>
+
         <div class="form-group col-md-2 oculto" id="opcNominaSelect" style="margin-top: 3px;">
             <select name="nomina" class="opcTipo form-control-lg" id="opcnomina" required>
                 <option value="0">Seleccione Fecha</option>
-                <option value="idnomina" >Enero 2018</option>
-                <option value="idnomina" >Diciembre 2017</option>
-                <option value="idnomina" >Noviembre 2017</option>
+                @foreach($fechas as $fecha)
+
+
+                  <option value="{{ $fecha['id'] }}" >{{ $fecha['nombre'] }}</option>
+                @endforeach
             </select>
           </div>
+
         <div class="form-group col-md-2" style="margin-top: 3px;">
           @php
           $urlN=URL::to('/gerencia/RRHH/nomina/generar/1');
@@ -317,8 +322,8 @@ function seleccion(){
                   $('#AccordionInfoPersonal2').collapse('show');
                   if(otro!=1){
                     //$('#x1').display('none');
-                    document.getElementById('x1').display = 'none';
-                    document.getElementById('x2').display = 'block';
+                    document.getElementById('x1').style.display = 'none';
+                    document.getElementById('x2').style.display = 'block';
                     //$('#x2').display('initial');
                   }
 

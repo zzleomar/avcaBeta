@@ -232,6 +232,7 @@ return [
         /*PERSONALES*/
         'Flash' => 'Szykra\Notifications\Flash',
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Carbon' => 'Carbon\Carbon',
     ],
 
 ];

@@ -37,4 +37,5 @@ class Vouche extends Model
         return $this->belongsTo('App\Tabulador','constante_id','id');
     }
     
+    
 }

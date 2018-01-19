@@ -47,6 +47,7 @@
         <th class="ThCenter">Distancia Mls.</th>
         <th class="ThCenter">Duración Hrs.</th>
         <th class="ThCenter">Tarifa Bs.</th>
+        <th class="ThCenter">Estado</th>
         <th></th>
         
       </tr>
@@ -57,12 +58,18 @@
 	      <th >{{ $ruta->destino->nombre }}</th>
 	        <td>{{ $ruta->distancia }}</td>
 	        <td>{{ $ruta->duracion }}</td>
-	        <td>{{ $ruta->tarifa_vuelo }}</td>
+          <td>{{ $ruta->tarifa_vuelo }}</td>
+	        <td>{{ $ruta->estado }}</td>
 
 	       <td>
 	                      <div class="d-flex flex-row">
 	              <div class="p-2"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalModificarRuta" onclick="AjaxModificarRuta('{{ $ruta->id  }}','{{ $ruta->siglas }}')">Modificar</button></div>
-	              <div class="p-2"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalEliminarRuta" onclick="ConfirmarEliminarRuta('{{ $ruta->id  }}','{{ $ruta->siglas }}')">Eliminar</button></div>
+                @if($ruta->estado=='inactiva')
+                    <div class="p-2"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalHabilitarRuta" onclick="ConfirmarHabilitarRuta('{{ $ruta->id  }}','{{ $ruta->siglas }}')">Habilitar</button></div>
+                @else
+                    <div class="p-2"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalEliminarRuta" onclick="ConfirmarEliminarRuta('{{ $ruta->id  }}','{{ $ruta->siglas }}')">Inhabilitar</button></div>
+                @endif
+	              
 	            </div>
 	       
 	      
@@ -147,6 +154,13 @@
         document.getElementById('ruta_id').value=id;
         
         document.getElementById('tituloModalEliRuta').innerHTML="RUTA "+siglas;
+  }
+
+  function ConfirmarHabilitarRuta(id,siglas){
+    alert(id);
+        document.getElementById('ruta_idH').value=id;
+        
+        document.getElementById('tituloModalHabRuta').innerHTML="RUTA "+siglas;
   }
 
   function AjaxModificarRuta(ruta_id,siglas){

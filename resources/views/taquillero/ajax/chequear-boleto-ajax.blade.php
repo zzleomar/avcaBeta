@@ -48,7 +48,7 @@
             </div>
     
             <div class="row mx-4">
-                <input type="submit" class="btn btn-primary btn-lg btn-block my-2 " value="CONFIRMAR">
+                <input type="submit" class="btn btn-primary btn-lg btn-block my-2 " value="CONFIRMAR" target="_blank">
             </div>
 
 <script type="text/javascript">

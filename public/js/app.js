@@ -20,6 +20,7 @@ function Fomrnomina(url){
       else{
         document.getElementById('opcnomina').setCustomValidity(''); 
         url=url+"/"+radio3+"/"+nomina;
+        alert(url);
          $.get(url,function(data){ 
                 $('#ajax-nomina').empty().html(data);
                 targetL.loadingOverlay('remove');
@@ -89,6 +90,9 @@ function estadoVuelo(action)
   function EliminarRuta(){
         document.getElementById('EliminarRutaForm').submit();
   }
+  function HabilitarRuta(){
+        document.getElementById('HabilitarRutaForm').submit();
+  }
   function EliminarEmpleado(accion){
         document.getElementById('EliminarEmpleadoForm').submit();
   }
@@ -129,7 +133,7 @@ $(document).ready(function(){
     case '/sucursal':
       $('#vuelos').addClass('active');
       break;
-    case '/sucursal/reportes/ingresos':
+    case '/reportes/ingresos':
       $('#ReporIngres').addClass('active');
       break;
     case '/gerente-sucursales':

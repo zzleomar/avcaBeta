@@ -191,7 +191,11 @@ class TaquillaController extends Controller
             $inicio = Carbon::parse($vuelo->salida);
             $fin = Carbon::parse($vuelo->salida);
             $inicio->subHours(2); //inicio
-            $fin->subHours(1); //inicio
+<<<<<<< HEAD
+            $fin->subHours(1); //fin
+=======
+            $fin->subHours(1); //final
+>>>>>>> 26644ac72d42d99035154653fbad5bd185f58bad
             if(!(($actual->gt($inicio))&&($actual->lt($fin)))){
                 //si la fecha y hora actual no es despues del inicio del chequeo 
                 //y no es antes del final del chequeo del vuelo
@@ -301,6 +305,7 @@ class TaquillaController extends Controller
             $equipaje->cantidad = "N/A";
         }
         $pasajero = $boleto->pasajero;
+        flash::success('El boleto ha sido chequeado exitosamente');
         return $this->getboardp(
             $pasajero->cedula, //cedula
             ucwords($pasajero->nombres)." ".ucwords($pasajero->apellidos), //nombreapellido
@@ -331,7 +336,7 @@ class TaquillaController extends Controller
         );
        
 
-        flash::success('El boleto ha sido chequeado exitosamente');
+        //
 
         //return redirect('/taquilla/confirmar-boleto');
     }
@@ -523,6 +528,7 @@ class TaquillaController extends Controller
         $pdf  = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('boardingpass');
+       
     }
 
     public function getboleto(

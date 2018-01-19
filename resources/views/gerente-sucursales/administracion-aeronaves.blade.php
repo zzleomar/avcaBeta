@@ -72,7 +72,7 @@
        <td>
                       <div class="d-flex flex-row">
               <div class="p-2"><button type="submit" class="btn btn-primary" onclick="AjaxModificarAeronave('{{ $aeronaves[$i]->id  }}','{{ $aeronaves[$i]->matricula }}')" data-toggle="modal" data-target="#ModalModificarAeronave">Modificar</button></div>
-              <div class="p-2"><button type="submit" class="btn btn-primary" onclick="ConfirmarEliminarAerovane('{{ $aeronaves[$i]->id  }}','{{ $aeronaves[$i]->matricula }}')" data-toggle="modal" data-target="#ModalEliminarAeronave">Eliminar</button></div>
+              <!--<div class="p-2"><button type="submit" class="btn btn-primary" onclick="ConfirmarEliminarAerovane('{{ $aeronaves[$i]->id  }}','{{ $aeronaves[$i]->matricula }}')" data-toggle="modal" data-target="#ModalEliminarAeronave">Eliminar</button></div>-->
             </div>
        </td>
    

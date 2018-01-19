@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Boleto  {{$data['cedula']}}</title>
+    <title>Boleto  </title>
     <style type="text/css">
       span{
           font: arial;
@@ -13,47 +13,38 @@
    
   </head>
   <body>
-     <img src="img/boleto.png" width="750" height="300"> 
-    
+    <div style="position: relative">
+    <img src="{{asset('img/boleto.png')}}" width="750" height="300" style="position: relative;"> 
     
     <!-- Lado Derecho -->
-     <SPAN style="position: absolute; top: 80 px; left: 30 px;">
-      {{$data['cedula']}}
+     <SPAN style="top: 80 px; left: 30 px;">
+      V24877491
     </SPAN>
     <SPAN style="position: absolute; top: 117 px; left: 30 px;">
-      {{$data['nombreapellido']}}
+      Jesus Machado
     </SPAN>
     <SPAN style="position: absolute; top: 155 px; left: 30 px;">
-      {{$data['origen']}}
+      Cumana
     </SPAN>
     <SPAN style="position: absolute; top: 195 px; left: 30 px;">
-      {{$data['destino']}}
+      Caracas 
     </SPAN>
     <SPAN style="position: absolute; top: 155 px; left: 350 px;">
-      {{$data['idvuelo']}}
+      CUM-CSS
     </SPAN>
     <SPAN style="position: absolute; top: 155 px; left: 500 px;">
-      {{$data['fecha']}}
+      18-01-2018
     </SPAN>
     <SPAN style="position: absolute; top: 155 px; left: 620 px;">
-       {{$data['hora']}}
+       01:00:20
     </SPAN>
     <SPAN style="position: absolute; top: 235 px; left: 30 px;">
-      {{$data['boletoid']}}
+      B1
     </SPAN>
     <SPAN style="position: absolute; top: 235 px; left: 365 px;">
-      {{$data['asiento']}}
+      33
     </SPAN>
     <SPAN style="position: absolute; top: 235 px; left: 490 px;">
-      {{$data['costo']}}
+      3000VEF
     </SPAN>
-    
-
-    
-    
-    
-
- 
-  
-  </body>
-</html>
+  </div>

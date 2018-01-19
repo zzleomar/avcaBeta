@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'CheckRoleGerenteGeneral' => \App\Http\Middleware\CheckRoleGerenteGeneral::class, 
         'CheckRoleSucursal' => \App\Http\Middleware\CheckRoleSucursal::class, 
         'RoleRRHH' => \App\Http\Middleware\RoleRRHH::class, 
+        'CheckRoleGerenteSucursalesSubgerente' => \App\Http\Middleware\CheckRoleGerenteSucursalesSubgerente::class, 
         
     ];
 }
