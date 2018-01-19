@@ -133,7 +133,7 @@ $(document).ready(function(){
     case '/sucursal':
       $('#vuelos').addClass('active');
       break;
-    case '/sucursal/reportes/ingresos':
+    case '/reportes/ingresos':
       $('#ReporIngres').addClass('active');
       break;
     case '/gerente-sucursales':
