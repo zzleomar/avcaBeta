@@ -34,6 +34,9 @@ class Vuelo extends Model
         }
         return $contador;
     }
+    public function scopeBoleteria($query, $estado, $vuelo){
+        return DB::table('vuelos')->join('boletos', 'vuelos.id', '=', 'boletos.vuelo_id')->where([['boletos.estado',$estado],['vuelos.id',$vuelo]])->count();
+    }
     //nueva scopefunción para index
     public function scopeDestinos($query, $dato, $fecha){
         return DB::table('vuelos')->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')->join('sucursales', 'rutas.destino_id', '=', 'sucursales.id')->select('sucursales.id as su','sucursales.nombre','rutas.id')->where([['rutas.origen_id','=',$dato],['vuelos.estado','=','abierto'],['vuelos.salida','>',$fecha]])->groupBy('sucursales.id','sucursales.nombre','rutas.id')->get();

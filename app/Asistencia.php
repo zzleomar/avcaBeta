@@ -22,5 +22,15 @@ class Asistencia extends Model
 					 ->select('asistencias.*');
 
 	}
+	public function scopePrimeraMes($query, $mes){
+      return $query->join('empleados', 'asistencias.empleado_id', '=', 'empleados.id')
+                    ->whereMonth('asistencias.entrada', $mes)
+                    ->select('asistencias.*')->first();
+    }
+	public function scopeasistenciaMes($query, $inicio, $salida, $empleado){
+      return $query->join('empleados', 'asistencias.empleado_id', '=', 'empleados.id')
+                    ->where([['asistencias.entrada','>=', $inicio],['asistencias.entrada','<=', $salida],['empleados.id','=',$empleado]])
+                    ->select('asistencias.*');
+    }
 
 }

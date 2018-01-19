@@ -15,15 +15,15 @@ class CreateVouchesTable extends Migration
     {
         Schema::create('vouches', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('sueldo_base')->unsigned();
+            $table->float('sueldo_base',12,2)->unsigned();
             $table->integer('personal_id')->unsigned();
             $table->integer('nomina_id')->unsigned()->nullable();
-            $table->float('utilidad')->unsigned()->nullable();
-            $table->float('vacacion')->unsigned()->nullable();
-            $table->float('deduccion')->unsigned()->nullable();
-            $table->float('compensacion')->unsigned()->nullable();
-            $table->float('antiguedad')->unsigned()->nullable();
-            $table->time('ausencias')->nullable();
+            $table->float('utilidad',12,2)->unsigned()->nullable();
+            $table->float('vacacion',12,2)->unsigned()->nullable();
+            $table->float('deduccion',12,2)->unsigned()->nullable();
+            $table->float('compensacion',12,2)->unsigned()->nullable();
+            $table->float('antiguedad',12,2)->unsigned()->nullable();
+            $table->integer('ausencias')->nullable();
 
             $table->integer('sueldoMinimo_id')->unsigned()->nullable();
             $table->integer('escala_id')->unsigned()->nullable();

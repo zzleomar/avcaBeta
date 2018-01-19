@@ -1,12 +1,12 @@
 
 @php
-  $urlNew=URL::to('/RRHH/administracion-empleados/nueva');
-  $urlmod=URL::to('/RRHH/administracion-empleados/modificar');
+  $urlNew=URL::to('/gerencia/RRHH/administracion-empleados/nueva');
+  $urlmod=URL::to('/gerencia/RRHH/administracion-empleados/modificar');
 @endphp
 
   <!--MODAL ELIMINAR Empleado---->
 
-  <form action="{{ URL::to('/RRHH/administracion-empleados/eliminar') }}" method="post" id="EliminarEmpleadoForm" name="EliminarEmpleadoForm" onkeypress = "return pulsar(event)">   
+  <form action="{{ URL::to('/gerencia/RRHH/administracion-empleados/eliminar') }}" method="post" id="EliminarEmpleadoForm" name="EliminarEmpleadoForm" onkeypress = "return pulsar(event)">   
                         {{ csrf_field() }}
 <input type="hidden" name="empleado_id" id="empleado_id" value="">
 
@@ -23,7 +23,7 @@
       
       <div class="modal-body">
         <H2 id="notification">¿Esta seguro que desea eliminar esta empleado?</H2>
-        <button type="button" class="btn btn-lg btn-outline-secondary" onclick="EliminarEmpleado('/RRHH/administracion-empleados/eliminar')">Eliminar</button>
+        <button type="button" class="btn btn-lg btn-outline-secondary" onclick="EliminarEmpleado('/gerencia/RRHH/administracion-empleados/eliminar')">Eliminar</button>
       </div>
                 <div class="modal-footer">
                 </div>
@@ -177,7 +177,10 @@
                               </button>
                               <div class="dropdown-menu ">
                                 <a class="dropdown-item" id="tipoC1" onclick="tipoCargo('1','2')">Operativo</a>
+                               @if(Auth::user()->tipo=='Gerente de RRHH')
+
                                 <a class="dropdown-item" id="tipoC2" onclick="tipoCargo('2','2')">Tripulante</a>
+                                @endif
                                 <a class="dropdown-item" id="tipoC3" onclick="tipoCargo('3','2')">Administrativo</a>
                               </div>
                             </div>
@@ -231,20 +234,35 @@
                           
                             <div class="form-group col-md-6">
                                     <div class="input-group">
-
+                                     @if(Auth::user()->tipo=='Gerente de RRHH')
                                       <div class="input-group-btn">
                                             <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
                                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Sucursal
                                             </button>
                                             <div class="dropdown-menu ">
-                                              @foreach($sucursales as $sucursal)
-                                              <a class="dropdown-item" id="sucursalT{{ $sucursal->id }}" onclick="datosSP('{{ $sucursal->id }}','sucursal')">{{ $sucursal->nombre }}</a>
+                                              @foreach($sucursales as $sucursal1)
+                                              <a class="dropdown-item" id="sucursalT{{ $sucursal1->id }}" onclick="datosSP('{{ $sucursal1->id }}','sucursal')">{{ $sucursal1->nombre }}</a>
                                               @endforeach
                                             </div>
                                         </div>
                                          <input type="text" class="form-control" aria-label="Text input with dropdown button" id="sucursalN" placeholder="Seleccione la sucursal donde labora" value="" readonly >
                                          <input type="hidden" name="sucursalid" id="sucursalid" value="">
                                         <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
+                                      @else
+                                      <div class="input-group-btn">
+                                            <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Sucursal
+                                            </button>
+                                            <div class="dropdown-menu ">
+                                              <a class="dropdown-item" id="sucursalT{{ $sucursal->id }}" onclick="datosSP('{{ $sucursal->id }}','sucursal')">{{ $sucursal->nombre }}</a>
+                                            </div>
+                                        </div>
+                                           <input type="text" class="form-control" aria-label="Text input with dropdown button" id="sucursalN" placeholder="Seleccione la sucursal donde labora" value="{{ $sucursal->nombre }}" readonly >
+                                           <input type="hidden" name="sucursalid" id="sucursalid" value="{{ $sucursal->id }}">
+                                          <div class="input-group-addon"><i class="fa fa-plane" aria-hidden="true"></i> </div>
+                                      
+                                      @endif
+
                                   </div>
                               </div>                            
                             <div class="form-group col-md-6">

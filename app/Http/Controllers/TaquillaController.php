@@ -61,7 +61,7 @@ class TaquillaController extends Controller
                                 $datos->boleto_id=$consulta->id;
                             }
                             $this->CambiarEstado($datos->boleto_id,$pasajero,"Pagado");
-                            flash::success('El boleto '.$datos->boleto_id.' ha sido pagado');
+                           /* flash::success('El boleto '.$datos->boleto_id.' ha sido pagado');*/
                             // ---  Imprimir Boleto
                             //Recuperar toda la informacion
                            return $this->getboleto(

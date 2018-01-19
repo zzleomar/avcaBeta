@@ -129,6 +129,9 @@ $(document).ready(function(){
     case '/sucursal':
       $('#vuelos').addClass('active');
       break;
+    case '/sucursal/reportes/ingresos':
+      $('#ReporIngres').addClass('active');
+      break;
     case '/gerente-sucursales':
       $('#sucursales').addClass('active');
       break;
@@ -138,7 +141,7 @@ $(document).ready(function(){
     case '/gerente-sucursales/administracion-aeronaves':
       $('#adminaeronaves').addClass('active');
       break;
-    case '/RRHH':
+    case '/gerencia/RRHH':
       $('#adminPersonal').addClass('active');
       break;
     case '/RRHH/asistencia':

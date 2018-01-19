@@ -22,8 +22,7 @@ class CreatePersonales extends Migration
             $table->string('tlf_casa',255)->nullable();
             $table->string('direccion',255)->nullable();
             $table->timestamp('entrada');
-            $table->integer('sueldo_base_id')->unsigned()->nullable();
-            $table->foreign('sueldo_base_id')->references('id')->on('sueldos_base')->onDelete('cascade');
+            $table->integer('nivel')->unsigned()->nullable();
             $table->timestamps();
         });
     }

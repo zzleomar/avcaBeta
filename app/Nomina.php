@@ -10,10 +10,10 @@ class Nomina extends Model
     protected $table ="nominas";
 
     protected $fillable = [
-        'fecha'
+        'fecha','monto_sueldos','monto_compensacion','monto_deducciones','monto_antiguedad'
     ];
 
-    public function vouche(){
+    public function vouches(){
     	return $this->hasMany('App\Vouche');
     }
 

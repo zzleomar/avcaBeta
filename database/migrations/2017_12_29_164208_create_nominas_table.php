@@ -16,6 +16,10 @@ class CreateNominasTable extends Migration
         Schema::create('nominas', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamp('fecha');
+            $table->float('monto_sueldos',12,2)->nullable();
+            $table->float('monto_compensacion',12,2)->nullable();
+            $table->float('monto_deducciones',12,2)->nullable();
+            $table->float('monto_antiguedad',12,2)->nullable();
             $table->timestamps();
         });
     }

@@ -35,13 +35,13 @@
                     <a class="nav-link" id="chequeo" href="{{ URL::to('/taquilla/confirmar-boleto') }}">Chequeo Boleto</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="adminPersonal" href="{{ URL::to('/RRHH') }}">Administración de Personal</a>
+                    <a class="nav-link" id="adminPersonal" href="{{ URL::to('/gerencia/RRHH') }}">Administración de Personal</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/RRHH/asistencia') }}">Administración de Asistencia</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/sucursal/reportes/ingresos') }}">Reportes de Ingresos</a>
+                    <a class="nav-link" id="ReporIngres" href="{{ URL::to('/sucursal/reportes/ingresos') }}">Reportes de Ingresos</a>
                   </li>
                 </ul>
               </div>
@@ -96,9 +96,6 @@
               <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                   <li class="nav-item">
-                    <a class="nav-link" id="adminPersonal" href="{{ URL::to('/RRHH') }}">Administración de Personal</a>
-                  </li>
-                  <li class="nav-item">
                     <a class="nav-link" id="adminAsistencia" href="{{ URL::to('/RRHH/asistencia') }}">Administración de Asistencia</a>
                   </li>
                 </ul>
@@ -116,13 +113,10 @@
                     <a class="nav-link" id="gerentRRHHIni" href="{{ URL::to('/gerente-RRHH') }}">Inicio</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="adminPersonal" href="{{ URL::to('/RRHH') }}">Administración de Personal</a>
+                    <a class="nav-link" id="adminPersonal" href="{{ URL::to('/gerencia/RRHH') }}">Administración de Personal</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" id="OpcNomina" href="{{ URL::to('/gerente-RRHH/nomina') }}">Generación de Nomina</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="OpcTabuladorSalarial" href="{{ URL::to('/gerente-RRHH/tabulador-salarial') }}">Tabulador Salarial</a>
+                    <a class="nav-link" id="OpcTabuladorSalarial" href="#">Tabulador Salarial</a>
                   </li>
                 </ul>
               </div>
