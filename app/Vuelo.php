@@ -61,12 +61,12 @@ class Vuelo extends Model
 
     public function scopeFillBuscador($query,$estado,$ruta){
         if($ruta==0){
-            return $query->where("estado","=",$estado)
+            return $query->where("vuelos.estado","=",$estado)
                          ->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')
                          ->select('vuelos.id','vuelos.salida', 'vuelos.estado','piernas.ruta_id');
         }
         else{
-            return $query->where([["estado","=",$estado],["rutas.id","=",$ruta]])
+            return $query->where([["vuelos.estado","=",$estado],["rutas.id","=",$ruta]])
                          ->join('piernas', 'vuelos.id', '=', 'piernas.vuelo_id')
                          ->join('rutas', 'piernas.ruta_id', '=', 'rutas.id')
                          ->select('vuelos.id','vuelos.salida', 'vuelos.estado','piernas.ruta_id');

@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 use Illuminate\Database\Seeder;
 use App\Personal;
 
@@ -14,17 +17,17 @@ class PersonalTableSeeder extends Seeder
     {
         factory(Personal::class, 20)->create()
             ->each(function ($a) {
-	           $a->empleado()->save(factory(App\Empleado::class)->make([
+               $a->empleado()->save(factory(App\Empleado::class)->make([
                      'sucursal_id' => $a->id,
-    			     'cargo' => 'Subgerente de Sucursal',
-			         ])
+                     'cargo' => 'Subgerente de Sucursal',
+                     ])
                 );
                 $a->empleado->administrativo()->create([]);
                $a->user()->save(factory(App\User::class)->make([
                             'tipo' => 'Subgerente de Sucursal',
                         ])
                 );
-	       });
+           });
 
         factory(Personal::class, 20)->create()
             ->each(function ($h) {
@@ -40,16 +43,16 @@ class PersonalTableSeeder extends Seeder
                 );
            });
 
-	    factory(Personal::class, 20)->create()
+        factory(Personal::class, 20)->create()
             ->each(function ($u) {
                $u->empleado()->save(factory(App\Empleado::class)->make([
                         'sucursal_id' => ($u->id-40),
-                        'cargo' => 'Operador de Tráfico',
+                        'cargo' => 'Operador de Trafico',
                         ])
                 );
                 $u->empleado->personal_operativo()->create([]);
                 $u->user()->save(factory(App\User::class)->make([
-                                'tipo' => 'Operador de Tráfico',
+                                'tipo' => 'Operador de Trafico',
                             ])
                     );
              });
@@ -57,13 +60,13 @@ class PersonalTableSeeder extends Seeder
             ->each(function ($u) {
                $u->empleado()->save(factory(App\Empleado::class)->make([
                         'sucursal_id' => 16,
-                        'cargo' => 'Operador de Tráfico',
+                        'cargo' => 'Operador de Trafico',
                         ])
                 );
                 $u->empleado->personal_operativo()->create([]);
                 $u->user()->create([
                         'username' => 'admin',
-                        'tipo' => 'Operador de Tráfico',
+                        'tipo' => 'Operador de Trafico',
                         'password' => bcrypt('1234567'),
                         'email' => 'admin@gmail.com'
                         ]);
@@ -175,13 +178,102 @@ class PersonalTableSeeder extends Seeder
 
 
 
-        /* //UN personal_operativo
-         factory(Personal::class, 5)->create()
+       //UN personal_operativo
+            factory(Personal::class, 20)->create()
             ->each(function ($u) {
+                $id=random_int(1, 16);
                $u->empleado()->save(factory(App\Empleado::class)->make([
-                        'sucursal_id' => ($u->id-60),
+                        'sucursal_id' => $id,
+                        'cargo' => 'Supervisor de Mantenimiento',
+                         ])
+                );
+                $u->empleado->personal_operativo()->create([]);
+             });
+
+         factory(Personal::class, 20)->create()
+            ->each(function ($u) {
+                $id=random_int(1, 16);
+               $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => $id,
                         'cargo' => 'Supervisor de Rampa',
-                        ])
+                         ])
+                );
+                $u->empleado->personal_operativo()->create([]);
+             });
+
+            factory(Personal::class, 20)->create()
+            ->each(function ($u) {
+                $id=random_int(1, 16);
+               $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => $id,
+                        'cargo' => 'Supervisor de Catering',
+                         ])
+                );
+                $u->empleado->personal_operativo()->create([]);
+             });
+
+            factory(Personal::class, 20)->create()
+            ->each(function ($u) {
+                $id=random_int(1, 16);
+               $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => $id,
+                        'cargo' => 'Supervisor de Trafico',
+                         ])
+                );
+                $u->empleado->personal_operativo()->create([]);
+             });
+
+            factory(Personal::class, 20)->create()
+            ->each(function ($u) {
+                $id=random_int(1, 16);
+               $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => $id,
+                        'cargo' => 'Supervisor de Seguridad',
+                         ])
+                );
+                $u->empleado->personal_operativo()->create([]);
+             });
+
+            factory(Personal::class, 20)->create()
+            ->each(function ($u) {
+                $id=random_int(1, 16);
+               $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => $id,
+                        'cargo' => 'Supervisor de Equipaje',
+                         ])
+                );
+                $u->empleado->personal_operativo()->create([]);
+             });
+
+            factory(Personal::class, 5)->create()
+            ->each(function ($u) {
+                $id=random_int(1, 16);
+               $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => $id,
+                        'cargo' => 'Mecanico',
+                         ])
+                );
+                $u->empleado->personal_operativo()->create([]);
+             });
+
+            factory(Personal::class, 5)->create()
+            ->each(function ($u) {
+                $id=random_int(1, 16);
+               $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => $id,
+                        'cargo' => 'Operador de Rampa',
+                         ])
+                );
+                $u->empleado->personal_operativo()->create([]);
+             });
+
+            factory(Personal::class, 5)->create()
+            ->each(function ($u) {
+                $id=random_int(1, 16);
+               $u->empleado()->save(factory(App\Empleado::class)->make([
+                        'sucursal_id' => $id,
+                        'cargo' => 'Controlador',
+                         ])
                 );
                 $u->empleado->personal_operativo()->create([]);
              });
@@ -189,14 +281,36 @@ class PersonalTableSeeder extends Seeder
         //Administrativo
         factory(Personal::class, 20)->create()
             ->each(function ($a) {
+                $id=random_int(1, 16);
                $a->empleado()->save(factory(App\Empleado::class)->make([
-                     'sucursal_id' => $a->id-40,
-                     'cargo' => 'Obrero',
+                     'sucursal_id' => $id,
+                     'cargo' => 'Asistente de Finanzas',
                      ])
                 );
                 $a->empleado->administrativo()->create([]);
+           });
+
+             factory(Personal::class, 20)->create()
+            ->each(function ($a) {
+                $id=random_int(1, 16);
+               $a->empleado()->save(factory(App\Empleado::class)->make([
+                     'sucursal_id' => $id,
+                     'cargo' => 'Asistente de Presupuesto',
+                     ])
                 );
-           });*/
+                $a->empleado->administrativo()->create([]);
+           });
+
+             factory(Personal::class, 20)->create()
+            ->each(function ($a) {
+                $id=random_int(1, 16);
+               $a->empleado()->save(factory(App\Empleado::class)->make([
+                     'sucursal_id' => $id,
+                     'cargo' => 'Gerente de Finanzas',
+                     ])
+                );
+                $a->empleado->administrativo()->create([]);
+           });
 
     }
 }

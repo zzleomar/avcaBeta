@@ -1,5 +1,5 @@
 <?php
-
+/*
 use Illuminate\Database\Seeder;
 use App\Sucursal;
 use App\Ruta;
@@ -11,7 +11,7 @@ class RutasTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+  /*  public function run()
     {
         $siglas1=Sucursal::find(1)->siglas;
         $i=1;
@@ -92,6 +92,60 @@ class RutasTableSeeder extends Seeder
             'destino_id' => '1',
             'origen_id' => '2'
         ]);*/
-        
+        /*
+    }
+}
+*/
+
+
+use Illuminate\Database\Seeder;
+use App\Sucursal;
+use App\Ruta;
+
+class RutasTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+
+        //CREAR RUTA
+        //
+        $siglas1=Sucursal::find('1')->siglas; //origen
+       
+       for($i=2;$i<=20;$i++){
+        $siglas2=Sucursal::find($i)->siglas; //destino
+        $siglas=$siglas1."-".$siglas2;
+        DB::table('rutas')->insert([
+            'distancia' => '160',
+            'tarifa_vuelo' => '180000',
+            'duracion' => "00:40:00",
+            'siglas' => $siglas,
+            'destino_id' => $i,
+            'origen_id' => '1',
+            'estado' => 'activa'
+        ]);
+        }
+
+
+        $siglas2=Sucursal::find('1')->siglas; //destino
+       
+       for($i=2;$i<=20;$i++){
+        $siglas1=Sucursal::find($i)->siglas; //origen
+        $siglas=$siglas1."-".$siglas2;
+        DB::table('rutas')->insert([
+            'distancia' => '160',
+            'tarifa_vuelo' => '180000',
+            'duracion' => "00:40:00",
+            'siglas' => $siglas,
+            'destino_id' => '1',
+            'origen_id' => $i,
+            'estado' => 'activa'
+        ]);
+        }
+    
     }
 }
