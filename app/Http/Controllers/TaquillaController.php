@@ -529,7 +529,7 @@ class TaquillaController extends Controller
         $view = \View::make('pdf.boardingpass', compact('data'))->render();
         $pdf  = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('boardingpass');
+        return $pdf->download('boardingpass');
        
     }
 

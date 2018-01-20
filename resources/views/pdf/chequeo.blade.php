@@ -109,19 +109,14 @@
                     <td>{{$boleto->pasajero->nombres}}</td>
                     <td>{{$boleto->pasajero->apellidos}}</td>
                     <td> 
-                      <label class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">1</span>
-                      </label>
+                      (__)
                     </td>
                   </tr>
                 @endif
                 @endforeach
               </table>
             </div>
-
-              
+    
                      
              <h4>Pasajeros de Contingencia:</h4>
             <br> <br>
@@ -136,31 +131,17 @@
               </tr>
               
               <tr>
-                <td>2323412</td>
-                <td>Carlos</td>
-                <td>Escobar</td>
-                <td> <label class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck1">
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">1</span>
-          </label>
-              </td>
-                           
-              </tr>
-
-                <tr>
-                <td>2323412</td>
-                <td>Carlos</td>
-                <td>Escobar</td>
-                <td> <label class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="customCheck1">
-            <span class="custom-control-indicator"></span>
-            <span class="custom-control-description">1</span>
-          </label>
-              </td>
-                           
-              </tr>
-                
+                @foreach ($vuelo->boletos as $boleto)
+                  @if($boleto->estado == 'Pagado')
+                    <td>{{$boleto->pasajero->cedula}}</td>
+                    <td>{{$boleto->pasajero->nombres}}</td>
+                    <td>{{$boleto->pasajero->apellidos}}</td>
+                    <td> 
+                      (__)
+                    </td>
+                    </tr>
+                  @endif
+                @endforeach                
             </table>
            </div>
         

@@ -53,20 +53,20 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-      $(document).ready(function(){
+     
         function chequear(){
           var ci=document.getElementById("cedula").value;
           var nacionalidad=document.getElementById("nacionalidad").value;
           var vuelo=document.getElementById("vuelosAjax").value;
           ci=nacionalidad+ci;
           var url="{{ URL::to('/taquilla/confirmar/boleto') }}/"+ci+"/"+vuelo;
-          //alert(url);
+          alert(url);
           $.get(url,function(data){ 
               $('#ajax-datos-boleto').empty().html(data);
           });
           $.getScript("{{ asset('js/script.js') }}"); 
         }
-    });
+    
       function listaseleccionar(){
         var url="{{ URL::to('/taquilla/listachequeo')}}/";
         alert(url);
