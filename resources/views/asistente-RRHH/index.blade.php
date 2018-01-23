@@ -27,10 +27,12 @@
         </tr>
       </thead>
     </table>
+    @if(Auth::user()->tipo=='Gerente de RRHH')
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#NuevaEmpleadoModal" style="margin-bottom: 20px;  float: left;">
               Agregar Empleado
             </button>
+          @endif
 
 <div class="divtablaAux">
 <table class="table table-responsive-md table-hover text-center tablaAux">
@@ -109,9 +111,12 @@
               <div class="p-2">
                 <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalModificarEmpleado" onclick="ajaxModificarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">Modificar</button>
               </div>
+    @if(Auth::user()->tipo=='Gerente de RRHH')
+
               <div class="p-2">
                 <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalEliminarEmpleado" onclick="ConfirmarEliminarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">Inhabilitar</button>
               </div>
+      @endif
             </div>
        </td>
    
@@ -442,7 +447,7 @@ function seleccion(){
     var targetL = $('#cargandoAux');
     targetL.loadingOverlay();
     var url="{{ URL::to('/gerencia/RRHH/administracion-empleados/ajaxModificar') }}/"+id;
-    alert(url);
+  //  alert(url);
       $.get(url,function(data){ 
         $('#ModalAjaxModificarEmpleado').empty().html(data);
         targetL.loadingOverlay('remove');

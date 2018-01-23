@@ -19,7 +19,7 @@ class tabuladoresSeeder extends Seeder
 
 		  DB::table('tabuladores')->insert([
 		    	'descripcion' => 'bono compensacion',
-		    	'digito' => '15.00',
+		    	'digito' => '15',
 		    	'estado' => 'Activo'
 		  ]);
 
@@ -31,13 +31,13 @@ class tabuladoresSeeder extends Seeder
 
 		  DB::table('tabuladores')->insert([
 		    	'descripcion' => 'constante',
-		    	'digito' => '15.00',
+		    	'digito' => '1.5',
 		    	'estado' => 'Activo'
 		  ]);
 
 		  DB::table('tabuladores')->insert([
 		    	'descripcion' => 'antiguedad',
-		    	'digito' => '15.00',
+		    	'digito' => '0.15',
 		    	'estado' => 'Activo'
 		  ]);
 

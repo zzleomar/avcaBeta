@@ -20,6 +20,9 @@ class CreateNominasTable extends Migration
             $table->float('monto_compensacion',12,2)->nullable();
             $table->float('monto_deducciones',12,2)->nullable();
             $table->float('monto_antiguedad',12,2)->nullable();
+            $table->float('monto_utilidades',12,2)->nullable();
+            $table->float('monto_vacaciones',12,2)->nullable();
+            $table->float('monto_cesta_tickets',12,2)->nullable();
             $table->timestamps();
         });
     }

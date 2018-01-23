@@ -21,6 +21,9 @@ class Vouche extends Model
      Public function nomina(){
         return $this->belongsTo('App\Nomina');
     }
+     Public function cestaTicket(){
+        return $this->hasOne('App\Cesta_ticket','vouche_id','id');
+    }
     public function sueldoMinimo(){
         return $this->belongsTo('App\Tabulador','sueldoMinimo_id','id');
     }

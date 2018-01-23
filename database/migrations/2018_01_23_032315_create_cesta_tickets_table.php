@@ -17,10 +17,13 @@ class CreateCestaTicketsTable extends Migration
             $table->increments('id');
             $table->integer('dias')->unsigned();
             $table->float('monto');
-            $table->integer('personal_id')->unsigned();
-            $table->foreign('personal_id')->references('id')->on('personal')->onDelete('cascade');
-            $table->integer('unidadTributario_id')->unsigned()->nullable();
 
+            $table->integer('personal_id')->unsigned();
+            $table->integer('vouche_id')->unsigned()->nullable();
+            $table->integer('unidadTributaria_id')->unsigned()->nullable();
+
+            $table->foreign('personal_id')->references('id')->on('personal')->onDelete('cascade');
+            $table->foreign('vouche_id')->references('id')->on('vouches')->onDelete('cascade');
             $table->foreign('unidadTributario_id')->references('id')->on('tabuladores')->onDelete('cascade');
             
             $table->timestamps();

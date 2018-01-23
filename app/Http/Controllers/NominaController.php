@@ -8,10 +8,12 @@ use App\Nomina;
 use App\vouche;
 use App\Tripulante;
 use App\Tabulador;
+use App\Cesta_ticket;
 use App\Personal;
 use Auth;
 use App\Asistencia;
 use App\Empleado;
+use Szykra\Notifications\Flash;
 
 class NominaController extends Controller
 {
@@ -22,12 +24,14 @@ class NominaController extends Controller
     }
     public function UltimoDiaMesAnterior($mes,$year){
         $salida=Carbon::create($year,$mes,(cal_days_in_month(CAL_GREGORIAN,$mes, $year)));
-        while ($salida->formatLocalized('%A')!='Sunday'){//ubico la salida en el ultimo dia de la ultima semana del mes anterior con las asistencias
+        while (($salida->formatLocalized('%A')!='Sunday')&&($salida->formatLocalized('%A')!='domingo')){//ubico la salida en el ultimo dia de la ultima semana del mes anterior con las asistencias
                 $salida->addDay();
         }
         return $salida;
     }
     public function generar($tipo, $opc, $nomina){
+        $totalUtilidades=0;
+        $totalVacaciones=0;
     	if($opc=='1'){ //si es la nomina actual
         	$actual=Carbon::now();
             setlocale(LC_TIME, "es");
@@ -45,30 +49,56 @@ class NominaController extends Controller
                     //es GERENTE RRHH
                 }
                 else{
-                    dd($nomina->vouche[0]->personal);
                     //ES SUBGERENTE DE SUCURSAL
+                    $personal=Personal::find(Auth::user()->personal_id);
+                    $sucursal= $personal->empleado->sucursal;
+                    $vouches=$nomina->vouchesS($sucursal->id,$nomina->id)->get();
+                    $vouchesA=array();
+                    
+                    $nomina->monto_sueldos=0;
+                    $nomina->monto_compensacion=0;
+                    $nomina->monto_deducciones=0;
+                    $nomina->monto_antiguedad=0;
+                    foreach ($vouches as $idvouche) {
+                        $voucheAux=Vouche::find($idvouche)->first();
+                        $nomina->monto_sueldos=$nomina->monto_sueldos+$voucheAux->sueldo_base;
+                        $nomina->monto_compensacion=$nomina->monto_compensacion+$voucheAux->compensacion;
+                        $nomina->monto_deducciones=$nomina->monto_deducciones+$voucheAux->deduccion;
+                        $nomina->monto_antiguedad=$nomina->monto_antiguedad+$voucheAux->antiguedad;
+                        $nomina->monto_cesta_tickets=$nomina->monto_cesta_tickets+$voucheAux->cestaTicket->monto;
+                        array_push($vouchesA, $voucheAux);
+                    }
+                    return view('gerente-RRHH.ajax.nomina-ajax')
+                                ->with('vouches',$vouchesA)
+                                ->with('nomina',$nomina)
+                                ->with('mes',$mes);
+
                 }
                 
             }
             else{
                 if($tipo==1){
-                    dd("la nomina no esta creada"); //redireccionar
+                    flash::error('Debe esperar que el Gerente de RRHH genere esta nómina');
+                    return view('taquillero.ajax.info-error');
                 }
+
                 $Faux=$actual->copy();
-                $Faux->subMonth();
+
+                $Faux->subMonth();  
+
                 $final=$this->UltimoDiaMesAnterior($Faux->month,$Faux->year);
                 if(!($actual->gt($final))){
                     Carbon::setToStringFormat('jS \o\f F, Y');
                     dd("Debe esperar hasta el dia ".$final." para generar esta nómina");
                     Carbon::resetToStringFormat();
                 }
-                else{
+                else{                    
                     $empleados=Empleado::all();
                     $Faux=$actual->copy();
                     $Faux->subMonths(2);
                     $inicio=$this->UltimoDiaMesAnterior($Faux->month,$Faux->year);
                     $inicio->addDay();
-                    $vouches =array();
+                    $vouchesA =array();
                     foreach ($empleados as $empleado) {
                         $sueldobase=$this->calcularSueldoBase($empleado);
                         $compensacion=0;
@@ -78,9 +108,9 @@ class NominaController extends Controller
 
                         $utilidades=$this->calculoUtilizades($sueldobase,$actual,$compensacion,$antiguedad);
                         $vacaciones=$this->calculoVacaciones($empleado,$sueldobase,$actual,$compensacion,$antiguedad);
-                        $cestatikes=$this->calculoCestatikes($ausencias);
-                        if($cestatikes<0){
-                            $cestatikes=0;
+                        $cestatikes=$this->calculoCestatikes($ausencias,$empleado);
+                        if($cestatikes->monto<0){
+                            $cestatikes->monto=0;
                         }
 
                         $empleadoA= array("empleado" => $empleado,
@@ -92,7 +122,7 @@ class NominaController extends Controller
                                             "ausencias" => $ausencias,
                                             "vacaciones" => $vacaciones,
                                             "cestatikes" => $cestatikes);
-                        array_push($vouches, $empleadoA);
+                        array_push($vouchesA, $empleadoA);
                         //FAlta unos calculos y congretar montos datos para la tabla nomina y generarla con su vouches
                     }//FIN FOREACH EMPLEADO
                     
@@ -108,9 +138,9 @@ class NominaController extends Controller
 
                     $utilidades=$this->calculoUtilizades($sueldobase,$actual,$compensacion,$antiguedad);
                     $vacaciones=$this->calculoVacaciones($tripulante,$sueldobase,$actual,$compensacion,$antiguedad);
-                    $cestatikes=$this->calculoCestatikes($ausencias);
-                    if($cestatikes<0){
-                        $cestatikes=0;
+                    $cestatikes=$this->calculoCestatikes($ausencias, $tripulante);
+                    if($cestatikes->monto<0){
+                        $cestatikes->monto=0;
                     }
                     $empleadoA= array("empleado" => $tripulante,
                                       "deducciones" => $deduc,
@@ -121,13 +151,13 @@ class NominaController extends Controller
                                         "ausencias" => $ausencias,
                                         "vacaciones" => $vacaciones,
                                         "cestatikes" => $cestatikes);
-                    array_push($vouches, $empleadoA);
+                    array_push($vouchesA, $empleadoA);
 
                 }
                 $newnomina=new nomina();
                 $newnomina->fecha=$actual->toDateTimeString();
                 $newnomina->save();
-                foreach ($vouches as $vouche){
+                foreach ($vouchesA as $vouche){
                     $newvouche=new Vouche();
                     $newvouche->sueldo_base=$vouche['sueldobase'];
                     $newvouche->personal_id=$vouche['empleado']->personal_id;
@@ -147,10 +177,19 @@ class NominaController extends Controller
                     $newnomina->monto_compensacion=$newnomina->monto_compensacion+$newvouche->compensacion;
                     $newnomina->monto_deducciones=$newnomina->monto_deducciones+$newvouche->deduccion;
                     $newnomina->monto_antiguedad=$newnomina->monto_antiguedad+$newvouche->antiguedad;
+
+                    $newnomina->monto_utilidades=$newnomina->monto_utilidades+$newvouche->utilidad;
+                    $newnomina->monto_vacaciones=$newnomina->monto_vacaciones+$newvouche->vacacion;
+                    $newnomina->monto_cesta_tickets=$newnomina->monto_cesta_tickets+$vouche['cestatikes']->monto;
+
                     $newvouche->save();
+                    $vouche['cestatikes']->vouche_id=$newvouche->id;
+                    $vouche['cestatikes']->save();
                 }
                 $newnomina->save();
-                return view('gerente-RRHH.ajax.nomina-ajax')->with('vouches',$vouches)->with('nomina',$newnomina)
+                return view('gerente-RRHH.ajax.nomina-ajax')
+                            ->with('vouches',$newnomina->vouches)
+                            ->with('nomina',$newnomina)
                             ->with('mes',$mes);
 
                 //Hacer calculos por personal
@@ -168,26 +207,30 @@ class NominaController extends Controller
             else{
                 $personal=Personal::find(Auth::user()->personal_id);
                 $sucursal= $personal->empleado->sucursal;
-                $idvouces=$nomina->vouchesS($sucursal->id,$nomina->id)->get();
-                $vouches=array();
+                $vouches=$nomina->vouchesS($sucursal->id,$nomina->id)->get();
+                $vouchesA=array();
                 
                 $nomina->monto_sueldos=0;
                 $nomina->monto_compensacion=0;
                 $nomina->monto_deducciones=0;
                 $nomina->monto_antiguedad=0;
-                foreach ($idvouces as $idvouche) {
+                foreach ($vouches as $idvouche) {
                     $voucheAux=Vouche::find($idvouche)->first();
                     $nomina->monto_sueldos=$nomina->monto_sueldos+$voucheAux->sueldo_base;
                     $nomina->monto_compensacion=$nomina->monto_compensacion+$voucheAux->compensacion;
                     $nomina->monto_deducciones=$nomina->monto_deducciones+$voucheAux->deduccion;
                     $nomina->monto_antiguedad=$nomina->monto_antiguedad+$voucheAux->antiguedad;
-                    array_push($vouches, $voucheAux);
+                    $nomina->monto_utilidades=$nomina->monto_utilidades+$voucheAux->utilidad;
+                    $nomina->monto_vacaciones=$nomina->monto_vacaciones+$voucheAux->vacacion;
+                    
+                    $nomina->monto_cesta_tickets=$nomina->monto_cesta_tickets+$voucheAux->cestaTicket->monto;
+                    array_push($vouchesA, $voucheAux);
                 }
                //ES SUBGERENTE DE SUCURSAL
             }
 
             return view('gerente-RRHH.ajax.nomina-ajax')
-                            ->with('vouches',$vouches)
+                            ->with('vouches',$vouchesA)
                             ->with('nomina',$nomina)
                             ->with('mes',$mes);
     	}
@@ -313,11 +356,22 @@ class NominaController extends Controller
         
     }
 
-    public function calculoCestatikes($deducciones){
+    public function calculoCestatikes($deducciones,$empleadoET){
         $ut=Tabulador::buscar("unidad tributaria")->first();
         $cesta=Tabulador::buscar("cesta")->first();
         $diasNolaborados=$deducciones/8;
-        return (round(($cesta->digito*$ut->digito*(30-(intval($diasNolaborados)))),2));
+        $cestatikesNew= new Cesta_ticket();
+        if((30-(intval($diasNolaborados)))<0){
+            $cestatikesNew->monto=0;
+            $cestatikesNew->dias=0;
+        }
+        else{
+            $cestatikesNew->monto=(round(($cesta->digito*$ut->digito*(30-(intval($diasNolaborados)))),2));
+            $cestatikesNew->dias=(30-(intval($diasNolaborados)));
+        }
+        $cestatikesNew->personal_id=$empleadoET->personal_id;
+        $cestatikesNew->unidadTributaria_id=$ut->id;
+        return $cestatikesNew;
     }
 
     public function calcularDeducciones($sueldobase,$deduc, $inicio, $final){

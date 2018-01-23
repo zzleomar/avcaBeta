@@ -25,6 +25,9 @@ class Tripulante extends Model
     public function scopePersona($query){
         return Personal::find($this->personal_id);
     }
+    public function datosPersonal($id){
+        return Personal::find($id);
+    }
 
     public function scopeDisponibilidad($query,$rango,$antes,$despues){
         return DB::select("SELECT tripulantes.id, personal.nombres, personal.apellidos 

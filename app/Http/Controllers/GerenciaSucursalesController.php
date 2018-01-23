@@ -448,7 +448,7 @@ class GerenciaSucursalesController extends Controller
       $nueva->duracion=$datos->horas.":".$datos->minutos.":00";
       $nueva->tarifa_vuelo=$datos->precio;
       $nueva->siglas=$origen->siglas."-".$destino->siglas;
-      $nueva->estado="activo";
+      $nueva->estado="activa";
       $nueva->save();
       flash::success('La Ruta '.$origen->nombre." ---> ".$destino->nombre." Fue Registrado Correctamente");
       return redirect('/gerente-sucursales/administracion-rutas');
