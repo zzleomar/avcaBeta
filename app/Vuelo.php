@@ -50,7 +50,9 @@ class Vuelo extends Model
             select('vuelos.id','vuelos.salida')->
             where([['rutas.destino_id','=',$destino],['rutas.origen_id','=',$origen],['vuelos.salida','>',$fechaAux]])->whereNotIn('vuelos.estado', ['cancelado','ejecutado'])->get();    
     }
-
+    public function scopeEstado($query,$estado){
+        return $query->where('estado',$estado)->get();
+    }
     public function scopeBuscador($query,$ruta,$estado){
             return DB::table('vuelos')->
                 join('piernas','vuelos.id', '=', 'piernas.vuelo_id')->

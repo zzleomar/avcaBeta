@@ -6,6 +6,7 @@
 <form method="post" id="FormRegistrarAsistencia">
                         {{ csrf_field() }}
      <div class="card-body " id="targetL">
+      <h4 class="card-title" style="font-weight: 600;">Sucursal {{ $sucursal->nombre }}</h4>
         <h4 class="card-title">Control de Asistencias</h4>
       <br>
        <div class="form-inline align-items-center">          

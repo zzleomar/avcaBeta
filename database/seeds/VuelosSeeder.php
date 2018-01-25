@@ -18,7 +18,7 @@ class VuelosSeeder extends Seeder
                 $y=random_int(1, 207);
                 DB::table('piernas')->insert([
                     'aeronave_id' => $x,
-                    'vuelo_id'    => ($i+1)+($u*sizeof($dia)),
+                    'vuelo_id'    => $cont,
                     'ruta_id'     => $y
                 ]);
 	       });*/
@@ -31,41 +31,44 @@ class VuelosSeeder extends Seeder
                 $a->
                 DB::table('piernas')->insert([
                     'aeronave_id' => '1',
-                    'vuelo_id'    => ($i+1)+($u*sizeof($dia)),
+                    'vuelo_id'    => $cont,
                     'ruta_id'     => '1'
                 ]);
                 DB::table('tripulante_vuelo')->insert([
                     'tripulante_id' => '2',
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
                 DB::table('tripulante_vuelo')->insert([
                     'tripulante_id' => '13',
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
                 DB::table('tripulante_vuelo')->insert([
                     'tripulante_id' => '30',
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
                 DB::table('tripulante_vuelo')->insert([
                     'tripulante_id' => '37',
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
                 DB::table('tripulante_vuelo')->insert([
                     'tripulante_id' => '44',
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
                 DB::table('tripulante_vuelo')->insert([
                     'tripulante_id' => '60',
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
            }); */
            $dia=array('8','9','10','11','12','13', '15','16','17','18','19','20','22','23','24','25','26','27', '29','30','31');             // dias del mes
  $mes=date('m');            //valor del mes
  $diactual=date('d');
-            
+              $cont=0;
+
+            //$cont
             for($u=0;$u<sizeof($dia);$u++) {  // recorre el mez     
             
-            for($i=0;$i<24;$i++) {   // recorre el dia 
+            for($i=0;$i<24;$i++) {    // recorre el dia 
+              $cont++; //para el id del vuelo
               $h=array('6','7','10','12','14','16','6','8','10','12','15','16','7','8','11','13','15','17','7','9','11','13','16','17');
               $min=array('00','40','20','00','40','20', '30','10','50','30','10','50','00','40','20','00','40','20', '30','10','50','30','10','50');
               if($dia[$u]<$diactual){
@@ -94,7 +97,7 @@ class VuelosSeeder extends Seeder
                           DB::table('piernas')->insert([                  //pierna o vuelo
                                   //  para avion 4
                               'aeronave_id' => $aeronave,      // $aeronave;     
-                              'vuelo_id'    => ($i+1)+($u*sizeof($dia)), 
+                              'vuelo_id'    => $cont, 
                               'ruta_id'     => $ruta_id   ]);  
                     
                  if(($i<6)&&(($u%2)==0)) {$aux=1;}  else {$aux=5;}
@@ -103,7 +106,7 @@ class VuelosSeeder extends Seeder
                 if(($i>=18)&&($i<24)&&($u%2)==0)   {$aux=4;}  else if($i>=18 && $i<24)  {$aux=8;}
                 DB::table('tripulante_vuelo')->insert([         //PILOTO
                     'tripulante_id' => $aux, // $aux            
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
                 if(($i<6)&&(($u%2)==0)) {$aux=11;}  else {$aux=15;}
                  if(($i>=6)&&($i<12)&&(($u%2)==0)){$aux=12;}  else if(($i>=6)&&($i<12)){$aux=16;}                                  
@@ -111,7 +114,7 @@ class VuelosSeeder extends Seeder
                 if(($i>=18)&&($i<24)&&($u%2)==0)   {$aux=14;}  else if($i>=18 && $i<24)  {$aux=18;}
                 DB::table('tripulante_vuelo')->insert([         //copiloto
                     'tripulante_id' => $aux, //$aux
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
                 if(($i<6)&&(($u%2)==0)) {$aux=23;}  else {$aux=27;}
                  if(($i>=6)&&($i<12)&&(($u%2)==0)){$aux=24;}  else if(($i>=6)&&($i<12)){$aux=28;}                                  
@@ -119,7 +122,7 @@ class VuelosSeeder extends Seeder
                 if(($i>=18)&&($i<24)&&($u%2)==0)   {$aux=26;}  else if($i>=18 && $i<24)  {$aux=30;}
                 DB::table('tripulante_vuelo')->insert([         //Jefe cabina
                     'tripulante_id' => $aux, //$aux
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
                 if(($i<6)&&(($u%2)==0)) {$aux=35;}  else {$aux=47;}
                  if(($i>=6)&&($i<12)&&(($u%2)==0)){$aux=38;}  else if(($i>=6)&&($i<12)){$aux=50;}                                  
@@ -127,7 +130,7 @@ class VuelosSeeder extends Seeder
                 if(($i>=18)&&($i<24)&&($u%2)==0)   {$aux=44;}  else if($i>=18 && $i<24)  {$aux=56;}
                 DB::table('tripulante_vuelo')->insert([         //sobre cargo 1
                     'tripulante_id' => $aux, //$aux
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
                 if(($i<6)&&(($u%2)==0)) {$aux=36;}  else {$aux=48;}
                  if(($i>=6)&&($i<12)&&(($u%2)==0)){$aux=39;}  else if(($i>=6)&&($i<12)){$aux=51;}                                  
@@ -135,7 +138,7 @@ class VuelosSeeder extends Seeder
                 if(($i>=18)&&($i<24)&&($u%2)==0)   {$aux=45;}  else if($i>=18 && $i<24)  {$aux=57;}
                 DB::table('tripulante_vuelo')->insert([           //sobre cargo 2
                     'tripulante_id' => $aux, //$aux
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
                 if(($i<6)&&(($u%2)==0)) {$aux=37;}  else {$aux=49;}
                  if(($i>=6)&&($i<12)&&(($u%2)==0)){$aux=40;}  else if(($i>=6)&&($i<12)){$aux=52;}                                  
@@ -143,7 +146,7 @@ class VuelosSeeder extends Seeder
                 if(($i>=18)&&($i<24)&&($u%2)==0)   {$aux=46;}  else if($i>=18 && $i<24)  {$aux=58;}
                 DB::table('tripulante_vuelo')->insert([          //sobre cargo 3
                     'tripulante_id' => $aux, //$aux
-                    'vuelo_id'      => ($i+1)+($u*sizeof($dia))
+                    'vuelo_id'      => $cont
                 ]);
 
        }// for i 

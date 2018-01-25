@@ -279,33 +279,30 @@ class PersonalTableSeeder extends Seeder
              });
 
         //Administrativo
-        factory(Personal::class, 20)->create()
+        factory(Personal::class, 2)->create()
             ->each(function ($a) {
-                $id=random_int(1, 16);
                $a->empleado()->save(factory(App\Empleado::class)->make([
-                     'sucursal_id' => $id,
+                     'sucursal_id' => 1,
                      'cargo' => 'Asistente de Finanzas',
                      ])
                 );
                 $a->empleado->administrativo()->create([]);
            });
 
-             factory(Personal::class, 20)->create()
+             factory(Personal::class, 2)->create()
             ->each(function ($a) {
-                $id=random_int(1, 16);
                $a->empleado()->save(factory(App\Empleado::class)->make([
-                     'sucursal_id' => $id,
+                     'sucursal_id' => 1,
                      'cargo' => 'Asistente de Presupuesto',
                      ])
                 );
                 $a->empleado->administrativo()->create([]);
            });
 
-             factory(Personal::class, 20)->create()
+             factory(Personal::class, 2)->create()
             ->each(function ($a) {
-                $id=random_int(1, 16);
                $a->empleado()->save(factory(App\Empleado::class)->make([
-                     'sucursal_id' => $id,
+                     'sucursal_id' => 1,
                      'cargo' => 'Gerente de Finanzas',
                      ])
                 );

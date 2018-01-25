@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Personal;
 use App\Asistencia;
 use App\Empleado;
+use Auth;
 
 
 class AsistenciaController extends Controller
@@ -18,7 +19,9 @@ class AsistenciaController extends Controller
       date_default_timezone_set('America/Caracas');
     }
     public function index(){
-    	return view('asistente-RRHH.asistencia');
+        $personal=Personal::find(Auth::user()->personal_id);
+        $sucursal= $personal->empleado->sucursal;
+    	return view('asistente-RRHH.asistencia')->with('sucursal', $sucursal);
     }
     public function ajaxPerso($nacionalidad, $nro){
     	$cedula=$nacionalidad.$nro;

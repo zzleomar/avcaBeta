@@ -16,12 +16,12 @@
  
 <div id="AccordionReport" data-children=".item" style="font-weight: 600;">
 
-<a data-toggle="collapse" data-parent="#AccordionReport" href="#AccordionReport2" aria-expanded="false" aria-controls="AccordionReport2"><button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
+<!--<a data-toggle="collapse" data-parent="#AccordionReport" href="#AccordionReport2" aria-expanded="false" aria-controls="AccordionReport2"><button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
   Filtros de Reportes
 </button></a>
-<a data-toggle="collapse" data-parent="#AccordionReport" href="#AccordionReport1" aria-expanded="true" aria-controls="AccordionReport1"><button type="button" class="btn btn2 btn-outline-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
+<a data-toggle="collapse" data-parent="#AccordionReport" href="#AccordionReport1" aria-expanded="true" aria-controls="AccordionReport1"><button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
   Reporte de Vuelos Abiertos
-</button></a>
+</button></a>-->
   <hr style="clear: both;">
 <div class="item">
     <div id="AccordionReport1" class="collapse show" role="tabpanel">
@@ -32,8 +32,8 @@
         </tr>
       </thead>
     </table>
-    <div class="table-responsive">
-            <table class="table table-bordered table-hover text-center" >
+    <div class="table-responsive divtablaAux">
+            <table class="table table-bordered table-hover text-center tablaAux" >
               <tr class="bg-white " >
                <th class="border  border-primary border-left-0">
                Destino           
@@ -42,7 +42,7 @@
                <th class="border  border-primary ">hora</th>
                <th class="border  border-primary">Boletos vendidos</th>
                <th class="border  border-primary">Boletos Reservados</th>
-              <th class="border  border-primary border-right-0 border-left-0">Ingreso</th>
+              <th class="border  border-primary border-right-0 border-left-0">Ingresos</th>
               
 
               </tr>
@@ -58,7 +58,7 @@
                 <td>{{  DATE('H:i:s',strtotime($data['vuelo']->salida)) }}</td>
                 <td>{{ $data['pagado'] }}</td>
                 <td>{{ $data['reservado'] }}</td>
-                <td>{{ ($data["vuelo"]->pierna->ruta->tarifa_vuelo)*$data['pagado'] }}</td> 
+                <td>{{ number_format((($data["vuelo"]->pierna->ruta->tarifa_vuelo)*$data['pagado']),2,',','.') }}</td> 
                 @php
                   $vendidos=$vendidos+$data['pagado'];
                   $reservados=$reservados+$data['reservado'];
@@ -74,7 +74,7 @@
                      
       <div class="form-row">
           <div class="form-group col-md-3" style="text-align: left;">
-                    <label for="inputPuesto"> Total de Vuelos: </label>
+                    <label for="inputPuesto"> Total de Vuelos Abiertos: </label>
                     <div class="input-group mb-2 mb-sm-0">
                     <div class="input-group-addon"> <i class="fa fa-plane" aria-hidden="true"></i> </div>
                       <input type="text" readonly="" class="form-control-plaintext  p-1 border  border-info border-top-0 border-left-0" id="staticEmail2" value="{{ sizeof($datos) }}" >
@@ -98,10 +98,10 @@
               </div>  
 
                 <div class="form-group col-md-3" style="text-align: left;">
-                    <label for="inputApellido"> Total de Ingresos</label>
+                    <label for="inputApellido">Ingresos de Vuelos Abiertos</label>
                   <div class="input-group mb-2 mb-sm-0">
                     <div class="input-group-addon"> <i class="fa fa-money" aria-hidden="true"></i> </div>
-                    <input type="text" readonly="" class="form-control-plaintext p-1 border  border-info border-top-0 border-left-0" id="staticEmail2" value="{{ $ingresos }}">
+                    <input type="text" readonly="" class="form-control-plaintext p-1 border  border-info border-top-0 border-left-0" id="staticEmail2" value="{{ number_format($ingresos,2,',','.') }}">
                   </div>
               </div>
           </div>
@@ -216,4 +216,12 @@
 </div>
 
 
+@endsection
+@section('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+  var altura = $(document).height();
+  altura=altura-380;
+  altura=altura+"px";
+  $(".divtablaAux").css("min-height",altura);
 @endsection
