@@ -1,6 +1,8 @@
 <?php
+// Controllador Taquilla
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+// Modleos
 use App\Boleto;
 use App\Pasajero;
 use App\Vuelo;
