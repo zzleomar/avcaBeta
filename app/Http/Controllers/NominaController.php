@@ -201,7 +201,7 @@ class NominaController extends Controller
             $faux=Carbon::parse($nomina->fecha);
             $mes=$faux->formatLocalized('%B');
             if($tipo==2){//Si es un Gerente de RRHH
-                    $vouches=$nomina->vouches;
+                    $vouchesA=$nomina->vouches;
                             
             }
             else{
