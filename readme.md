@@ -37,3 +37,5 @@ Generar los reportes de ausencias.
 Generar los estados de cuenta de los trabajadores.
 
 Generar reportes de nóminas por sucursal, cargo, fecha de ingreso y por rango de fechas especificadas por el usuario.
+
+AGREGAR PAQUETE composer require fx3costa/laravelchartjs
