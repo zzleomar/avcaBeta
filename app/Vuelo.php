@@ -121,6 +121,13 @@ class Vuelo extends Model
         $vuelo->estado=$estado;
         $vuelo->save();
     }
-    
-    
+
+    public function scopereporte($query,$inicio,$final,$idsucursal){
+        if($idsucursal=='0'){//Si es el Gerente de sucursales
+            return DB::select("SELECT YEAR(boletos.created_at) as year, MONTH(boletos.created_at) as month, DAY(boletos.created_at) as day, SUM(rutas.tarifa_vuelo) as venta FROM boletos JOIN vuelos ON boletos.vuelo_id=vuelos.id JOIN piernas ON vuelos.id=piernas.vuelo_id JOIN rutas ON piernas.ruta_id=rutas.id WHERE boletos.created_at>'$inicio' AND boletos.created_at<'$final' GROUP BY YEAR(boletos.created_at), MONTH(boletos.created_at), DAY(boletos.created_at)");
+        }
+        else{
+            return DB::select("SELECT YEAR(boletos.created_at) as year, MONTH(boletos.created_at) as month, DAY(boletos.created_at) as day, SUM(rutas.tarifa_vuelo) as venta FROM boletos JOIN vuelos ON boletos.vuelo_id=vuelos.id JOIN piernas ON vuelos.id=piernas.vuelo_id JOIN rutas ON piernas.ruta_id=rutas.id WHERE rutas.origen_id='$idsucursal' AND boletos.created_at>'$inicio' AND boletos.created_at<'$final' GROUP BY YEAR(boletos.created_at), MONTH(boletos.created_at), DAY(boletos.created_at)");
+        }
+    }
 }

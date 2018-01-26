@@ -78,7 +78,7 @@
                         <tr>
                          <th>Copilotos</th>
                          <th>Horas de Experiencia</th>
-                         <th>Horas de Quincena</th>
+                         <th>Vuelos de Quincena</th>
                          <th>Asignar</th>
                        </tr>
                    </thead>
@@ -118,7 +118,7 @@
           <tr>
             <th>Jefa de Cabina</th>
             <th>Horas de Experiencia</th>
-            <th>Horas de Quincena</th>
+            <th>Vuelos de Quincena</th>
             <th>Asignar</th>
           </tr>
         </thead>
@@ -158,7 +158,7 @@
           <tr>
             <th>Sobrecargos</th>
             <th>Horas de Experiencia</th>
-            <th>Horas de Quincena</th>
+            <th>Vuelos de Quincena</th>
             <th>Asignar</th>
           </tr>
         </thead>

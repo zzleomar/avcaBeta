@@ -7,7 +7,7 @@
                               <button type="button" class="btn btn-secondary dropdown-toggle"
                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown"> Origen
                               </button>
-                              <div class="dropdown-menu">
+                              <div class="dropdown-menu dropAux">
                         @foreach($sucursales as $sucursal)
                                 <a class="dropdown-item" id="suO{{ $sucursal->id }}" onclick="capturarO('{{ $sucursal->id }}','B')">{{ $sucursal->nombre }}</a>
                             @endforeach
@@ -27,7 +27,7 @@
                               <button type="button" class="btn btn-secondary dropdown-toggle"
                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown"> Destino
                               </button>
-                              <div class="dropdown-menu">
+                              <div class="dropdown-menu dropAux">
                         @foreach($sucursales as $sucursal)
                                 <a class="dropdown-item" id="suD{{ $sucursal->id }}" onclick="capturarD('{{ $sucursal->id }}','B')">{{ $sucursal->nombre }}</a>
                             @endforeach

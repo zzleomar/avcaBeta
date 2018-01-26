@@ -188,7 +188,7 @@
                                                   <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
                                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Sucursal
                                                   </button>
-                                                  <div class="dropdown-menu ">
+                                                  <div class="dropdown-menu dropAux">
                                                     @foreach($sucursales as $sucursal1)
                                                     <a class="dropdown-item" id="sucursalT{{ $sucursal1->id }}" onclick="datosSP('{{ $sucursal1->id }}','sucursal')">{{ $sucursal1->nombre }}</a>
                                                     @endforeach
@@ -282,7 +282,7 @@
                                                   <button type="button" class="btn btn-secondary dropdown-toggle" style="min-width: 8rem;" 
                                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Sucursal
                                                   </button>
-                                                  <div class="dropdown-menu ">
+                                                  <div class="dropdown-menu dropAux">
                                                     @foreach($sucursales as $sucursal)
                                                     <a class="dropdown-item" id="sucursalT{{ $sucursal->id }}" onclick="datosSP('{{ $sucursal->id }}','sucursal')">{{ $sucursal->nombre }}</a>
                                                     @endforeach

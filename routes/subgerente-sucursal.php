@@ -1,3 +1,4 @@
+
 <?php 
 
 
@@ -17,5 +18,7 @@ Route::group(['prefix' => 'sucursal','middleware' => ['auth', 'CheckRoleSubgeren
 
 });
 	Route::get('/reportes/ingresos','ReporteController@ReporteIngreso')->middleware('CheckRoleGerenteSucursalesSubgerente');
+
+	Route::get('/reportes/ingresos/ajax/{id}','ReporteController@AjaxReporteIngreso')->middleware('CheckRoleGerenteSucursalesSubgerente');
 
  ?>

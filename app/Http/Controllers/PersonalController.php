@@ -83,6 +83,14 @@ class PersonalController extends Controller
         return redirect('/gerencia/RRHH');
     }
 
+    public function activar(Request $datos){
+        $personal=Personal::find($datos->empleado_id);
+        $personal->estado="activo";
+        $personal->save();
+        flash::info('El empleado '.$personal->apellidos." ".$personal->nombres." ha sido incorporado");
+        return redirect('/gerencia/RRHH');
+    }
+
     public function nuevo(Request $datos){
         $nuevo= new Personal();
         $nuevo->nombres=$datos->nombres;
@@ -132,7 +140,7 @@ class PersonalController extends Controller
 
     public function ajaxDatosModificar($id){
         $idS=0;
-        $sucursal;
+        $sucursal=new Sucursal();
         if(Auth::user()->tipo!="Gerente de RRHH"){
             $idS=$this->IdSucursalAuth();
             $sucursal=Sucursal::find($idS);
@@ -240,6 +248,9 @@ class PersonalController extends Controller
             }
 
             flash::info('Los datos del empleado '.$personal->apellidos." ".$personal->nombres." han sido modificado");
+            return redirect('/gerencia/RRHH');
+        }else{
+            flash::info('Este campo no se puede modificar');
             return redirect('/gerencia/RRHH');
         }
     }

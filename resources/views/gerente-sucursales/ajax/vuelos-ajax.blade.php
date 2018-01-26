@@ -214,3 +214,6 @@
 
  <h1 align="center">
   </h1>
+
+        @include('gerente-sucursales.modalsVuelos')
+  

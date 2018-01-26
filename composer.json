@@ -7,7 +7,9 @@
     "require": {
         "php": ">=7.0.0",
         "barryvdh/laravel-dompdf": "^0.8.1",
+        "consoletvs/charts": "^5.4",
         "fideloper/proxy": "~3.3",
+        "fx3costa/laravelchartjs": "^2.3",
         "fzaninotto/faker": "^1.7",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",

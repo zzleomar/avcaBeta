@@ -157,7 +157,7 @@
   }
 
   function ConfirmarHabilitarRuta(id,siglas){
-    alert(id);
+    //alert(id);
         document.getElementById('ruta_idH').value=id;
         
         document.getElementById('tituloModalHabRuta').innerHTML="RUTA "+siglas;

@@ -179,7 +179,9 @@ return [
         /*PERSONALES*/
         'Szykra\Notifications\NotificationServiceProvider',
         Barryvdh\DomPDF\ServiceProvider::class,
-
+        //GRAFICAR
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
 
     ],
 
@@ -233,6 +235,8 @@ return [
         'Flash' => 'Szykra\Notifications\Flash',
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Carbon' => 'Carbon\Carbon',
+        //GRAFICAR
+        'Charts' => ConsoleTVs\Charts\Charts::class,
     ],
 
 ];

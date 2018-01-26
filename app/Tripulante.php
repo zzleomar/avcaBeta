@@ -30,7 +30,7 @@ class Tripulante extends Model
     }
 
     public function scopeDisponibilidad($query,$rango,$antes,$despues){
-        return DB::select("SELECT tripulantes.id, personal.nombres, personal.apellidos 
+       /* return DB::select("SELECT tripulantes.id as tripu, personal.nombres, personal.apellidos 
                         FROM tripulantes 
                         JOIN tripulante_vuelo ON tripulantes.id=tripulante_vuelo.tripulante_id 
                         JOIN vuelos ON tripulante_vuelo.vuelo_id=vuelos.id 
@@ -39,14 +39,23 @@ class Tripulante extends Model
                             NOT(vuelos.salida>'$antes' AND 
                                 vuelos.salida<'$despues') 
                             UNION 
-                                SELECT tripulantes.id, personal.nombres, personal.apellidos 
+                                SELECT tripulantes.id as tripu, personal.nombres, personal.apellidos 
                                 FROM tripulantes 
                                 JOIN personal ON tripulantes.personal_id=personal.id 
                                 WHERE tripulantes.rango='$rango' AND 
                                     tripulantes.id NOT IN(SELECT tripulante_vuelo.tripulante_id 
-                                            FROM tripulante_vuelo)");
+                                            FROM tripulante_vuelo)");*/
     
         // muy complicada de hacer en laravel
+    return DB::select("SELECT tripulantes.id, personal.nombres, personal.apellidos
+FROM tripulantes 
+JOIN personal ON tripulantes.personal_id=personal.id
+WHERE tripulantes.rango='$rango' AND tripulantes.id NOT IN(SELECT   tripulante_vuelo.tripulante_id FROM tripulante_vuelo JOIN vuelos ON tripulante_vuelo.vuelo_id=vuelos.id WHERE vuelos.salida>'$antes' AND vuelos.salida<'$despues')
+UNION
+SELECT tripulantes.id, personal.nombres, personal.apellidos 
+FROM tripulantes 
+JOIN personal ON tripulantes.personal_id=personal.id 
+WHERE tripulantes.rango='$rango' AND tripulantes.id NOT IN(SELECT tripulante_vuelo.tripulante_id FROM tripulante_vuelo)");
 
     }
 

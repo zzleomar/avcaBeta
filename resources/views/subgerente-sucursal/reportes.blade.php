@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+@section('styles')
+{!! Charts::assets() !!}
+@endsection
 @include('notifications::flash')
 
 <div id="targetL" class="py-3">
@@ -16,15 +19,15 @@
  
 <div id="AccordionReport" data-children=".item" style="font-weight: 600;">
 
-<!--<a data-toggle="collapse" data-parent="#AccordionReport" href="#AccordionReport2" aria-expanded="false" aria-controls="AccordionReport2"><button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
-  Filtros de Reportes
+<a data-toggle="collapse" data-parent="#AccordionReport" href="#AccordionReport2" aria-expanded="true" aria-controls="AccordionReport2"><button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
+  Reporte de Ingresos
 </button></a>
-<a data-toggle="collapse" data-parent="#AccordionReport" href="#AccordionReport1" aria-expanded="true" aria-controls="AccordionReport1"><button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
+<a data-toggle="collapse" data-parent="#AccordionReport" href="#AccordionReport1" aria-expanded="false" aria-controls="AccordionReport1"><button type="button" class="btn btn2 btn-success" data-toggle="modal" data-target="#NuevaRutaModal" style="margin: 10px;  float: right;">
   Reporte de Vuelos Abiertos
-</button></a>-->
+</button></a>
   <hr style="clear: both;">
 <div class="item">
-    <div id="AccordionReport1" class="collapse show" role="tabpanel">
+    <div id="AccordionReport1" class="collapse" role="tabpanel">
     <table class="table">
       <thead class="thead-light">
         <tr align="center">
@@ -108,7 +111,7 @@
 </div>
 </div>
 <div class="item">
-  <div id="AccordionReport2" class="collapse" role="tabpanel">
+  <div id="AccordionReport2" class="collapse show" role="tabpanel">
     <table class="table">
       <thead class="thead-light">
         <tr align="center">
@@ -116,34 +119,107 @@
         </tr>
       </thead>
     </table>
-    <div class="form-row">   
-        <div class="form-group col-md-2">
+      <form method="get" action="{{ URL::to('/reportes/ingresos/ajax') }}" id="formReporte">
+    <div class="form-row">  
+      @if((!isset($tipo)||($tipo==1))) 
+          <div class="form-group col-md-2">
           <!-- HOY ESTA SEMAN MES PASADO PERIODO A CONSULTAR-->
-          <label class="custom-control custom-radio">Hoy
-              <input type="radio" class="custom-control-input" id="hoy" name="reporte" value="hoy"><span class="custom-control-indicator"></span>
+          <label class="custom-control custom-radio">Este Mes
+            @php
+              $url=URL::to('/reportes/ingresos/ajax')."/1";
+            @endphp
+              <input type="radio" class="custom-control-input" id="hoy" name="reporte" value="1" checked onclick="ajaxReporte('{{ $url }}')"><span class="custom-control-indicator"></span>
           </label>
         </div>
         <div class="form-group col-md-2">
           <!-- HOY ESTA SEMAN MES PASADO PERIODO A CONSULTAR-->
           <label class="custom-control custom-radio">Semana Pasada
-              <input type="radio" class="custom-control-input" id="Semana-Pasada" name="reporte" value="Semana-Pasada"><span class="custom-control-indicator"></span>
+            @php
+              $url=URL::to('/reportes/ingresos/ajax')."/2";
+            @endphp
+              <input type="radio" class="custom-control-input" id="Semana-Pasada" name="reporte" value="2" onclick="ajaxReporte('{{ $url }}')"><span class="custom-control-indicator"></span>
           </label>
         </div>
         <div class="form-group col-md-2">
           <!-- HOY ESTA SEMAN MES PASADO PERIODO A CONSULTAR-->
           <label class="custom-control custom-radio">Mes Pasado
-              <input type="radio" class="custom-control-input" id="mes-Pasada" name="reporte" value="mes-Pasada"><span class="custom-control-indicator"></span></label>
+            @php
+              $url=URL::to('/reportes/ingresos/ajax')."/3";
+            @endphp
+              <input type="radio" class="custom-control-input" id="mes-Pasada" name="reporte" value="3" onclick="ajaxReporte('{{ $url }}')"><span class="custom-control-indicator"></span></label>
         </div>
+      @else
         <div class="form-group col-md-2">
           <!-- HOY ESTA SEMAN MES PASADO PERIODO A CONSULTAR-->
-          <label class="custom-control custom-radio">Periodo
-              <input type="radio" class="custom-control-input" id="periodo" name="reporte" value="periodo"><span class="custom-control-indicator"></span></label>
+          <label class="custom-control custom-radio">Este Mes
+            @php
+              $url=URL::to('/reportes/ingresos/ajax')."/1";
+            @endphp
+              <input type="radio" class="custom-control-input" id="hoy" name="reporte" value="1" onclick="ajaxReporte('{{ $url }}')"><span class="custom-control-indicator"></span>
+          </label>
         </div>
-        <div class="form-group col-md-2" style="margin-top: 3px;">
-            <button type="button" class="btn btn-lg btn-success" >Mostrar</button>
-        </div>
-      </div>
+          @if($tipo==2)
+              <div class="form-group col-md-2">
+          <!-- HOY ESTA SEMAN MES PASADO PERIODO A CONSULTAR-->
+              <label class="custom-control custom-radio">Semana Pasada
+                @php
+                  $url=URL::to('/reportes/ingresos/ajax')."/2";
+                @endphp
+                  <input type="radio" class="custom-control-input" id="Semana-Pasada" name="reporte" value="2" onclick="ajaxReporte('{{ $url }}')" checked><span class="custom-control-indicator"></span>
+              </label>
+            </div>
+            <div class="form-group col-md-2">
+              <!-- HOY ESTA SEMAN MES PASADO PERIODO A CONSULTAR-->
+              <label class="custom-control custom-radio">Mes Pasado
+                @php
+                  $url=URL::to('/reportes/ingresos/ajax')."/3";
+                @endphp
+                  <input type="radio" class="custom-control-input" id="mes-Pasada" name="reporte" value="3" onclick="ajaxReporte('{{ $url }}')"><span class="custom-control-indicator"></span></label>
+            </div>
+          @else
+            <div class="form-group col-md-2">
+            <!-- HOY ESTA SEMAN MES PASADO PERIODO A CONSULTAR-->
+                <label class="custom-control custom-radio">Semana Pasada
+                  @php
+                    $url=URL::to('/reportes/ingresos/ajax')."/2";
+                  @endphp
+                    <input type="radio" class="custom-control-input" id="Semana-Pasada" name="reporte" value="2" onclick="ajaxReporte('{{ $url }}')" ><span class="custom-control-indicator"></span>
+                </label>
+              </div>
+            @if($tipo==3)
+                <div class="form-group col-md-2">
+              <!-- HOY ESTA SEMAN MES PASADO PERIODO A CONSULTAR-->
+              <label class="custom-control custom-radio">Mes Pasado
+                @php
+                  $url=URL::to('/reportes/ingresos/ajax')."/3";
+                @endphp
+                  <input type="radio" class="custom-control-input" id="mes-Pasada" name="reporte" value="3" onclick="ajaxReporte('{{ $url }}')" checked><span class="custom-control-indicator"></span></label>
+            </div>
+            @endif
+          @endif
+      @endif
 
+        
+
+       <!-- <div class="form-group col-md-2">
+          <!-- HOY ESTA SEMAN MES PASADO PERIODO A CONSULTAR-->
+        <!--  <label class="custom-control custom-radio">Periodo
+              <input type="radio" class="custom-control-input" id="periodo" name="reporte" value="periodo"><span class="custom-control-indicator"></span></label>
+        </div> -->
+      </div>
+        </form>
+
+      <div class="col-12" id="graficaReporte">
+        @php
+          use Carbon\Carbon;
+          $actual=Carbon::now();
+          $inicio=Carbon::parse($actual->year."-".$actual->month."-01");
+          setlocale(LC_TIME, "es");
+          $mes1=$inicio->formatLocalized('%B');
+        @endphp
+      <h2>{{ $titulo }}</h2> 
+        {!! $chartjs->render() !!}
+      </div>
   </div>
 </div>
 
@@ -224,4 +300,41 @@
   altura=altura-380;
   altura=altura+"px";
   $(".divtablaAux").css("min-height",altura);
+
+});
+
+ function ajaxReporte(action){
+  
+    document.getElementById('formReporte').action = action;
+    document.getElementById('formReporte').submit();
+    var targetL = $('#targetL');
+    targetL.loadingOverlay();
+    var url="{{ URL::to('/reportes/ingresos/ajax') }}/"+tipo;
+   // alert(url);
+      $.get(url,function(data){ 
+        $('#graficaReporte').empty().html(data);
+        targetL.loadingOverlay('remove');
+      }); 
+    
+  }
+  function ajaxReporte1(tipo){
+    switch (tipo) {
+      case '1':
+        $('#AccordionReportH').collapse('show');
+        $('#AccordionReportS').collapse('hide');
+        $('#AccordionReportMP').collapse('hide');
+        break;
+      case '2':
+        $('#AccordionReportH').collapse('hide');
+        $('#AccordionReportS').collapse('show');
+        $('#AccordionReportMP').collapse('hide');
+        break;
+      case '3':
+        $('#AccordionReportH').collapse('hide');
+        $('#AccordionReportS').collapse('hide');
+        $('#AccordionReportMP').collapse('show');
+        break;
+    }
+  }
+</script>
 @endsection

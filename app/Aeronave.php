@@ -24,12 +24,12 @@ class Aeronave extends Model
                         FROM aeronaves 
                         JOIN piernas ON aeronaves.id=piernas.aeronave_id 
                         JOIN vuelos ON piernas.vuelo_id=vuelos.id 
-                        WHERE NOT(vuelos.salida>'$antes' AND 
+                        WHERE aeronaves.estado='activo' AND NOT(vuelos.salida>'$antes' AND 
                                 vuelos.salida<'$despues') 
                             UNION 
                                 SELECT aeronaves.id, aeronaves.modelo, aeronaves.matricula 
                                 FROM aeronaves
-                                WHERE aeronaves.id NOT IN(SELECT piernas.aeronave_id 					  FROM piernas)");
+                                WHERE aeronaves.estado='activo' AND aeronaves.id NOT IN(SELECT piernas.aeronave_id 					  FROM piernas)");
     }
 
     public function scopeModelos($query){

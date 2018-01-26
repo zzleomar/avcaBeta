@@ -41,6 +41,10 @@ class GerenciaSucursalesController extends Controller
     }
 
     public function vuelos($origen,$destino){
+      $central= Sucursal::find(1);
+      $destinos=$central->destinos;
+      $sucursal=Sucursal::orderBy('nombre','ASC')->get();
+
         $vuelo= new Vuelo();
         $Sorigen= Sucursal::find($origen);
         $Sdestino= Sucursal::find($destino);
@@ -55,7 +59,10 @@ class GerenciaSucursalesController extends Controller
         ->with('ejecutados',$vuelos2)
         ->with('cancelados',$vuelos3)
         ->with('retrasados',$vuelos4)
-        ->with('ruta',$ruta2);
+        ->with('ruta',$ruta2)
+        ->with('origenes',$sucursal)
+        ->with('destinos',$destinos)
+        ->with('central',$central);
     }
 
     public function rutas(Request $datos){
@@ -196,8 +203,9 @@ class GerenciaSucursalesController extends Controller
                 $fechafin=$year2.'-'.$mes2.'-'.'31 12:00:00';
               }
 
-
               $pilotos=$personal->Disponibilidad("Piloto",$antes,$despues);
+             // dd($pilotos);
+
               $pihe= array(); //HORAS DE EXPERIENCIA DEL PILOTO
               $pihp= array(); //HORAS PLANIFICAS PARA LA QUINCENA
               foreach ($pilotos as $piloto) {
@@ -476,7 +484,7 @@ class GerenciaSucursalesController extends Controller
   public function ModificarRuta(Request $datos){
       $ruta= Ruta::find($datos->ruta_id);
       $ruta->distancia=$datos->distancia;
-      $ruta->duracion=$datos->duracion;
+      $nueva->duracion=$datos->horas.":".$datos->minutos.":00";
       $ruta->tarifa_vuelo=$datos->precio;    
       if(($ruta->origen->id!=$datos->origenid)||($ruta->destino->id!=$datos->destinoid)){
           $origen=Sucursal::find($datos->origenid);

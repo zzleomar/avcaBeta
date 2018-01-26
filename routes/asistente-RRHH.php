@@ -6,6 +6,8 @@ Route::group(['prefix' => 'gerencia','middleware' => ['auth', 'RoleRRHH']],funct
 
 
 	Route::post('/RRHH/administracion-empleados/eliminar','PersonalController@eliminar');
+
+	Route::post('/RRHH/administracion-empleados/activar','PersonalController@activar');
 	Route::post('/RRHH/administracion-empleados/nueva','PersonalController@nuevo');
 	Route::post('/RRHH/administracion-empleados/modificar','PersonalController@modificar');
 

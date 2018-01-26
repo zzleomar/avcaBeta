@@ -12,9 +12,9 @@
                   <li class="nav-item">
                     <a class="nav-link" id="chequeo" href="{{ URL::to('/taquilla/confirmar-boleto') }}">Chequeo Boleto</a>
                   </li>
-                  <li class="nav-item">
+                  <!--<li class="nav-item">
                     <a class="nav-link" href="#">Información al Cliente</a>
-                  </li>
+                  </li>-->
                 </ul>
               </div>
         @break
@@ -118,9 +118,9 @@
                   <li class="nav-item">
                     <a class="nav-link" id="adminPersonal" href="{{ URL::to('/gerencia/RRHH') }}">Administración de Personal</a>
                   </li>
-                  <li class="nav-item">
+                <!--  <li class="nav-item">
                     <a class="nav-link" id="OpcTabuladorSalarial" href="#">Tabulador Salarial</a>
-                  </li>
+                  </li>-->
                 </ul>
               </div>
         @break

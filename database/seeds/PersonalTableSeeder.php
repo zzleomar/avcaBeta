@@ -65,7 +65,7 @@ class PersonalTableSeeder extends Seeder
                 );
                 $u->empleado->personal_operativo()->create([]);
                 $u->user()->create([
-                        'username' => 'admin',
+                        'username' => 'operador01',
                         'tipo' => 'Operador de Trafico',
                         'password' => bcrypt('1234567'),
                         'email' => 'admin@gmail.com'
@@ -80,7 +80,7 @@ class PersonalTableSeeder extends Seeder
                 );
                 $u->empleado->administrativo()->create([]);
                 $u->user()->create([
-                        'username' => 'admin2',
+                        'username' => 'subgerente01',
                         'tipo' => 'Subgerente de Sucursal',
                         'password' => bcrypt('1234567'),
                         'email' => 'admin2@gmail.com'
@@ -95,7 +95,7 @@ class PersonalTableSeeder extends Seeder
                 );
                 $u->empleado->administrativo()->create([]);
                 $u->user()->create([
-                        'username' => 'admin3',
+                        'username' => 'sucursales01',
                         'tipo' => 'Gerente de Sucursales',
                         'password' => bcrypt('1234567'),
                         'email' => 'admin3@gmail.com'
@@ -110,7 +110,7 @@ class PersonalTableSeeder extends Seeder
                 );
                 $u->empleado->administrativo()->create([]);
                 $u->user()->create([
-                        'username' => 'admin4',
+                        'username' => 'asistente01',
                         'tipo' => 'Asistente de RRHH',
                         'password' => bcrypt('1234567'),
                         'email' => 'admin4@gmail.com'
@@ -125,7 +125,7 @@ class PersonalTableSeeder extends Seeder
                 );
                 $u->empleado->administrativo()->create([]);
                 $u->user()->create([
-                        'username' => 'admin5',
+                        'username' => 'rrhh01',
                         'tipo' => 'Gerente de RRHH',
                         'password' => bcrypt('1234567'),
                         'email' => 'admin5@gmail.com'

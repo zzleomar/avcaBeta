@@ -41,13 +41,14 @@
       <tr>
         <th class="ThCenter">.</th>
         <th class="ThCenter">Empleado</th>
+        <th class="ThCenter">Estado</th>
         <th class="ThCenter">
         	<div class="text-center" style="display: flex;">
 		        <div class="input-group-btn" style="margin: auto;">
 		          <button type="button" class="btn btn-secondary dropdown-toggle"
 		                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown"> Cargo
 		          </button>
-		          <div class="dropdown-menu">
+		          <div class="dropdown-menu dropAux">
                 @foreach($cargos as $cargo)
                 <a class="dropdown-item" href="{{ (URL::to('/gerencia/RRHH')).'?cargo='.$cargo->cargo }}">{{ $cargo->cargo }}</a>
                 @endforeach
@@ -65,7 +66,7 @@
 		          <button type="button" class="btn btn-secondary dropdown-toggle"
 		                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="myDropdown">Sucursal
 		          </button>
-		          <div class="dropdown-menu">
+		          <div class="dropdown-menu dropAux">
                 @foreach($sucursales as $sucursal2)
 		            <a class="dropdown-item" href="{{ (URL::to('/gerencia/RRHH')).'?sucursal='.$sucursal2->id }}">{{ $sucursal2->nombre }}</a>
                 @endforeach
@@ -88,6 +89,7 @@
     <tbody>
         <td>{{ $empleados[$i]->cedula }}</td>     
         <td>{{ $empleados[$i]->apellidos." ".$empleados[$i]->nombres }}</td>
+        <td>{{ $empleados[$i]->estado }}</td>     
         @if(is_null($empleados[$i]->cargo))
         	<td>{{ $empleados[$i]->rango }}</td>
           <td>Central</td>
@@ -112,10 +114,15 @@
                 <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalModificarEmpleado" onclick="ajaxModificarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">Modificar</button>
               </div>
     @if(Auth::user()->tipo=='Gerente de RRHH')
-
+          @if($empleados[$i]->estado=='activo')
               <div class="p-2">
-                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalEliminarEmpleado" onclick="ConfirmarEliminarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">Inhabilitar</button>
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalEliminarEmpleado" onclick="ConfirmarEliminarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">desincorporar</button>
               </div>
+            @else
+            <div class="p-2">
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ModalActivarEmpleado" onclick="ConfirmarActivarEmpleado('{{ $empleados[$i]->personal_id }}','{{ $titulo }}')">incorporar</button>
+              </div>
+            @endif
       @endif
             </div>
        </td>
@@ -233,6 +240,11 @@ function seleccion(){
     //alert(id);
         document.getElementById('empleado_id').value=id;
         document.getElementById('tituloModalEliEmpleado').innerHTML=nombre;
+  }
+  function ConfirmarActivarEmpleado(id,nombre){
+    //alert(id);
+        document.getElementById('empleado_id2').value=id;
+        document.getElementById('tituloModalActEmpleado').innerHTML=nombre;
   }
 
   function datosSP(id,nombre){
@@ -447,7 +459,7 @@ function seleccion(){
     var targetL = $('#cargandoAux');
     targetL.loadingOverlay();
     var url="{{ URL::to('/gerencia/RRHH/administracion-empleados/ajaxModificar') }}/"+id;
-  //  alert(url);
+    //alert(url);
       $.get(url,function(data){ 
         $('#ModalAjaxModificarEmpleado').empty().html(data);
         targetL.loadingOverlay('remove');
