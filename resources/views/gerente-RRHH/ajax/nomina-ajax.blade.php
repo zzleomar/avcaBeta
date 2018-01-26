@@ -4,12 +4,12 @@
 <hr>
 
 <div id="AccordionNomina" data-children=".item" style="font-weight: 600;">
-<div id="conteneirItem">
+<div id="conteneirItem"><!--
 <a data-toggle="collapse" data-parent="#AccordionNomina" href="#AccordionNomina1" aria-expanded="false" aria-controls="AccordionNomina2" class="btn btn2 btn-primary">
   Nómina
 </a>
 <a data-toggle="collapse" data-parent="#AccordionNomina" href="#AccordionNomina2" aria-expanded="true" aria-controls="AccordionNomina2" class="btn btn2 btn-primary">Vacaciones</a>
-<a data-toggle="collapse" data-parent="#AccordionNomina" href="#AccordionNomina3" aria-expanded="true" aria-controls="AccordionNomina3" class="btn btn2 btn-primary">Utilidades</a></div>
+<a data-toggle="collapse" data-parent="#AccordionNomina" href="#AccordionNomina3" aria-expanded="true" aria-controls="AccordionNomina3" class="btn btn2 btn-primary">Utilidades</a> --></div>
 <div class="item">
     <div id="AccordionNomina1" class="collapse show" role="tabpanel">
 

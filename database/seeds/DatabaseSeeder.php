@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PersonalTableSeeder::class);       
         $this->call(VuelosSeeder::class);     
         $this->call(PasajerosSeeder::class);   
-        $this->call(tabuladoresSeeder::class);        
+        $this->call(TabuladoresTableSeeder::class);        
 
         Model::reguard();
     }
